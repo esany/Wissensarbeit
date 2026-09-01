@@ -1,0 +1,38 @@
+name: assurance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate repository contracts
+        run: python tools/work.py validate
+      - name: Run audit
+        run: python tools/work.py audit
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Derive current state
+        run: python tools/work.py derive
+      - name: Ensure derived state is reproducible
+        run: git diff --exit-code -- project/CURRENT_STATE.md
+      - name: Human-readable assurance summary
+        if: always()
+        run: |
+          {
+            echo '## Wissensarbeit assurance'
+            echo
+            echo '- Contract validation, audit and regressions were executed.'
+            echo '- `CURRENT_STATE.md` must be reproducible from canonical state.'
+            echo '- Passing CI proves formal consistency, not domain truth or owner acceptance.'
+          } >> "$GITHUB_STEP_SUMMARY"
