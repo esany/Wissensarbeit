@@ -1,0 +1,21 @@
+{
+  "competence_domains": {
+    "domain":["disciplinary_knowledge","methods","terminology","evidence_logic","standards","controversies"],
+    "project":["problem_framing","requirements","prioritization","risk","acceptance","change_management"],
+    "research":["literature_search","source_evaluation","experiment_design","evaluation"],
+    "data":["data_modeling","storage","data_engineering","analytics","information_retrieval"],
+    "software":["architecture","backend","frontend","integration","testing"],
+    "intelligence":["statistics","machine_learning","llm","retrieval","evaluation","mlops"],
+    "operations":["infrastructure","cicd","observability","security","backup_recovery","cost"],
+    "interfaces":["domain_to_data","domain_to_software","research_to_product","ai_to_domain","method_to_software","project_to_engineering"]
+  },
+  "material_review_questions": [
+    "Which competencies are required by this change?",
+    "Which are covered and which remain unreviewed?",
+    "What is current state of the art or accepted method where freshness matters?",
+    "Which best practices apply only under assumptions that differ from this project?",
+    "What unknown unknowns should a specialist perspective surface?",
+    "What is the simplest project-fit option and what would make us reconsider it?"
+  ],
+  "synthesis_rule":"Specialist perspectives are inputs; the project decision must integrate them against objective, constraints, evidence, risk, reversibility and maintenance burden."
+}

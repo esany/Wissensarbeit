@@ -1,0 +1,14 @@
+{
+  "risks": [
+    {"id":"R-001","name":"chat knowledge monopoly","failure":"material state exists only in conversation","mitigation":["persistent issues","canonical repo state","context compilation","conversation harvesting"]},
+    {"id":"R-002","name":"novelty drift","failure":"new aspect becomes a new priority or architecture direction because it is new","mitigation":["system-wide impact assessment","integration disposition","objective/requirement trace"]},
+    {"id":"R-003","name":"accretion","failure":"new files, concepts, layers or stores are appended instead of integrated","mitigation":["fuse/refine/supersede before add","single canonical owner","derived views"]},
+    {"id":"R-004","name":"plausibility becomes truth","failure":"convincing AI output is silently treated as accepted state","mitigation":["candidate lifecycle","authority boundaries","evidence and uncertainty"]},
+    {"id":"R-005","name":"authority creep","failure":"AI implicitly takes owner or specialist decisions","mitigation":["capability vs authority contract","PR review gate for material promotion"]},
+    {"id":"R-006","name":"solutionism","failure":"technology or framework is chosen before need and fit are established","mitigation":["requirement trace","competence routing","SOTA plus fit assessment","reuse before build"]},
+    {"id":"R-007","name":"over-modeling","failure":"meta-system complexity grows faster than domain value","mitigation":["vertical slices","anti-framework review","automation metrics","progressive formalization"]},
+    {"id":"R-008","name":"false completion","failure":"green CI or closed issue is mistaken for domain/product success","mitigation":["separate deterministic verification, domain review and owner acceptance"]},
+    {"id":"R-009","name":"self-reinforcing error","failure":"earlier AI interpretation is later reused as if it were independent evidence","mitigation":["origin/provenance trace","source/evidence separated from claim/interpretation"]},
+    {"id":"R-010","name":"technical blind spot","failure":"problem owner cannot see missing ML/data/backend/security/ops concerns","mitigation":["competence-gap detection","unknown-unknown review","architecture fitness checks","specialist escalation"]}
+  ]
+}

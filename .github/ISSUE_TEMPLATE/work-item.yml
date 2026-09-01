@@ -1,0 +1,50 @@
+name: Work item
+description: Persist a problem, question, observation, risk, feedback or decision need beyond chat
+title: ""
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for material, cross-session work. The system may later classify/refine it; do not pre-solve the architecture here.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Initial type
+      options:
+        - Problem / friction
+        - Question / research
+        - Observation / evidence
+        - Risk / conflict
+        - Feedback / acceptance
+        - Decision need
+        - Change candidate
+        - Unknown / let AI classify
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: What is the issue?
+      description: Describe it in domain/problem language. Technical formulation is not required.
+    validations:
+      required: true
+  - type: textarea
+    id: importance
+    attributes:
+      label: Why does it matter?
+      description: Goal, pain, consequence or value if known.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence / material / references
+      description: Sources, examples, files, links or observations if available.
+  - type: textarea
+    id: uncertainty
+    attributes:
+      label: What is uncertain or contested?
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: What would a useful outcome look like?
+      description: Human/domain acceptance, not implementation instructions.

@@ -1,0 +1,17 @@
+{
+  "criteria": [
+    {"id":"CRIT-001","requirement":"REQ-001","statement":"A fresh worker can determine objective, current state, lifecycle and next proof from repository state alone.","verification":["VAL-STATE"]},
+    {"id":"CRIT-002","requirement":"REQ-002","statement":"Material baseline objects expose origin and verification and can be traced without chat memory.","verification":["VAL-TRACE"]},
+    {"id":"CRIT-003","requirement":"REQ-003","statement":"A material new aspect cannot pass the integration contract without explicit impact and one allowed disposition.","verification":["VAL-INTEGRATION"]},
+    {"id":"CRIT-004","requirement":"REQ-004","statement":"Routine operational work is explicitly automatable while material project choices require human consultation with clear consequence explanation.","verification":["VAL-AUTHORITY"]},
+    {"id":"CRIT-005","requirement":"REQ-005","statement":"Material work can be reviewed against an explicit cross-domain competence taxonomy including interface competencies.","verification":["REV-COMPETENCE"]},
+    {"id":"CRIT-006","requirement":"REQ-006","statement":"Material decisions can record current SOTA/best practice and why it does or does not fit the project.","verification":["REV-SOTA"]},
+    {"id":"CRIT-007","requirement":"REQ-007","statement":"Every must requirement has at least one criterion and every referenced verification exists in the canonical catalog.","verification":["VAL-COVERAGE"]},
+    {"id":"CRIT-008","requirement":"REQ-008","statement":"Recurring repository/project operations can run without human clerical intervention unless a material choice or consequence requires consultation.","verification":["REV-HUMAN-EFFORT"]},
+    {"id":"CRIT-009","requirement":"REQ-009","statement":"No baseline contract requires the produced system itself to contain AI or a fixed application stack.","verification":["REV-OUTCOME-FLEX"]},
+    {"id":"CRIT-010","requirement":"REQ-010","statement":"Technology choices require project-fit reasoning and the baseline prescribes no database, backend, ML or deployment stack.","verification":["REV-ARCH-FIT"]},
+    {"id":"CRIT-011","requirement":"REQ-011","statement":"Verification entries declare deterministic, procedural or judgement class and CI does not claim judgement validity.","verification":["VAL-RULE-CLASS"]},
+    {"id":"CRIT-012","requirement":"REQ-012","statement":"The dependency-free CLI executes validation and supports inspect, context, integrate, trace, derive and audit commands.","verification":["TEST-CLI"]},
+    {"id":"CRIT-013","requirement":"REQ-013","statement":"A canonical building-block catalog exists, has unique IDs and defines purpose, inputs, outputs and automation expectations for each generic lifecycle capability.","verification":["VAL-BUILDING-BLOCKS"]}
+  ]
+}

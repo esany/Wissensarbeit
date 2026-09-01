@@ -1,0 +1,19 @@
+{
+  "stages": ["bootstrap","discover","understand","research","model","decide","build","verify","use","learn","maintain","archive"],
+  "allowed_transitions": {
+    "bootstrap":["discover"],
+    "discover":["understand","research"],
+    "understand":["research","model","discover"],
+    "research":["understand","model","decide"],
+    "model":["research","decide","understand"],
+    "decide":["build","research","model"],
+    "build":["verify","decide"],
+    "verify":["use","build","model"],
+    "use":["learn","verify"],
+    "learn":["understand","research","model","decide","build","maintain"],
+    "maintain":["verify","learn","archive"],
+    "archive":[]
+  },
+  "integration_dispositions": ["fuse","refine","reframe","supersede","conflict","reject","defer"],
+  "candidate_states": ["candidate","in_review","accepted","rejected","superseded","conflicted"]
+}

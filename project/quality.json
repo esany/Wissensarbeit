@@ -1,0 +1,14 @@
+{
+  "qualities": [
+    {"id":"Q-TRACE","name":"Traceability","question":"Can a human reconstruct why a material state exists and what changed it?"},
+    {"id":"Q-RESTART","name":"Restartability","question":"Can a fresh worker continue without old chat context?"},
+    {"id":"Q-AUTO","name":"Automation","question":"Is clerical/process work automated where judgement is not required?"},
+    {"id":"Q-XAI","name":"Human Explainability","question":"Are evidence, uncertainty, authority, changes and consequences inspectable?"},
+    {"id":"Q-COHERENCE","name":"System Coherence","question":"Are new aspects fused into existing understanding rather than appended as parallel truth?"},
+    {"id":"Q-REVERSIBLE","name":"Reversibility","question":"Can consequential changes be reviewed, diffed and reverted?"},
+    {"id":"Q-FIT","name":"Problem Fit","question":"Does the solution fit the actual project need rather than generic best practice alone?"},
+    {"id":"Q-LEAN","name":"Proportional Complexity","question":"Is complexity justified by observed need and maintenance burden?"},
+    {"id":"Q-DOMAIN","name":"Domain Integrity","question":"Are domain distinctions, methods, evidence limits and uncertainty preserved?"},
+    {"id":"Q-TECH","name":"Engineering Quality","question":"Is implementation testable, maintainable and operationally appropriate?"}
+  ]
+}
