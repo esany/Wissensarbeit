@@ -24,6 +24,8 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(result["object"]["id"], "REQ-001")
         self.assertTrue(result["qualities"])
+        self.assertTrue(result["criteria"])
+        self.assertTrue(result["verification"])
 
     def test_unknown_trace_is_not_fabricated(self):
         self.assertIsNone(work.trace("REQ-DOES-NOT-EXIST"))
@@ -53,6 +55,21 @@ class OperationalCoreTests(unittest.TestCase):
             path.write_text(json.dumps(packet), encoding="utf-8")
             errors = work.validate_integration_packet(path)
         self.assertEqual(errors, [])
+
+    def test_building_blocks_are_formalized(self):
+        blocks = work.load(work.BUILDING_BLOCKS)["building_blocks"]
+        self.assertGreaterEqual(len(blocks), 10)
+        for block in blocks:
+            for field in ("id", "name", "purpose", "inputs", "outputs", "automation"):
+                self.assertTrue(block.get(field), f"{block.get('id')}: missing {field}")
+
+    def test_authority_automates_routine_but_consults_on_material_change(self):
+        authority = work.load(work.AUTHORITY)
+        autonomous = authority["authorities"]["ai_autonomous_operational"]
+        human = authority["authorities"]["human_consultation_required_when_material"]
+        self.assertIn("maintain_required_project_operations", autonomous)
+        self.assertIn("accept_material_requirement_change", human)
+        self.assertTrue(authority["consultation_contract"]["explanation_required"])
 
     def test_cli_validate(self):
         proc = subprocess.run([sys.executable, str(ROOT / "tools" / "work.py"), "validate"], capture_output=True, text=True)
