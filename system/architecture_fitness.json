@@ -1,0 +1,12 @@
+{
+  "concerns": {
+    "data": ["volume","relations","concurrency","transactions","schema_evolution","search","geospatial","retention","backup","portability"],
+    "backend": ["api_need","auth","idempotency","versioning","long_running_jobs","rate_limits","observability","failure_recovery"],
+    "ml_data_science": ["why_ml","baseline_without_ml","ground_truth","evaluation_metric","data_leakage","reproducibility","drift","cost","fallback"],
+    "ai_llm": ["why_ai","deterministic_alternative","provenance","hallucination","prompt_injection","model_replaceability","evaluation","authority","fallback"],
+    "infrastructure_devops": ["deployment_target","availability","secrets","backup_restore","environments","dependency_updates","monitoring","cost","scaling","disaster_recovery"],
+    "security_privacy": ["data_sensitivity","access_control","threat_model","auditability","retention","external_services"]
+  },
+  "decision_order": ["avoid","reuse","configure","integrate","thin_custom_layer","build_custom"],
+  "principle": "Technology is selected only after need, competence coverage, current SOTA/best practice where relevant, project fit, reversibility and operating burden are assessed."
+}
