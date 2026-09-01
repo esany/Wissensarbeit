@@ -11,7 +11,7 @@
 `bootstrap -> discover -> understand -> research -> model -> decide -> build -> verify -> use -> learn -> maintain -> archive`
 
 ## Competence domains
- domain, project, research, data, software, intelligence, operations, interfaces
+domain, project, research, data, software, intelligence, operations, interfaces
 
 ## Canonical sources
 - `project/requirements.json`
