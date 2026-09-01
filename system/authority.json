@@ -1,0 +1,13 @@
+{
+  "rule_classes": [
+    {"id":"deterministic","enforcement":"software","examples":["reference exists","schema valid","transition allowed","test passes"]},
+    {"id":"procedural","enforcement":"workflow","examples":["review required before promotion","impact assessment before material integration"]},
+    {"id":"judgement","enforcement":"ai_plus_human_or_specialist","examples":["domain interpretation","method fit","architectural trade-off","owner usefulness"]}
+  ],
+  "authorities": {
+    "ai_autonomous":["inspect","research","classify","structure","implement_reversible","run_checks","derive_views","propose_candidates"],
+    "ai_candidate_only":["reframe_problem","change_requirement","change_domain_semantics","select_material_architecture","change_priority"],
+    "human_required":["change_governing_objective","accept_material_reframe","accept_irreversible_risk","accept_owner_value","publish_consequential_result"],
+    "specialist_when_critical":["high_stakes_domain_validity","security","legal","advanced_statistical_validity","safety_critical_engineering"]
+  }
+}
