@@ -3,14 +3,15 @@
     {"id":"VAL-STATE","class":"deterministic","method":"repository contract validation plus derived current-state reproducibility"},
     {"id":"VAL-TRACE","class":"deterministic","method":"trace command and regression tests"},
     {"id":"VAL-INTEGRATION","class":"deterministic","method":"integration packet contract and negative regression tests"},
-    {"id":"VAL-AUTHORITY","class":"procedural","method":"authority contract plus PR promotion review"},
+    {"id":"VAL-AUTHORITY","class":"procedural","method":"authority contract plus PR promotion review and explicit consequence explanation for material decisions"},
     {"id":"REV-COMPETENCE","class":"judgement","method":"AI competence-gap review, escalated to human/specialist when material"},
     {"id":"REV-SOTA","class":"judgement","method":"current SOTA/best-practice research with project-fit assessment"},
     {"id":"VAL-COVERAGE","class":"deterministic","method":"requirement-to-criterion-to-verification reference coverage"},
-    {"id":"REV-HUMAN-EFFORT","class":"judgement","method":"owner review of clerical effort and interruption burden"},
+    {"id":"REV-HUMAN-EFFORT","class":"judgement","method":"owner review of remaining clerical effort and unnecessary interruption burden"},
     {"id":"REV-OUTCOME-FLEX","class":"judgement","method":"architecture review against non-AI and software-only outcome scenarios"},
     {"id":"REV-ARCH-FIT","class":"judgement","method":"architecture fitness review including reuse/build, data, operations and reversibility"},
     {"id":"VAL-RULE-CLASS","class":"deterministic","method":"rule-class contract validation"},
-    {"id":"TEST-CLI","class":"deterministic","method":"unittest coverage of operational CLI"}
+    {"id":"TEST-CLI","class":"deterministic","method":"unittest coverage of operational CLI"},
+    {"id":"VAL-BUILDING-BLOCKS","class":"deterministic","method":"building-block catalog validation for unique IDs, purpose, inputs, outputs and automation declaration"}
   ]
 }
