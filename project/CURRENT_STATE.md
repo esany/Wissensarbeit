@@ -15,6 +15,9 @@
 ## Competence domains
 domain, project, research, data, software, intelligence, operations, interfaces
 
+## Architecture fitness concerns
+data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
+
 ## Canonical sources
 - `project/requirements.json`
 - `project/quality.json`
@@ -23,6 +26,7 @@ domain, project, research, data, software, intelligence, operations, interfaces
 - `system/lifecycle.json`
 - `system/authority.json`
 - `system/competence.json`
+- `system/architecture_fitness.json`
 - `project/GOVERNING_OBJECTIVE.md`
 
 ## Next operational proof
