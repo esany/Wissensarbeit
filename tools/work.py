@@ -16,10 +16,11 @@ LIFECYCLE = ROOT / "system" / "lifecycle.json"
 AUTHORITY = ROOT / "system" / "authority.json"
 COMPETENCE = ROOT / "system" / "competence.json"
 FITNESS = ROOT / "system" / "architecture_fitness.json"
+BUILDING_BLOCKS = ROOT / "system" / "building_blocks.json"
 OBJECTIVE = ROOT / "project" / "GOVERNING_OBJECTIVE.md"
 CURRENT = ROOT / "project" / "CURRENT_STATE.md"
 
-REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, OBJECTIVE]
+REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, BUILDING_BLOCKS, OBJECTIVE]
 
 
 def load(path: Path):
@@ -48,6 +49,7 @@ def validate() -> list[str]:
         authority = load(AUTHORITY)
         competence = load(COMPETENCE)
         fitness = load(FITNESS)
+        building_blocks = load(BUILDING_BLOCKS)
     except (json.JSONDecodeError, OSError) as exc:
         return [f"cannot load contract data: {exc}"]
 
@@ -118,12 +120,25 @@ def validate() -> list[str]:
     if not expected.issubset(dispositions):
         errors.append("integration disposition contract is incomplete")
 
-    if not authority.get("rule_classes") or not authority.get("authorities"):
+    if not authority.get("rule_classes") or not authority.get("authorities") or not authority.get("consultation_contract"):
         errors.append("authority contract is incomplete")
     if not competence.get("competence_domains") or not competence.get("material_review_questions"):
         errors.append("competence contract is incomplete")
     if not fitness.get("concerns") or not fitness.get("decision_order"):
         errors.append("architecture fitness contract is incomplete")
+
+    blocks = building_blocks.get("building_blocks", [])
+    block_ids = [b.get("id") for b in blocks]
+    if not blocks or None in block_ids or len(block_ids) != len(set(block_ids)):
+        errors.append("building-block IDs must be present and unique")
+    for block in blocks:
+        bid = block.get("id", "<unknown>")
+        for field in ("name", "purpose", "inputs", "outputs", "automation"):
+            value = block.get(field)
+            if value is None or value == "" or value == []:
+                errors.append(f"{bid}: missing {field}")
+    if not building_blocks.get("composition_principles"):
+        errors.append("building-block composition principles are missing")
     return errors
 
 
@@ -132,6 +147,7 @@ def inspect_state() -> dict:
     qualities = load(QUALITY)["qualities"]
     criteria = load(CRITERIA)["criteria"]
     verification = load(VERIFICATION)["verification"]
+    blocks = load(BUILDING_BLOCKS)["building_blocks"]
     return {
         "objective": rel(OBJECTIVE),
         "requirements": len(reqs),
@@ -139,6 +155,8 @@ def inspect_state() -> dict:
         "criteria": len(criteria),
         "verification_methods": len(verification),
         "quality_dimensions": len(qualities),
+        "building_blocks": len(blocks),
+        "building_block_names": [b["name"] for b in blocks],
         "lifecycle_stages": load(LIFECYCLE)["stages"],
         "integration_dispositions": load(LIFECYCLE)["integration_dispositions"],
         "competence_domains": list(load(COMPETENCE)["competence_domains"]),
@@ -158,7 +176,8 @@ def context() -> dict:
         "authority": load(AUTHORITY),
         "competence": load(COMPETENCE),
         "architecture_fitness": load(FITNESS),
-        "instruction": "Treat compiled repository state as authoritative over chat memory. Produce candidates; do not silently promote judgement-heavy changes. Detect competence gaps and unknown unknowns. Research SOTA/best practice when material uncertainty warrants it, then assess project fit and operating burden before selecting technology.",
+        "building_blocks": load(BUILDING_BLOCKS),
+        "instruction": "Treat compiled repository state as authoritative over chat memory. Automate recurring routines and necessary project operations by default. Ask the human when a choice materially affects meaning, needs, direction, priorities, quality, risk acceptance or hard-to-reverse consequences; explain the consequences and the actual decision requested. Detect competence gaps and unknown unknowns. Research SOTA/best practice when material uncertainty warrants it, then assess project fit and operating burden before selecting technology.",
     }
 
 
@@ -225,10 +244,14 @@ def derive() -> str:
         f"- Acceptance criteria: {state['criteria']}",
         f"- Verification methods: {state['verification_methods']}",
         f"- Quality dimensions: {state['quality_dimensions']}",
+        f"- Generic building blocks: {state['building_blocks']}",
         f"- Validation: {'PASS' if not errors else 'FAIL'}",
         "",
         "## Lifecycle",
         "`" + " -> ".join(state["lifecycle_stages"]) + "`",
+        "",
+        "## Generic building blocks",
+        ", ".join(state["building_block_names"]),
         "",
         "## Competence domains",
         ", ".join(state["competence_domains"]),
