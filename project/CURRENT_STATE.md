@@ -4,6 +4,8 @@
 
 ## Baseline
 - Requirements: 12 (12 must)
+- Acceptance criteria: 12
+- Verification methods: 12
 - Quality dimensions: 10
 - Validation: PASS
 
@@ -16,6 +18,8 @@ domain, project, research, data, software, intelligence, operations, interfaces
 ## Canonical sources
 - `project/requirements.json`
 - `project/quality.json`
+- `project/criteria.json`
+- `project/verification.json`
 - `system/lifecycle.json`
 - `system/authority.json`
 - `system/competence.json`
