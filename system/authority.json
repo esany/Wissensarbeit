@@ -1,13 +1,32 @@
 {
+  "principle": "Automate operational necessity and recurring routine by default; involve the human for material choices, meaning, priorities, risk acceptance and consequences that affect project direction or owner needs.",
   "rule_classes": [
-    {"id":"deterministic","enforcement":"software","examples":["reference exists","schema valid","transition allowed","test passes"]},
-    {"id":"procedural","enforcement":"workflow","examples":["review required before promotion","impact assessment before material integration"]},
+    {"id":"deterministic","enforcement":"software","examples":["reference exists","schema valid","transition allowed","test passes","derived state reproducible"]},
+    {"id":"procedural","enforcement":"workflow","examples":["impact assessment before material integration","human consultation before consequential promotion"]},
     {"id":"judgement","enforcement":"ai_plus_human_or_specialist","examples":["domain interpretation","method fit","architectural trade-off","owner usefulness"]}
   ],
   "authorities": {
-    "ai_autonomous":["inspect","research","classify","structure","implement_reversible","run_checks","derive_views","propose_candidates"],
-    "ai_candidate_only":["reframe_problem","change_requirement","change_domain_semantics","select_material_architecture","change_priority"],
-    "human_required":["change_governing_objective","accept_material_reframe","accept_irreversible_risk","accept_owner_value","publish_consequential_result"],
+    "ai_autonomous_operational":[
+      "inspect","research","classify","structure","maintain_routine_metadata","run_checks","derive_views","refresh_context","open_or_update_work_items_when_material","implement_reversible","fix_formal_failures","maintain_required_project_operations"
+    ],
+    "ai_may_propose_and_explain":[
+      "reframe_problem","change_requirement","change_domain_semantics","select_material_architecture","change_priority","introduce_new_persistent_store","introduce_new_service_or_dependency","change_quality_target"
+    ],
+    "human_consultation_required_when_material":[
+      "change_governing_objective","accept_material_reframe","accept_material_requirement_change","accept_material_domain_semantics","accept_material_priority_change","accept_irreversible_or_high_cost_risk","accept_owner_value","publish_consequential_result"
+    ],
     "specialist_when_critical":["high_stakes_domain_validity","security","legal","advanced_statistical_validity","safety_critical_engineering"]
+  },
+  "consultation_contract": {
+    "ask_human_when":[
+      "the choice materially changes project direction, scope, priorities or quality expectations",
+      "alternatives have meaningful consequences the owner should consciously accept",
+      "the change is difficult or costly to reverse",
+      "domain meaning or owner value cannot be established deterministically"
+    ],
+    "do_not_burden_human_with":[
+      "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","ordinary reversible implementation details","necessary operational maintenance"
+    ],
+    "explanation_required": ["what changes","why it is needed","relevant alternatives","material consequences","reversibility","what decision is actually requested"]
   }
 }
