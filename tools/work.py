@@ -10,13 +10,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REQ = ROOT / "project" / "requirements.json"
 QUALITY = ROOT / "project" / "quality.json"
+CRITERIA = ROOT / "project" / "criteria.json"
+VERIFICATION = ROOT / "project" / "verification.json"
 LIFECYCLE = ROOT / "system" / "lifecycle.json"
 AUTHORITY = ROOT / "system" / "authority.json"
 COMPETENCE = ROOT / "system" / "competence.json"
 OBJECTIVE = ROOT / "project" / "GOVERNING_OBJECTIVE.md"
 CURRENT = ROOT / "project" / "CURRENT_STATE.md"
 
-REQUIRED_FILES = [REQ, QUALITY, LIFECYCLE, AUTHORITY, COMPETENCE, OBJECTIVE]
+REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, OBJECTIVE]
 
 
 def load(path: Path):
@@ -39,6 +41,8 @@ def validate() -> list[str]:
     try:
         reqs = load(REQ).get("requirements", [])
         qualities = load(QUALITY).get("qualities", [])
+        criteria = load(CRITERIA).get("criteria", [])
+        verification = load(VERIFICATION).get("verification", [])
         lifecycle = load(LIFECYCLE)
         authority = load(AUTHORITY)
         competence = load(COMPETENCE)
@@ -51,16 +55,52 @@ def validate() -> list[str]:
     q_ids = [q.get("id") for q in qualities]
     if None in q_ids or len(q_ids) != len(set(q_ids)):
         errors.append("quality IDs must be present and unique")
+    criterion_ids = [c.get("id") for c in criteria]
+    if None in criterion_ids or len(criterion_ids) != len(set(criterion_ids)):
+        errors.append("criterion IDs must be present and unique")
+    verification_ids = [v.get("id") for v in verification]
+    if None in verification_ids or len(verification_ids) != len(set(verification_ids)):
+        errors.append("verification IDs must be present and unique")
+
+    known_req = set(req_ids)
     known_q = set(q_ids)
+    known_v = set(verification_ids)
+    criteria_by_req: dict[str, list[dict]] = {}
+
+    for c in criteria:
+        cid = c.get("id", "<unknown>")
+        rid = c.get("requirement")
+        if rid not in known_req:
+            errors.append(f"{cid}: unknown requirement ref {rid}")
+        else:
+            criteria_by_req.setdefault(rid, []).append(c)
+        if not c.get("statement"):
+            errors.append(f"{cid}: missing statement")
+        unknown_v = set(c.get("verification", [])) - known_v
+        if unknown_v:
+            errors.append(f"{cid}: unknown verification refs {sorted(unknown_v)}")
+
+    allowed_classes = {"deterministic", "procedural", "judgement"}
+    for v in verification:
+        vid = v.get("id", "<unknown>")
+        if v.get("class") not in allowed_classes:
+            errors.append(f"{vid}: invalid verification class {v.get('class')}")
+        if not v.get("method"):
+            errors.append(f"{vid}: missing method")
 
     for r in reqs:
         rid = r.get("id", "<unknown>")
         for field in ("statement", "criticality", "origin", "verification"):
             if not r.get(field):
                 errors.append(f"{rid}: missing {field}")
-        unknown = set(r.get("quality", [])) - known_q
-        if unknown:
-            errors.append(f"{rid}: unknown quality refs {sorted(unknown)}")
+        unknown_q = set(r.get("quality", [])) - known_q
+        if unknown_q:
+            errors.append(f"{rid}: unknown quality refs {sorted(unknown_q)}")
+        unknown_v = set(r.get("verification", [])) - known_v
+        if unknown_v:
+            errors.append(f"{rid}: unknown verification refs {sorted(unknown_v)}")
+        if r.get("criticality") == "must" and not criteria_by_req.get(rid):
+            errors.append(f"{rid}: must requirement without acceptance criterion")
 
     stages = lifecycle.get("stages", [])
     transitions = lifecycle.get("allowed_transitions", {})
@@ -86,10 +126,14 @@ def validate() -> list[str]:
 def inspect_state() -> dict:
     reqs = load(REQ)["requirements"]
     qualities = load(QUALITY)["qualities"]
+    criteria = load(CRITERIA)["criteria"]
+    verification = load(VERIFICATION)["verification"]
     return {
         "objective": rel(OBJECTIVE),
         "requirements": len(reqs),
         "must_requirements": sum(r.get("criticality") == "must" for r in reqs),
+        "criteria": len(criteria),
+        "verification_methods": len(verification),
         "quality_dimensions": len(qualities),
         "lifecycle_stages": load(LIFECYCLE)["stages"],
         "integration_dispositions": load(LIFECYCLE)["integration_dispositions"],
@@ -103,24 +147,33 @@ def context() -> dict:
         "governing_objective": OBJECTIVE.read_text(encoding="utf-8"),
         "requirements": load(REQ)["requirements"],
         "quality_model": load(QUALITY)["qualities"],
+        "criteria": load(CRITERIA)["criteria"],
+        "verification": load(VERIFICATION)["verification"],
         "lifecycle": load(LIFECYCLE),
         "authority": load(AUTHORITY),
         "competence": load(COMPETENCE),
-        "instruction": "Treat this compiled repository state as authoritative over chat memory. Produce candidates; do not silently promote judgement-heavy changes.",
+        "instruction": "Treat compiled repository state as authoritative over chat memory. Produce candidates; do not silently promote judgement-heavy changes. Research SOTA/best practice when material competence uncertainty warrants it, then assess project fit.",
     }
 
 
 def trace(object_id: str) -> dict | None:
     reqs = load(REQ)["requirements"]
+    criteria = load(CRITERIA)["criteria"]
+    vmap = {v["id"]: v for v in load(VERIFICATION)["verification"]}
+    qmap = {q["id"]: q for q in load(QUALITY)["qualities"]}
     for r in reqs:
         if r.get("id") == object_id:
-            qmap = {q["id"]: q for q in load(QUALITY)["qualities"]}
+            related_criteria = [c for c in criteria if c.get("requirement") == object_id]
+            vids = set(r.get("verification", []))
+            for c in related_criteria:
+                vids.update(c.get("verification", []))
             return {
                 "object": r,
                 "qualities": [qmap[q] for q in r.get("quality", []) if q in qmap],
+                "criteria": related_criteria,
                 "origin": r.get("origin"),
-                "verification": r.get("verification", []),
-                "note": "v0.1 traces baseline requirements; decisions, implementation and test refs are extended as they materialize.",
+                "verification": [vmap[v] for v in sorted(vids) if v in vmap],
+                "note": "v0.1 traces baseline requirements through criteria and verification; decisions and implementation refs are added when they materialize.",
             }
     return None
 
@@ -148,8 +201,6 @@ def audit() -> list[str]:
     findings = validate()
     reqs = load(REQ)["requirements"] if REQ.exists() else []
     for r in reqs:
-        if r.get("criticality") == "must" and not r.get("verification"):
-            findings.append(f"{r.get('id')}: critical requirement without verification")
         if r.get("origin") == "chat-only":
             findings.append(f"{r.get('id')}: accepted requirement has chat-only origin")
     return findings
@@ -165,6 +216,8 @@ def derive() -> str:
         "",
         "## Baseline",
         f"- Requirements: {state['requirements']} ({state['must_requirements']} must)",
+        f"- Acceptance criteria: {state['criteria']}",
+        f"- Verification methods: {state['verification_methods']}",
         f"- Quality dimensions: {state['quality_dimensions']}",
         f"- Validation: {'PASS' if not errors else 'FAIL'}",
         "",
