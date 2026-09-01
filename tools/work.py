@@ -15,10 +15,11 @@ VERIFICATION = ROOT / "project" / "verification.json"
 LIFECYCLE = ROOT / "system" / "lifecycle.json"
 AUTHORITY = ROOT / "system" / "authority.json"
 COMPETENCE = ROOT / "system" / "competence.json"
+FITNESS = ROOT / "system" / "architecture_fitness.json"
 OBJECTIVE = ROOT / "project" / "GOVERNING_OBJECTIVE.md"
 CURRENT = ROOT / "project" / "CURRENT_STATE.md"
 
-REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, OBJECTIVE]
+REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, OBJECTIVE]
 
 
 def load(path: Path):
@@ -46,6 +47,7 @@ def validate() -> list[str]:
         lifecycle = load(LIFECYCLE)
         authority = load(AUTHORITY)
         competence = load(COMPETENCE)
+        fitness = load(FITNESS)
     except (json.JSONDecodeError, OSError) as exc:
         return [f"cannot load contract data: {exc}"]
 
@@ -120,6 +122,8 @@ def validate() -> list[str]:
         errors.append("authority contract is incomplete")
     if not competence.get("competence_domains") or not competence.get("material_review_questions"):
         errors.append("competence contract is incomplete")
+    if not fitness.get("concerns") or not fitness.get("decision_order"):
+        errors.append("architecture fitness contract is incomplete")
     return errors
 
 
@@ -138,6 +142,7 @@ def inspect_state() -> dict:
         "lifecycle_stages": load(LIFECYCLE)["stages"],
         "integration_dispositions": load(LIFECYCLE)["integration_dispositions"],
         "competence_domains": list(load(COMPETENCE)["competence_domains"]),
+        "architecture_concerns": list(load(FITNESS)["concerns"]),
         "canonical_sources": [rel(p) for p in REQUIRED_FILES],
     }
 
@@ -152,7 +157,8 @@ def context() -> dict:
         "lifecycle": load(LIFECYCLE),
         "authority": load(AUTHORITY),
         "competence": load(COMPETENCE),
-        "instruction": "Treat compiled repository state as authoritative over chat memory. Produce candidates; do not silently promote judgement-heavy changes. Research SOTA/best practice when material competence uncertainty warrants it, then assess project fit.",
+        "architecture_fitness": load(FITNESS),
+        "instruction": "Treat compiled repository state as authoritative over chat memory. Produce candidates; do not silently promote judgement-heavy changes. Detect competence gaps and unknown unknowns. Research SOTA/best practice when material uncertainty warrants it, then assess project fit and operating burden before selecting technology.",
     }
 
 
@@ -226,6 +232,9 @@ def derive() -> str:
         "",
         "## Competence domains",
         ", ".join(state["competence_domains"]),
+        "",
+        "## Architecture fitness concerns",
+        ", ".join(state["architecture_concerns"]),
         "",
         "## Canonical sources",
         *[f"- `{p}`" for p in state["canonical_sources"]],
