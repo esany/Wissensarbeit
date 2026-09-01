@@ -1,5 +1,6 @@
 name: Work item
-about: Persist a problem, question, observation, risk, feedback or decision need beyond chat
+description: Persist a problem, question, observation, risk, feedback or decision need beyond chat
+title: ""
 labels: []
 body:
   - type: markdown
