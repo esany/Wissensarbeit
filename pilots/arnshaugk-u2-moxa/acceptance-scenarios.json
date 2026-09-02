@@ -1,0 +1,74 @@
+{
+  "pilot_id": "PILOT-ARN-U2-MOXA-001",
+  "source_repository": "esany/pflege-arnshaugk-historie",
+  "source_mode": "read-only",
+  "building_block_refs": [
+    "BB-BOOTSTRAP", "BB-STATE", "BB-CONTEXT", "BB-COMPETENCE",
+    "BB-RESEARCH", "BB-INTEGRATE", "BB-REQUIREMENTS", "BB-DESIGN",
+    "BB-IMPLEMENT", "BB-ASSURE", "BB-TRACE", "BB-DERIVE",
+    "BB-OPERATE", "BB-LEARN"
+  ],
+  "authority_classes": ["deterministic", "procedural", "judgement"],
+  "slice_stages": [
+    "goal_pain", "domain_method", "requirement", "decision",
+    "delivery_verification", "owner_feedback"
+  ],
+  "observed_gaps": [
+    "missing_end_to_end_slice_record",
+    "candidate_disposition_debt",
+    "domain_method_profiles_not_yet_mature",
+    "duplicated_validator_ci_plumbing",
+    "slice_specific_owner_acceptance_missing"
+  ],
+  "scenarios": [
+    {
+      "id": "ACC-ARN-001",
+      "kind": "acceptance",
+      "statement": "A fresh reviewer can reconstruct the Moxa research increment, its evidence limits, authorities and open downstream links without chat history.",
+      "evidence": ["case-study.md"],
+      "review_class": "procedural"
+    },
+    {
+      "id": "REG-ARN-001",
+      "kind": "regression",
+      "statement": "The Altenburg Bernico de Knev comparison must not be merged with Orla-Knau without positive identification.",
+      "expected": "unresolved_or_rejected_homonym",
+      "review_class": "judgement"
+    },
+    {
+      "id": "REG-ARN-002",
+      "kind": "regression",
+      "statement": "propter gwerras terre may explain the resignation procedure but must not be promoted as Hermann of Moxa's sale motive.",
+      "expected": "procedural_constraint_only",
+      "review_class": "judgement"
+    },
+    {
+      "id": "REG-ARN-003",
+      "kind": "regression",
+      "statement": "A formal CI pass must not be reported as historical validation, domain-method sufficiency or owner acceptance.",
+      "expected": "rule_classes_remain_distinct",
+      "review_class": "deterministic"
+    },
+    {
+      "id": "REG-ARN-004",
+      "kind": "regression",
+      "statement": "A case-derived requirement candidate must not become accepted without an explicit #42 lifecycle decision.",
+      "expected": "candidate_remains_candidate",
+      "review_class": "procedural"
+    },
+    {
+      "id": "REG-ARN-005",
+      "kind": "regression",
+      "statement": "Missing slice-specific owner feedback must remain visible and must not be inferred from tests or issue activity.",
+      "expected": "owner_acceptance_open",
+      "review_class": "deterministic"
+    },
+    {
+      "id": "ACC-ARN-002",
+      "kind": "acceptance",
+      "statement": "No new generic building block or framework layer is introduced by this pilot.",
+      "expected": "fourteen_existing_blocks_only",
+      "review_class": "deterministic"
+    }
+  ]
+}
