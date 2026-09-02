@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "change_id": "core/systemic-reconciliation-gate",
+  "materiality": "material",
+  "summary": "Introduce a fail-closed systemic reconciliation gate for material changes under existing REQ-003 and building blocks.",
+  "source_refs": [
+    "REQ-003",
+    "CRIT-003",
+    "BB-INTEGRATE",
+    "BB-ASSURE",
+    "BB-TRACE",
+    "BB-DERIVE",
+    "PR-3",
+    "PR-8",
+    "PR-10",
+    "PR-12"
+  ],
+  "surfaces": {
+    "requirements": {
+      "disposition": "confirmed",
+      "objects": ["REQ-003", "CRIT-003", "VAL-INTEGRATION"],
+      "rationale": "The observed defect is a missing enforcement link for the existing whole-system integration requirement; no new requirement is needed."
+    },
+    "issues_findings": {
+      "disposition": "refined",
+      "objects": ["issue-5", "issue-7", "issue-11"],
+      "rationale": "Recent work changes the meaning of older harvest, continuity and restart findings; future material changes must disposition such affected work explicitly."
+    },
+    "risks": {
+      "disposition": "confirmed",
+      "objects": ["R-002", "R-003", "R-008"],
+      "rationale": "Novelty drift, accretion and false-completion risks are directly exercised by locally green changes that leave global state stale."
+    },
+    "decisions_concepts": {
+      "disposition": "unchanged",
+      "objects": ["pre-existing-gap:canonical-decision-and-concept-state"],
+      "rationale": "The missing equivalent canonical decision/concept representation predates this change. This PR exposes but does not expand or resolve that separate gap."
+    },
+    "derived_views": {
+      "disposition": "refined",
+      "objects": ["project/CURRENT_STATE.md", "tools/work.py::derive"],
+      "rationale": "Derived-state reproducibility currently does not guarantee semantic currency; material_state.json is already omitted from the canonical-source view."
+    },
+    "active_work": {
+      "disposition": "refined",
+      "objects": ["issue-4", "issue-5", "issue-6", "issue-7", "issue-11"],
+      "rationale": "Open work must be considered for changed meaning after material merges instead of remaining silently stale."
+    }
+  },
+  "unresolved": [],
+  "systemically_integrated": true
+}

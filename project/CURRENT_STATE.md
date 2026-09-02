@@ -22,11 +22,17 @@ domain, project, research, data, software, intelligence, operations, interfaces
 ## Architecture fitness concerns
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
+## Reconciliation
+- Current change: `core/systemic-reconciliation-gate`
+- Systemically integrated: `true`
+- Unresolved reconciliation blockers: 0
+
 ## Canonical sources
 - `project/requirements.json`
 - `project/quality.json`
 - `project/criteria.json`
 - `project/verification.json`
+- `project/risks.json`
 - `system/lifecycle.json`
 - `system/authority.json`
 - `system/competence.json`
@@ -35,6 +41,9 @@ data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 - `project/GOVERNING_OBJECTIVE.md`
 - `project/conversation_harvest_foundation_v1.json`
 - `system/decision_brief.json`
+- `system/material_state.json`
+- `system/reconciliation.json`
+- `project/reconciliation.json`
 
 ## Next operational proof
-Run one real Issue -> candidate -> requirement/criterion -> implementation -> verification -> PR -> merge -> derive/restart cycle and record failures as regressions.
+Run the next real material change through the systemic reconciliation gate, then perform a fresh Git/GitHub-only restart and verify that affected older state is identified without chat reconstruction.

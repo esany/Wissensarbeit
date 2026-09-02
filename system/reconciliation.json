@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Prevent locally correct material changes from leaving the wider project state semantically stale or contradictory.",
+  "principle": "A material change is not systemically integrated until its impact on the current whole has been explicitly reconciled. Unchanged is a valid disposition; silence is not.",
+  "authority": {
+    "impact_discovery": "ai_judgement_with_human_or_specialist_escalation_when_material_meaning_is_uncertain",
+    "routine_reconciliation": "ai_autonomous_operational",
+    "material_promotion": "existing_authority_contract"
+  },
+  "required_impact_surfaces": [
+    "requirements",
+    "issues_findings",
+    "risks",
+    "decisions_concepts",
+    "derived_views",
+    "active_work"
+  ],
+  "allowed_dispositions": [
+    "unchanged",
+    "confirmed",
+    "refined",
+    "partially-satisfied",
+    "superseded",
+    "stale",
+    "conflict",
+    "needs-decision"
+  ],
+  "gate": {
+    "material_change_requires_reconciliation": true,
+    "every_required_surface_must_be_present": true,
+    "every_impacted_object_requires_disposition_and_rationale": true,
+    "unresolved_conflict_or_needs_decision_blocks_systemically_integrated_status": true,
+    "reconciliation_does_not_grant_material_authority": true,
+    "non_material_change_may_bypass_with_rationale": true
+  },
+  "promotion_boundary": "A material PR may be technically mergeable while reconciliation is incomplete; it must not be described as systemically integrated until the reconciliation gate passes.",
+  "history_rule": "The current reconciliation packet may be replaced by later material changes because Git history preserves prior packets; do not create a parallel reconciliation registry by default."
+}
