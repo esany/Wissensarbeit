@@ -20,6 +20,8 @@ jobs:
         run: python tools/work.py validate
       - name: Run audit
         run: python tools/work.py audit
+      - name: Check material-state continuity boundary
+        run: python tools/material_state.py check tests/fixtures/material_state_boundary_pass.json
       - name: Run regression tests
         run: python -m unittest discover -s tests -v
       - name: Derive current state
@@ -32,7 +34,7 @@ jobs:
           {
             echo '## Wissensarbeit assurance'
             echo
-            echo '- Contract validation, audit and regressions were executed.'
+            echo '- Contract validation, audit, material-state boundary check and regressions were executed.'
             echo '- `CURRENT_STATE.md` must be reproducible from canonical state.'
             echo '- Passing CI proves formal consistency, not domain truth or owner acceptance.'
           } >> "$GITHUB_STEP_SUMMARY"
