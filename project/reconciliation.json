@@ -1,50 +1,65 @@
 {
   "schema_version": "1.0",
-  "change_id": "core/systemic-reconciliation-gate",
+  "change_id": "core/failure-corpus-evals",
   "materiality": "material",
-  "summary": "Introduce a fail-closed systemic reconciliation gate for material changes under existing REQ-003 and building blocks.",
+  "summary": "Turn demonstrated cross-repository AI failure patterns into test-only capability/regression fixtures and a deterministic render/grade harness without creating new requirements, building blocks or canonical truth stores.",
   "source_refs": [
+    "REQ-001",
+    "REQ-002",
     "REQ-003",
-    "CRIT-003",
-    "BB-INTEGRATE",
-    "BB-ASSURE",
-    "BB-TRACE",
-    "BB-DERIVE",
-    "PR-3",
-    "PR-8",
-    "PR-10",
-    "PR-12"
+    "REQ-004",
+    "REQ-007",
+    "REQ-008",
+    "REQ-011",
+    "REQ-012",
+    "R-001",
+    "R-002",
+    "R-003",
+    "R-004",
+    "R-005",
+    "R-006",
+    "R-007",
+    "R-008",
+    "R-009",
+    "R-010",
+    "issue-5",
+    "issue-7",
+    "issue-11",
+    "external:esany/paleo-type#25,#62,#70,#74,#75,#78,#86,#87,PR88",
+    "external:esany/pflege-arnshaugk-historie#65",
+    "external:esany/rgk-main-ssot#22",
+    "external:esany/Synthese#7"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "confirmed",
-      "objects": ["REQ-003", "CRIT-003", "VAL-INTEGRATION"],
-      "rationale": "The observed defect is a missing enforcement link for the existing whole-system integration requirement; no new requirement is needed."
+      "objects": ["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-007", "REQ-008", "REQ-011", "REQ-012"],
+      "rationale": "The observed failure families are already substantially covered by existing requirements. The eval slice tests those requirements and does not promote new requirements."
     },
     "issues_findings": {
       "disposition": "refined",
       "objects": ["issue-5", "issue-7", "issue-11"],
-      "rationale": "Recent work changes the meaning of older harvest, continuity and restart findings; future material changes must disposition such affected work explicitly."
+      "rationale": "Harvest, continuity, restart and prior audit findings now have reusable historical replay fixtures, but the harness does not claim the generic harvest runtime or full fresh-model execution is complete."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-002", "R-003", "R-008"],
-      "rationale": "Novelty drift, accretion and false-completion risks are directly exercised by locally green changes that leave global state stale."
+      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-006", "R-007", "R-008", "R-009", "R-010"],
+      "rationale": "The seven deduplicated failure families operationalize regression evidence for the existing risk model rather than adding a parallel risk taxonomy."
     },
     "decisions_concepts": {
       "disposition": "unchanged",
       "objects": ["pre-existing-gap:canonical-decision-and-concept-state"],
-      "rationale": "The missing equivalent canonical decision/concept representation predates this change. This PR exposes but does not expand or resolve that separate gap."
+      "rationale": "This slice deliberately places the failure corpus and eval contract under tests/evals so they do not become a new canonical concept/decision registry."
     },
     "derived_views": {
-      "disposition": "refined",
+      "disposition": "unchanged",
       "objects": ["project/CURRENT_STATE.md", "tools/work.py::derive"],
-      "rationale": "Derived-state reproducibility currently does not guarantee semantic currency; material_state.json is already omitted from the canonical-source view."
+      "rationale": "No new canonical project-state source is introduced. Eval fixtures remain test evidence, so the generated canonical-source view does not need a new truth owner."
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["issue-4", "issue-5", "issue-6", "issue-7", "issue-11"],
-      "rationale": "Open work must be considered for changed meaning after material merges instead of remaining silently stale."
+      "objects": ["issue-5", "issue-7", "issue-11", "future cross-repo eval runs"],
+      "rationale": "Known failures can now be rendered as model-independent eval prompts and deterministically graded after a run. Real fresh-model execution remains a separate empirical step."
     }
   },
   "unresolved": [],
