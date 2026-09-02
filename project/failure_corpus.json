@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Consolidate demonstrated AI/project-operation failure patterns into a small evidence-backed corpus. Failures are evidence for requirements, controls and evals; they are not requirements by themselves.",
+  "rules": {
+    "real_evidence_preferred": true,
+    "external_repo_evidence_is_prior_art_not_project_primary": true,
+    "failure_does_not_auto_promote_requirement": true,
+    "fix_requires_observed_gap": true,
+    "successful_fix_becomes_regression_candidate": true
+  },
+  "families": [
+    {
+      "id": "FF-STATE-CONTINUITY",
+      "name": "State and continuity loss",
+      "failure": "Material state, evidence or next-action context is unavailable or incomplete when a chat/session/environment changes.",
+      "requirement_refs": ["REQ-001", "REQ-002", "REQ-008"],
+      "risk_refs": ["R-001", "R-008"],
+      "evidence": [
+        {"repo": "esany/Wissensarbeit", "ref": "issue-7", "kind": "audit"},
+        {"repo": "esany/Wissensarbeit", "ref": "issue-11", "kind": "restart-test"},
+        {"repo": "esany/paleo-type", "ref": "issue-78", "kind": "fresh-context evidence availability failure"}
+      ],
+      "existing_controls": ["material-state boundary", "foundation harvest", "restart test"],
+      "open_gap": "Materiality detection and true fresh-context availability/rehydration are not yet fully demonstrated end-to-end.",
+      "eval_modes": ["historical_replay", "fresh_restart", "context_compaction"]
+    },
+    {
+      "id": "FF-SYSTEMIC-DRIFT",
+      "name": "Systemic drift and local optimization",
+      "failure": "A locally coherent change grows or passes assurance while semantically related project state becomes stale or inconsistent.",
+      "requirement_refs": ["REQ-003", "REQ-007"],
+      "risk_refs": ["R-002", "R-003", "R-008"],
+      "evidence": [
+        {"repo": "esany/Wissensarbeit", "ref": "pr-12", "kind": "stale derived/current state after local green change"},
+        {"repo": "esany/Wissensarbeit", "ref": "pr-13", "kind": "reconciliation fix"},
+        {"repo": "esany/paleo-type", "ref": "pr-88", "kind": "large multi-concern branch"}
+      ],
+      "existing_controls": ["systemic reconciliation gate", "integration dispositions"],
+      "open_gap": "Impact discovery and long-horizon scope growth remain judgement-heavy and need replay evidence.",
+      "eval_modes": ["historical_replay", "long_horizon", "scope_growth"]
+    },
+    {
+      "id": "FF-AUTHORITY-PROMOTION",
+      "name": "Authority and promotion creep",
+      "failure": "AI, CI, silence, enthusiasm or an implementation step is treated as authority for a material decision or acceptance it does not own.",
+      "requirement_refs": ["REQ-004", "REQ-011"],
+      "risk_refs": ["R-004", "R-005", "R-008"],
+      "evidence": [
+        {"repo": "esany/Wissensarbeit", "ref": "issue-7", "kind": "authority ambiguity audit"},
+        {"repo": "esany/paleo-type", "ref": "issue-75", "kind": "owner boundary fixture"},
+        {"repo": "esany/paleo-type", "ref": "issue-74", "kind": "dev authority boundary fixture"}
+      ],
+      "existing_controls": ["authority contract", "decision brief", "candidate/promotion separation"],
+      "open_gap": "Subtle natural-language inference of acceptance and role authority remains model-behaviour dependent.",
+      "eval_modes": ["authority_perturbation", "silence_enthusiasm", "wrong_role"]
+    },
+    {
+      "id": "FF-EPISTEMIC-INTEGRITY",
+      "name": "Epistemic integrity loss",
+      "failure": "Uncertainty, provenance, alternatives, negative evidence or unresolved relations are flattened, invented or laundered through later summaries.",
+      "requirement_refs": ["REQ-002", "REQ-006", "REQ-011"],
+      "risk_refs": ["R-004", "R-009"],
+      "evidence": [
+        {"repo": "esany/Wissensarbeit", "ref": "REQ-009", "kind": "explicit provenance gap"},
+        {"repo": "esany/pflege-arnshaugk-historie", "ref": "issue-65", "kind": "unresolved relation and pilot-boundary correction"},
+        {"repo": "esany/paleo-type", "ref": "issue-72", "kind": "observed/not-observed/not-investigated distinction"}
+      ],
+      "existing_controls": ["provenance harvest", "case isolation", "source/authority separation"],
+      "open_gap": "Compression and reprocessing fidelity are not robustly tested with perturbations.",
+      "eval_modes": ["metamorphic_compression", "provenance_laundering", "unresolved_retention"]
+    },
+    {
+      "id": "FF-SOLUTIONISM-BLOAT",
+      "name": "Premature solutioning and over-modeling",
+      "failure": "A plausible technology, abstraction or governance layer is introduced before a demonstrated need and fit justify it.",
+      "requirement_refs": ["REQ-003", "REQ-010", "REQ-013"],
+      "risk_refs": ["R-006", "R-007"],
+      "evidence": [
+        {"repo": "esany/paleo-type", "ref": "issue-25", "kind": "anti-bloat derivation rule"},
+        {"repo": "esany/paleo-type", "ref": "issue-62", "kind": "deferred trigger instead of speculative ontology"},
+        {"repo": "esany/paleo-type", "ref": "issue-70", "kind": "automation deferred until repeated burden"}
+      ],
+      "existing_controls": ["architecture fitness", "reuse-before-build", "generic-fit", "no-new-block-without-repeated-friction"],
+      "open_gap": "Models can still accumulate plausible compensating structures across many small steps.",
+      "eval_modes": ["architecture_temptation", "no_change_option", "long_horizon"]
+    },
+    {
+      "id": "FF-FALSE-ASSURANCE",
+      "name": "False assurance and overclaiming",
+      "failure": "Evidence is described more strongly than it supports: planned becomes operationalized, fixture becomes real proof, CI becomes domain truth, or reproducibility becomes currency.",
+      "requirement_refs": ["REQ-007", "REQ-011"],
+      "risk_refs": ["R-008", "R-009"],
+      "evidence": [
+        {"repo": "esany/Wissensarbeit", "ref": "issue-7", "kind": "overclaim inventory"},
+        {"repo": "esany/rgk-main-ssot", "ref": "issue-22", "kind": "TODO not operationalized"},
+        {"repo": "esany/Synthese", "ref": "issue-7", "kind": "TODO not operationalized"}
+      ],
+      "existing_controls": ["verification classes", "CI assurance boundary", "reconciliation"],
+      "open_gap": "Natural-language claims still need evidence-calibrated regression grading.",
+      "eval_modes": ["claim_evidence", "stale_state", "ci_green_domain_unknown"]
+    },
+    {
+      "id": "FF-EXECUTION-PROGRESS",
+      "name": "Execution and progress pathologies",
+      "failure": "The system chooses an unnecessarily costly execution route, repeats passed prerequisites, loops delegation without state delta, or asks the owner to courier derivable context.",
+      "requirement_refs": ["REQ-004", "REQ-008", "REQ-012"],
+      "risk_refs": ["R-007", "R-010"],
+      "evidence": [
+        {"repo": "esany/Wissensarbeit", "ref": "issue-11", "kind": "connector-first normal-chat routing finding"},
+        {"repo": "esany/paleo-type", "ref": "issue-86", "kind": "sticky prerequisite and no-progress loop fixture"},
+        {"repo": "esany/paleo-type", "ref": "issue-87", "kind": "small bootstrap versus master-prompt test"}
+      ],
+      "existing_controls": ["simplest adequate execution route", "bounded context", "automation of routine context work"],
+      "open_gap": "Progress-delta, prerequisite invalidation and intent reconstruction from terse owner free text are not yet executable regressions.",
+      "eval_modes": ["no_progress_loop", "routing", "intent_reconstruction"]
+    }
+  ]
+}
