@@ -1,13 +1,13 @@
 {
   "principle": "Automate operational necessity and recurring routine by default; involve the human for material choices, meaning, priorities, risk acceptance and consequences that affect project direction or owner needs.",
   "rule_classes": [
-    {"id":"deterministic","enforcement":"software","examples":["reference exists","schema valid","transition allowed","test passes","derived state reproducible","recognized material state is persistently externalized before a continuity boundary"]},
-    {"id":"procedural","enforcement":"workflow","examples":["impact assessment before material integration","human consultation before consequential promotion","continuous material-state checkpointing before handoff/archive/session end/environment switch/context compaction"]},
-    {"id":"judgement","enforcement":"ai_plus_human_or_specialist","examples":["domain interpretation","method fit","architectural trade-off","owner usefulness","materiality detection when meaning or consequence is uncertain"]}
+    {"id":"deterministic","enforcement":"software","examples":["reference exists","schema valid","transition allowed","test passes","derived state reproducible","recognized material state is persistently externalized before a continuity boundary","material reconciliation covers every required project-state surface"]},
+    {"id":"procedural","enforcement":"workflow","examples":["impact assessment before material integration","systemic reconciliation before claiming a material change is integrated","human consultation before consequential promotion","continuous material-state checkpointing before handoff/archive/session end/environment switch/context compaction"]},
+    {"id":"judgement","enforcement":"ai_plus_human_or_specialist","examples":["domain interpretation","method fit","architectural trade-off","owner usefulness","materiality detection when meaning or consequence is uncertain","semantic impact discovery across project state"]}
   ],
   "authorities": {
     "ai_autonomous_operational":[
-      "inspect","research","classify","structure","maintain_routine_metadata","run_checks","derive_views","refresh_context","open_or_update_work_items_when_material","detect_and_externalize_material_state_candidates","check_continuity_boundary_for_unpersisted_material_state","implement_reversible","fix_formal_failures","maintain_required_project_operations"
+      "inspect","research","classify","structure","maintain_routine_metadata","run_checks","derive_views","refresh_context","open_or_update_work_items_when_material","detect_and_externalize_material_state_candidates","check_continuity_boundary_for_unpersisted_material_state","discover_reconciliation_impact_candidates","reconcile_non_material_or_routine_state","implement_reversible","fix_formal_failures","maintain_required_project_operations"
     ],
     "ai_may_propose_and_explain":[
       "reframe_problem","change_requirement","change_domain_semantics","select_material_architecture","change_priority","introduce_new_persistent_store","introduce_new_service_or_dependency","change_quality_target"
@@ -21,6 +21,7 @@
     "decision_brief_contract": "system/decision_brief.json",
     "decision_brief_required_before_material_request": true,
     "material_state_contract": "system/material_state.json",
+    "reconciliation_contract": "system/reconciliation.json",
     "ask_human_when":[
       "the choice materially changes project direction, scope, priorities or quality expectations",
       "alternatives have meaningful consequences the owner should consciously accept",
@@ -28,7 +29,7 @@
       "domain meaning or owner value cannot be established deterministically"
     ],
     "do_not_burden_human_with":[
-      "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","material-state candidate persistence and continuity-boundary checks","ordinary reversible implementation details","necessary operational maintenance"
+      "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","material-state candidate persistence and continuity-boundary checks","routine impact discovery and unchanged reconciliation dispositions","ordinary reversible implementation details","necessary operational maintenance"
     ],
     "explanation_required": ["what changes","why it is needed","relevant alternatives","material consequences","reversibility","what decision is actually requested"]
   }
