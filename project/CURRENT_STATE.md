@@ -23,7 +23,7 @@ domain, project, research, data, software, intelligence, operations, interfaces
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
-- Current change: `core/systemic-reconciliation-gate`
+- Current change: `core/failure-corpus-evals`
 - Systemically integrated: `true`
 - Unresolved reconciliation blockers: 0
 
