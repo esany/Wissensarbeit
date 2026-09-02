@@ -1,7 +1,9 @@
 # Pilots
 
-Pilots test the generic contracts against real project work. They are evidence and
-regression fixtures, not new framework layers.
+Pilots test the generic contracts against real project work. Case material remains
+in its case repository; this repository retains only provenance, dispositioned
+generic learnings, and executable regressions.
 
-- `arnshaugk-u2-moxa/` — read-only reconstruction of a historical-research
-  vertical slice from `esany/pflege-arnshaugk-historie`.
+The current pilot closure is documented in `pilot-closure.md`. Its regression
+fixtures exercise existing context, integration, assurance, trace, and learning
+mechanisms. They do not add a building block or grant implementation authority.

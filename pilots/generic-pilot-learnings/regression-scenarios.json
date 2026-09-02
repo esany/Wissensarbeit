@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "scenarios": [
+    {
+      "id": "REG-PILOT-001",
+      "mechanism": "conversation_harvesting",
+      "input": {
+        "material_items": [
+          {"id": "finding", "persisted_ref": "case-repo#review", "chat_only": false},
+          {"id": "decision", "persisted_ref": "generic-closure", "chat_only": false}
+        ]
+      },
+      "expected": "harvest_complete"
+    },
+    {
+      "id": "REG-PILOT-002",
+      "mechanism": "context_fidelity",
+      "input": {
+        "source_refs": ["goal", "constraint", "unresolved-question"],
+        "compiled_refs": ["constraint", "unresolved-question", "goal"],
+        "materially_omitted": []
+      },
+      "expected": "fidelity_preserved"
+    },
+    {
+      "id": "REG-PILOT-003",
+      "mechanism": "elicitation_gate",
+      "input": {
+        "proposal_state": "candidate",
+        "co_created": true,
+        "authorized_decision": false
+      },
+      "expected": "candidate_remains_candidate"
+    },
+    {
+      "id": "REG-PILOT-004",
+      "mechanism": "generic_fit",
+      "input": {
+        "generic_consumers": 1,
+        "case_specific": true,
+        "existing_mechanism": "BB-INTEGRATE"
+      },
+      "expected": "remain_case_specific"
+    },
+    {
+      "id": "REG-PILOT-005",
+      "mechanism": "case_isolation",
+      "input": {
+        "generic_artifacts": ["pilot-closure.md", "regression-scenarios.json"],
+        "case_domain_terms_present": [],
+        "case_return_ref": "case-repo#review"
+      },
+      "expected": "domain_neutral"
+    },
+    {
+      "id": "REG-PILOT-006",
+      "mechanism": "token_efficiency",
+      "input": {
+        "baseline_tokens": 1200,
+        "compiled_tokens": 420,
+        "source_refs": ["a", "b", "c"],
+        "compiled_refs": ["c", "a", "b"],
+        "materially_omitted": []
+      },
+      "expected": "efficient_and_lossless"
+    }
+  ]
+}
