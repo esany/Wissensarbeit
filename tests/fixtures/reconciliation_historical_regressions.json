@@ -1,0 +1,70 @@
+{
+  "cases": [
+    {
+      "id": "PR-3",
+      "description": "Pilot closure changed generic learnings but did not reconcile all wider project-state surfaces.",
+      "packet": {
+        "change_id": "PR-3",
+        "materiality": "material",
+        "summary": "historical pilot closure",
+        "source_refs": ["PR-3"],
+        "surfaces": {
+          "requirements": {"disposition": "unchanged", "objects": [], "rationale": "no requirement promotion"},
+          "issues_findings": {"disposition": "refined", "objects": ["case-return"], "rationale": "case findings returned"}
+        },
+        "unresolved": [],
+        "systemically_integrated": true
+      }
+    },
+    {
+      "id": "PR-8",
+      "description": "Foundation provenance improved while older audit findings and active state were not fully reconciled.",
+      "packet": {
+        "change_id": "PR-8",
+        "materiality": "material",
+        "summary": "historical provenance harvest",
+        "source_refs": ["PR-8"],
+        "surfaces": {
+          "requirements": {"disposition": "unchanged", "objects": ["REQ-001..013"], "rationale": "provenance only"},
+          "derived_views": {"disposition": "refined", "objects": ["CURRENT_STATE"], "rationale": "canonical source added"}
+        },
+        "unresolved": [],
+        "systemically_integrated": true
+      }
+    },
+    {
+      "id": "PR-10",
+      "description": "Decision brief was locally integrated but active work and older findings were not systematically reconciled.",
+      "packet": {
+        "change_id": "PR-10",
+        "materiality": "material",
+        "summary": "historical decision brief",
+        "source_refs": ["PR-10"],
+        "surfaces": {
+          "requirements": {"disposition": "unchanged", "objects": [], "rationale": "no requirement change"},
+          "derived_views": {"disposition": "refined", "objects": ["CURRENT_STATE"], "rationale": "decision brief added"},
+          "decisions_concepts": {"disposition": "refined", "objects": ["decision-brief-contract"], "rationale": "owner decision behavior refined"}
+        },
+        "unresolved": [],
+        "systemically_integrated": true
+      }
+    },
+    {
+      "id": "PR-12",
+      "description": "Material-state contract was locally green while CURRENT_STATE and older work remained stale.",
+      "packet": {
+        "change_id": "PR-12",
+        "materiality": "material",
+        "summary": "historical material-state externalization",
+        "source_refs": ["PR-12"],
+        "surfaces": {
+          "requirements": {"disposition": "confirmed", "objects": ["REQ-002", "REQ-008"], "rationale": "existing requirements sharpened"},
+          "issues_findings": {"disposition": "refined", "objects": ["issue-5"], "rationale": "conversation harvest refined"},
+          "active_work": {"disposition": "refined", "objects": ["issue-5"], "rationale": "work changed"}
+        },
+        "unresolved": [],
+        "systemically_integrated": true
+      }
+    }
+  ]
+}
