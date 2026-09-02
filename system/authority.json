@@ -18,6 +18,8 @@
     "specialist_when_critical":["high_stakes_domain_validity","security","legal","advanced_statistical_validity","safety_critical_engineering"]
   },
   "consultation_contract": {
+    "decision_brief_contract": "system/decision_brief.json",
+    "decision_brief_required_before_material_request": true,
     "ask_human_when":[
       "the choice materially changes project direction, scope, priorities or quality expectations",
       "alternatives have meaningful consequences the owner should consciously accept",

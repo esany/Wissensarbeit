@@ -93,6 +93,17 @@ class OperationalCoreTests(unittest.TestCase):
         errors = work.validate_foundation_harvest(harvest, requirements)
         self.assertTrue(any("external historical evidence cannot be project-primary" in error for error in errors))
 
+    def test_material_consultation_requires_complete_automatic_decision_brief(self):
+        brief = work.load(work.DECISION_BRIEF)
+        authority = work.load(work.AUTHORITY)
+        blocks = work.load(work.BUILDING_BLOCKS)
+        self.assertEqual(work.validate_decision_brief_contract(brief, authority, blocks), [])
+        self.assertFalse(brief["rules"]["routine_work_requires_brief"])
+        broken = dict(brief)
+        broken["required_fields"] = ["decision", "response_requested"]
+        errors = work.validate_decision_brief_contract(broken, authority, blocks)
+        self.assertTrue(any("missing required decision fields" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()

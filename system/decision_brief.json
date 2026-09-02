@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Make every material owner consultation decision-ready without requiring the owner to request a decision template.",
+  "required_fields": [
+    "decision",
+    "scope",
+    "recommendation",
+    "recommendation_rationale",
+    "alternatives",
+    "material_consequences",
+    "reversibility",
+    "assurance_status",
+    "explicit_non_decisions",
+    "response_requested"
+  ],
+  "presentation_order": [
+    "decision",
+    "recommendation",
+    "recommendation_rationale",
+    "alternatives",
+    "material_consequences",
+    "reversibility",
+    "assurance_status",
+    "explicit_non_decisions",
+    "response_requested"
+  ],
+  "rules": {
+    "trigger": "human_consultation_required_when_material",
+    "automatic": true,
+    "recommendation_required": true,
+    "best_supported_option_first": true,
+    "plain_language": true,
+    "exact_response_required": true,
+    "routine_work_requires_brief": false,
+    "brief_is_not_acceptance": true,
+    "silence_is_not_acceptance": true
+  },
+  "merge_decision_extension": {
+    "required_fields": [
+      "pull_request",
+      "mergeability",
+      "ci_status",
+      "canonical_effect"
+    ]
+  }
+}

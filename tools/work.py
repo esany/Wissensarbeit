@@ -20,8 +20,9 @@ BUILDING_BLOCKS = ROOT / "system" / "building_blocks.json"
 OBJECTIVE = ROOT / "project" / "GOVERNING_OBJECTIVE.md"
 CURRENT = ROOT / "project" / "CURRENT_STATE.md"
 FOUNDATION_HARVEST = ROOT / "project" / "conversation_harvest_foundation_v1.json"
+DECISION_BRIEF = ROOT / "system" / "decision_brief.json"
 
-REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, BUILDING_BLOCKS, OBJECTIVE, FOUNDATION_HARVEST]
+REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, BUILDING_BLOCKS, OBJECTIVE, FOUNDATION_HARVEST, DECISION_BRIEF]
 
 
 def load(path: Path):
@@ -52,6 +53,7 @@ def validate() -> list[str]:
         fitness = load(FITNESS)
         building_blocks = load(BUILDING_BLOCKS)
         foundation_harvest = load(FOUNDATION_HARVEST)
+        decision_brief = load(DECISION_BRIEF)
     except (json.JSONDecodeError, OSError) as exc:
         return [f"cannot load contract data: {exc}"]
 
@@ -142,6 +144,31 @@ def validate() -> list[str]:
     if not building_blocks.get("composition_principles"):
         errors.append("building-block composition principles are missing")
     errors.extend(validate_foundation_harvest(foundation_harvest, reqs))
+    errors.extend(validate_decision_brief_contract(decision_brief, authority, building_blocks))
+    return errors
+
+
+def validate_decision_brief_contract(brief: dict, authority: dict, building_blocks: dict) -> list[str]:
+    errors: list[str] = []
+    required = {"decision", "scope", "recommendation", "recommendation_rationale", "alternatives", "material_consequences", "reversibility", "assurance_status", "explicit_non_decisions", "response_requested"}
+    if not required.issubset(set(brief.get("required_fields", []))):
+        errors.append("decision brief contract is missing required decision fields")
+    rules = brief.get("rules", {})
+    for rule in ("automatic", "recommendation_required", "best_supported_option_first", "exact_response_required"):
+        if rules.get(rule) is not True:
+            errors.append(f"decision brief must enforce {rule}")
+    if rules.get("routine_work_requires_brief") is not False:
+        errors.append("decision brief must not burden routine work")
+    consultation = authority.get("consultation_contract", {})
+    if consultation.get("decision_brief_contract") != "system/decision_brief.json":
+        errors.append("authority contract must reference the decision brief")
+    if consultation.get("decision_brief_required_before_material_request") is not True:
+        errors.append("authority contract must require a brief before material requests")
+    blocks = {item.get("id"): item for item in building_blocks.get("building_blocks", [])}
+    if "decision brief when material human consultation is required" not in blocks.get("BB-INTEGRATE", {}).get("outputs", []):
+        errors.append("BB-INTEGRATE must output a decision brief for material consultation")
+    if "complete decision brief" not in blocks.get("BB-TRACE", {}).get("outputs", []):
+        errors.append("BB-TRACE must expose the complete decision brief")
     return errors
 
 
