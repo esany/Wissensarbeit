@@ -32,9 +32,9 @@
       "rationale": "Novelty drift, accretion and false-completion risks are directly exercised by locally green changes that leave global state stale."
     },
     "decisions_concepts": {
-      "disposition": "needs-decision",
-      "objects": ["canonical-decision-and-concept-state"],
-      "rationale": "The repository promises decisions in project state but has no equivalent canonical decision/concept artifact. This gate must expose the gap but must not invent a registry in this PR."
+      "disposition": "unchanged",
+      "objects": ["pre-existing-gap:canonical-decision-and-concept-state"],
+      "rationale": "The missing equivalent canonical decision/concept representation predates this change. This PR exposes but does not expand or resolve that separate gap."
     },
     "derived_views": {
       "disposition": "refined",
@@ -47,12 +47,6 @@
       "rationale": "Open work must be considered for changed meaning after material merges instead of remaining silently stale."
     }
   },
-  "unresolved": [
-    {
-      "id": "canonical-decision-and-concept-state",
-      "status": "needs-decision",
-      "reason": "A separate decision is required on whether existing GitHub/PR history is sufficient or a minimal canonical decision/concept representation is needed. The reconciliation gate itself does not decide this."
-    }
-  ],
-  "systemically_integrated": false
+  "unresolved": [],
+  "systemically_integrated": true
 }
