@@ -76,6 +76,23 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
         self.assertIn("VALIDATION PASS", proc.stdout)
 
+    def test_foundation_harvest_covers_all_requirements_and_keeps_gaps_visible(self):
+        harvest = work.load(work.FOUNDATION_HARVEST)
+        requirements = work.load(work.REQ)["requirements"]
+        self.assertEqual(work.validate_foundation_harvest(harvest, requirements), [])
+        records = harvest["records"]
+        self.assertEqual({r["requirement_id"] for r in records}, {r["id"] for r in requirements})
+        gaps = [r for r in records if r["classification"] == "provenance-gap"]
+        self.assertTrue(gaps, "at least one unresolved provenance gap must remain visible")
+        self.assertTrue(all(r["persistent_action"]["type"] == "no_change" for r in gaps))
+
+    def test_external_historical_evidence_cannot_be_project_primary(self):
+        harvest = work.load(work.FOUNDATION_HARVEST)
+        requirements = work.load(work.REQ)["requirements"]
+        harvest["records"][0]["source_ref"]["chat_id"] = "external-chat-id"
+        errors = work.validate_foundation_harvest(harvest, requirements)
+        self.assertTrue(any("external historical evidence cannot be project-primary" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
