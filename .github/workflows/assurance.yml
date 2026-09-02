@@ -24,6 +24,8 @@ jobs:
         run: python tools/material_state.py check tests/fixtures/material_state_boundary_pass.json
       - name: Check systemic reconciliation gate
         run: python tools/reconcile.py project/reconciliation.json
+      - name: Validate AI failure eval corpus
+        run: python tools/evals.py validate
       - name: Run regression tests
         run: python -m unittest discover -s tests -v
       - name: Derive current state
@@ -36,7 +38,8 @@ jobs:
           {
             echo '## Wissensarbeit assurance'
             echo
-            echo '- Contract validation, audit, material-state boundary check, systemic reconciliation gate and regressions were executed.'
+            echo '- Contract validation, audit, material-state boundary, systemic reconciliation, AI failure-corpus validation and regressions were executed.'
             echo '- `CURRENT_STATE.md` must be reproducible from canonical state and exposes the current reconciliation status.'
-            echo '- Passing CI proves formal consistency and reconciliation completeness, not semantic correctness, domain truth or owner acceptance.'
+            echo '- Eval fixtures automate invariant checking but do not themselves execute a fresh model.'
+            echo '- Passing CI proves formal consistency, not semantic completeness, domain truth or owner acceptance.'
           } >> "$GITHUB_STEP_SUMMARY"
