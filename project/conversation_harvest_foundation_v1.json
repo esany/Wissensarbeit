@@ -1,0 +1,154 @@
+{
+  "schema_version": "1.0",
+  "harvest_id": "WA-HARVEST-FOUNDATION-001",
+  "harvested_at": "2026-09-02",
+  "source_conversation": {
+    "title": "00-Audit der Repositories",
+    "chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf",
+    "scope": "project-primary",
+    "ref": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"
+  },
+  "canonical_chain": {
+    "issue": "https://github.com/esany/Wissensarbeit/issues/1",
+    "pull_request": "https://github.com/esany/Wissensarbeit/pull/2",
+    "main_requirements": "https://github.com/esany/Wissensarbeit/blob/main/project/requirements.json",
+    "foundation_commit": "18aca3112eacbe31fb2acc6320ebee4249185409"
+  },
+  "classification_values": ["direct-owner-supported", "composite-owner-intent", "later-operationalization", "indirectly-supported", "provenance-gap"],
+  "records": [
+    {
+      "id": "WA-FP-REQ-001", "requirement_id": "REQ-001", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "A competent worker must be able to restart the project without prior chat history.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["fa0da588-38b8-4b22-a920-143b0f5413bb"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-001", "CRIT-001", "VAL-STATE"], "disposition": "no-change",
+      "rationale": "The owner explicitly requires every instance to read project ideas cleanly and interact across chats; PR #2 turns that intent into the stronger restart-without-chat formulation.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "provenance only; current requirement remains unchanged"}
+    },
+    {
+      "id": "WA-FP-REQ-002", "requirement_id": "REQ-002", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "Material knowledge and consequential changes must be persistently traceable in Git/GitHub.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["7362afc1-006f-4ecf-a77d-5b6835ca94fc", "fa0da588-38b8-4b22-a920-143b0f5413bb"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-002", "CRIT-002", "VAL-TRACE"], "disposition": "no-change",
+      "rationale": "The owner explicitly asks that concepts be documented sustainably and transparently in Git for human review, instance reconstruction and cross-chat continuity.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "provenance only; current requirement remains unchanged"}
+    },
+    {
+      "id": "WA-FP-REQ-003", "requirement_id": "REQ-003", "classification": "composite-owner-intent",
+      "current_main_requirement_text": "New aspects must be assessed against existing objective, state, requirements and decisions before canonical integration.",
+      "source_type": "conversation-turn-set", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["a95a5dcd-b4d5-4459-802d-bc3e2ff34ee2", "b9e25cb9-d170-4ac7-aca4-0f61463c80a5"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "medium", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-003", "CRIT-003", "VAL-INTEGRATION", "BB-INTEGRATE"], "disposition": "no-change",
+      "rationale": "Owner corrections require concepts to flow into the whole project while preventing a pilot or case details from taking over the generic system; the exact integration contract is AI formalization.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "composite intent is recorded without retroactive claim of verbatim origin"}
+    },
+    {
+      "id": "WA-FP-REQ-004", "requirement_id": "REQ-004", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "The system must maximize autonomous AI operation for recurring routines and necessary project operations while explicitly involving the human in material choices, meaning, priority, risk acceptance and consequential changes.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["c13c8f98-6db0-49f7-8723-6f17e0f077d5"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-004", "CRIT-004", "VAL-AUTHORITY"], "disposition": "no-change",
+      "rationale": "The owner directly distinguishes automation of recurring routines and operational necessities from consultation on central matters and consequences.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "provenance only; current requirement remains unchanged"}
+    },
+    {
+      "id": "WA-FP-REQ-005", "requirement_id": "REQ-005", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "The system must detect required domain, method, project, technical and interface competencies for material work.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["2ad268d1-f22b-4176-8444-d01acd6fc171"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary_with_embedded_ai_context", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-005", "CRIT-005", "REV-COMPETENCE", "BB-COMPETENCE"], "disposition": "no-change",
+      "rationale": "The owner explicitly asks for domain competencies, methods, models, terminology and transdisciplinary interface competencies alongside development and project steering.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "the owner sentence is primary; the embedded assistant expansion is interpretive context"}
+    },
+    {
+      "id": "WA-FP-REQ-006", "requirement_id": "REQ-006", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "Relevant competencies must research current state of the art, best practice and project fit when material uncertainty warrants it.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["2ad268d1-f22b-4176-8444-d01acd6fc171"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary_with_embedded_ai_context", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-006", "CRIT-006", "REV-SOTA", "BB-RESEARCH"], "disposition": "no-change",
+      "rationale": "The owner directly asks whether competencies independently search SOTA, best practice and fit, and requests the same behavior for domain work.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "provenance only; current requirement remains unchanged"}
+    },
+    {
+      "id": "WA-FP-REQ-007", "requirement_id": "REQ-007", "classification": "later-operationalization",
+      "current_main_requirement_text": "Requirements, criteria, decisions, implementation and verification must be linkable end-to-end.",
+      "source_type": "conversation-and-foundation-issue", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["559c7b84-7a2f-428a-9ea6-ab6032422d82"], "issue": "https://github.com/esany/Wissensarbeit/issues/1", "pull_request": "https://github.com/esany/Wissensarbeit/pull/2"},
+      "source_role": "ai_interpretation_from_owner_intent", "uncertainty": "medium", "authority": "accepted-main-state-not-verbatim-owner-source",
+      "affected_canonical_ids": ["REQ-007", "CRIT-007", "VAL-COVERAGE"], "disposition": "no-change",
+      "rationale": "The owner demands loss-controlled realization without repeating earlier failures; the precise end-to-end chain appears as the Foundation issue and PR operationalization, not as located verbatim owner language.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "record later operationalization explicitly"}
+    },
+    {
+      "id": "WA-FP-REQ-008", "requirement_id": "REQ-008", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "Recurring project-operation routines and necessities required to keep the system healthy should be automated by default so human attention is reserved for domain questions and material decisions rather than workflow administration.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["c13c8f98-6db0-49f7-8723-6f17e0f077d5"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-008", "CRIT-008", "REV-HUMAN-EFFORT"], "disposition": "no-change",
+      "rationale": "The owner expressly limits automation to recurring routines and necessities that keep the system running while retaining consultation on central matters.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "provenance only; current requirement remains unchanged"}
+    },
+    {
+      "id": "WA-FP-REQ-009", "requirement_id": "REQ-009", "classification": "provenance-gap",
+      "current_main_requirement_text": "The template must support outcomes ranging from knowledge artifacts to pure software, backend, data systems or AI-enabled products.",
+      "source_type": "foundation-issue-and-pr", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": [], "issue": "https://github.com/esany/Wissensarbeit/issues/1", "pull_request": "https://github.com/esany/Wissensarbeit/pull/2"},
+      "source_role": "ai_interpretation", "uncertainty": "high", "authority": "accepted-main-state-owner-primary-source-not-located",
+      "affected_canonical_ids": ["REQ-009", "CRIT-009", "REV-OUTCOME-FLEX"], "disposition": "provenance-gap",
+      "rationale": "Issue #1 and PR #2 contain the outcome-flexibility claim, but no stable owner-primary turn supporting its full range was located in the project chat pages reviewed.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "keep the missing owner-primary link visible; do not manufacture provenance"}
+    },
+    {
+      "id": "WA-FP-REQ-010", "requirement_id": "REQ-010", "classification": "indirectly-supported",
+      "current_main_requirement_text": "Data, backend, ML/AI, infrastructure and DevOps choices must be derived from observed needs rather than prescribed by the template.",
+      "source_type": "conversation-turn-set", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["a95a5dcd-b4d5-4459-802d-bc3e2ff34ee2", "7b907ec3-450d-4c30-81bc-8c51a2f835e7"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "medium", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-010", "CRIT-010", "REV-ARCH-FIT"], "disposition": "no-change",
+      "rationale": "The owner rejects large prefabricated rule/structure waves that may miss the goal and equates lean with quality-preserving sufficiency; the enumerated technology-decision rule is a later synthesis.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "retain indirect support and uncertainty"}
+    },
+    {
+      "id": "WA-FP-REQ-011", "requirement_id": "REQ-011", "classification": "later-operationalization",
+      "current_main_requirement_text": "Deterministic checks, judgement-based reviews and human acceptance must remain distinguishable.",
+      "source_type": "foundation-issue-and-pr", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["24e17ab4-c82a-43fe-895e-bf7cb94995b0"], "issue": "https://github.com/esany/Wissensarbeit/issues/1", "pull_request": "https://github.com/esany/Wissensarbeit/pull/2"},
+      "source_role": "ai_interpretation_from_owner_review_context", "uncertainty": "medium", "authority": "accepted-main-state-not-verbatim-owner-source",
+      "affected_canonical_ids": ["REQ-011", "CRIT-011", "VAL-RULE-CLASS"], "disposition": "no-change",
+      "rationale": "The separation was presented to the owner during Foundation review and then encoded in Issue #1/PR #2; a direct owner formulation of the three classes was not located.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "record later operationalization explicitly"}
+    },
+    {
+      "id": "WA-FP-REQ-012", "requirement_id": "REQ-012", "classification": "later-operationalization",
+      "current_main_requirement_text": "The repository must provide a minimal executable operational core for inspect, context, integrate, validate, trace, derive and audit capabilities.",
+      "source_type": "foundation-issue-and-pr", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["559c7b84-7a2f-428a-9ea6-ab6032422d82", "b41ae641-273d-487a-b31f-4d3232e7c9c6"], "issue": "https://github.com/esany/Wissensarbeit/issues/1", "pull_request": "https://github.com/esany/Wissensarbeit/pull/2"},
+      "source_role": "ai_interpretation_from_owner_implementation_request", "uncertainty": "low", "authority": "accepted-main-state-not-verbatim-owner-source",
+      "affected_canonical_ids": ["REQ-012", "CRIT-012", "TEST-CLI"], "disposition": "no-change",
+      "rationale": "The owner demands realization rather than more chat and loss-controlled implementation; the exact dependency-free command set is the Foundation implementation choice.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "record implementation-derived specificity"}
+    },
+    {
+      "id": "WA-FP-REQ-013", "requirement_id": "REQ-013", "classification": "direct-owner-supported",
+      "current_main_requirement_text": "Generic support capabilities across the project lifecycle must be formalized as composable building blocks with explicit purpose, inputs, outputs and automation/authority expectations, without prescribing domain-specific implementation structure.",
+      "source_type": "conversation-turn", "source_scope": "project-primary",
+      "source_ref": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_ids": ["c13c8f98-6db0-49f7-8723-6f17e0f077d5"], "uri": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"},
+      "source_role": "owner_primary", "uncertainty": "low", "authority": "owner-intent-evidence",
+      "affected_canonical_ids": ["REQ-013", "CRIT-013", "VAL-BUILDING-BLOCKS"], "disposition": "no-change",
+      "rationale": "The owner explicitly says the concern is the formalization of generic building blocks; PR #2 supplies the precise composable contract fields.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirement", "reason": "provenance only; current requirement remains unchanged"}
+    }
+  ],
+  "external_historical_evidence": {
+    "status": "excluded-from-project-primary",
+    "note": "Earlier conversations may support historical intent, but none may be relabeled project-primary. They require their own external-historical-evidence source records."
+  }
+}

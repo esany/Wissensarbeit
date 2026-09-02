@@ -19,8 +19,9 @@ FITNESS = ROOT / "system" / "architecture_fitness.json"
 BUILDING_BLOCKS = ROOT / "system" / "building_blocks.json"
 OBJECTIVE = ROOT / "project" / "GOVERNING_OBJECTIVE.md"
 CURRENT = ROOT / "project" / "CURRENT_STATE.md"
+FOUNDATION_HARVEST = ROOT / "project" / "conversation_harvest_foundation_v1.json"
 
-REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, BUILDING_BLOCKS, OBJECTIVE]
+REQUIRED_FILES = [REQ, QUALITY, CRITERIA, VERIFICATION, LIFECYCLE, AUTHORITY, COMPETENCE, FITNESS, BUILDING_BLOCKS, OBJECTIVE, FOUNDATION_HARVEST]
 
 
 def load(path: Path):
@@ -50,6 +51,7 @@ def validate() -> list[str]:
         competence = load(COMPETENCE)
         fitness = load(FITNESS)
         building_blocks = load(BUILDING_BLOCKS)
+        foundation_harvest = load(FOUNDATION_HARVEST)
     except (json.JSONDecodeError, OSError) as exc:
         return [f"cannot load contract data: {exc}"]
 
@@ -139,6 +141,49 @@ def validate() -> list[str]:
                 errors.append(f"{bid}: missing {field}")
     if not building_blocks.get("composition_principles"):
         errors.append("building-block composition principles are missing")
+    errors.extend(validate_foundation_harvest(foundation_harvest, reqs))
+    return errors
+
+
+def validate_foundation_harvest(harvest: dict, requirements: list[dict]) -> list[str]:
+    errors: list[str] = []
+    expected_chat_id = "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"
+    allowed_classes = {"direct-owner-supported", "composite-owner-intent", "later-operationalization", "indirectly-supported", "provenance-gap"}
+    allowed_roles = {"owner_primary", "owner_primary_with_embedded_ai_context", "ai_interpretation", "ai_interpretation_from_owner_intent", "ai_interpretation_from_owner_review_context", "ai_interpretation_from_owner_implementation_request"}
+    required_fields = {"id", "requirement_id", "classification", "current_main_requirement_text", "source_type", "source_scope", "source_ref", "source_role", "uncertainty", "authority", "affected_canonical_ids", "disposition", "rationale", "persistent_action"}
+    records = harvest.get("records", [])
+    req_map = {r.get("id"): r for r in requirements}
+    record_ids = [r.get("requirement_id") for r in records]
+    if set(record_ids) != set(req_map) or len(record_ids) != len(set(record_ids)):
+        errors.append("foundation harvest must contain exactly one record for every canonical requirement")
+    for record in records:
+        rid = record.get("requirement_id", "<unknown>")
+        missing = sorted(required_fields - set(record))
+        if missing:
+            errors.append(f"{rid}: harvest record missing fields {missing}")
+            continue
+        if record["classification"] not in allowed_classes:
+            errors.append(f"{rid}: invalid provenance classification {record['classification']}")
+        if record["source_role"] not in allowed_roles:
+            errors.append(f"{rid}: invalid source role {record['source_role']}")
+        if record["source_scope"] not in {"project-primary", "external-historical-evidence"}:
+            errors.append(f"{rid}: invalid source scope {record['source_scope']}")
+        source_ref = record["source_ref"]
+        if record["source_scope"] == "project-primary" and source_ref.get("chat_id") not in {None, expected_chat_id}:
+            errors.append(f"{rid}: external historical evidence cannot be project-primary")
+        canonical = req_map.get(rid)
+        if canonical and record["current_main_requirement_text"] != canonical.get("statement"):
+            errors.append(f"{rid}: harvested main requirement text is stale")
+        if rid not in record["affected_canonical_ids"]:
+            errors.append(f"{rid}: affected canonical IDs must include the requirement")
+        action = record["persistent_action"]
+        if not isinstance(action, dict) or action.get("type") not in {"no_change", "issue-update", "pr-candidate", "file-update"}:
+            errors.append(f"{rid}: invalid persistent action")
+        if record["classification"] == "provenance-gap":
+            if record["uncertainty"] != "high" or record["disposition"] != "provenance-gap":
+                errors.append(f"{rid}: provenance gap must remain explicit with high uncertainty")
+            if source_ref.get("turn_ids"):
+                errors.append(f"{rid}: provenance gap must not claim an owner-primary turn")
     return errors
 
 

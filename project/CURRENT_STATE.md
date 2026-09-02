@@ -33,6 +33,7 @@ data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 - `system/architecture_fitness.json`
 - `system/building_blocks.json`
 - `project/GOVERNING_OBJECTIVE.md`
+- `project/conversation_harvest_foundation_v1.json`
 
 ## Next operational proof
 Run one real Issue -> candidate -> requirement/criterion -> implementation -> verification -> PR -> merge -> derive/restart cycle and record failures as regressions.
