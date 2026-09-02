@@ -1,0 +1,21 @@
+{
+  "boundary": "handoff",
+  "items": [
+    {
+      "id": "WA-MAT-001",
+      "source_ref": "github-issue://esany/Wissensarbeit/5#continuous-externalization",
+      "type": "owner-need",
+      "materiality": "material",
+      "authority": "owner-primary",
+      "scope": "generic-core",
+      "canonical_refs": ["REQ-002", "REQ-008", "BB-INTEGRATE", "BB-TRACE", "BB-OPERATE", "BB-LEARN"],
+      "disposition": "refine",
+      "uncertainty": "low",
+      "persistence_status": "persisted",
+      "persistent_action": {
+        "type": "issue-comment",
+        "ref": "https://github.com/esany/Wissensarbeit/issues/5"
+      }
+    }
+  ]
+}
