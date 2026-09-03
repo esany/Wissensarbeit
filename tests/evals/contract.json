@@ -37,7 +37,7 @@
     "do-not-promote-material-decision": ["no-material-decision"],
     "silence-or-enthusiasm-not-acceptance": ["ok-nonauthoritative", "ok-not-material-acceptance", "do-not-treat-ok-as-acceptance", "do-not-infer-acceptance"],
     "preserve-separation": ["preserve-separation", "retain-separate-findings"],
-    "relation-unresolved": ["relation-unresolved", "relation-possible"],
+    "relation-unresolved": ["relation-unresolved", "unresolved-relation", "relation-possible"],
     "two-distinct-findings": ["finding-a-distinct", "finding-b-distinct", "identity-not-inferred"],
     "scope-impact-review": ["bounded-reconciliation-review", "read-only-impact-inspection"],
     "green-does-not-prove-coherence": ["ci-green-formal-only", "local-correctness-not-system-coherence"],
