@@ -23,7 +23,7 @@ domain, project, research, data, software, intelligence, operations, interfaces
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
-- Current change: `core/semantic-eval-grader`
+- Current change: `evals/round-2-robustness`
 - Systemically integrated: `true`
 - Unresolved reconciliation blockers: 0
 
