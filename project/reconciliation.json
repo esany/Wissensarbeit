@@ -1,67 +1,59 @@
 {
   "schema_version": "1.0",
-  "change_id": "core/failure-corpus-evals",
+  "change_id": "core/semantic-eval-grader",
   "materiality": "material",
-  "summary": "Turn demonstrated cross-repository AI failure patterns into test-only capability/regression fixtures and a deterministic render/grade harness without creating new requirements, building blocks or canonical truth stores.",
+  "summary": "Harden the test-only eval grader against empirically observed false negatives by normalizing token syntax, accepting versioned evidence-backed semantic aliases, tolerating string/array result forms, and pooling descriptive invariant fields while keeping selected_action field-strict and forbidden meanings fail-closed.",
   "source_refs": [
-    "REQ-001",
-    "REQ-002",
     "REQ-003",
     "REQ-004",
     "REQ-007",
-    "REQ-008",
     "REQ-011",
-    "REQ-012",
-    "R-001",
-    "R-002",
-    "R-003",
     "R-004",
     "R-005",
-    "R-006",
-    "R-007",
     "R-008",
-    "R-009",
-    "R-010",
-    "issue-5",
     "issue-7",
-    "issue-11",
-    "external:esany/paleo-type#25,#62,#70,#74,#75,#78,#86,#87,PR88",
-    "external:esany/pflege-arnshaugk-historie#65",
-    "external:esany/rgk-main-ssot#22",
-    "external:esany/Synthese#7"
+    "PR14",
+    "WA-EVAL-001",
+    "WA-EVAL-002",
+    "WA-EVAL-004",
+    "WA-EVAL-006",
+    "WA-EVAL-008"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "confirmed",
-      "objects": ["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-007", "REQ-008", "REQ-011", "REQ-012"],
-      "rationale": "The observed failure families are already substantially covered by existing requirements. The eval slice tests those requirements and does not promote new requirements."
+      "objects": ["REQ-003", "REQ-004", "REQ-007", "REQ-011"],
+      "rationale": "The change improves assurance fidelity for existing contracts; it adds no new project requirement."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["issue-5", "issue-7", "issue-11"],
-      "rationale": "Harvest, continuity, restart and prior audit findings now have reusable historical replay fixtures, but the harness does not claim the generic harvest runtime or full fresh-model execution is complete."
+      "objects": ["issue-7"],
+      "rationale": "The first empirical five-case eval round exposed deterministic grader false negatives caused by exact-token and result-shape variance; this slice addresses that observed harness defect."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-006", "R-007", "R-008", "R-009", "R-010"],
-      "rationale": "The seven deduplicated failure families operationalize regression evidence for the existing risk model rather than adding a parallel risk taxonomy."
+      "objects": ["R-004", "R-005", "R-008"],
+      "rationale": "The grader must not turn plausible syntax differences into false failure claims or relax forbidden semantic states into false completion."
     },
     "decisions_concepts": {
       "disposition": "unchanged",
       "objects": ["pre-existing-gap:canonical-decision-and-concept-state"],
-      "rationale": "This slice deliberately places the failure corpus and eval contract under tests/evals so they do not become a new canonical concept/decision registry."
+      "rationale": "Token equivalence remains test-harness configuration under tests/evals and does not become a new project concept or semantic ontology."
     },
     "derived_views": {
-      "disposition": "unchanged",
+      "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md", "tools/work.py::derive"],
-      "rationale": "No new canonical project-state source is introduced. Eval fixtures remain test evidence, so the generated canonical-source view does not need a new truth owner."
+      "rationale": "The current reconciliation pointer must identify this material assurance change; no new canonical source is introduced."
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["issue-5", "issue-7", "issue-11", "future cross-repo eval runs"],
-      "rationale": "Known failures can now be rendered as model-independent eval prompts and deterministically graded after a run. Real fresh-model execution remains a separate empirical step."
+      "objects": ["empirical eval round", "future repeated trials"],
+      "rationale": "Existing real trial outputs now become regression inputs for the grader before expanding the trial matrix."
     }
   },
-  "unresolved": [],
+  "unresolved": [
+    "Semantic aliases outside the evidence-backed equivalence map remain judgement and must not be guessed by the deterministic grader.",
+    "A deterministic semantic-equivalence layer does not replace repeated fresh-model trials or human review of genuinely ambiguous outputs."
+  ],
   "systemically_integrated": true
 }
