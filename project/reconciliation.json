@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "change_id": "core/semantic-eval-grader",
   "materiality": "material",
-  "summary": "Harden the test-only eval grader against empirically observed false negatives by normalizing token syntax, accepting versioned evidence-backed semantic aliases, tolerating string/array result forms, and pooling descriptive invariant fields while keeping selected_action field-strict and forbidden meanings fail-closed.",
+  "summary": "Harden the test-only eval grader against empirically observed false negatives by normalizing token syntax, accepting versioned evidence-backed semantic aliases, tolerating string/array result forms, and pooling descriptive invariant fields while keeping selected_action field-strict and forbidden meanings fail-closed. New synonym equivalence remains judgement unless added explicitly from empirical evidence or review.",
   "source_refs": [
     "REQ-003",
     "REQ-004",
@@ -48,12 +48,9 @@
     "active_work": {
       "disposition": "refined",
       "objects": ["empirical eval round", "future repeated trials"],
-      "rationale": "Existing real trial outputs now become regression inputs for the grader before expanding the trial matrix."
+      "rationale": "Existing real trial outputs become regression inputs before expanding the trial matrix. The deterministic alias map does not replace repeated fresh-model trials or human review of genuinely ambiguous outputs."
     }
   },
-  "unresolved": [
-    "Semantic aliases outside the evidence-backed equivalence map remain judgement and must not be guessed by the deterministic grader.",
-    "A deterministic semantic-equivalence layer does not replace repeated fresh-model trials or human review of genuinely ambiguous outputs."
-  ],
+  "unresolved": [],
   "systemically_integrated": true
 }
