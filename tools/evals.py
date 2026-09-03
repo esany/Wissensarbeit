@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -16,6 +17,28 @@ CASES = ROOT / "tests" / "fixtures" / "eval_cases.json"
 def load(path: Path):
     with path.open(encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def _normalize_token(value: object) -> str:
+    text = str(value).strip().lower()
+    text = re.sub(r"[\s_]+", "-", text)
+    text = re.sub(r"-+", "-", text)
+    return text
+
+
+def _equivalence_map(contract: dict) -> dict[str, str]:
+    mapping: dict[str, str] = {}
+    for canonical, aliases in contract.get("token_equivalence", {}).items():
+        canonical_norm = _normalize_token(canonical)
+        mapping[canonical_norm] = canonical_norm
+        for alias in aliases:
+            mapping[_normalize_token(alias)] = canonical_norm
+    return mapping
+
+
+def _canonical_token(value: object, mapping: dict[str, str]) -> str:
+    normalized = _normalize_token(value)
+    return mapping.get(normalized, normalized)
 
 
 def validate() -> list[str]:
@@ -43,6 +66,17 @@ def validate() -> list[str]:
         errors.append("evaluation contract is missing required case types")
     if not {"case_id", "selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"}.issubset(required_result):
         errors.append("evaluation result schema is incomplete")
+
+    alias_owner: dict[str, str] = {}
+    for canonical, aliases in contract.get("token_equivalence", {}).items():
+        canonical_norm = _normalize_token(canonical)
+        for raw in [canonical, *aliases]:
+            alias_norm = _normalize_token(raw)
+            previous = alias_owner.get(alias_norm)
+            if previous is not None and previous != canonical_norm:
+                errors.append(f"token equivalence alias {alias_norm} maps to multiple meanings: {previous}, {canonical_norm}")
+            alias_owner[alias_norm] = canonical_norm
+
     cases = cases_doc.get("cases", [])
     case_ids = [item.get("id") for item in cases]
     if not cases or None in case_ids or len(case_ids) != len(set(case_ids)):
@@ -98,7 +132,9 @@ def _values(result: dict, field: str) -> list[str]:
 
 def grade(case: dict, result: dict) -> list[str]:
     errors: list[str] = []
-    required_fields = load(CONTRACT).get("result_schema", {}).get("required_fields", [])
+    contract = load(CONTRACT)
+    required_fields = contract.get("result_schema", {}).get("required_fields", [])
+    equivalents = _equivalence_map(contract)
     for field in required_fields:
         if field not in result:
             errors.append(f"result missing field {field}")
@@ -106,16 +142,20 @@ def grade(case: dict, result: dict) -> list[str]:
         errors.append(f"case_id mismatch: expected {case.get('id')}")
     expect = case.get("expect", {})
     for field in ("selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"):
-        actual = set(_values(result, field))
+        actual = {_canonical_token(value, equivalents) for value in _values(result, field)}
         for token in expect.get(field, []):
-            if token not in actual:
-                errors.append(f"{field}: missing expected token {token}")
+            expected = _canonical_token(token, equivalents)
+            if expected not in actual:
+                errors.append(f"{field}: missing expected meaning {expected}")
     all_tokens = set()
     for field in required_fields:
-        all_tokens.update(_values(result, field))
+        if field == "case_id":
+            continue
+        all_tokens.update(_canonical_token(value, equivalents) for value in _values(result, field))
     for token in expect.get("forbidden_anywhere", []):
-        if token in all_tokens:
-            errors.append(f"forbidden token present: {token}")
+        forbidden = _canonical_token(token, equivalents)
+        if forbidden in all_tokens:
+            errors.append(f"forbidden meaning present: {forbidden}")
     return errors
 
 
