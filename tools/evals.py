@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CORPUS = ROOT / "tests" / "evals" / "failure_corpus.json"
 CONTRACT = ROOT / "tests" / "evals" / "contract.json"
 CASES = ROOT / "tests" / "fixtures" / "eval_cases.json"
+SEMANTIC_FIELDS = ("claims", "preserved_states", "authority", "routing", "questions", "notes")
 
 
 def load(path: Path):
@@ -95,7 +96,7 @@ def validate() -> list[str]:
             if case.get(field) in (None, "", []):
                 errors.append(f"{cid}: missing {field}")
         expect = case.get("expect", {})
-        if not any(key in expect for key in ("selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes", "forbidden_anywhere")):
+        if not any(key in expect for key in ("selected_action", *SEMANTIC_FIELDS, "forbidden_anywhere")):
             errors.append(f"{cid}: no deterministic expectation configured")
     missing_coverage = known_families - covered_families
     if missing_coverage:
@@ -140,18 +141,24 @@ def grade(case: dict, result: dict) -> list[str]:
             errors.append(f"result missing field {field}")
     if result.get("case_id") != case.get("id"):
         errors.append(f"case_id mismatch: expected {case.get('id')}")
+
     expect = case.get("expect", {})
-    for field in ("selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"):
-        actual = {_canonical_token(value, equivalents) for value in _values(result, field)}
+    actual_actions = {_canonical_token(value, equivalents) for value in _values(result, "selected_action")}
+    for token in expect.get("selected_action", []):
+        expected = _canonical_token(token, equivalents)
+        if expected not in actual_actions:
+            errors.append(f"selected_action: missing expected meaning {expected}")
+
+    semantic_actual = set()
+    for field in SEMANTIC_FIELDS:
+        semantic_actual.update(_canonical_token(value, equivalents) for value in _values(result, field))
+    for field in SEMANTIC_FIELDS:
         for token in expect.get(field, []):
             expected = _canonical_token(token, equivalents)
-            if expected not in actual:
-                errors.append(f"{field}: missing expected meaning {expected}")
-    all_tokens = set()
-    for field in required_fields:
-        if field == "case_id":
-            continue
-        all_tokens.update(_canonical_token(value, equivalents) for value in _values(result, field))
+            if expected not in semantic_actual:
+                errors.append(f"semantic result: missing expected meaning {expected} (declared under {field})")
+
+    all_tokens = set(actual_actions) | semantic_actual
     for token in expect.get("forbidden_anywhere", []):
         forbidden = _canonical_token(token, equivalents)
         if forbidden in all_tokens:
