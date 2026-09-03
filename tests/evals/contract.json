@@ -43,7 +43,7 @@
     "green-does-not-prove-coherence": ["ci-green-formal-only", "local-correctness-not-system-coherence"],
     "canonical-boundaries": ["canonical-boundaries-preserved"],
     "reconcile": ["reconcile", "read-only-reconciliation-audit"],
-    "ci-not-domain-truth": ["ci-not-domain-truth", "ci-green-formal-only"],
+    "ci-not-domain-truth": ["ci-not-domain-truth"],
     "global-state-not-proven-current": ["global-state-not-proven-current", "pr12-systemic-status-not-proven"],
     "current-state-must-be-checked": ["current-state-must-be-checked", "documentation-reconciliation-not-established"]
   },
