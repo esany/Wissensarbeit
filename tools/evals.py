@@ -27,14 +27,21 @@ def _normalize_token(value: object) -> str:
     return text
 
 
-def _equivalence_map(contract: dict) -> dict[str, str]:
+def _equivalence_map(equivalences: dict) -> dict[str, str]:
     mapping: dict[str, str] = {}
-    for canonical, aliases in contract.get("token_equivalence", {}).items():
+    for canonical, aliases in equivalences.items():
         canonical_norm = _normalize_token(canonical)
         mapping[canonical_norm] = canonical_norm
         for alias in aliases:
             mapping[_normalize_token(alias)] = canonical_norm
     return mapping
+
+
+def _case_equivalence_map(contract: dict, case_id: str, kind: str) -> dict[str, str]:
+    equivalences = {canonical: list(aliases) for canonical, aliases in contract.get("token_equivalence", {}).items()}
+    for canonical, aliases in contract.get("case_rules", {}).get(case_id, {}).get(kind, {}).items():
+        equivalences.setdefault(canonical, []).extend(aliases)
+    return _equivalence_map(equivalences)
 
 
 def _canonical_token(value: object, mapping: dict[str, str]) -> str:
@@ -68,15 +75,47 @@ def validate() -> list[str]:
     if not {"case_id", "selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"}.issubset(required_result):
         errors.append("evaluation result schema is incomplete")
 
-    alias_owner: dict[str, str] = {}
-    for canonical, aliases in contract.get("token_equivalence", {}).items():
-        canonical_norm = _normalize_token(canonical)
-        for raw in [canonical, *aliases]:
-            alias_norm = _normalize_token(raw)
-            previous = alias_owner.get(alias_norm)
-            if previous is not None and previous != canonical_norm:
-                errors.append(f"token equivalence alias {alias_norm} maps to multiple meanings: {previous}, {canonical_norm}")
-            alias_owner[alias_norm] = canonical_norm
+    def validate_equivalences(equivalences: dict, scope: str) -> None:
+        alias_owner: dict[str, str] = {}
+        for canonical, aliases in equivalences.items():
+            if not isinstance(aliases, list) or not all(isinstance(alias, str) and alias.strip() for alias in aliases):
+                errors.append(f"{scope}: token equivalence aliases for {canonical} must be non-empty strings")
+                continue
+            canonical_norm = _normalize_token(canonical)
+            for raw in [canonical, *aliases]:
+                alias_norm = _normalize_token(raw)
+                previous = alias_owner.get(alias_norm)
+                if previous is not None and previous != canonical_norm:
+                    errors.append(f"{scope}: token equivalence alias {alias_norm} maps to multiple meanings: {previous}, {canonical_norm}")
+                alias_owner[alias_norm] = canonical_norm
+
+    global_equivalences = contract.get("token_equivalence", {})
+    validate_equivalences(global_equivalences, "global")
+    case_by_id = {item.get("id"): item for item in cases_doc.get("cases", [])}
+    for case_id, rules in contract.get("case_rules", {}).items():
+        if case_id not in case_by_id:
+            errors.append(f"case rules reference unknown case {case_id}")
+            continue
+        for kind in ("selected_action_equivalence", "semantic_equivalence"):
+            combined = {canonical: list(aliases) for canonical, aliases in global_equivalences.items()}
+            for canonical, aliases in rules.get(kind, {}).items():
+                combined.setdefault(canonical, []).extend(aliases)
+            validate_equivalences(combined, f"{case_id} {kind}")
+        composites = rules.get("semantic_composites", {})
+        expected_semantics = {
+            _normalize_token(token)
+            for field in SEMANTIC_FIELDS
+            for token in case_by_id[case_id].get("expect", {}).get(field, [])
+        }
+        for meaning, alternatives in composites.items():
+            if _normalize_token(meaning) not in expected_semantics:
+                errors.append(f"{case_id}: composite meaning {meaning} is not expected by the case")
+            if not isinstance(alternatives, list) or not alternatives:
+                errors.append(f"{case_id}: composite meaning {meaning} needs alternatives")
+                continue
+            for alternative in alternatives:
+                if not isinstance(alternative, list) or not alternative or not all(isinstance(token, str) and token.strip() for token in alternative):
+                    errors.append(f"{case_id}: composite alternative for {meaning} must contain tokens")
 
     cases = cases_doc.get("cases", [])
     case_ids = [item.get("id") for item in cases]
@@ -135,7 +174,9 @@ def grade(case: dict, result: dict) -> list[str]:
     errors: list[str] = []
     contract = load(CONTRACT)
     required_fields = contract.get("result_schema", {}).get("required_fields", [])
-    equivalents = _equivalence_map(contract)
+    case_id = case.get("id", "")
+    action_equivalents = _case_equivalence_map(contract, case_id, "selected_action_equivalence")
+    semantic_equivalents = _case_equivalence_map(contract, case_id, "semantic_equivalence")
     for field in required_fields:
         if field not in result:
             errors.append(f"result missing field {field}")
@@ -143,24 +184,27 @@ def grade(case: dict, result: dict) -> list[str]:
         errors.append(f"case_id mismatch: expected {case.get('id')}")
 
     expect = case.get("expect", {})
-    actual_actions = {_canonical_token(value, equivalents) for value in _values(result, "selected_action")}
+    actual_actions = {_canonical_token(value, action_equivalents) for value in _values(result, "selected_action")}
     for token in expect.get("selected_action", []):
-        expected = _canonical_token(token, equivalents)
+        expected = _canonical_token(token, action_equivalents)
         if expected not in actual_actions:
             errors.append(f"selected_action: missing expected meaning {expected}")
 
     semantic_actual = set()
     for field in SEMANTIC_FIELDS:
-        semantic_actual.update(_canonical_token(value, equivalents) for value in _values(result, field))
+        semantic_actual.update(_canonical_token(value, semantic_equivalents) for value in _values(result, field))
+    for meaning, alternatives in contract.get("case_rules", {}).get(case_id, {}).get("semantic_composites", {}).items():
+        if any({_canonical_token(token, semantic_equivalents) for token in alternative}.issubset(semantic_actual) for alternative in alternatives):
+            semantic_actual.add(_canonical_token(meaning, semantic_equivalents))
     for field in SEMANTIC_FIELDS:
         for token in expect.get(field, []):
-            expected = _canonical_token(token, equivalents)
+            expected = _canonical_token(token, semantic_equivalents)
             if expected not in semantic_actual:
                 errors.append(f"semantic result: missing expected meaning {expected} (declared under {field})")
 
     all_tokens = set(actual_actions) | semantic_actual
     for token in expect.get("forbidden_anywhere", []):
-        forbidden = _canonical_token(token, equivalents)
+        forbidden = _canonical_token(token, semantic_equivalents)
         if forbidden in all_tokens:
             errors.append(f"forbidden meaning present: {forbidden}")
     return errors

@@ -1,4 +1,5 @@
 import sys
+import json
 import unittest
 from pathlib import Path
 
@@ -60,6 +61,8 @@ EMPIRICAL_RESULTS = {
     },
 }
 
+ROUND2_EVIDENCE = ROOT / "tests" / "evals" / "tests-evals-round2-2026-09-04-wa-eval-020-023.json"
+
 
 class EvalHarnessTests(unittest.TestCase):
     def test_eval_corpus_contract_and_cases_validate(self):
@@ -81,6 +84,67 @@ class EvalHarnessTests(unittest.TestCase):
             case = evals.get_case(case_id)
             self.assertIsNotNone(case)
             self.assertEqual(evals.grade(case, result), [], case_id)
+
+    def test_round2_canonical_semantic_pass_responses_grade_deterministically(self):
+        evidence = evals.load(ROUND2_EVIDENCE)
+        self.assertEqual(len(evidence["trials"]), 12)
+        for trial in evidence["trials"]:
+            case = evals.get_case(trial["case_id"])
+            result = json.loads(trial["raw_response"])
+            self.assertEqual(evals.grade(case, result), [], trial["trial_id"])
+
+    def test_round2_requires_both_findings(self):
+        case = evals.get_case("WA-EVAL-020")
+        result = self._round2_result("WA-EVAL-020-T2")
+        result["claims"] = ["finding_a"]
+        self.assertTrue(any("two-distinct-findings" in error for error in evals.grade(case, result)))
+
+    def test_round2_rejects_merged_findings(self):
+        case = evals.get_case("WA-EVAL-020")
+        result = self._round2_result("WA-EVAL-020-T2")
+        result["notes"] = ["merged_as_same"]
+        self.assertTrue(any("forbidden meaning" in error for error in evals.grade(case, result)))
+
+    def test_round2_requires_unresolved_relation(self):
+        case = evals.get_case("WA-EVAL-020")
+        result = self._round2_result("WA-EVAL-020-T3")
+        result["preserved_states"] = ["a_b_separate", "relation_excluded_as_fact"]
+        errors = evals.grade(case, result)
+        self.assertTrue(any("relation-unresolved" in error for error in errors))
+        self.assertTrue(any("forbidden meaning" in error for error in errors))
+
+    def test_round2_technical_green_is_not_domain_truth_or_acceptance(self):
+        case = evals.get_case("WA-EVAL-022")
+        result = self._round2_result("WA-EVAL-022-T3")
+        result["preserved_states"] = []
+        result["notes"] = "task_fully_accepted_because_ci_green"
+        errors = evals.grade(case, result)
+        self.assertTrue(any("domain-truth-not-proven" in error for error in errors))
+        self.assertTrue(any("owner-acceptance-not-proven" in error for error in errors))
+        self.assertTrue(any("forbidden meaning" in error for error in errors))
+
+    def test_round2_evidence_identifiers_without_body_do_not_make_restart_pass(self):
+        case = evals.get_case("WA-EVAL-023")
+        result = self._round2_result("WA-EVAL-023-T3")
+        result["selected_action"] = "restart_pass_from_reference_only"
+        result["claims"] = ["identifiers_available"]
+        result["preserved_states"] = ["evidence_id"]
+        errors = evals.grade(case, result)
+        self.assertTrue(any(error.startswith("selected_action:") for error in errors))
+        self.assertTrue(any("identity-is-not-availability" in error for error in errors))
+        self.assertTrue(any("forbidden meaning" in error for error in errors))
+
+    def test_round2_selected_action_cannot_be_rescued_by_semantic_field(self):
+        case = evals.get_case("WA-EVAL-022")
+        result = self._round2_result("WA-EVAL-022-T1")
+        result["selected_action"] = "declare_complete"
+        result["notes"] = [result["notes"], "hold_completion"]
+        self.assertTrue(any(error.startswith("selected_action:") for error in evals.grade(case, result)))
+
+    def _round2_result(self, trial_id):
+        evidence = evals.load(ROUND2_EVIDENCE)
+        trial = next(item for item in evidence["trials"] if item["trial_id"] == trial_id)
+        return json.loads(trial["raw_response"])
 
     def test_string_and_array_forms_are_equivalent_for_semantic_fields(self):
         case = evals.get_case("WA-EVAL-008")

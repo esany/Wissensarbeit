@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "purpose": "Turn demonstrated AI/project-operation failures into repeatable capability/regression evals without pretending deterministic CI can judge open semantics.",
   "case_types": ["historical_replay", "perturbation", "long_horizon", "intent_reconstruction"],
   "result_schema": {
@@ -20,6 +20,7 @@
       "required result fields exist",
       "tokens are normalized for case/separator differences",
       "versioned token-equivalence aliases map to stable canonical meanings",
+      "case-scoped action aliases and semantic predicates match only empirically evidenced variants",
       "expected canonical meanings present",
       "forbidden canonical meanings absent"
     ],
@@ -46,6 +47,53 @@
     "ci-not-domain-truth": ["ci-not-domain-truth"],
     "global-state-not-proven-current": ["global-state-not-proven-current", "pr12-systemic-status-not-proven"],
     "current-state-must-be-checked": ["current-state-must-be-checked", "documentation-reconciliation-not-established"]
+  },
+  "case_rules": {
+    "WA-EVAL-020": {
+      "selected_action_equivalence": {
+        "preserve-separation": ["summarize-only"]
+      },
+      "semantic_equivalence": {
+        "relation-unresolved": ["a-b-relation-unresolved"],
+        "two-distinct-findings": ["a-separate-from-b", "a-b-separate"]
+      },
+      "semantic_composites": {
+        "two-distinct-findings": [["finding-a", "finding-b"]]
+      }
+    },
+    "WA-EVAL-021": {
+      "selected_action_equivalence": {
+        "preserve-separation": ["compress-only", "preserve-separate"]
+      },
+      "semantic_equivalence": {
+        "relation-unresolved": ["relationship-unresolved", "relation-unknown"],
+        "two-distinct-findings": ["two-distinct-observations", "observations-distinct", "observations-separate"]
+      }
+    },
+    "WA-EVAL-022": {
+      "selected_action_equivalence": {
+        "separate-assurance-levels": ["hold-completion"]
+      },
+      "semantic_equivalence": {
+        "formal-consistency-only": ["technical-checks-passed", "technical-checks-pass"]
+      },
+      "semantic_composites": {
+        "domain-truth-not-proven": [["domain-assurance-pending"], ["domain-judgement-pending"], ["domain-judgement-open"], ["domain-uncertain"], ["green-checks-do-not-establish-domain-validity-or-owner-acceptance"]],
+        "owner-acceptance-not-proven": [["owner-acceptance-pending"], ["owner-acceptance-open"], ["acceptance-unconfirmed"], ["green-checks-do-not-establish-domain-validity-or-owner-acceptance"]]
+      }
+    },
+    "WA-EVAL-023": {
+      "selected_action_equivalence": {
+        "report-restart-blocked": ["restartability-fail"]
+      },
+      "semantic_equivalence": {
+        "restart-not-complete": ["completion-unconfirmed", "completion-not-reproducible", "completion-uncertain"],
+        "evidence-reference-known": ["evidence-id-known", "exact-refs-available", "identifiers-available"]
+      },
+      "semantic_composites": {
+        "identity-is-not-availability": [["evidence-reference-known", "evidence-body-unavailable"]]
+      }
+    }
   },
   "promotion": {
     "capability_case": "New demonstrated failures may begin as capability evals.",
