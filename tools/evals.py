@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -13,6 +14,8 @@ CORPUS = ROOT / "tests" / "evals" / "failure_corpus.json"
 CONTRACT = ROOT / "tests" / "evals" / "contract.json"
 CASES = ROOT / "tests" / "fixtures" / "eval_cases.json"
 SEMANTIC_FIELDS = ("claims", "preserved_states", "authority", "routing", "questions", "notes")
+FIXTURE_IDENTITY_FIELDS = ("id", "family", "type", "source_refs", "context", "prompt", "expect")
+FIXTURE_IDENTITY_PREFIX = "sha256:"
 
 
 def load(path: Path):
@@ -25,6 +28,43 @@ def _normalize_token(value: object) -> str:
     text = re.sub(r"[\s_]+", "-", text)
     text = re.sub(r"-+", "-", text)
     return text
+
+
+def fixture_identity(case: dict) -> str:
+    """Return the versioned identity of the canonical content a trial was run against."""
+    fixture = {field: case.get(field) for field in FIXTURE_IDENTITY_FIELDS}
+    encoded = json.dumps(fixture, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return FIXTURE_IDENTITY_PREFIX + hashlib.sha256(encoded).hexdigest()
+
+
+def validate_fixture_identity(case: dict, recorded_identity: object) -> list[str]:
+    if not isinstance(recorded_identity, str) or not recorded_identity:
+        return ["trial missing fixture_identity"]
+    if recorded_identity != fixture_identity(case):
+        return [f"fixture_identity mismatch for {case['id']}"]
+    return []
+
+
+def validate_trial_record(record: dict) -> list[str]:
+    """Fail closed unless a recorded trial names the current canonical fixture exactly."""
+    errors: list[str] = []
+    case_id = record.get("case_id")
+    case = get_case(case_id) if isinstance(case_id, str) else None
+    if case is None:
+        return [f"trial references unknown case {case_id}"]
+    errors.extend(validate_fixture_identity(case, record.get("fixture_identity")))
+    raw_response = record.get("raw_response")
+    if raw_response is None:
+        errors.append("trial missing raw_response")
+    else:
+        try:
+            result = json.loads(raw_response) if isinstance(raw_response, str) else raw_response
+        except json.JSONDecodeError:
+            errors.append("trial raw_response is not valid JSON")
+        else:
+            if not isinstance(result, dict) or result.get("case_id") != case_id:
+                errors.append(f"trial result case_id mismatch: expected {case_id}")
+    return errors
 
 
 def _equivalence_map(equivalences: dict) -> dict[str, str]:
@@ -74,6 +114,13 @@ def validate() -> list[str]:
         errors.append("evaluation contract is missing required case types")
     if not {"case_id", "selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"}.issubset(required_result):
         errors.append("evaluation result schema is incomplete")
+    integrity = contract.get("trial_integrity", {})
+    if integrity.get("fixture_identity") != "sha256/canonical-case-v1":
+        errors.append("evaluation contract is missing the canonical fixture identity algorithm")
+    if integrity.get("canonical_fields") != list(FIXTURE_IDENTITY_FIELDS):
+        errors.append("evaluation contract has invalid fixture identity canonical fields")
+    if integrity.get("required_trial_fields") != ["case_id", "fixture_identity"]:
+        errors.append("evaluation contract has invalid trial integrity required fields")
 
     def validate_equivalences(equivalences: dict, scope: str) -> None:
         alias_owner: dict[str, str] = {}
@@ -214,11 +261,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(prog="evals")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("validate")
+    fixture_p = sub.add_parser("fixture-id")
+    fixture_p.add_argument("case_id")
     render_p = sub.add_parser("render")
     render_p.add_argument("case_id")
     grade_p = sub.add_parser("grade")
     grade_p.add_argument("case_id")
     grade_p.add_argument("result", type=Path)
+    trial_p = sub.add_parser("validate-trial")
+    trial_p.add_argument("record", type=Path)
     args = parser.parse_args()
     if args.command == "validate":
         errors = validate()
@@ -228,10 +279,26 @@ def main() -> int:
             return 1
         print("EVAL VALIDATION PASS")
         return 0
+    if args.command == "validate-trial":
+        try:
+            record = load(args.record)
+        except Exception as exc:
+            print(f"cannot load trial record: {exc}", file=sys.stderr)
+            return 2
+        errors = validate_trial_record(record)
+        if errors:
+            print("TRIAL INVALID")
+            print("\n".join(f"- {error}" for error in errors))
+            return 1
+        print("TRIAL VALID")
+        return 0
     case = get_case(args.case_id)
     if case is None:
         print(f"unknown eval case: {args.case_id}", file=sys.stderr)
         return 2
+    if args.command == "fixture-id":
+        print(fixture_identity(case))
+        return 0
     if args.command == "render":
         print(render(case), end="")
         return 0

@@ -85,6 +85,74 @@ class EvalHarnessTests(unittest.TestCase):
             self.assertIsNotNone(case)
             self.assertEqual(evals.grade(case, result), [], case_id)
 
+    def test_trial_integrity_accepts_matching_canonical_fixture(self):
+        case = evals.get_case("WA-EVAL-019")
+        record = {
+            "case_id": case["id"],
+            "fixture_identity": evals.fixture_identity(case),
+            "raw_response": json.dumps({"case_id": case["id"]}),
+        }
+        self.assertEqual(evals.validate_trial_record(record), [])
+
+    def test_trial_integrity_rejects_fixture_identity_from_another_case(self):
+        case = evals.get_case("WA-EVAL-019")
+        other_case = evals.get_case("WA-EVAL-020")
+        record = {
+            "case_id": case["id"],
+            "fixture_identity": evals.fixture_identity(other_case),
+            "raw_response": json.dumps({"case_id": case["id"]}),
+        }
+        self.assertTrue(any("fixture_identity mismatch" in error for error in evals.validate_trial_record(record)))
+
+    def test_trial_integrity_rejects_wrong_case_id_with_correct_other_fixture(self):
+        case = evals.get_case("WA-EVAL-019")
+        other_case = evals.get_case("WA-EVAL-020")
+        record = {
+            "case_id": case["id"],
+            "fixture_identity": evals.fixture_identity(other_case),
+            "raw_response": json.dumps({"case_id": other_case["id"]}),
+        }
+        errors = evals.validate_trial_record(record)
+        self.assertTrue(any("fixture_identity mismatch" in error for error in errors))
+        self.assertTrue(any("result case_id mismatch" in error for error in errors))
+
+    def test_trial_integrity_rejects_stale_identity_after_canonical_content_changes(self):
+        case = evals.get_case("WA-EVAL-019")
+        recorded_identity = evals.fixture_identity(case)
+        changed_case = dict(case)
+        changed_case["prompt"] = case["prompt"] + " altered"
+        self.assertTrue(any("fixture_identity mismatch" in error for error in evals.validate_fixture_identity(changed_case, recorded_identity)))
+
+    def test_trial_integrity_does_not_change_grading_for_valid_input(self):
+        case = evals.get_case("WA-EVAL-006")
+        record = {
+            "case_id": case["id"],
+            "fixture_identity": evals.fixture_identity(case),
+            "raw_response": json.dumps(EMPIRICAL_RESULTS["WA-EVAL-006"]),
+        }
+        self.assertEqual(evals.validate_trial_record(record), [])
+        self.assertEqual(evals.grade(case, EMPIRICAL_RESULTS["WA-EVAL-006"]), [])
+
+    def test_trial_integrity_rejects_missing_fixture_identity(self):
+        case = evals.get_case("WA-EVAL-019")
+        record = {
+            "case_id": case["id"],
+            "raw_response": json.dumps({"case_id": case["id"]}),
+        }
+        self.assertIn("trial missing fixture_identity", evals.validate_trial_record(record))
+
+    def test_trial_integrity_requires_result_case_id(self):
+        case = evals.get_case("WA-EVAL-019")
+        record = {"case_id": case["id"], "fixture_identity": evals.fixture_identity(case)}
+        self.assertIn("trial missing raw_response", evals.validate_trial_record(record))
+
+    def test_round2_case_metadata_remains_resolvable(self):
+        round2 = evals.load(ROOT / "tests" / "evals" / "round2.json")
+        for run in round2["runs"]:
+            case = evals.get_case(run["case_id"])
+            self.assertIsNotNone(case, run["case_id"])
+            self.assertTrue(evals.fixture_identity(case).startswith("sha256:"))
+
     def test_round2_canonical_semantic_pass_responses_grade_deterministically(self):
         evidence = evals.load(ROUND2_EVIDENCE)
         self.assertEqual(len(evidence["trials"]), 12)

@@ -15,6 +15,12 @@
       "notes": "string|array[string]"
     }
   },
+  "trial_integrity": {
+    "fixture_identity": "sha256/canonical-case-v1",
+    "canonical_fields": ["id", "family", "type", "source_refs", "context", "prompt", "expect"],
+    "required_trial_fields": ["case_id", "fixture_identity"],
+    "rule": "A trial is valid only when its recorded fixture identity matches the current canonical case named by case_id. Missing or mismatched identity is invalid/incomplete and must not be counted or graded as that case."
+  },
   "grading": {
     "deterministic": [
       "required result fields exist",
