@@ -8,6 +8,8 @@ import re
 import sys
 from pathlib import Path
 
+from eval_integrity import FIXTURE_IDENTITY_FIELDS, fixture_identity, validate_trial_record
+
 ROOT = Path(__file__).resolve().parents[1]
 CORPUS = ROOT / "tests" / "evals" / "failure_corpus.json"
 CONTRACT = ROOT / "tests" / "evals" / "contract.json"
@@ -74,6 +76,13 @@ def validate() -> list[str]:
         errors.append("evaluation contract is missing required case types")
     if not {"case_id", "selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"}.issubset(required_result):
         errors.append("evaluation result schema is incomplete")
+    integrity = contract.get("trial_integrity", {})
+    if integrity.get("fixture_identity") != "sha256/canonical-case-v1":
+        errors.append("evaluation contract is missing the canonical fixture identity algorithm")
+    if integrity.get("canonical_fields") != list(FIXTURE_IDENTITY_FIELDS):
+        errors.append("evaluation contract has invalid fixture identity canonical fields")
+    if integrity.get("required_trial_fields") != ["case_id", "fixture_identity"]:
+        errors.append("evaluation contract has invalid trial integrity required fields")
 
     def validate_equivalences(equivalences: dict, scope: str) -> None:
         alias_owner: dict[str, str] = {}
@@ -214,6 +223,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(prog="evals")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("validate")
+    fixture_p = sub.add_parser("fixture-id")
+    fixture_p.add_argument("case_id")
+    trial_p = sub.add_parser("validate-trial")
+    trial_p.add_argument("record", type=Path)
     render_p = sub.add_parser("render")
     render_p.add_argument("case_id")
     grade_p = sub.add_parser("grade")
@@ -228,10 +241,26 @@ def main() -> int:
             return 1
         print("EVAL VALIDATION PASS")
         return 0
+    if args.command == "validate-trial":
+        try:
+            record = load(args.record)
+        except Exception as exc:
+            print(f"cannot load trial record: {exc}", file=sys.stderr)
+            return 2
+        errors = validate_trial_record(record)
+        if errors:
+            print("TRIAL INVALID")
+            print("\n".join(f"- {error}" for error in errors))
+            return 1
+        print("TRIAL VALID")
+        return 0
     case = get_case(args.case_id)
     if case is None:
         print(f"unknown eval case: {args.case_id}", file=sys.stderr)
         return 2
+    if args.command == "fixture-id":
+        print(fixture_identity(case))
+        return 0
     if args.command == "render":
         print(render(case), end="")
         return 0
