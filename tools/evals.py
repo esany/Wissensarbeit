@@ -8,7 +8,7 @@ import re
 import sys
 from pathlib import Path
 
-from eval_integrity import fixture_identity, validate_trial_record
+from eval_integrity import FIXTURE_IDENTITY_FIELDS, fixture_identity, validate_trial_record
 
 ROOT = Path(__file__).resolve().parents[1]
 CORPUS = ROOT / "tests" / "evals" / "failure_corpus.json"
@@ -76,6 +76,13 @@ def validate() -> list[str]:
         errors.append("evaluation contract is missing required case types")
     if not {"case_id", "selected_action", "claims", "preserved_states", "authority", "routing", "questions", "notes"}.issubset(required_result):
         errors.append("evaluation result schema is incomplete")
+    integrity = contract.get("trial_integrity", {})
+    if integrity.get("fixture_identity") != "sha256/canonical-case-v1":
+        errors.append("evaluation contract is missing the canonical fixture identity algorithm")
+    if integrity.get("canonical_fields") != list(FIXTURE_IDENTITY_FIELDS):
+        errors.append("evaluation contract has invalid fixture identity canonical fields")
+    if integrity.get("required_trial_fields") != ["case_id", "fixture_identity"]:
+        errors.append("evaluation contract has invalid trial integrity required fields")
 
     def validate_equivalences(equivalences: dict, scope: str) -> None:
         alias_owner: dict[str, str] = {}
