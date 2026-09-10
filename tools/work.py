@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -109,6 +110,19 @@ def execution_complete(step: str, evidence: str, path: Path = EXECUTION_STATE) -
     evidence_path = ROOT / evidence
     if not evidence_path.is_file():
         return ["completion evidence is not present in repository"]
+    try:
+        evidence_path.relative_to(ROOT)
+    except ValueError:
+        return ["completion evidence must be inside repository"]
+    tracked = subprocess.run(
+        ["git", "ls-files", "--error-unmatch", "--", evidence],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if tracked.returncode != 0 or tracked.stdout.strip() != evidence:
+        return ["completion evidence is not Git-persisted (tracked file required)"]
     state["completion_evidence"][step] = evidence
     state["current_step"]["id"] = step
     state["current_step"]["next"] = [item for item in state["current_step"].get("next", []) if item.get("id") != step]

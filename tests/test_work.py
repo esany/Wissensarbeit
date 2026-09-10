@@ -29,6 +29,24 @@ class OperationalCoreTests(unittest.TestCase):
             errors = work.execution_complete("persist-contract-evidence", "missing-proof.md", path)
             self.assertTrue(any("evidence" in error for error in errors))
 
+    def test_untracked_evidence_fails(self):
+        evidence = ROOT / "project" / ".untracked-evidence-test"
+        evidence.write_text("local only\n", encoding="utf-8")
+        try:
+            with tempfile.TemporaryDirectory() as td:
+                path = Path(td) / "state.json"
+                path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
+                errors = work.execution_complete("persist-contract-evidence", "project/.untracked-evidence-test", path)
+            self.assertTrue(any("Git-persisted" in error for error in errors))
+        finally:
+            evidence.unlink(missing_ok=True)
+
+    def test_tracked_evidence_passes(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "state.json"
+            path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
+            self.assertEqual(work.execution_complete("persist-contract-evidence", "README.md", path), [])
+
     def test_execution_guard_is_fail_closed_for_missing_source(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
