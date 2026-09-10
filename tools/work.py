@@ -25,6 +25,7 @@ DECISION_BRIEF = ROOT / "system" / "decision_brief.json"
 MATERIAL_STATE = ROOT / "system" / "material_state.json"
 RECONCILIATION = ROOT / "system" / "reconciliation.json"
 RECONCILIATION_PACKET = ROOT / "project" / "reconciliation.json"
+EXECUTION_STATE = ROOT / "project" / "execution_state.json"
 
 REQUIRED_FILES = [
     REQ, QUALITY, CRITERIA, VERIFICATION, RISKS, LIFECYCLE, AUTHORITY, COMPETENCE,
@@ -36,6 +37,83 @@ REQUIRED_FILES = [
 def load(path: Path):
     with path.open(encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def execution_errors(state: dict) -> list[str]:
+    """Validate the small cursor; planning remains in the referenced source."""
+    required = {"focus", "planning_source", "current_step", "dependencies", "allowed_actions", "implementation_allowed", "completion_evidence"}
+    errors = [f"execution state missing {field}" for field in sorted(required - set(state))]
+    source = ROOT / state.get("planning_source", "__missing__")
+    if not source.is_file():
+        errors.append("planning source is not reconstructable")
+    if not isinstance(state.get("dependencies"), list):
+        errors.append("dependencies must be a list")
+    else:
+        for dep in state["dependencies"]:
+            if not isinstance(dep, dict) or not dep.get("id") or dep.get("status") not in {"open", "resolved"}:
+                errors.append("dependency entries must have id and open/resolved status")
+    if not isinstance(state.get("allowed_actions"), list) or not all(isinstance(a, str) for a in state.get("allowed_actions", [])):
+        errors.append("allowed_actions must be a list of action names")
+    if not isinstance(state.get("completion_evidence"), dict):
+        errors.append("completion_evidence must be an object")
+    return errors
+
+
+def execution_status(path: Path = EXECUTION_STATE) -> dict:
+    try:
+        state = load(path)
+    except Exception as exc:
+        return {"status": "FAIL CLOSED", "errors": [f"cannot load execution state: {exc}"]}
+    errors = execution_errors(state)
+    if errors:
+        return {"status": "FAIL CLOSED", "errors": errors, "state": state}
+    return {"status": "PASS", "state": state}
+
+
+def execution_preflight(action: str, path: Path = EXECUTION_STATE) -> list[str]:
+    result = execution_status(path)
+    if result["status"] != "PASS":
+        return result["errors"]
+    state = result["state"]
+    if action not in state["allowed_actions"]:
+        return [f"action not allowed by persisted cursor: {action}"]
+    if any(dep["status"] == "open" for dep in state["dependencies"]):
+        return ["open dependency blocks execution"]
+    if action in {"implement", "merge"} and not state["implementation_allowed"]:
+        return ["implementation authority is not persisted"]
+    if action in {"work", "codex", "handoff"} and state.get("route") == "unnecessary-escalation":
+        return ["stronger execution environment is not justified by the persisted route"]
+    return []
+
+
+def execution_next(path: Path = EXECUTION_STATE) -> tuple[bool, str]:
+    result = execution_status(path)
+    if result["status"] != "PASS":
+        return False, "FAIL CLOSED: " + "; ".join(result["errors"])
+    state = result["state"]
+    candidates = [step for step in state.get("current_step", {}).get("next", []) if step.get("status") == "ready"]
+    candidates = [step for step in candidates if not any(dep["status"] == "open" and dep["id"] in step.get("depends_on", []) for dep in state["dependencies"])]
+    if len(candidates) != 1:
+        return True, "no deterministic next action"
+    return True, candidates[0]["id"]
+
+
+def execution_complete(step: str, evidence: str, path: Path = EXECUTION_STATE) -> list[str]:
+    errors = execution_preflight("complete", path)
+    if errors:
+        return errors
+    state = load(path)
+    known = {item.get("id") for item in state.get("current_step", {}).get("next", [])} | {state.get("current_step", {}).get("id")}
+    if step not in known:
+        return ["step is not present in persisted cursor"]
+    evidence_path = ROOT / evidence
+    if not evidence_path.is_file():
+        return ["completion evidence is not present in repository"]
+    state["completion_evidence"][step] = evidence
+    state["current_step"]["id"] = step
+    state["current_step"]["next"] = [item for item in state["current_step"].get("next", []) if item.get("id") != step]
+    path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return []
 
 
 def rel(path: Path) -> str:
@@ -238,6 +316,8 @@ def validate() -> list[str]:
     errors.extend(validate_foundation_harvest(foundation_harvest, reqs))
     errors.extend(validate_decision_brief_contract(decision_brief, authority, building_blocks))
     errors.extend(validate_reconciliation_contract(reconciliation, reconciliation_packet, authority, building_blocks))
+    if EXECUTION_STATE.exists():
+        errors.extend(execution_errors(load(EXECUTION_STATE)))
     return errors
 
 
@@ -375,13 +455,41 @@ def main() -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     for command in ("validate", "inspect", "context", "derive", "audit"):
         sub.add_parser(command)
+    sub.add_parser("status")
+    sub.add_parser("next")
+    preflight_parser = sub.add_parser("preflight")
+    preflight_parser.add_argument("--action", required=True)
+    complete_parser = sub.add_parser("complete")
+    complete_parser.add_argument("step")
+    complete_parser.add_argument("--evidence", required=True)
     trace_parser = sub.add_parser("trace")
     trace_parser.add_argument("object_id")
     integrate_parser = sub.add_parser("integrate")
     integrate_parser.add_argument("packet", type=Path)
     args = parser.parse_args()
 
-    if args.command == "validate":
+    if args.command == "status":
+        print(json.dumps(execution_status(), indent=2, ensure_ascii=False))
+        return 0 if execution_status()["status"] == "PASS" else 1
+    elif args.command == "next":
+        ok, message = execution_next()
+        print(message)
+        return 0 if ok and message != "no deterministic next action" else 1
+    elif args.command == "preflight":
+        errors = execution_preflight(args.action)
+        if errors:
+            print("PREFLIGHT FAIL")
+            print("\n".join(f"- {error}" for error in errors))
+            return 1
+        print("PREFLIGHT PASS")
+    elif args.command == "complete":
+        errors = execution_complete(args.step, args.evidence)
+        if errors:
+            print("COMPLETION FAIL")
+            print("\n".join(f"- {error}" for error in errors))
+            return 1
+        print("COMPLETION PASS")
+    elif args.command == "validate":
         errors = validate()
         if errors:
             print("VALIDATION FAILED")

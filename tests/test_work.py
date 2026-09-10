@@ -11,6 +11,40 @@ import work  # noqa: E402
 
 
 class OperationalCoreTests(unittest.TestCase):
+    def test_execution_guard_rejects_implementation_from_planning_cursor(self):
+        self.assertTrue(work.execution_preflight("implement"))
+
+    def test_execution_guard_blocks_open_dependency(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "state.json"
+            state = work.load(work.EXECUTION_STATE)
+            state["dependencies"][0]["status"] = "open"
+            path.write_text(json.dumps(state), encoding="utf-8")
+            self.assertTrue(work.execution_preflight("inspect", path))
+
+    def test_execution_guard_requires_persistent_evidence(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "state.json"
+            path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
+            errors = work.execution_complete("persist-contract-evidence", "missing-proof.md", path)
+            self.assertTrue(any("evidence" in error for error in errors))
+
+    def test_execution_guard_is_fail_closed_for_missing_source(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "state.json"
+            state = work.load(work.EXECUTION_STATE)
+            state["planning_source"] = "missing-planning-source.md"
+            path.write_text(json.dumps(state), encoding="utf-8")
+            result = work.execution_status(path)
+            self.assertEqual(result["status"], "FAIL CLOSED")
+
+    def test_execution_guard_does_not_treat_chat_go_as_authority(self):
+        self.assertTrue(work.execution_preflight("implement"))
+
+    def test_execution_next_is_deterministic_or_explicitly_refuses(self):
+        ok, next_step = work.execution_next()
+        self.assertTrue(ok)
+        self.assertEqual(next_step, "persist-contract-evidence")
     def test_repository_contract_validates(self):
         self.assertEqual(work.validate(), [])
 

@@ -49,8 +49,16 @@ python tools/work.py inspect
 python tools/work.py trace REQ-001
 python tools/work.py derive
 python tools/work.py audit
+python tools/work.py status
+python tools/work.py next
+python tools/work.py preflight --action inspect
+python tools/work.py complete <step> --evidence <repo-path>
 python -m unittest discover -s tests -v
 ```
+
+### Execution guard
+
+`project/execution_state.json` is a small persisted cursor, not a second roadmap. It references the planning source and records only the current step, dependencies, permitted actions, authority boundary and completion evidence. `next` reports a step only when exactly one ready step is derivable; otherwise it fails closed with `no deterministic next action`. `preflight` rejects actions outside the cursor, open dependencies and implementation/merge without persisted authority. `complete` requires evidence that exists in the repository. Passing CI remains formal assurance only; it does not establish domain truth or owner acceptance.
 
 ## Nicht-Ziele der v0.1
 

@@ -1,0 +1,19 @@
+{
+  "focus": "github:esany/Wissensarbeit#28",
+  "planning_source": "project/GOVERNING_OBJECTIVE.md",
+  "current_step": {
+    "id": "execution-guard",
+    "next": [
+      {"id": "persist-contract-evidence", "status": "ready", "depends_on": []}
+    ]
+  },
+  "dependencies": [
+    {"id": "tools/work.py", "status": "resolved"},
+    {"id": "system/authority.json", "status": "resolved"},
+    {"id": "system/lifecycle.json", "status": "resolved"}
+  ],
+  "allowed_actions": ["inspect", "design", "plan", "persist evidence", "complete"],
+  "implementation_allowed": false,
+  "route": "local-repository",
+  "completion_evidence": {}
+}
