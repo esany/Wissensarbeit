@@ -212,8 +212,15 @@ def validate_p1_harvest(harvest: dict) -> list[str]:
     if not source.get("provenance_gap") or harvest.get("processing", {}).get("restart_status") != "pending independent #11 assurance":
         errors.append("P1 provenance gap and pending restart status must remain explicit")
     ids = []
+    source_ids = set()
     for record in harvest.get("records", []):
         ids.append(record.get("id"))
+        record_source = record.get("source", {})
+        source_id = (record_source.get("chat_id"), record_source.get("turn_id"))
+        if all(part is not None for part in source_id):
+            if source_id in source_ids:
+                errors.append("P1 harvest contains semantic duplicate source identity (chat_id, turn_id)")
+            source_ids.add(source_id)
         for field in ("source", "materiality", "authority", "uncertainty", "canonical_state", "scope", "disposition", "rationale", "persistent_action"):
             if field not in record:
                 errors.append(f"{record.get('id', '<unknown>')}: missing {field}")

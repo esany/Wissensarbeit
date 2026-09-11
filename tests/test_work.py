@@ -1,3 +1,4 @@
+import copy
 import json
 import subprocess
 import sys
@@ -176,6 +177,14 @@ class OperationalCoreTests(unittest.TestCase):
         harvest = work.load(work.P1_HARVEST)
         harvest["records"][1]["id"] = harvest["records"][0]["id"]
         self.assertTrue(any("duplicate" in error for error in work.validate_p1_harvest(harvest)))
+
+    def test_p1_same_source_turn_with_different_record_id_fails(self):
+        harvest = work.load(work.P1_HARVEST)
+        duplicate = copy.deepcopy(harvest["records"][0])
+        duplicate["id"] = "harvest-record-p1-semantic-duplicate"
+        harvest["records"].append(duplicate)
+        errors = work.validate_p1_harvest(harvest)
+        self.assertTrue(any("semantic duplicate source identity" in error for error in errors))
 
     def test_external_historical_evidence_cannot_be_project_primary(self):
         harvest = work.load(work.FOUNDATION_HARVEST)
