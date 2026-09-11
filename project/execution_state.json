@@ -1,19 +1,21 @@
 {
-  "focus": "github:esany/Wissensarbeit#28",
-  "planning_source": "project/GOVERNING_OBJECTIVE.md",
+  "focus": "github:esany/Wissensarbeit#7",
+  "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "execution-guard",
+    "id": "p1-restart-gate-passed",
     "next": [
-      {"id": "persist-contract-evidence", "status": "ready", "depends_on": []}
+      {"id": "p2-fidelity-manifest-preflight", "status": "ready", "depends_on": ["WA-HARVEST-P1-001", "WA-RESTART-2026-09-11-02"]}
     ]
   },
   "dependencies": [
-    {"id": "tools/work.py", "status": "resolved"},
-    {"id": "system/authority.json", "status": "resolved"},
-    {"id": "system/lifecycle.json", "status": "resolved"}
+    {"id": "WA-HARVEST-P1-001", "status": "resolved"},
+    {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"}
   ],
   "allowed_actions": ["inspect", "design", "plan", "persist evidence", "complete"],
   "implementation_allowed": false,
   "route": "local-repository",
-  "completion_evidence": {}
+  "completion_evidence": {
+    "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
+    "WA-RESTART-2026-09-11-02": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967"
+  }
 }

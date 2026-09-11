@@ -14,7 +14,16 @@
   "processing": {
     "mechanism": "existing foundation harvest structure refined with material candidate inventory",
     "authority_boundary": "Owner source is evidence of intent/constraint, not automatic requirement, decision, or architecture authority.",
-    "restart_status": "pending independent #11 assurance",
+    "restart_status": {
+      "status": "passed",
+      "assurance": "independently-assured",
+      "run_id": "WA-RESTART-2026-09-11-02",
+      "issue": "https://github.com/esany/Wissensarbeit/issues/11",
+      "tested_sha": "caed6ec7c100d56813569aa13884a446cbffb82b",
+      "gate_a": "pass",
+      "gate_b": "pass",
+      "terminal_evidence": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967"
+    },
     "idempotency_key": "sha256:WA-HARVEST-SEED-003:P1:v1"
   },
   "records": [

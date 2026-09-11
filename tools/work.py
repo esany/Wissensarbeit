@@ -46,8 +46,9 @@ def execution_errors(state: dict) -> list[str]:
     """Validate the small cursor; planning remains in the referenced source."""
     required = {"focus", "planning_source", "current_step", "dependencies", "allowed_actions", "implementation_allowed", "completion_evidence"}
     errors = [f"execution state missing {field}" for field in sorted(required - set(state))]
-    source = ROOT / state.get("planning_source", "__missing__")
-    if not source.is_file():
+    planning_source = state.get("planning_source", "__missing__")
+    github_source = isinstance(planning_source, str) and re.fullmatch(r"github:[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+#\d+", planning_source)
+    if not github_source and not (ROOT / planning_source).is_file():
         errors.append("planning source is not reconstructable")
     if not isinstance(state.get("dependencies"), list):
         errors.append("dependencies must be a list")
@@ -209,8 +210,25 @@ def validate_p1_harvest(harvest: dict) -> list[str]:
     source = harvest.get("source_session", {})
     if source.get("seed_id") != "WA-HARVEST-SEED-003" or source.get("chat_id") != "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf":
         errors.append("P1 harvest must use the persisted real seed source")
-    if not source.get("provenance_gap") or harvest.get("processing", {}).get("restart_status") != "pending independent #11 assurance":
-        errors.append("P1 provenance gap and pending restart status must remain explicit")
+    if not source.get("provenance_gap"):
+        errors.append("P1 provenance gap must remain explicit")
+    restart = harvest.get("processing", {}).get("restart_status")
+    if not isinstance(restart, dict):
+        errors.append("P1 harvest must contain an explicit restart assurance state")
+    else:
+        expected_restart = {
+            "status": "passed",
+            "assurance": "independently-assured",
+            "run_id": "WA-RESTART-2026-09-11-02",
+            "issue": "https://github.com/esany/Wissensarbeit/issues/11",
+            "tested_sha": "caed6ec7c100d56813569aa13884a446cbffb82b",
+            "gate_a": "pass",
+            "gate_b": "pass",
+            "terminal_evidence": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967",
+        }
+        for field, expected in expected_restart.items():
+            if restart.get(field) != expected:
+                errors.append(f"P1 restart assurance has unexpected {field}")
     ids = []
     source_ids = set()
     for record in harvest.get("records", []):

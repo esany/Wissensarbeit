@@ -27,7 +27,7 @@ class OperationalCoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
             path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-            errors = work.execution_complete("persist-contract-evidence", "missing-proof.md", path)
+            errors = work.execution_complete("p2-fidelity-manifest-preflight", "missing-proof.md", path)
             self.assertTrue(any("evidence" in error for error in errors))
 
     def test_untracked_evidence_fails(self):
@@ -37,7 +37,7 @@ class OperationalCoreTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as td:
                 path = Path(td) / "state.json"
                 path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-                errors = work.execution_complete("persist-contract-evidence", "project/.untracked-evidence-test", path)
+                errors = work.execution_complete("p2-fidelity-manifest-preflight", "project/.untracked-evidence-test", path)
             self.assertTrue(any("Git-persisted" in error for error in errors))
         finally:
             evidence.unlink(missing_ok=True)
@@ -46,7 +46,7 @@ class OperationalCoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
             path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-            self.assertEqual(work.execution_complete("persist-contract-evidence", "README.md", path), [])
+            self.assertEqual(work.execution_complete("p2-fidelity-manifest-preflight", "README.md", path), [])
 
     def test_execution_guard_is_fail_closed_for_missing_source(self):
         with tempfile.TemporaryDirectory() as td:
@@ -63,7 +63,16 @@ class OperationalCoreTests(unittest.TestCase):
     def test_execution_next_is_deterministic_or_explicitly_refuses(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "persist-contract-evidence")
+        self.assertEqual(next_step, "p2-fidelity-manifest-preflight")
+
+    def test_execution_state_reconciles_closed_28_without_starting_p2(self):
+        state = work.load(work.EXECUTION_STATE)
+        self.assertEqual(work.execution_status()["status"], "PASS")
+        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
+        self.assertNotEqual(state["focus"], "github:esany/Wissensarbeit#28")
+        self.assertEqual(state["current_step"]["id"], "p1-restart-gate-passed")
+        self.assertFalse(state["implementation_allowed"])
+
     def test_repository_contract_validates(self):
         self.assertEqual(work.validate(), [])
 
@@ -156,8 +165,28 @@ class OperationalCoreTests(unittest.TestCase):
     def test_real_p1_seed_validates_and_preserves_boundaries(self):
         harvest = work.load(work.P1_HARVEST)
         self.assertEqual(work.validate_p1_harvest(harvest), [])
+        restart = harvest["processing"]["restart_status"]
+        self.assertEqual(restart["status"], "passed")
+        self.assertEqual(restart["assurance"], "independently-assured")
         self.assertTrue(all(r["persistent_action"] for r in harvest["records"]))
         self.assertTrue(all(r["authority"]["promotion"] == "not-authorized" for r in harvest["records"]))
+
+    def test_p1_passed_restart_without_run_or_evidence_fails(self):
+        harvest = work.load(work.P1_HARVEST)
+        harvest["processing"]["restart_status"].pop("run_id")
+        harvest["processing"]["restart_status"].pop("terminal_evidence")
+        errors = work.validate_p1_harvest(harvest)
+        self.assertTrue(any("run_id" in error for error in errors))
+        self.assertTrue(any("terminal_evidence" in error for error in errors))
+
+    def test_p1_wrong_restart_binding_fails(self):
+        harvest = work.load(work.P1_HARVEST)
+        restart = harvest["processing"]["restart_status"]
+        restart["run_id"] = "WA-RESTART-FABRICATED"
+        restart["terminal_evidence"] = "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-1"
+        errors = work.validate_p1_harvest(harvest)
+        self.assertTrue(any("run_id" in error for error in errors))
+        self.assertTrue(any("terminal_evidence" in error for error in errors))
 
     def test_p1_missing_action_or_authority_fails(self):
         harvest = work.load(work.P1_HARVEST)
