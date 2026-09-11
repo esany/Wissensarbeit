@@ -66,6 +66,20 @@ class OperationalCoreTests(unittest.TestCase):
     def test_repository_contract_validates(self):
         self.assertEqual(work.validate(), [])
 
+    def test_current_derived_state_is_fresh(self):
+        self.assertEqual(work.current_state_freshness(), [])
+        self.assertFalse(any("stale" in finding for finding in work.audit()))
+
+    def test_audit_finds_reproducible_but_stale_current_state(self):
+        with tempfile.TemporaryDirectory() as td:
+            packet = Path(td) / "reconciliation.json"
+            current = Path(td) / "CURRENT_STATE.md"
+            packet.write_text(json.dumps(work.load(work.RECONCILIATION_PACKET) | {"change_id": "newer-canonical-change"}), encoding="utf-8")
+            current.write_text(work.CURRENT.read_text(encoding="utf-8"), encoding="utf-8")
+            self.assertEqual(work.current_state_freshness(current, packet), [
+                "CURRENT_STATE is stale: derived change 'evals/round-2-robustness' != current reconciliation 'newer-canonical-change'"
+            ])
+
     def test_requirement_ids_are_unique(self):
         reqs = work.load(work.REQ)["requirements"]
         ids = [r["id"] for r in reqs]

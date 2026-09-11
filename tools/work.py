@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -419,6 +420,19 @@ def validate_integration_packet(path: Path) -> list[str]:
     return errors
 
 
+def current_state_freshness(current: Path = CURRENT, packet: Path = RECONCILIATION_PACKET) -> list[str]:
+    """Ensure the derived view is provenance-bound to the current reconciliation packet."""
+    if not current.exists() or not packet.exists():
+        return []
+    expected = load(packet).get("change_id")
+    match = re.search(r"^- Current change: `([^`]+)`$", current.read_text(encoding="utf-8"), re.MULTILINE)
+    if not match:
+        return ["CURRENT_STATE is missing its reconciliation change provenance"]
+    if match.group(1) != expected:
+        return [f"CURRENT_STATE is stale: derived change {match.group(1)!r} != current reconciliation {expected!r}"]
+    return []
+
+
 def audit() -> list[str]:
     findings = validate()
     if REQ.exists():
@@ -429,6 +443,7 @@ def audit() -> list[str]:
         packet = load(RECONCILIATION_PACKET)
         if packet.get("materiality") == "material" and packet.get("systemically_integrated") is not True:
             findings.append("current material change is not systemically integrated")
+    findings.extend(current_state_freshness())
     return findings
 
 
