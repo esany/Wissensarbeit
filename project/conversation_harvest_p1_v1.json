@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "harvest_id": "WA-HARVEST-P1-001",
+  "harvested_at": "2026-09-11",
+  "source_session": {
+    "seed_id": "WA-HARVEST-SEED-003",
+    "title": "00-Audit der Repositories",
+    "chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf",
+    "access_status": "archived-primary-source-addressable",
+    "source_ref": "chatgpt-conversation://6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf",
+    "issue_ref": "https://github.com/esany/Wissensarbeit/issues/5",
+    "provenance_gap": "The archived source is addressable by chat and turn IDs, but this repository does not contain the original chat body; claims are retained only at the persisted seed/fundstelle level."
+  },
+  "processing": {
+    "mechanism": "existing foundation harvest structure refined with material candidate inventory",
+    "authority_boundary": "Owner source is evidence of intent/constraint, not automatic requirement, decision, or architecture authority.",
+    "restart_status": "pending independent #11 assurance",
+    "idempotency_key": "sha256:WA-HARVEST-SEED-003:P1:v1"
+  },
+  "records": [
+    {
+      "id": "WA-P1-001",
+      "source": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_id": "06f55c05-ede9-4176-93cb-cf8715b5fa2c", "title": "00-Audit der Repositories", "role": "owner-primary", "access_status": "addressable"},
+      "materiality": {"type": "Need", "statement": "Git/GitHub should serve as cross-chat memory and human-readable XAI."},
+      "authority": {"source_role": "owner-primary", "acceptance_status": "candidate-owner-intent", "promotion": "not-authorized"},
+      "uncertainty": "medium",
+      "canonical_state": ["REQ-002", "REQ-007", "issue-6"],
+      "scope": "generic",
+      "disposition": "refine",
+      "rationale": "Refines the existing harvest/XAI intent; it does not add or alter a requirement.",
+      "persistent_action": {"type": "no_change", "target": "project/conversation_harvest_foundation_v1.json", "reason": "existing canonical provenance already records the supported state"}
+    },
+    {
+      "id": "WA-P1-002",
+      "source": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_id": "e8390071-ad9b-4607-b8dc-5df64788b640", "title": "00-Audit der Repositories", "role": "owner-primary", "access_status": "addressable"},
+      "materiality": {"type": "Need", "statement": "Project state must remain reconstructable across chats and fresh instances."},
+      "authority": {"source_role": "owner-primary", "acceptance_status": "candidate-owner-intent", "promotion": "not-authorized"},
+      "uncertainty": "medium",
+      "canonical_state": ["REQ-001", "REQ-002", "issue-5"],
+      "scope": "generic",
+      "disposition": "refine",
+      "rationale": "Matches existing restartability and traceability requirements; owner wording remains distinct from later formalization.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirements", "reason": "provenance refinement only"}
+    },
+    {
+      "id": "WA-P1-003",
+      "source": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_id": "3b75b2e8-172e-4c3d-91bb-9ca86fcb2e48", "title": "00-Audit der Repositories", "role": "owner-primary", "access_status": "addressable"},
+      "materiality": {"type": "Preference/Hypothesis", "statement": "Token/context economy is preferred, but fidelity, materiality, authority, and completion take precedence."},
+      "authority": {"source_role": "owner-primary", "acceptance_status": "operating-hypothesis", "promotion": "not-authorized"},
+      "uncertainty": "high",
+      "canonical_state": ["REQ-003", "issue-5"],
+      "scope": "generic",
+      "disposition": "defer",
+      "rationale": "The source explicitly rejects treating the preference as an accepted or empirically validated requirement.",
+      "persistent_action": {"type": "no_change", "target": "canonical-requirements", "reason": "retain as bounded hypothesis; no requirement promotion"}
+    },
+    {
+      "id": "WA-P1-004",
+      "source": {"chat_id": "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf", "turn_id": "559c7b84-7a2f-428a-9ea6-ab6032422d82", "title": "00-Audit der Repositories", "role": "owner-primary", "access_status": "addressable"},
+      "materiality": {"type": "Constraint", "statement": "Loss control precedes disposition and implementation."},
+      "authority": {"source_role": "owner-primary", "acceptance_status": "candidate-owner-constraint", "promotion": "not-authorized"},
+      "uncertainty": "medium",
+      "canonical_state": ["REQ-003", "REQ-007", "issue-5"],
+      "scope": "generic",
+      "disposition": "refine",
+      "rationale": "Confirms the existing provenance and authority boundary; it does not authorize a new building block or architecture change.",
+      "persistent_action": {"type": "no_change", "target": "project/conversation_harvest_foundation_v1.json", "reason": "existing canonical mechanism already captures the constraint"}
+    }
+  ]
+}

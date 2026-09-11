@@ -152,6 +152,31 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(gaps, "at least one unresolved provenance gap must remain visible")
         self.assertTrue(all(r["persistent_action"]["type"] == "no_change" for r in gaps))
 
+    def test_real_p1_seed_validates_and_preserves_boundaries(self):
+        harvest = work.load(work.P1_HARVEST)
+        self.assertEqual(work.validate_p1_harvest(harvest), [])
+        self.assertTrue(all(r["persistent_action"] for r in harvest["records"]))
+        self.assertTrue(all(r["authority"]["promotion"] == "not-authorized" for r in harvest["records"]))
+
+    def test_p1_missing_action_or_authority_fails(self):
+        harvest = work.load(work.P1_HARVEST)
+        harvest["records"][0].pop("persistent_action")
+        harvest["records"][1]["authority"].pop("promotion")
+        errors = work.validate_p1_harvest(harvest)
+        self.assertTrue(any("persistent_action" in error for error in errors))
+        self.assertTrue(any("promotion" in error for error in errors))
+
+    def test_p1_reprocessing_is_idempotent_by_stable_ids(self):
+        harvest = work.load(work.P1_HARVEST)
+        replay = work.load(work.P1_HARVEST)
+        self.assertEqual([r["id"] for r in harvest["records"]], [r["id"] for r in replay["records"]])
+        self.assertEqual(harvest["processing"]["idempotency_key"], replay["processing"]["idempotency_key"])
+
+    def test_p1_duplicate_id_fails(self):
+        harvest = work.load(work.P1_HARVEST)
+        harvest["records"][1]["id"] = harvest["records"][0]["id"]
+        self.assertTrue(any("duplicate" in error for error in work.validate_p1_harvest(harvest)))
+
     def test_external_historical_evidence_cannot_be_project_primary(self):
         harvest = work.load(work.FOUNDATION_HARVEST)
         requirements = work.load(work.REQ)["requirements"]

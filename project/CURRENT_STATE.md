@@ -44,6 +44,7 @@ data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 - `system/material_state.json`
 - `system/reconciliation.json`
 - `project/reconciliation.json`
+- `project/conversation_harvest_p1_v1.json`
 
 ## Next operational proof
 Run the next real material change through the systemic reconciliation gate, then perform a fresh Git/GitHub-only restart and verify that affected older state is identified without chat reconstruction.
