@@ -23,6 +23,7 @@ BUILDING_BLOCKS = ROOT / "system" / "building_blocks.json"
 OBJECTIVE = ROOT / "project" / "GOVERNING_OBJECTIVE.md"
 CURRENT = ROOT / "project" / "CURRENT_STATE.md"
 FOUNDATION_HARVEST = ROOT / "project" / "conversation_harvest_foundation_v1.json"
+P1_HARVEST = ROOT / "project" / "conversation_harvest_p1_v1.json"
 DECISION_BRIEF = ROOT / "system" / "decision_brief.json"
 MATERIAL_STATE = ROOT / "system" / "material_state.json"
 RECONCILIATION = ROOT / "system" / "reconciliation.json"
@@ -32,7 +33,7 @@ EXECUTION_STATE = ROOT / "project" / "execution_state.json"
 REQUIRED_FILES = [
     REQ, QUALITY, CRITERIA, VERIFICATION, RISKS, LIFECYCLE, AUTHORITY, COMPETENCE,
     FITNESS, BUILDING_BLOCKS, OBJECTIVE, FOUNDATION_HARVEST, DECISION_BRIEF,
-    MATERIAL_STATE, RECONCILIATION, RECONCILIATION_PACKET,
+    MATERIAL_STATE, RECONCILIATION, RECONCILIATION_PACKET, P1_HARVEST,
 ]
 
 
@@ -201,6 +202,44 @@ def validate_foundation_harvest(harvest: dict, requirements: list[dict]) -> list
     return errors
 
 
+def validate_p1_harvest(harvest: dict) -> list[str]:
+    errors = []
+    if harvest.get("harvest_id") != "WA-HARVEST-P1-001":
+        errors.append("P1 harvest has unexpected identity")
+    source = harvest.get("source_session", {})
+    if source.get("seed_id") != "WA-HARVEST-SEED-003" or source.get("chat_id") != "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf":
+        errors.append("P1 harvest must use the persisted real seed source")
+    if not source.get("provenance_gap") or harvest.get("processing", {}).get("restart_status") != "pending independent #11 assurance":
+        errors.append("P1 provenance gap and pending restart status must remain explicit")
+    ids = []
+    source_ids = set()
+    for record in harvest.get("records", []):
+        ids.append(record.get("id"))
+        record_source = record.get("source", {})
+        source_id = (record_source.get("chat_id"), record_source.get("turn_id"))
+        if all(part is not None for part in source_id):
+            if source_id in source_ids:
+                errors.append("P1 harvest contains semantic duplicate source identity (chat_id, turn_id)")
+            source_ids.add(source_id)
+        for field in ("source", "materiality", "authority", "uncertainty", "canonical_state", "scope", "disposition", "rationale", "persistent_action"):
+            if field not in record:
+                errors.append(f"{record.get('id', '<unknown>')}: missing {field}")
+        if record.get("source", {}).get("role") == "owner-primary" and record.get("authority", {}).get("promotion") != "not-authorized":
+            errors.append(f"{record.get('id')}: owner source must not imply promotion")
+        if record.get("scope") not in {"generic", "project-specific"}:
+            errors.append(f"{record.get('id')}: invalid scope")
+        action = record.get("persistent_action", {})
+        if action.get("type") not in {"no_change", "issue-update", "file-update", "pr-candidate"}:
+            errors.append(f"{record.get('id')}: material item lacks valid action/no-change")
+        if not record.get("canonical_state"):
+            errors.append(f"{record.get('id')}: canonical state is required")
+    if len(ids) != len(set(ids)):
+        errors.append("P1 harvest contains semantic duplicate IDs")
+    if not ids:
+        errors.append("P1 harvest must contain material records")
+    return errors
+
+
 def validate_reconciliation_contract(contract: dict, packet: dict, authority: dict, building_blocks: dict) -> list[str]:
     errors: list[str] = []
     required_surfaces = {"requirements", "issues_findings", "risks", "decisions_concepts", "derived_views", "active_work"}
@@ -245,6 +284,7 @@ def validate() -> list[str]:
         decision_brief = load(DECISION_BRIEF)
         reconciliation = load(RECONCILIATION)
         reconciliation_packet = load(RECONCILIATION_PACKET)
+        p1_harvest = load(P1_HARVEST)
     except (json.JSONDecodeError, OSError) as exc:
         return [f"cannot load contract data: {exc}"]
 
@@ -329,6 +369,7 @@ def validate() -> list[str]:
         errors.append("building-block composition principles are missing")
 
     errors.extend(validate_foundation_harvest(foundation_harvest, reqs))
+    errors.extend(validate_p1_harvest(p1_harvest))
     errors.extend(validate_decision_brief_contract(decision_brief, authority, building_blocks))
     errors.extend(validate_reconciliation_contract(reconciliation, reconciliation_packet, authority, building_blocks))
     if EXECUTION_STATE.exists():
