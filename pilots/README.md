@@ -14,3 +14,6 @@ Fresh cross-project evidence from `esany/paleo-type` is recorded in
 Generic-Fit dispositions, not automatic Core promotion. The corresponding fresh
 whole-repository audit of Wissensarbeit is persisted at
 `../project/audits/WA-AUDIT-2026-09-13.md`.
+
+Both 2026-09-13 records are reviewable evidence in PR #33 until merged; they do not
+become accepted `main` state merely by existing on the review branch.
