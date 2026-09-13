@@ -5,6 +5,7 @@
 - Source case: `esany/paleo-type`
 - Fresh source checkpoint: `833da352f5a54baa9ae1727fd6f9452e3a46a852` (2026-09-13)
 - Material source threads include `paleo-type` Issues #165, #166 and #169 and their canonical Project/METHOD owners.
+- Related whole-repository audit: `project/audits/WA-AUDIT-2026-09-13.md`.
 - Purpose here: retain **generic pilot evidence and dispositions only**.
 - Authority: analysis/evidence/candidate input. This file does **not** accept a new Requirement, Building Block, architecture, workflow, domain model or implementation scope.
 
