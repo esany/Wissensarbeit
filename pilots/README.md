@@ -16,4 +16,5 @@ whole-repository audit of Wissensarbeit is persisted at
 `../project/audits/WA-AUDIT-2026-09-13.md`.
 
 Both 2026-09-13 records are reviewable evidence in PR #33 until merged; they do not
-become accepted `main` state merely by existing on the review branch.
+become accepted `main` state merely by existing on the review branch. Issue #7
+retains audit-thread continuity while the PR is under review.
