@@ -4,6 +4,15 @@ Pilots test the generic contracts against real project work. Case material remai
 in its case repository; this repository retains only provenance, dispositioned
 generic learnings, and executable regressions.
 
-The current pilot closure is documented in `pilot-closure.md`. Its regression
-fixtures exercise existing context, integration, assurance, trace, and learning
-mechanisms. They do not add a building block or grant implementation authority.
+## Pilot records
+
+- `generic-pilot-learnings/pilot-closure.md` — closed Arnshaugk pilot; generic
+  learnings and executable regression inputs only.
+- `paleo-type-2026-09-13/generic-learnings.md` — fresh `paleo-type` pilot
+  analysis; generic evidence/dispositions and regression candidates only. It
+  grants no Requirement, Building Block, architecture or implementation
+  authority.
+
+Pilot findings change the generic core only after explicit Generic-Fit and the
+normal authority/reconciliation boundary. Project-specific domain state remains
+owned by the source repository.
