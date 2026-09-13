@@ -4,15 +4,13 @@ Pilots test the generic contracts against real project work. Case material remai
 in its case repository; this repository retains only provenance, dispositioned
 generic learnings, and executable regressions.
 
-## Pilot records
+The original generic pilot closure is documented in
+`generic-pilot-learnings/pilot-closure.md`. Its regression fixtures exercise
+existing context, integration, assurance, trace, and learning mechanisms. They do
+not add a building block or grant implementation authority.
 
-- `generic-pilot-learnings/pilot-closure.md` — closed Arnshaugk pilot; generic
-  learnings and executable regression inputs only.
-- `paleo-type-2026-09-13/generic-learnings.md` — fresh `paleo-type` pilot
-  analysis; generic evidence/dispositions and regression candidates only. It
-  grants no Requirement, Building Block, architecture or implementation
-  authority.
-
-Pilot findings change the generic core only after explicit Generic-Fit and the
-normal authority/reconciliation boundary. Project-specific domain state remains
-owned by the source repository.
+Fresh cross-project evidence from `esany/paleo-type` is recorded in
+`paleo-type-2026-09-13/generic-learnings.md`. It is pilot evidence with explicit
+Generic-Fit dispositions, not automatic Core promotion. The corresponding fresh
+whole-repository audit of Wissensarbeit is persisted at
+`../project/audits/WA-AUDIT-2026-09-13.md`.
