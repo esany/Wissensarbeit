@@ -15,6 +15,14 @@ Generic-Fit dispositions, not automatic Core promotion. The corresponding fresh
 whole-repository audit of Wissensarbeit is persisted at
 `../project/audits/WA-AUDIT-2026-09-13.md`.
 
-Both 2026-09-13 records are reviewable evidence in PR #33 until merged; they do not
+The original `paleo-type` pilot record is intentionally pinned to its 2026-09-13
+checkpoint. Material movement after that checkpoint is preserved separately in
+`../project/audits/WA-AUDIT-2026-09-14-PALEO-TYPE-DELTA.md`. The delta records the
+fresh `paleo-type@3df61570a74b258570127b0a5650df89e7f6c596` evidence, distinguishes
+historical snapshot statements from current consumer state, and refines the P2
+Fidelity Manifest preflight without promoting a new Requirement, Building Block,
+research-framing framework or implementation authority.
+
+All of these records are reviewable evidence in PR #33 until merged; they do not
 become accepted `main` state merely by existing on the review branch. Issue #7
 retains audit-thread continuity while the PR is under review.
