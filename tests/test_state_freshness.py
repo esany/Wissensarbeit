@@ -27,7 +27,7 @@ class StateFreshnessTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             reconciliation = Path(td) / "reconciliation.json"
             packet = json.loads((ROOT / "project" / "reconciliation.json").read_text(encoding="utf-8"))
-            packet["surfaces"]["planning_execution_cursor"]["cursor_binding"]["next"] = "p2-fidelity-manifest-preflight"
+            packet["surfaces"]["planning_execution_cursor"]["cursor_binding"]["next"] = "stale-next-action"
             reconciliation.write_text(json.dumps(packet), encoding="utf-8")
             errors = state_freshness.validate_freshness(reconciliation_path=reconciliation)
             self.assertTrue(any("binding stale for next" in error for error in errors))
