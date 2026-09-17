@@ -23,6 +23,7 @@ domain, project, research, data, software, intelligence, operations, interfaces
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
+- Current change: `audit/paleo-type-2026-09-17-p2-baseline`
 - Reconciliation change: `audit/paleo-type-2026-09-17-p2-baseline`
 - Systemically integrated: `true`
 - Unresolved reconciliation blockers: 0
