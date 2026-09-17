@@ -2,8 +2,8 @@
 """Cross-clock freshness gate for current reconciliation and execution state.
 
 This is deliberately not a new state store. It checks that the existing
-reconciliation packet, execution cursor and derived CURRENT_STATE view describe
-one reconstructable current transition.
+reconciliation packet binds the execution cursor it claims to reconcile and that
+the rebuildable CURRENT_STATE view points at that same reconciliation change.
 """
 from __future__ import annotations
 
@@ -32,11 +32,6 @@ def ready_next(state: dict) -> str:
     return "ambiguous"
 
 
-def _extract(text: str, label: str) -> str | None:
-    match = re.search(rf"^- {re.escape(label)}: `([^`]+)`$", text, re.MULTILINE)
-    return match.group(1) if match else None
-
-
 def validate_freshness(
     reconciliation_path: Path = RECONCILIATION,
     execution_path: Path = EXECUTION_STATE,
@@ -53,28 +48,38 @@ def validate_freshness(
     planning = reconciliation.get("surfaces", {}).get("planning_execution_cursor")
     if not isinstance(planning, dict):
         errors.append("reconciliation is missing planning_execution_cursor disposition")
+        binding = {}
     else:
         if "project/execution_state.json" not in planning.get("objects", []):
             errors.append("planning_execution_cursor must disposition project/execution_state.json")
         if not planning.get("rationale"):
             errors.append("planning_execution_cursor requires rationale")
+        binding = planning.get("cursor_binding", {})
+        if not isinstance(binding, dict):
+            errors.append("planning_execution_cursor requires cursor_binding")
+            binding = {}
 
-    expected = {
-        "Reconciliation change": reconciliation.get("change_id"),
-        "Execution focus": execution.get("focus"),
-        "Execution current step": execution.get("current_step", {}).get("id"),
-        "Execution next": ready_next(execution),
-        "Implementation allowed": str(bool(execution.get("implementation_allowed"))).lower(),
+    expected_binding = {
+        "focus": execution.get("focus"),
+        "current_step": execution.get("current_step", {}).get("id"),
+        "next": ready_next(execution),
+        "implementation_allowed": bool(execution.get("implementation_allowed")),
     }
-    for label, value in expected.items():
-        actual = _extract(current, label)
-        if actual is None:
-            errors.append(f"CURRENT_STATE is missing {label}")
-        elif actual != value:
-            errors.append(f"CURRENT_STATE stale for {label}: {actual!r} != {value!r}")
+    for field, expected in expected_binding.items():
+        actual = binding.get(field)
+        if actual != expected:
+            errors.append(f"execution cursor binding stale for {field}: {actual!r} != {expected!r}")
 
     if ready_next(execution) == "ambiguous":
         errors.append("execution cursor has multiple ready next actions")
+
+    match = re.search(r"^- Current change: `([^`]+)`$", current, re.MULTILINE)
+    if not match:
+        errors.append("CURRENT_STATE is missing reconciliation change provenance")
+    elif match.group(1) != reconciliation.get("change_id"):
+        errors.append(
+            f"CURRENT_STATE stale for reconciliation change: {match.group(1)!r} != {reconciliation.get('change_id')!r}"
+        )
 
     return errors
 
