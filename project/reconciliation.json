@@ -1,68 +1,56 @@
 {
   "schema_version": "1.1",
-  "change_id": "audit/paleo-type-2026-09-17-p2-baseline",
+  "change_id": "p2/post-pr33-baseline-reconciliation-2026-09-17",
   "materiality": "material",
-  "summary": "Reconcile the latest paleo-type Generic-Fit evidence through main@81a9be5a plus open PR #224, close the Wissensarbeit multi-clock planning gap, and insert a post-PR-33 baseline reconciliation substep before P2 Fidelity Manifest preflight without authorizing P2 implementation.",
+  "summary": "Reconcile actual main@b154da8134cbc07e8adb1d0e51aad9b1adef41dc after PR #33 merge, persist completion evidence for the bounded baseline-reconciliation step, and expose P2 Fidelity Manifest preflight as the only ready next action without authorizing implementation.",
   "source_refs": [
     "github:esany/Wissensarbeit#7",
     "github:esany/Wissensarbeit#33",
-    "project/audits/WA-AUDIT-2026-09-13.md",
-    "project/audits/WA-AUDIT-2026-09-14-PALEO-TYPE-DELTA.md",
+    "esany/Wissensarbeit@b154da8134cbc07e8adb1d0e51aad9b1adef41dc",
     "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
-    "esany/paleo-type@81a9be5ac37c47830c2bb1a53025197a18096c17",
-    "esany/paleo-type#200",
-    "esany/paleo-type#203",
-    "esany/paleo-type#204",
-    "esany/paleo-type#205",
-    "esany/paleo-type#206",
-    "esany/paleo-type#207",
-    "esany/paleo-type#208",
-    "esany/paleo-type#211",
-    "esany/paleo-type#212",
-    "esany/paleo-type#223",
-    "esany/paleo-type#224-open"
+    "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md"
   ],
   "surfaces": {
     "requirements": {
-      "disposition": "confirmed",
+      "disposition": "unchanged",
       "objects": ["REQ-001", "REQ-003", "REQ-004", "REQ-007", "REQ-011"],
-      "rationale": "The new evidence strengthens continuity, authority, fidelity and systemic-integration semantics but does not demonstrate a missing formal Requirement family."
+      "rationale": "The post-merge baseline reconciliation changes no Requirement semantics; it only makes the accepted audit/plan transition restartable and current."
     },
     "issues_findings": {
-      "disposition": "refined",
+      "disposition": "confirmed",
       "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#33"],
-      "rationale": "Issue #7 remains the planning source and PR #33 remains the bounded evidence package, but the immediate sequence now requires PR #33 completion and a post-merge baseline reconciliation before P2 Fidelity Manifest preflight."
+      "rationale": "PR #33 is now merged on main and Issue #7 remains the planning source. The previously planned baseline-reconciliation gate is now the completed transition being recorded."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": ["R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "Multi-clock drift, authority strengthening, stale-state reuse, semantic boundary collapse and over-modeling remain covered by existing risks; no new risk family is warranted."
+      "rationale": "No risk family changes. The reconciliation reduces the known multi-clock/current-transition ambiguity before P2 preflight."
     },
     "decisions_concepts": {
       "disposition": "unchanged",
       "objects": ["existing-context-fidelity-slice", "pre-existing-gap:canonical-decision-and-concept-state"],
-      "rationale": "No Research-Framing layer, Candidate-Question schema, scoring model, programme state machine, new state store, fixed agent topology or fifteenth Building Block is admitted. P2 remains a bounded extension of existing context/material-state/trace mechanisms."
+      "rationale": "No new architecture or Concept is admitted. P2 remains a bounded Context-Fidelity hypothesis and implementation remains unauthorized."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE remains a rebuildable reconciliation view. Cross-clock freshness is enforced by binding the execution cursor in this packet rather than duplicating a second execution truth into the derived view."
+      "rationale": "The derived current-state view advances to this reconciliation change. It remains rebuildable and does not become an execution-state owner."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
       "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7"],
-      "rationale": "P2 Fidelity Manifest preflight is no longer the immediate ready step. The next bounded step is post-PR-33 baseline reconciliation on actual merged main; only its persisted completion may expose P2 Fidelity Manifest preflight as ready. P2 implementation remains unauthorized.",
+      "rationale": "The post-PR-33 baseline reconciliation is complete on the accepted b154da8 baseline; P2 Fidelity Manifest preflight is now the single ready next action. Implementation remains explicitly unauthorized.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p1-restart-gate-passed",
-        "next": "p2-post-pr33-baseline-reconciliation",
+        "current_step": "p2-post-pr33-baseline-reconciliation",
+        "next": "p2-fidelity-manifest-preflight",
         "implementation_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#33", "p2-post-pr33-baseline-reconciliation"],
-      "rationale": "PR #33 is the current evidence/plan package. After its review/merge, one bounded baseline-reconciliation step must bind execution state, reconciliation, derived current state and exact merged audit evidence before P2 preflight."
+      "objects": ["p2-fidelity-manifest-preflight"],
+      "rationale": "The baseline-reconciliation gate has completed. The only current work exposed by the persisted cursor is the P2 Fidelity Manifest preflight; no P2 implementation work is active."
     }
   },
   "unresolved": [],
