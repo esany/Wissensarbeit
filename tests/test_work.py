@@ -27,7 +27,7 @@ class OperationalCoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
             path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-            errors = work.execution_complete("p2-fidelity-manifest-preflight", "missing-proof.md", path)
+            errors = work.execution_complete("p2-post-pr33-baseline-reconciliation", "missing-proof.md", path)
             self.assertTrue(any("evidence" in error for error in errors))
 
     def test_untracked_evidence_fails(self):
@@ -37,7 +37,7 @@ class OperationalCoreTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as td:
                 path = Path(td) / "state.json"
                 path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-                errors = work.execution_complete("p2-fidelity-manifest-preflight", "project/.untracked-evidence-test", path)
+                errors = work.execution_complete("p2-post-pr33-baseline-reconciliation", "project/.untracked-evidence-test", path)
             self.assertTrue(any("Git-persisted" in error for error in errors))
         finally:
             evidence.unlink(missing_ok=True)
@@ -46,7 +46,7 @@ class OperationalCoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
             path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-            self.assertEqual(work.execution_complete("p2-fidelity-manifest-preflight", "README.md", path), [])
+            self.assertEqual(work.execution_complete("p2-post-pr33-baseline-reconciliation", "README.md", path), [])
 
     def test_execution_guard_is_fail_closed_for_missing_source(self):
         with tempfile.TemporaryDirectory() as td:
@@ -63,7 +63,7 @@ class OperationalCoreTests(unittest.TestCase):
     def test_execution_next_is_deterministic_or_explicitly_refuses(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "p2-fidelity-manifest-preflight")
+        self.assertEqual(next_step, "p2-post-pr33-baseline-reconciliation")
 
     def test_execution_state_reconciles_closed_28_without_starting_p2(self):
         state = work.load(work.EXECUTION_STATE)
@@ -87,7 +87,7 @@ class OperationalCoreTests(unittest.TestCase):
             packet.write_text(json.dumps(work.load(work.RECONCILIATION_PACKET) | {"change_id": "newer-canonical-change"}), encoding="utf-8")
             current.write_text(work.CURRENT.read_text(encoding="utf-8"), encoding="utf-8")
             self.assertEqual(work.current_state_freshness(current, packet), [
-                "CURRENT_STATE is stale: derived change 'evals/round-2-robustness' != current reconciliation 'newer-canonical-change'"
+                "CURRENT_STATE is stale: derived change 'audit/paleo-type-2026-09-17-p2-baseline' != current reconciliation 'newer-canonical-change'"
             ])
 
     def test_requirement_ids_are_unique(self):
