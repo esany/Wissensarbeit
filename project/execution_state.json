@@ -4,18 +4,33 @@
   "current_step": {
     "id": "p1-restart-gate-passed",
     "next": [
-      {"id": "p2-fidelity-manifest-preflight", "status": "ready", "depends_on": ["WA-HARVEST-P1-001", "WA-RESTART-2026-09-11-02"]}
+      {
+        "id": "p2-post-pr33-baseline-reconciliation",
+        "status": "ready",
+        "depends_on": [
+          "WA-HARVEST-P1-001",
+          "WA-RESTART-2026-09-11-02",
+          "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA"
+        ]
+      }
     ]
   },
   "dependencies": [
     {"id": "WA-HARVEST-P1-001", "status": "resolved"},
-    {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"}
+    {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"},
+    {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"}
   ],
   "allowed_actions": ["inspect", "design", "plan", "persist evidence", "complete"],
   "implementation_allowed": false,
   "route": "local-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
-    "WA-RESTART-2026-09-11-02": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967"
+    "WA-RESTART-2026-09-11-02": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967",
+    "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA": "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md"
+  },
+  "follow_up": {
+    "candidate": "p2-fidelity-manifest-preflight",
+    "blocked_until": "p2-post-pr33-baseline-reconciliation",
+    "rule": "Do not expose P2 Fidelity Manifest preflight as ready until PR #33 is merged and the resulting actual main has persisted a baseline reconciliation binding execution_state, project/reconciliation, CURRENT_STATE and exact merged audit evidence."
   }
 }
