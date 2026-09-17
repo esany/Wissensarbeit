@@ -2,15 +2,16 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p1-restart-gate-passed",
+    "id": "p2-post-pr33-baseline-reconciliation",
     "next": [
       {
-        "id": "p2-post-pr33-baseline-reconciliation",
+        "id": "p2-fidelity-manifest-preflight",
         "status": "ready",
         "depends_on": [
           "WA-HARVEST-P1-001",
           "WA-RESTART-2026-09-11-02",
-          "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA"
+          "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA",
+          "WA-P2-BASELINE-RECON-2026-09-17-01"
         ]
       }
     ]
@@ -18,7 +19,8 @@
   "dependencies": [
     {"id": "WA-HARVEST-P1-001", "status": "resolved"},
     {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"},
-    {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"}
+    {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"},
+    {"id": "WA-P2-BASELINE-RECON-2026-09-17-01", "status": "resolved"}
   ],
   "allowed_actions": ["inspect", "design", "plan", "persist evidence", "complete"],
   "implementation_allowed": false,
@@ -26,11 +28,13 @@
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
     "WA-RESTART-2026-09-11-02": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967",
-    "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA": "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md"
+    "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA": "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
+    "WA-P2-BASELINE-RECON-2026-09-17-01": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
+    "p2-post-pr33-baseline-reconciliation": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md"
   },
   "follow_up": {
-    "candidate": "p2-fidelity-manifest-preflight",
-    "blocked_until": "p2-post-pr33-baseline-reconciliation",
-    "rule": "Do not expose P2 Fidelity Manifest preflight as ready until PR #33 is merged and the resulting actual main has persisted a baseline reconciliation binding execution_state, project/reconciliation, CURRENT_STATE and exact merged audit evidence."
+    "candidate": "p2-implementation-admission",
+    "blocked_until": "p2-fidelity-manifest-preflight",
+    "rule": "Do not expose or perform P2 implementation unless a valid P2 Fidelity Manifest preflight on then-current main passes and a separate explicit implementation admission is persisted."
   }
 }
