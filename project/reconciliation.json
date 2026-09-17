@@ -46,12 +46,18 @@
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "The current-state view must expose both the reconciliation change and the execution cursor so a fresh context cannot mistake one internally consistent clock for the whole current state."
+      "rationale": "CURRENT_STATE remains a rebuildable reconciliation view. Cross-clock freshness is enforced by binding the execution cursor in this packet rather than duplicating a second execution truth into the derived view."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
       "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7"],
-      "rationale": "P2 Fidelity Manifest preflight is no longer the immediate ready step. The next bounded step is post-PR-33 baseline reconciliation on actual merged main; only its persisted completion may expose P2 Fidelity Manifest preflight as ready. P2 implementation remains unauthorized."
+      "rationale": "P2 Fidelity Manifest preflight is no longer the immediate ready step. The next bounded step is post-PR-33 baseline reconciliation on actual merged main; only its persisted completion may expose P2 Fidelity Manifest preflight as ready. P2 implementation remains unauthorized.",
+      "cursor_binding": {
+        "focus": "github:esany/Wissensarbeit#7",
+        "current_step": "p1-restart-gate-passed",
+        "next": "p2-post-pr33-baseline-reconciliation",
+        "implementation_allowed": false
+      }
     },
     "active_work": {
       "disposition": "refined",
