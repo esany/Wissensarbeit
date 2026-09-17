@@ -1,58 +1,68 @@
 {
-  "schema_version": "1.0",
-  "change_id": "evals/round-2-robustness",
+  "schema_version": "1.1",
+  "change_id": "audit/paleo-type-2026-09-17-p2-baseline",
   "materiality": "material",
-  "summary": "Add a bounded second eval round that perturbs already-defined failure invariants across terse free text, acknowledgement ambiguity, systemic-drift pressure, epistemic compression, false assurance and evidence availability. Require multiple independent fresh-instance trials and evidence-backed classification of failures as model-behavior, grader or system-control-gap before any Core fix.",
+  "summary": "Reconcile the latest paleo-type Generic-Fit evidence through main@81a9be5a plus open PR #224, close the Wissensarbeit multi-clock planning gap, and insert a post-PR-33 baseline reconciliation substep before P2 Fidelity Manifest preflight without authorizing P2 implementation.",
   "source_refs": [
-    "REQ-001",
-    "REQ-003",
-    "REQ-004",
-    "REQ-007",
-    "REQ-011",
-    "R-001",
-    "R-002",
-    "R-004",
-    "R-005",
-    "R-008",
-    "issue-7",
-    "PR14",
-    "PR15",
-    "WA-EVAL-001",
-    "WA-EVAL-002",
-    "WA-EVAL-004",
-    "WA-EVAL-006",
-    "WA-EVAL-008"
+    "github:esany/Wissensarbeit#7",
+    "github:esany/Wissensarbeit#33",
+    "project/audits/WA-AUDIT-2026-09-13.md",
+    "project/audits/WA-AUDIT-2026-09-14-PALEO-TYPE-DELTA.md",
+    "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
+    "esany/paleo-type@81a9be5ac37c47830c2bb1a53025197a18096c17",
+    "esany/paleo-type#200",
+    "esany/paleo-type#203",
+    "esany/paleo-type#204",
+    "esany/paleo-type#205",
+    "esany/paleo-type#206",
+    "esany/paleo-type#207",
+    "esany/paleo-type#208",
+    "esany/paleo-type#211",
+    "esany/paleo-type#212",
+    "esany/paleo-type#223",
+    "esany/paleo-type#224-open"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "confirmed",
       "objects": ["REQ-001", "REQ-003", "REQ-004", "REQ-007", "REQ-011"],
-      "rationale": "Round 2 tests robustness of existing requirements under perturbation; it promotes no new requirement."
+      "rationale": "The new evidence strengthens continuity, authority, fidelity and systemic-integration semantics but does not demonstrate a missing formal Requirement family."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["issue-7"],
-      "rationale": "The first empirical round is extended from one-off fresh runs to a bounded multi-trial robustness plan with explicit failure classification."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#33"],
+      "rationale": "Issue #7 remains the planning source and PR #33 remains the bounded evidence package, but the immediate sequence now requires PR #33 completion and a post-merge baseline reconciliation before P2 Fidelity Manifest preflight."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-001", "R-002", "R-004", "R-005", "R-008"],
-      "rationale": "The perturbations target continuity, systemic drift, epistemic integrity, authority and false-assurance risks already present in the canonical risk model."
+      "objects": ["R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
+      "rationale": "Multi-clock drift, authority strengthening, stale-state reuse, semantic boundary collapse and over-modeling remain covered by existing risks; no new risk family is warranted."
     },
     "decisions_concepts": {
       "disposition": "unchanged",
-      "objects": ["pre-existing-gap:canonical-decision-and-concept-state"],
-      "rationale": "Round plans and failure classification remain test/eval evidence under tests/evals; they do not create a new canonical concept or decision registry."
+      "objects": ["existing-context-fidelity-slice", "pre-existing-gap:canonical-decision-and-concept-state"],
+      "rationale": "No Research-Framing layer, Candidate-Question schema, scoring model, programme state machine, new state store, fixed agent topology or fifteenth Building Block is admitted. P2 remains a bounded extension of existing context/material-state/trace mechanisms."
     },
     "derived_views": {
       "disposition": "refined",
-      "objects": ["project/CURRENT_STATE.md", "tools/work.py::derive"],
-      "rationale": "The generated current-state reconciliation pointer must identify the current material eval slice. No new canonical source is introduced."
+      "objects": ["project/CURRENT_STATE.md"],
+      "rationale": "CURRENT_STATE remains a rebuildable reconciliation view. Cross-clock freshness is enforced by binding the execution cursor in this packet rather than duplicating a second execution truth into the derived view."
+    },
+    "planning_execution_cursor": {
+      "disposition": "refined",
+      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7"],
+      "rationale": "P2 Fidelity Manifest preflight is no longer the immediate ready step. The next bounded step is post-PR-33 baseline reconciliation on actual merged main; only its persisted completion may expose P2 Fidelity Manifest preflight as ready. P2 implementation remains unauthorized.",
+      "cursor_binding": {
+        "focus": "github:esany/Wissensarbeit#7",
+        "current_step": "p1-restart-gate-passed",
+        "next": "p2-post-pr33-baseline-reconciliation",
+        "implementation_allowed": false
+      }
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["WA-EVAL-ROUND-2", "future fresh-instance trials"],
-      "rationale": "The next active proof is now a bounded 30-trial perturbation round. A failed trial must be classified with evidence before repair or Core changes are considered."
+      "objects": ["github:esany/Wissensarbeit#33", "p2-post-pr33-baseline-reconciliation"],
+      "rationale": "PR #33 is the current evidence/plan package. After its review/merge, one bounded baseline-reconciliation step must bind execution state, reconciliation, derived current state and exact merged audit evidence before P2 preflight."
     }
   },
   "unresolved": [],

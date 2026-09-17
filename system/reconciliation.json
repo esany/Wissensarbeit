@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "purpose": "Prevent locally correct material changes from leaving the wider project state semantically stale or contradictory.",
-  "principle": "A material change is not systemically integrated until its impact on the current whole has been explicitly reconciled. Unchanged is a valid disposition; silence is not.",
+  "principle": "A material change is not systemically integrated until its impact on the current whole, including the existing planning/execution cursor, has been explicitly reconciled. Unchanged is a valid disposition; silence is not.",
   "authority": {
     "impact_discovery": "ai_judgement_with_human_or_specialist_escalation_when_material_meaning_is_uncertain",
     "routine_reconciliation": "ai_autonomous_operational",
@@ -13,6 +13,7 @@
     "risks",
     "decisions_concepts",
     "derived_views",
+    "planning_execution_cursor",
     "active_work"
   ],
   "allowed_dispositions": [
@@ -29,10 +30,12 @@
     "material_change_requires_reconciliation": true,
     "every_required_surface_must_be_present": true,
     "every_impacted_object_requires_disposition_and_rationale": true,
+    "material_transition_requires_planning_execution_cursor_disposition": true,
+    "local_pass_stop_or_closeout_does_not_imply_programme_completion": true,
     "unresolved_conflict_or_needs_decision_blocks_systemically_integrated_status": true,
     "reconciliation_does_not_grant_material_authority": true,
     "non_material_change_may_bypass_with_rationale": true
   },
-  "promotion_boundary": "A material PR may be technically mergeable while reconciliation is incomplete; it must not be described as systemically integrated until the reconciliation gate passes.",
+  "promotion_boundary": "A material PR may be technically mergeable while reconciliation is incomplete; it must not be described as systemically integrated until the reconciliation gate passes. Reconciliation may expose a next decision or work candidate but does not manufacture priority, scope or implementation authority.",
   "history_rule": "The current reconciliation packet may be replaced by later material changes because Git history preserves prior packets; do not create a parallel reconciliation registry by default."
 }
