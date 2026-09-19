@@ -1,6 +1,6 @@
 # WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01
 
-Status: **P2 preflight evidence / revised PASS candidate after NEEDS CORRECTION / independent re-review required / no implementation authority**
+Status: **P2 preflight evidence / independently qualitatively CONFIRMED for canonical-promotion consideration / no implementation authority**
 
 ## 1. Exact current baseline
 
@@ -87,6 +87,7 @@ Primary current repository evidence:
 - current planning source `github:esany/Wissensarbeit#7`, including the prior stale-baseline P2 preflight failure and the accepted post-PR-33 transition
 - `project/WA-P2-PREFLIGHT-REVIEW-2026-09-19-01.md` — independent qualitative review result `NEEDS CORRECTION` that identified the full-dump and selection-provenance loophole
 - `project/WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02.md` — focused re-review result `NEEDS CORRECTION` that confirmed selection provenance but found the stronger generic near-full claim unsupported by the positive fixture
+- `project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md` — final focused independent re-review result `CONFIRM` for the closed-universe/exact-output correction; no implementation or merge authority
 
 Cross-repo evidence was used only as a fresh falsification/consumer check. `esany/paleo-type` was freshly read at its then-current main including `GOVERNING_OBJECTIVE.md`, `AGENTS.md`, the active system owner #225, and relevant current learning/method evidence. Consumer-domain state remains in that repository.
 
@@ -378,11 +379,11 @@ Assessment at this preflight:
 
 ## 16. Preflight verdict
 
-**REVISED PASS CANDIDATE — bounded implementation admission may be considered only after independent re-review confirms that the NEEDS CORRECTION finding is closed.**
+**PASS — independently qualitatively CONFIRMED for consideration for canonical promotion.**
 
 Classification: **judgement backed by repository evidence and deterministic repository-state facts.**
 
-This revised candidate judgement means only that the problem, scope, semantic boundaries, corrected positive boundedness contract, owner fit and smallest credible solution appear sufficiently bounded to ask for a separate implementation admission **if the corrected PR is independently re-reviewed as CONFIRM and then canonically promoted**.
+This judgement means that the problem, scope, semantic boundaries, corrected positive boundedness contract, owner fit and smallest credible solution have survived the required independent qualitative re-review. It may support consideration of PR #35 for canonical promotion. A separate implementation admission may be considered only **after** the preflight is canonically promoted.
 
 It is **not**:
 
