@@ -12,7 +12,7 @@ Whether to admit the smallest P2 Context-Fidelity implementation slice described
 
 ## Scope
 
-Admit only an Existing-Owner refinement that makes the current `BB-CONTEXT` executable path capable of producing a **positively bounded** context with rebuildable compile provenance, explicit selection/materiality provenance, stable negative-invariant validation, and a positive fixture that rejects safe full/near-full dumps.
+Admit only an Existing-Owner refinement that makes the current `BB-CONTEXT` executable path capable of producing a **positively bounded** context with rebuildable compile provenance, explicit selection/materiality provenance, stable negative-invariant validation, and a frozen closed-universe positive fixture whose execution refs must equal the declared required/material set exactly.
 
 ### Allowed functional boundary
 
@@ -21,7 +21,9 @@ Admit only an Existing-Owner refinement that makes the current `BB-CONTEXT` exec
    - accept/bind an explicit work/question reference, source/snapshot identity, authority reference, and a traceable selection/materiality basis sufficient for the bounded compile;
    - the selection/materiality basis is judgement input/provenance, not a deterministic truth claim by the compiler;
    - produce a bounded execution context plus a noncanonical compile-provenance/fidelity record;
-   - for an explicit structured fixture, retain all declared required/material refs and exclude declared non-required/irrelevant refs; a full/near-full dump must fail.
+   - for the frozen structured positive fixture, declare a closed candidate universe `U`, partition it completely into required/material `R` and non-required/irrelevant `I`, require `R ∩ I = ∅` and `R ∪ I = U`, and require execution refs to equal `R` exactly;
+   - freeze at least one non-trivial fixture with a visibly bounded proper subset, e.g. semantics equivalent to `U={A,B,C,D,E,F}`, `R={A,B}`, `I={C,D,E,F}`; concrete fixture identifiers may differ but the partition/output relation may not be weakened without re-opening preflight;
+   - do not generalize this fixture into a deterministic global near-full threshold or materiality metric.
 
 2. **At most one small internal helper if needed for clarity/test isolation**
    - helper remains owned by `BB-CONTEXT`/`BB-ASSURE`;
@@ -29,7 +31,7 @@ Admit only an Existing-Owner refinement that makes the current `BB-CONTEXT` exec
 
 3. **P2 regression fixtures/tests**
    - executable coverage for the stable structured semantics of F1–F11/P1–P3;
-   - at least one positive P1 fixture binds required/material refs, explicit irrelevant refs and the provenance/role of the selection judgement; inclusion of those explicit irrelevant refs fails the boundedness contract;
+   - at least one positive P1 fixture binds a closed universe `U`, complete `R`/`I` partition, exact expected execution refs `R`, and the provenance/role of the selection judgement; missing required refs or inclusion of any ref outside `R` fails the fixture;
    - deterministic validation checks fidelity relative to the bound selection basis, not whether real-world materiality was correctly judged;
    - Natural-Language Human-intent/materiality/semantic-equivalence judgement is not converted into fake deterministic classification.
 
@@ -51,7 +53,8 @@ If the slice requires changes to Requirements, `system/authority.json`, `system/
 The admission also excludes three degenerate implementation shapes:
 - a hidden deterministic relevance/materiality classifier that silently owns selection judgement;
 - a caller-provided include-list with no traceable selection/materiality provenance;
-- a safe full/near-full context dump that preserves fidelity boundaries but does not perform the required positive reduction.
+- full or over-inclusive output on the frozen closed-universe fixture;
+- any claim that a fixture-specific exact-output check proves arbitrary real-world near-fullness is deterministically decidable.
 
 ## Recommendation
 
@@ -84,7 +87,7 @@ Consequence: implementation remains blocked and no compensating architecture is 
 
 If admitted and successfully implemented:
 
-- Context compilation must demonstrably become task-bounded on the explicit positive fixture while preserving provenance and semantic boundaries; real-task usefulness and sufficiency remain later judgement.
+- Context compilation must demonstrably satisfy the frozen closed-universe exact-output fixture while preserving provenance and semantic boundaries; real-task boundedness, usefulness and sufficiency remain later judgement.
 - The compile output gains a derived fidelity/provenance explanation; this adds some generated metadata and maintenance/test surface.
 - Stable authority/readiness/NONE/freshness invariants gain deterministic regression coverage.
 - Semantic materiality, Human intent, problem-fit and real-world usefulness remain judgement dimensions, not CI truth.
@@ -116,7 +119,7 @@ Before implementation result review:
 - state-freshness/cross-clock check;
 - all existing tests/regressions unchanged green;
 - new P2 stable-invariant fixtures for F1–F11/P1–P3;
-- explicit positive bounded-selection fixture: required/material refs retained, explicit irrelevant refs excluded, full/near-full dump fails;
+- explicit positive bounded-selection fixture: closed universe `U`, complete `R`/`I` partition, non-trivial proper subset, expected execution refs exactly `R`; full or over-inclusive output fails for that fixture;
 - selection/materiality provenance binding: validator proves fidelity to the judgement basis, not correctness of materiality itself;
 - stale snapshot and explicit NONE/purpose-gap negative cases;
 - authority and readiness strengthening negative cases;
@@ -144,6 +147,7 @@ Stop implementation and re-open the preflight if any of the following becomes ne
 - persistent fidelity registry;
 - inability to enforce the frozen negative invariants without substantially widening scope;
 - evidence that the bounded compile cannot remain useful without effectively loading the whole canonical state into the downstream execution context;
+- any need for a global deterministic near-full ratio/threshold to justify the implementation;
 - inability to bind a reviewable judgement basis for selection without creating a new persistent truth owner.
 
 Do not compensate for a failed preflight assumption by adding architecture.
