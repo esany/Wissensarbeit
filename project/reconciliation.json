@@ -1,56 +1,63 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/post-pr33-baseline-reconciliation-2026-09-17",
+  "change_id": "p2/fidelity-manifest-preflight-2026-09-19",
   "materiality": "material",
-  "summary": "Reconcile actual main@b154da8134cbc07e8adb1d0e51aad9b1adef41dc after PR #33 merge, persist completion evidence for the bounded baseline-reconciliation step, and expose P2 Fidelity Manifest preflight as the only ready next action without authorizing implementation.",
+  "summary": "Persist the fresh P2 Context-Fidelity preflight against main@63883532af7834b5e46a84cef665ef4cfaa25a98, disposition the 2026-09-18/19 audit deltas, freeze the fidelity falsification contract, and expose only a blocked Human implementation-admission decision without authorizing P2 implementation.",
   "source_refs": [
     "github:esany/Wissensarbeit#7",
-    "github:esany/Wissensarbeit#33",
-    "esany/Wissensarbeit@b154da8134cbc07e8adb1d0e51aad9b1adef41dc",
+    "esany/Wissensarbeit@63883532af7834b5e46a84cef665ef4cfaa25a98",
+    "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
     "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
-    "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md"
+    "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
+    "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
+    "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
+    "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
-      "objects": ["REQ-001", "REQ-003", "REQ-004", "REQ-007", "REQ-011"],
-      "rationale": "The post-merge baseline reconciliation changes no Requirement semantics; it only makes the accepted audit/plan transition restartable and current."
+      "objects": ["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-007", "REQ-008", "REQ-011", "REQ-012"],
+      "rationale": "The preflight finds no missing Requirement family. Existing restartability, traceability, integration, authority, automation and rule-class Requirements already own the normative need; P2 is an operational Context-Compiler gap."
     },
     "issues_findings": {
-      "disposition": "confirmed",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#33"],
-      "rationale": "PR #33 is now merged on main and Issue #7 remains the planning source. The previously planned baseline-reconciliation gate is now the completed transition being recorded."
+      "disposition": "refined",
+      "objects": [
+        "github:esany/Wissensarbeit#7",
+        "WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA",
+        "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA"
+      ],
+      "rationale": "The two post-baseline audits do not change the execution cursor but materially refine the P2 semantic boundary: Human symptom/need evidence must not become solution authority, while the broader discovery/design methodology gap remains outside P2 except for preserving its distinctions during context reduction."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "No risk family changes. The reconciliation reduces the known multi-clock/current-transition ambiguity before P2 preflight."
+      "objects": ["R-002", "R-003", "R-004", "R-005", "R-006", "R-007", "R-008", "R-009"],
+      "rationale": "The preflight sharpens existing novelty-drift, accretion, authority, solutionism, over-modeling, false-completion and self-reinforcing-error risks. No new risk family is required."
     },
     "decisions_concepts": {
-      "disposition": "unchanged",
-      "objects": ["existing-context-fidelity-slice", "pre-existing-gap:canonical-decision-and-concept-state"],
-      "rationale": "No new architecture or Concept is admitted. P2 remains a bounded Context-Fidelity hypothesis and implementation remains unauthorized."
+      "disposition": "refined",
+      "objects": ["existing-context-fidelity-slice", "p2-minimal-existing-owner-candidate"],
+      "rationale": "The solution-space comparison identifies a minimal extension of the existing Context Compiler plus rebuildable compile provenance as the smallest adequate candidate. This is a bounded proposal, not accepted architecture or implementation authority; a new persistent fidelity/state layer is rejected."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "The derived current-state view advances to this reconciliation change. It remains rebuildable and does not become an execution-state owner."
+      "rationale": "The rebuildable current-state view advances to this preflight reconciliation change. It remains noncanonical and does not own execution priority."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
       "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7"],
-      "rationale": "The post-PR-33 baseline reconciliation is complete on the accepted b154da8 baseline; P2 Fidelity Manifest preflight is now the single ready next action. Implementation remains explicitly unauthorized.",
+      "rationale": "The P2 preflight is represented as completed only by this coherent review package. No executable P2 implementation action becomes ready: implementation admission is explicitly blocked on Human acceptance and implementation_allowed remains false.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-post-pr33-baseline-reconciliation",
-        "next": "p2-fidelity-manifest-preflight",
+        "current_step": "p2-fidelity-manifest-preflight",
+        "next": "none",
         "implementation_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["p2-fidelity-manifest-preflight"],
-      "rationale": "The baseline-reconciliation gate has completed. The only current work exposed by the persisted cursor is the P2 Fidelity Manifest preflight; no P2 implementation work is active."
+      "objects": [],
+      "rationale": "No P2 implementation is active. The only follow-up is a blocked implementation-admission decision proposal; absence of admission is preserved as non-generative state."
     }
   },
   "unresolved": [],
