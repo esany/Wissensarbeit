@@ -1,6 +1,6 @@
 # WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01
 
-Status: **P2 preflight evidence / PASS candidate for review / no implementation authority**
+Status: **P2 preflight evidence / revised PASS candidate after NEEDS CORRECTION / independent re-review required / no implementation authority**
 
 ## 1. Exact current baseline
 
@@ -85,6 +85,7 @@ Primary current repository evidence:
 - `project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md`
 - the two newer audit deltas listed above
 - current planning source `github:esany/Wissensarbeit#7`, including the prior stale-baseline P2 preflight failure and the accepted post-PR-33 transition
+- `project/WA-P2-PREFLIGHT-REVIEW-2026-09-19-01.md` — independent qualitative review result `NEEDS CORRECTION` that identified the full-dump and selection-provenance loophole
 
 Cross-repo evidence was used only as a fresh falsification/consumer check. `esany/paleo-type` was freshly read at its then-current main including `GOVERNING_OBJECTIVE.md`, `AGENTS.md`, the active system owner #225, and relevant current learning/method evidence. Consumer-domain state remains in that repository.
 
@@ -178,6 +179,14 @@ Several summaries derived from the same unverified premise do not become indepen
 
 Symptom/quality feedback does not by itself grant Requirement, scope, priority, architecture or programme authority.
 
+### Positive boundedness
+
+A compile is not sufficient merely because it preserves every semantic boundary. For an explicit structured selection fixture, the bounded execution context must retain every declared required/material reference **and exclude declared non-required/irrelevant references**. A safe full/near-full dump therefore fails the positive capability contract even if all negative fidelity invariants pass.
+
+### Selection provenance
+
+Selection/materiality is not silently owned by the compiler. Deterministic validation may check a compile against an explicit structured selection basis, but the basis itself must identify its judgement/provenance source. Passing deterministic checks proves fidelity to that bound selection basis; it does not prove that real-world materiality or semantic sufficiency was correctly judged.
+
 ## 8. Frozen falsification matrix
 
 The scenarios below are the pre-implementation contract. Implementation may refine fixtures/field names, but must not weaken their semantics without re-opening this preflight.
@@ -195,11 +204,13 @@ The scenarios below are the pre-implementation contract. Implementation may refi
 | F9 | downstream summaries sharing one premise are counted as independent evidence | FAIL | deterministic for explicit provenance ancestry/duplicate premise refs; substantive independence judgement may remain judgement |
 | F10 | bounded support repair changes valid cursor or creates meta-programme without authority | FAIL | deterministic where before/after cursor and admission are explicit; interpretation of support failure can be judgement |
 | F11 | Human “shallow/confusing” symptom is promoted to new architecture/product direction without authority | FAIL | deterministic/procedural no-promotion check once source role/authority is established; Natural-Language role classification remains judgement |
-| P1 | justified bounded reduction keeps every declared material element, uncertainty/authority, deliberate omissions and freshness | PASS | mixed: deterministic structural fidelity + judgement for usefulness/material sufficiency |
+| P1 | explicit selection fixture declares required/material refs and non-required/irrelevant refs; bounded execution context retains all required/material refs, excludes the explicit irrelevant refs, preserves uncertainty/authority/freshness, and binds the selection basis/provenance | PASS; a full/near-full dump is FAIL | deterministic relative to the explicit structured selection basis; judgement remains responsible for whether the real-world selection/materiality basis is adequate |
 | P2 | explicit `NEXT ACTION = NONE` remains NONE; residuals remain evidence only | PASS | deterministic |
 | P3 | bounded prerequisite repair returns to unchanged valid cursor | PASS | deterministic for explicit cursor/repair fixture |
 
 **No claim is made that Natural-Language materiality, intent, semantic equivalence or problem-fit is fully deterministically decidable.**
+
+The positive P1 fixture is deliberately stronger than the older reference-set preservation checks: it must contain at least one explicitly irrelevant/non-required reference whose inclusion in the bounded execution context makes the fixture fail. This prevents a semantically conservative full dump from masquerading as successful bounded compilation.
 
 ## 9. Solution-space comparison
 
@@ -258,6 +269,7 @@ Minimum record semantics:
 - exact repository/source snapshot identity;
 - work/question reference;
 - authority reference;
+- bound selection/materiality basis, including the provenance/role of the judgement that supplied or approved it;
 - included refs;
 - deliberately omitted refs/classes + rationale;
 - retained unresolved/uncertainty;
@@ -265,18 +277,18 @@ Minimum record semantics:
 - actual readiness state where relevant;
 - refresh/invalidation condition.
 
-Deterministic validation is scoped to explicit structured compile inputs and their bound source states. It must not claim global semantic completeness or infer Human intent.
+Deterministic validation is scoped to explicit structured compile inputs, the bound selection/materiality basis, and their source states. It must not claim global semantic completeness, decide real-world materiality, or infer Human intent. A caller-provided include-list without traceable selection provenance is insufficient for P1.
 
 ## 11. Loss/regression risks
 
 1. **False safety:** passing structural checks could be overclaimed as semantic completeness.
 2. **Manifest accretion:** provenance output could drift into a new truth store.
-3. **Over-selection:** safety could force near-full context and destroy the intended bounded capability.
+3. **Over-selection:** safety could force near-full context and destroy the intended bounded capability; the positive P1 contract therefore makes explicit irrelevant-reference retention fail.
 4. **Under-selection:** judgement may omit material context despite a structurally valid record.
 5. **Status vocabulary inflation:** temporary test vocabulary could become a universal ontology.
 6. **Stale compile reuse:** snapshot identity may exist without enforced invalidation.
 7. **Human-feedback misclassification:** a model may still misread free text; deterministic checks cannot solve this alone.
-8. **Process overhead:** per-compile metadata could cost more than the context reduction if not generated automatically.
+8. **Process overhead:** per-compile metadata could cost more than the context reduction if not generated automatically or if the full provenance record is forced into the same execution payload.
 9. **Shared-premise laundering:** provenance ancestry may be incomplete and require judgement.
 10. **Compatibility:** existing `context` consumers must not silently receive incompatible semantics without a bounded migration decision.
 
@@ -324,6 +336,8 @@ Before merge of any later implementation:
 - state-freshness/cross-clock check;
 - existing full regression suite;
 - frozen P2 Fidelity scenarios F1–F11/P1–P3 translated into executable fixtures only for their stable structured invariants;
+- at least one positive P1 fixture in which explicit irrelevant refs must be excluded, so a full/near-full context dump deterministically fails;
+- selection/materiality provenance binding check: deterministic validation proves fidelity to the supplied judgement basis, not the correctness of real-world materiality itself;
 - derived-state reproduction;
 - explicit negative authority/uncertainty/readiness/NONE/purpose/staleness cases;
 - compatibility check for existing context behavior or an explicit bounded migration.
@@ -335,7 +349,7 @@ Before merge of any later implementation:
 - Human usefulness;
 - whether design/discovery distinctions are preserved without importing a design engine;
 - maintenance burden;
-- process overhead;
+- process overhead, assessed across the bounded execution context **and** its compile-provenance output rather than hiding provenance cost outside the review;
 - whether context is actually smaller/useful rather than governance-heavy;
 - whether a fresh worker can reconstruct Problem, Scope, Evidence, boundaries and the next permitted step from repository/GitHub.
 
@@ -353,17 +367,17 @@ Assessment at this preflight:
 - Human-feedback fidelity included: **satisfied**
 - stale snapshot/invalidation included: **satisfied**
 - slice can be small/reversible/existing-owner-based: **satisfied**
-- positive capability preserved as an explicit result-review criterion: **satisfied**
+- positive bounded capability is falsifiable before implementation: **satisfied by the corrected P1 contract requiring explicit irrelevant-reference exclusion and bound selection provenance; real-world usefulness/material sufficiency remains judgement for result review**
 - expected overhead proportional if record is automatically derived: **satisfied, to be measured after implementation**
 - fresh-context reconstruction from repo/GitHub: **satisfied by this persisted preflight + existing cursor/authority/evidence package once promoted through its PR**
 
 ## 16. Preflight verdict
 
-**PASS — bounded implementation admission may be considered.**
+**REVISED PASS CANDIDATE — bounded implementation admission may be considered only after independent re-review confirms that the NEEDS CORRECTION finding is closed.**
 
 Classification: **judgement backed by repository evidence and deterministic repository-state facts.**
 
-This PASS means only that the problem, scope, semantic boundaries, falsification contract, owner fit and smallest credible solution are sufficiently bounded to ask for a separate implementation admission.
+This revised candidate judgement means only that the problem, scope, semantic boundaries, corrected positive boundedness contract, owner fit and smallest credible solution appear sufficiently bounded to ask for a separate implementation admission **if the corrected PR is independently re-reviewed as CONFIRM and then canonically promoted**.
 
 It is **not**:
 
