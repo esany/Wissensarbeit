@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "change_id": "p2/fidelity-manifest-preflight-2026-09-19",
   "materiality": "material",
-  "summary": "Persist the fresh P2 Context-Fidelity preflight against main@63883532af7834b5e46a84cef665ef4cfaa25a98, disposition the 2026-09-18/19 audit deltas, integrate two independent NEEDS CORRECTION reviews by binding selection provenance and making positive boundedness falsifiable through a closed-universe exact-output fixture, and expose only a blocked Human implementation-admission decision without authorizing P2 implementation.",
+  "summary": "Persist the P2 Context-Fidelity preflight against main@63883532af7834b5e46a84cef665ef4cfaa25a98, integrate two NEEDS CORRECTION reviews and the final independent CONFIRM, bind selection provenance, make positive boundedness falsifiable through a closed-universe exact-output fixture, and leave only the separate Human decision whether PR #35 should be canonically promoted; no P2 implementation authority is granted.",
   "source_refs": [
     "github:esany/Wissensarbeit#7",
     "esany/Wissensarbeit@63883532af7834b5e46a84cef665ef4cfaa25a98",
@@ -13,7 +13,8 @@
     "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
     "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
     "project/WA-P2-PREFLIGHT-REVIEW-2026-09-19-01.md",
-    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02.md"
+    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02.md",
+    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md"
   ],
   "surfaces": {
     "requirements": {
@@ -37,9 +38,10 @@
         "WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA",
         "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA",
         "WA-P2-PREFLIGHT-REVIEW-2026-09-19-01",
-        "WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02"
+        "WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02",
+        "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03"
       ],
-      "rationale": "The first independent review found full-dump and selection-provenance loopholes. The focused re-review confirmed selection provenance was closed but found the stronger generic near-full claim unsupported. The preflight now uses a closed candidate universe with a complete R/I partition and exact expected execution refs for a non-trivial frozen fixture, while explicitly leaving arbitrary real-world boundedness/material sufficiency to judgement. Broader discovery/design work remains outside P2."
+      "rationale": "The first independent review found full-dump and selection-provenance loopholes. The second focused re-review confirmed selection provenance but found the generic near-full claim unsupported. The final focused re-review CONFIRMED the corrected closed-universe, complete R/I partition and exact-output fixture while preserving judgement boundaries. No further preflight correction is currently required; broader discovery/design work remains outside P2."
     },
     "risks": {
       "disposition": "confirmed",
@@ -61,7 +63,7 @@
         "existing-context-fidelity-slice",
         "p2-minimal-existing-owner-candidate"
       ],
-      "rationale": "The candidate remains a minimal Existing-Owner Context Compiler refinement with rebuildable provenance. Positive capability is now falsifiable on a frozen closed-universe fixture with exact expected output, while selection/materiality truth and real-world boundedness remain judgement. No new persistent fidelity/state layer, global relevance classifier or near-full threshold is introduced."
+      "rationale": "The minimal Existing-Owner Context Compiler candidate plus rebuildable provenance survived the full review sequence. Positive capability is fixture-falsifiable via closed universe, complete R/I partition and exact expected output, while real-world boundedness/materiality remains judgement. This CONFIRM supports canonical-promotion consideration only; it is not implementation admission or implementation-result acceptance."
     },
     "derived_views": {
       "disposition": "refined",
@@ -76,7 +78,7 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The PR target represents the P2 preflight as completed only if the twice-corrected package receives independent qualitative CONFIRM and is then canonically promoted. No P2 implementation becomes ready: implementation admission remains blocked and implementation_allowed remains false.",
+      "rationale": "The PR target represents the P2 preflight as completed and independently qualitatively CONFIRMED. The remaining material decision for this PR is whether the Human Owner promotes PR #35 to canonical main. No P2 implementation becomes ready: implementation admission remains blocked and implementation_allowed remains false.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -87,7 +89,7 @@
     "active_work": {
       "disposition": "refined",
       "objects": [],
-      "rationale": "No P2 implementation is active. Within this open PR, the remaining promotion gate is focused independent qualitative re-review of the closed-universe exact-output correction; implementation admission remains blocked."
+      "rationale": "No P2 implementation is active. Qualitative preflight review is complete with CONFIRM. The open material gate is the Human promotion decision for PR #35; the separate implementation-admission proposal remains blocked until canonical promotion and explicit Human admission."
     }
   },
   "unresolved": [],
