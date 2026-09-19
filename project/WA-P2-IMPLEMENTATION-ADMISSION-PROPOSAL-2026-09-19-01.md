@@ -167,7 +167,7 @@ Required before merge:
 
 ## Assurance status
 
-- P2 preflight on the branch: **revised PASS candidate after NEEDS CORRECTION; independent re-review pending**
+- P2 preflight on the branch: **independently qualitatively CONFIRMED for canonical-promotion consideration; not yet canonical until PR #35 is promoted**
 - implementation admission: **not granted**
 - implementation: **not started**
 - deterministic P2 implementation tests: **not yet applicable**
@@ -190,7 +190,7 @@ This proposal does not decide or authorize:
 
 ## Response requested
 
-Only after the corrected P2 preflight receives an independent `CONFIRM` and is canonically promoted, the only material decision requested is:
+Only after the independently `CONFIRM`ed P2 preflight is canonically promoted, the only material decision requested is:
 
 > **Admit the exact bounded P2 Context-Fidelity slice above, or do not admit it.**
 
