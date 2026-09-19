@@ -1,20 +1,14 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/fidelity-manifest-preflight-2026-09-19",
+  "change_id": "p2/post-pr35-preflight-promotion-reconciliation-2026-09-20",
   "materiality": "material",
-  "summary": "Persist the P2 Context-Fidelity preflight against main@63883532af7834b5e46a84cef665ef4cfaa25a98, integrate two NEEDS CORRECTION reviews and the final independent CONFIRM, bind selection provenance, make positive boundedness falsifiable through a closed-universe exact-output fixture, and leave only the separate Human decision whether PR #35 should be canonically promoted; no P2 implementation authority is granted.",
+  "summary": "Reconcile the canonical promotion of PR #35: the independently CONFIRMED P2 preflight is now on main; remove the stale pre-merge promotion gate while preserving implementation_allowed=false and the separately blocked Human implementation-admission decision.",
   "source_refs": [
-    "github:esany/Wissensarbeit#7",
-    "esany/Wissensarbeit@63883532af7834b5e46a84cef665ef4cfaa25a98",
-    "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
-    "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
-    "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
-    "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
+    "github:esany/Wissensarbeit#35",
+    "esany/Wissensarbeit@4e4098a9d8cf27145bba90a02e18384efb031016",
     "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
-    "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
-    "project/WA-P2-PREFLIGHT-REVIEW-2026-09-19-01.md",
-    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02.md",
-    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md"
+    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md",
+    "project/WA-P2-POST-PR35-PROMOTION-RECON-2026-09-20-01.md"
   ],
   "surfaces": {
     "requirements": {
@@ -29,22 +23,19 @@
         "REQ-011",
         "REQ-012"
       ],
-      "rationale": "The preflight finds no missing Requirement family. Existing restartability, traceability, integration, authority, automation and rule-class Requirements already own the normative need; P2 is an operational Context-Compiler gap."
+      "rationale": "PR #35 promotion does not change Requirement semantics; it makes the already-reviewed preflight package canonical."
     },
     "issues_findings": {
-      "disposition": "refined",
+      "disposition": "confirmed",
       "objects": [
-        "github:esany/Wissensarbeit#7",
-        "WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA",
-        "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA",
-        "WA-P2-PREFLIGHT-REVIEW-2026-09-19-01",
-        "WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02",
-        "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03"
+        "github:esany/Wissensarbeit#35",
+        "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03",
+        "WA-P2-POST-PR35-PROMOTION-RECON-2026-09-20-01"
       ],
-      "rationale": "The first independent review found full-dump and selection-provenance loopholes. The second focused re-review confirmed selection provenance but found the generic near-full claim unsupported. The final focused re-review CONFIRMED the corrected closed-universe, complete R/I partition and exact-output fixture while preserving judgement boundaries. No further preflight correction is currently required; broader discovery/design work remains outside P2."
+      "rationale": "PR #35 is now merged and the final qualitative CONFIRM is canonical. The previous pre-merge promotion decision is no longer an open gate."
     },
     "risks": {
-      "disposition": "confirmed",
+      "disposition": "unchanged",
       "objects": [
         "R-002",
         "R-003",
@@ -55,22 +46,22 @@
         "R-008",
         "R-009"
       ],
-      "rationale": "Existing risk families remain sufficient. Review corrections sharpen over-selection, false deterministic assurance and provenance-overhead manifestations without introducing a new risk family. The contract no longer claims a universal deterministic near-full metric."
+      "rationale": "Promotion does not create a new risk family or change the reviewed P2 risk boundaries."
     },
     "decisions_concepts": {
-      "disposition": "refined",
+      "disposition": "confirmed",
       "objects": [
         "existing-context-fidelity-slice",
         "p2-minimal-existing-owner-candidate"
       ],
-      "rationale": "The minimal Existing-Owner Context Compiler candidate plus rebuildable provenance survived the full review sequence. Positive capability is fixture-falsifiable via closed universe, complete R/I partition and exact expected output, while real-world boundedness/materiality remains judgement. This CONFIRM supports canonical-promotion consideration only; it is not implementation admission or implementation-result acceptance."
+      "rationale": "The independently reviewed Existing-Owner implementation candidate is now canonically documented as a proposal only. Promotion does not grant implementation admission, result acceptance or merge authority for later code."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The rebuildable current-state view advances to this preflight reconciliation change. It remains noncanonical and does not own execution priority."
+      "rationale": "The derived current-state view is refreshed only to bind to this post-promotion reconciliation change."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -78,7 +69,7 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The PR target represents the P2 preflight as completed and independently qualitatively CONFIRMED. The remaining material decision for this PR is whether the Human Owner promotes PR #35 to canonical main. No P2 implementation becomes ready: implementation admission remains blocked and implementation_allowed remains false.",
+      "rationale": "The P2 preflight is now canonically complete. The next candidate remains p2-implementation-admission with status blocked on explicit Human admission; no implementation action is ready and implementation_allowed remains false.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -87,9 +78,9 @@
       }
     },
     "active_work": {
-      "disposition": "refined",
+      "disposition": "unchanged",
       "objects": [],
-      "rationale": "No P2 implementation is active. Qualitative preflight review is complete with CONFIRM. The open material gate is the Human promotion decision for PR #35; the separate implementation-admission proposal remains blocked until canonical promotion and explicit Human admission."
+      "rationale": "No P2 implementation is active. The only current material gate is the separate Human implementation-admission decision."
     }
   },
   "unresolved": [],
