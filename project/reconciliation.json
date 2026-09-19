@@ -1,56 +1,95 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/post-pr33-baseline-reconciliation-2026-09-17",
+  "change_id": "p2/fidelity-manifest-preflight-2026-09-19",
   "materiality": "material",
-  "summary": "Reconcile actual main@b154da8134cbc07e8adb1d0e51aad9b1adef41dc after PR #33 merge, persist completion evidence for the bounded baseline-reconciliation step, and expose P2 Fidelity Manifest preflight as the only ready next action without authorizing implementation.",
+  "summary": "Persist the P2 Context-Fidelity preflight against main@63883532af7834b5e46a84cef665ef4cfaa25a98, integrate two NEEDS CORRECTION reviews and the final independent CONFIRM, bind selection provenance, make positive boundedness falsifiable through a closed-universe exact-output fixture, and leave only the separate Human decision whether PR #35 should be canonically promoted; no P2 implementation authority is granted.",
   "source_refs": [
     "github:esany/Wissensarbeit#7",
-    "github:esany/Wissensarbeit#33",
-    "esany/Wissensarbeit@b154da8134cbc07e8adb1d0e51aad9b1adef41dc",
+    "esany/Wissensarbeit@63883532af7834b5e46a84cef665ef4cfaa25a98",
+    "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
     "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
-    "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md"
+    "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
+    "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
+    "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
+    "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
+    "project/WA-P2-PREFLIGHT-REVIEW-2026-09-19-01.md",
+    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02.md",
+    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
-      "objects": ["REQ-001", "REQ-003", "REQ-004", "REQ-007", "REQ-011"],
-      "rationale": "The post-merge baseline reconciliation changes no Requirement semantics; it only makes the accepted audit/plan transition restartable and current."
+      "objects": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-003",
+        "REQ-004",
+        "REQ-007",
+        "REQ-008",
+        "REQ-011",
+        "REQ-012"
+      ],
+      "rationale": "The preflight finds no missing Requirement family. Existing restartability, traceability, integration, authority, automation and rule-class Requirements already own the normative need; P2 is an operational Context-Compiler gap."
     },
     "issues_findings": {
-      "disposition": "confirmed",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#33"],
-      "rationale": "PR #33 is now merged on main and Issue #7 remains the planning source. The previously planned baseline-reconciliation gate is now the completed transition being recorded."
+      "disposition": "refined",
+      "objects": [
+        "github:esany/Wissensarbeit#7",
+        "WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA",
+        "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA",
+        "WA-P2-PREFLIGHT-REVIEW-2026-09-19-01",
+        "WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02",
+        "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03"
+      ],
+      "rationale": "The first independent review found full-dump and selection-provenance loopholes. The second focused re-review confirmed selection provenance but found the generic near-full claim unsupported. The final focused re-review CONFIRMED the corrected closed-universe, complete R/I partition and exact-output fixture while preserving judgement boundaries. No further preflight correction is currently required; broader discovery/design work remains outside P2."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "No risk family changes. The reconciliation reduces the known multi-clock/current-transition ambiguity before P2 preflight."
+      "objects": [
+        "R-002",
+        "R-003",
+        "R-004",
+        "R-005",
+        "R-006",
+        "R-007",
+        "R-008",
+        "R-009"
+      ],
+      "rationale": "Existing risk families remain sufficient. Review corrections sharpen over-selection, false deterministic assurance and provenance-overhead manifestations without introducing a new risk family. The contract no longer claims a universal deterministic near-full metric."
     },
     "decisions_concepts": {
-      "disposition": "unchanged",
-      "objects": ["existing-context-fidelity-slice", "pre-existing-gap:canonical-decision-and-concept-state"],
-      "rationale": "No new architecture or Concept is admitted. P2 remains a bounded Context-Fidelity hypothesis and implementation remains unauthorized."
+      "disposition": "refined",
+      "objects": [
+        "existing-context-fidelity-slice",
+        "p2-minimal-existing-owner-candidate"
+      ],
+      "rationale": "The minimal Existing-Owner Context Compiler candidate plus rebuildable provenance survived the full review sequence. Positive capability is fixture-falsifiable via closed universe, complete R/I partition and exact expected output, while real-world boundedness/materiality remains judgement. This CONFIRM supports canonical-promotion consideration only; it is not implementation admission or implementation-result acceptance."
     },
     "derived_views": {
       "disposition": "refined",
-      "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "The derived current-state view advances to this reconciliation change. It remains rebuildable and does not become an execution-state owner."
+      "objects": [
+        "project/CURRENT_STATE.md"
+      ],
+      "rationale": "The rebuildable current-state view advances to this preflight reconciliation change. It remains noncanonical and does not own execution priority."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
-      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7"],
-      "rationale": "The post-PR-33 baseline reconciliation is complete on the accepted b154da8 baseline; P2 Fidelity Manifest preflight is now the single ready next action. Implementation remains explicitly unauthorized.",
+      "objects": [
+        "project/execution_state.json",
+        "github:esany/Wissensarbeit#7"
+      ],
+      "rationale": "The PR target represents the P2 preflight as completed and independently qualitatively CONFIRMED. The remaining material decision for this PR is whether the Human Owner promotes PR #35 to canonical main. No P2 implementation becomes ready: implementation admission remains blocked and implementation_allowed remains false.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-post-pr33-baseline-reconciliation",
-        "next": "p2-fidelity-manifest-preflight",
+        "current_step": "p2-fidelity-manifest-preflight",
+        "next": "none",
         "implementation_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["p2-fidelity-manifest-preflight"],
-      "rationale": "The baseline-reconciliation gate has completed. The only current work exposed by the persisted cursor is the P2 Fidelity Manifest preflight; no P2 implementation work is active."
+      "objects": [],
+      "rationale": "No P2 implementation is active. Qualitative preflight review is complete with CONFIRM. The open material gate is the Human promotion decision for PR #35; the separate implementation-admission proposal remains blocked until canonical promotion and explicit Human admission."
     }
   },
   "unresolved": [],

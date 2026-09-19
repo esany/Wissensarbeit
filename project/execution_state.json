@@ -2,17 +2,15 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-post-pr33-baseline-reconciliation",
+    "id": "p2-fidelity-manifest-preflight",
     "next": [
       {
-        "id": "p2-fidelity-manifest-preflight",
-        "status": "ready",
+        "id": "p2-implementation-admission",
+        "status": "blocked",
         "depends_on": [
-          "WA-HARVEST-P1-001",
-          "WA-RESTART-2026-09-11-02",
-          "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA",
-          "WA-P2-BASELINE-RECON-2026-09-17-01"
-        ]
+          "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01"
+        ],
+        "blocked_by": "explicit-human-admission"
       }
     ]
   },
@@ -20,7 +18,8 @@
     {"id": "WA-HARVEST-P1-001", "status": "resolved"},
     {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"},
     {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"},
-    {"id": "WA-P2-BASELINE-RECON-2026-09-17-01", "status": "resolved"}
+    {"id": "WA-P2-BASELINE-RECON-2026-09-17-01", "status": "resolved"},
+    {"id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01", "status": "resolved"}
   ],
   "allowed_actions": ["inspect", "design", "plan", "persist evidence", "complete"],
   "implementation_allowed": false,
@@ -30,11 +29,14 @@
     "WA-RESTART-2026-09-11-02": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967",
     "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA": "project/audits/WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA.md",
     "WA-P2-BASELINE-RECON-2026-09-17-01": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
-    "p2-post-pr33-baseline-reconciliation": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md"
+    "p2-post-pr33-baseline-reconciliation": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
+    "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
+    "p2-fidelity-manifest-preflight": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md"
   },
   "follow_up": {
     "candidate": "p2-implementation-admission",
-    "blocked_until": "p2-fidelity-manifest-preflight",
-    "rule": "Do not expose or perform P2 implementation unless a valid P2 Fidelity Manifest preflight on then-current main passes and a separate explicit implementation admission is persisted."
+    "blocked_until": "explicit-human-admission",
+    "proposal": "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
+    "rule": "P2 implementation remains blocked. A preflight PASS does not grant implementation authority; a separate explicit Human-approved implementation admission must be persisted before implementation_allowed may become true."
   }
 }

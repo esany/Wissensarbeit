@@ -63,15 +63,16 @@ class OperationalCoreTests(unittest.TestCase):
     def test_execution_next_is_deterministic_or_explicitly_refuses(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "p2-fidelity-manifest-preflight")
+        self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_records_completed_baseline_without_starting_implementation(self):
+    def test_execution_state_records_completed_preflight_without_starting_implementation(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
         self.assertNotEqual(state["focus"], "github:esany/Wissensarbeit#28")
-        self.assertEqual(state["current_step"]["id"], "p2-post-pr33-baseline-reconciliation")
+        self.assertEqual(state["current_step"]["id"], "p2-fidelity-manifest-preflight")
         self.assertFalse(state["implementation_allowed"])
+        self.assertEqual(state["current_step"]["next"][0]["status"], "blocked")
 
     def test_repository_contract_validates(self):
         self.assertEqual(work.validate(), [])
