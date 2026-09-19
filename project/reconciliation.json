@@ -73,9 +73,7 @@
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
-        "next": "p2-implementation-admission",
-        "next_status": "blocked",
-        "blocked_by": "explicit-human-admission",
+        "next": "none",
         "implementation_allowed": false
       }
     },
