@@ -86,6 +86,7 @@ Primary current repository evidence:
 - the two newer audit deltas listed above
 - current planning source `github:esany/Wissensarbeit#7`, including the prior stale-baseline P2 preflight failure and the accepted post-PR-33 transition
 - `project/WA-P2-PREFLIGHT-REVIEW-2026-09-19-01.md` — independent qualitative review result `NEEDS CORRECTION` that identified the full-dump and selection-provenance loophole
+- `project/WA-P2-PREFLIGHT-REREVIEW-2026-09-19-02.md` — focused re-review result `NEEDS CORRECTION` that confirmed selection provenance but found the stronger generic near-full claim unsupported by the positive fixture
 
 Cross-repo evidence was used only as a fresh falsification/consumer check. `esany/paleo-type` was freshly read at its then-current main including `GOVERNING_OBJECTIVE.md`, `AGENTS.md`, the active system owner #225, and relevant current learning/method evidence. Consumer-domain state remains in that repository.
 
@@ -181,7 +182,11 @@ Symptom/quality feedback does not by itself grant Requirement, scope, priority, 
 
 ### Positive boundedness
 
-A compile is not sufficient merely because it preserves every semantic boundary. For an explicit structured selection fixture, the bounded execution context must retain every declared required/material reference **and exclude declared non-required/irrelevant references**. A safe full/near-full dump therefore fails the positive capability contract even if all negative fidelity invariants pass.
+A compile is not sufficient merely because it preserves every semantic boundary. The frozen positive fixture must declare a **closed candidate-ref universe** `U`, partition it completely into required/material refs `R` and non-required/irrelevant refs `I`, require `R ∩ I = ∅` and `R ∪ I = U`, and require the execution-ref set to equal `R` exactly.
+
+At least one frozen fixture must demonstrate non-trivial reduction with a visibly bounded proper subset, for example the fixture semantics `U={A,B,C,D,E,F}`, `R={A,B}`, `I={C,D,E,F}`, expected execution refs exactly `{A,B}`. Concrete implementation fixture identifiers may differ, but weakening this partition/output relation requires re-opening the preflight.
+
+This deterministically rejects full or over-inclusive output **for the frozen fixture**. It does not claim that arbitrary real-world "near-fullness" is globally or deterministically decidable.
 
 ### Selection provenance
 
@@ -204,13 +209,13 @@ The scenarios below are the pre-implementation contract. Implementation may refi
 | F9 | downstream summaries sharing one premise are counted as independent evidence | FAIL | deterministic for explicit provenance ancestry/duplicate premise refs; substantive independence judgement may remain judgement |
 | F10 | bounded support repair changes valid cursor or creates meta-programme without authority | FAIL | deterministic where before/after cursor and admission are explicit; interpretation of support failure can be judgement |
 | F11 | Human “shallow/confusing” symptom is promoted to new architecture/product direction without authority | FAIL | deterministic/procedural no-promotion check once source role/authority is established; Natural-Language role classification remains judgement |
-| P1 | explicit selection fixture declares required/material refs and non-required/irrelevant refs; bounded execution context retains all required/material refs, excludes the explicit irrelevant refs, preserves uncertainty/authority/freshness, and binds the selection basis/provenance | PASS; a full/near-full dump is FAIL | deterministic relative to the explicit structured selection basis; judgement remains responsible for whether the real-world selection/materiality basis is adequate |
+| P1 | closed fixture universe `U` is fully partitioned into required/material `R` and non-required/irrelevant `I`; execution refs equal `R` exactly; a frozen non-trivial fixture uses a bounded proper subset (e.g. `U={A,B,C,D,E,F}`, `R={A,B}`, `I={C,D,E,F}`); uncertainty/authority/freshness and selection provenance are preserved | PASS only when output refs equal `R` exactly; missing `R` or any output ref outside `R` is FAIL | deterministic for the frozen structured fixture and fidelity to its bound selection basis; real-world boundedness/material sufficiency remains judgement |
 | P2 | explicit `NEXT ACTION = NONE` remains NONE; residuals remain evidence only | PASS | deterministic |
 | P3 | bounded prerequisite repair returns to unchanged valid cursor | PASS | deterministic for explicit cursor/repair fixture |
 
 **No claim is made that Natural-Language materiality, intent, semantic equivalence or problem-fit is fully deterministically decidable.**
 
-The positive P1 fixture is deliberately stronger than the older reference-set preservation checks: it must contain at least one explicitly irrelevant/non-required reference whose inclusion in the bounded execution context makes the fixture fail. This prevents a semantically conservative full dump from masquerading as successful bounded compilation.
+The positive P1 fixture is deliberately stronger than the older reference-set preservation checks: it freezes a closed universe and exact expected output set, including several explicit irrelevant/non-required refs in at least one non-trivial fixture. This prevents a semantically conservative full or over-inclusive output from masquerading as successful bounded compilation **for that fixture**. It does not create a universal near-full metric.
 
 ## 9. Solution-space comparison
 
@@ -283,7 +288,7 @@ Deterministic validation is scoped to explicit structured compile inputs, the bo
 
 1. **False safety:** passing structural checks could be overclaimed as semantic completeness.
 2. **Manifest accretion:** provenance output could drift into a new truth store.
-3. **Over-selection:** safety could force near-full context and destroy the intended bounded capability; the positive P1 contract therefore makes explicit irrelevant-reference retention fail.
+3. **Over-selection:** safety could force near-full context and destroy the intended bounded capability; the frozen positive P1 fixture therefore uses a closed universe with a non-trivial proper subset and exact expected output, while real-task over-selection remains a judgement review concern.
 4. **Under-selection:** judgement may omit material context despite a structurally valid record.
 5. **Status vocabulary inflation:** temporary test vocabulary could become a universal ontology.
 6. **Stale compile reuse:** snapshot identity may exist without enforced invalidation.
@@ -336,7 +341,7 @@ Before merge of any later implementation:
 - state-freshness/cross-clock check;
 - existing full regression suite;
 - frozen P2 Fidelity scenarios F1–F11/P1–P3 translated into executable fixtures only for their stable structured invariants;
-- at least one positive P1 fixture in which explicit irrelevant refs must be excluded, so a full/near-full context dump deterministically fails;
+- at least one frozen positive P1 fixture with a closed universe `U`, complete partition `U=R∪I`, several explicit irrelevant refs, and exact expected execution refs `R`, so full or over-inclusive output fails for that fixture;
 - selection/materiality provenance binding check: deterministic validation proves fidelity to the supplied judgement basis, not the correctness of real-world materiality itself;
 - derived-state reproduction;
 - explicit negative authority/uncertainty/readiness/NONE/purpose/staleness cases;
@@ -367,7 +372,7 @@ Assessment at this preflight:
 - Human-feedback fidelity included: **satisfied**
 - stale snapshot/invalidation included: **satisfied**
 - slice can be small/reversible/existing-owner-based: **satisfied**
-- positive bounded capability is falsifiable before implementation: **satisfied by the corrected P1 contract requiring explicit irrelevant-reference exclusion and bound selection provenance; real-world usefulness/material sufficiency remains judgement for result review**
+- positive bounded capability is falsifiable before implementation: **satisfied for the frozen structured fixture by closed-universe partitioning and exact expected output; no claim is made that arbitrary real-world near-fullness is deterministically decidable, and real-world boundedness/usefulness/material sufficiency remains judgement for result review**
 - expected overhead proportional if record is automatically derived: **satisfied, to be measured after implementation**
 - fresh-context reconstruction from repo/GitHub: **satisfied by this persisted preflight + existing cursor/authority/evidence package once promoted through its PR**
 
