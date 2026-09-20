@@ -1073,5 +1073,40 @@
       }
     ],
     "normative_change_requires": "explicit Human decision brief and existing authority boundary"
+  },
+  "owner_role_model": {
+    "status": "open-interpretation-no-normative-rewrite",
+    "question_a_human_problem_owner_semantics": {
+      "question": "Which competence must the Human actually possess for the Governing Objective to remain valid?",
+      "hypotheses": [
+        "OH-01",
+        "OH-02"
+      ],
+      "authority_boundary": "Any normative change to Governing Objective or Human role semantics requires the existing Human decision authority."
+    },
+    "question_b_systemic_competence_function": {
+      "question": "Which domain, method, research, logical, technical, contextual and transdisciplinary competence must the system situationally detect, obtain, synthesize and orchestrate?",
+      "hypothesis": "OH-03",
+      "human_authority_retained": [
+        "purpose",
+        "meaning",
+        "constraints",
+        "values",
+        "priorities",
+        "risk acceptance",
+        "material acceptance",
+        "material decisions"
+      ],
+      "system_function_candidate": [
+        "context reconstruction",
+        "competence detection",
+        "research",
+        "specialist/method/technical synthesis",
+        "project-fit assessment",
+        "execution support"
+      ],
+      "authority_boundary": "System competence/orchestration does not inherit Human Authority.",
+      "architecture_boundary": "Existing-owner composition hypothesis only; no new Building Block or canonical role name is promoted."
+    }
   }
 }
