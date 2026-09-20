@@ -26,7 +26,7 @@ The corrected chain is:
 
 The routing obligation is owned by the **existing** Material State / `BB-INTEGRATE` / current Planning Owner path. It does not create a registry, matcher service, new Building Block or roadmap.
 
-Deterministic enforcement is intentionally narrow: `tools/work.py integrate` checks that the routing disposition is present and authority-safe. The semantic match itself remains AI judgement with explicit uncertainty.
+Deterministic enforcement is intentionally narrow but now includes referential truth: `tools/work.py integrate` checks that the routing disposition is present, the declared planning source equals the current execution cursor, candidate-evidence files exist, matched candidate IDs exist in that evidence, required fresh-state refs exist, and authority remains unchanged. The semantic match itself and completeness of the candidate search space remain AI judgement with explicit uncertainty.
 
 Authority boundaries:
 
@@ -37,14 +37,21 @@ Authority boundaries:
 - matched candidate + satisfied trigger creates **at most an activation candidate**;
 - activation candidate ≠ priority ≠ promotion ≠ admission ≠ implementation authority.
 
-### Concrete next steps after this correction
+### Concrete next steps after the focused re-review residual findings
 
-1. Run formal repository assurance on the exact corrected PR head.
-2. Perform a focused independent re-review only of the former signal→known-candidate finding and any regressions introduced by this correction.
-3. If that re-review is `CONFIRM`, treat PR #37 as a **Promotion Candidate**, not as already promoted.
-4. Human Promotion Decision remains required before merge if the repository authority model requires that material promotion.
-5. After any merge, reconcile the new material-state/integration routing contract against current programme state.
-6. P2 remains independent: its implementation still requires its own explicit Human admission and does not wait for a future matcher/trigger engine.
+The original signal→known-candidate finding is considered qualitatively closed on the prior corrected head, but PR #37 is **not yet a Promotion Candidate** because referential routing truth and the clarified Human-Owner/system-orchestration hypothesis require one small follow-up slice.
+
+1. Deterministically bind routing evidence to the current `project/execution_state.json` planning source.
+2. Require repository candidate-evidence refs and reject matched candidate IDs that are not present in those persisted evidence files.
+3. Require current execution/reconciliation files in `fresh_state_refs`; keep semantic overlap and search-space completeness explicitly as judgement.
+4. Persist the third open Owner-model hypothesis: Human Problem Owner authority is distinct from the system's competence/orchestration function; no new Building Block or canonical role name is promoted.
+5. Run formal repository assurance on the resulting exact PR head.
+6. Perform focused independent qualitative re-review of the residual provenance/Owner-model corrections.
+7. Execute the blind fresh-context routing probes `WA-EVAL-031..033` with an **independent fresh instance**. The rendered inputs expose the signal and current repository context but not OC identifiers or hidden expected outcomes.
+8. Do not count a same-chat execution as fresh-context evidence. Until independent probe evidence exists, routing behavior is not `real-use-demonstrated`.
+9. Only if the focused re-review confirms the residual corrections and the blind probe behaves as expected should PR #37 be treated as a **Promotion Candidate**.
+10. Human Promotion Decision remains required before merge where the existing authority boundary requires it; after any merge, reconcile the promoted contract change.
+11. P2 remains independent: its implementation still requires its own explicit Human admission and does not wait for PR #37 promotion or a future matcher/trigger engine.
 
 ---
 
