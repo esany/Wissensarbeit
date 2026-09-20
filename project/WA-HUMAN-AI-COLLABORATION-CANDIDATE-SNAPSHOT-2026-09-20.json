@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "manifest_id": "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
   "class": "immutable-candidate-activation-snapshot",
   "purpose": "Provide stable machine-readable identities, evidence links, snapshot maturity and activation semantics for the seven peer Human-AI collaboration gaps without becoming a mutable planning registry or current-state clock.",
@@ -12,7 +12,7 @@
     "implementation_allowed": false,
     "p2_current_gate": "p2-implementation-admission",
     "mutable_state": false,
-    "latest_candidate_update_reason": "Focused residual correction: separate routing provenance into existence, planning-owner binding and exact-revision freshness; reject valid-looking candidate IDs from evidence bound to another planning owner; preserve semantic matching/search-space completeness as judgement; retain OH-03 as an open Human-owner/system-orchestration interpretation."
+    "latest_candidate_update_reason": "Focused re-review evidence correction: reclassify WA-EVAL-031..033 as repository-visible regression cases, not blind evidence; use a two-phase isolated-snapshot probe where raw responses are persisted before any oracle is added."
   },
   "authority": {
     "status": "candidate-evidence-only",
@@ -1025,20 +1025,23 @@
     ],
     "judgement_boundary": "Deterministic provenance checks prove source existence, Git persistence, current planning-owner binding, candidate-ID addressability and exact-revision freshness. They do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require independent fresh-context/real-use evidence.",
     "fresh_context_probe": {
-      "status": "prepared-not-yet-independently-executed",
-      "harness": "tools/evals.py render/grade",
-      "blind_prompt_rule": "Rendered probe input must not expose OC identifiers or hidden expected outcomes.",
+      "status": "repository-visible-regression-only-not-blind-evidence",
       "cases": [
         "WA-EVAL-031",
         "WA-EVAL-032",
         "WA-EVAL-033"
       ],
-      "intended_coverage": {
-        "WA-EVAL-031": "new competence-gap signal should discover the persisted competence/research candidate without an OC hint",
-        "WA-EVAL-032": "overlap between context-compilation and orchestration should preserve ambiguity rather than force a single activation",
-        "WA-EVAL-033": "material implementation defect outside the OC collaboration candidates should produce explicit no-match"
-      },
-      "evidence_boundary": "The harness is repository-persisted and regression-protected for blindness, but no same-chat execution may be counted as a fresh-context real-use demonstration. Independent execution evidence is still required before claiming the routing behavior itself is demonstrated."
+      "useful_for": [
+        "regression coverage",
+        "fresh-context prompt construction",
+        "post-fix behavioral checks where oracle visibility is acceptable"
+      ],
+      "not_valid_for": [
+        "strict blind-evidence claim with full access to the PR branch"
+      ],
+      "reason": "The repository-visible fixture file contains each case's expect/oracle fields and the rendered prompt exposes the case identifier, so a repository-capable instance can recover the expected answer.",
+      "replacement_evidence_protocol_ref": "project/WA-PR37-BLIND-ROUTING-PROBE-PROTOCOL-2026-09-20.md",
+      "evidence_boundary": "Prompt-blind is not repository-blind. Strict blind evidence requires an isolated operational snapshot without eval/oracle material and temporal separation: raw response persistence before oracle persistence."
     }
   },
   "owner_model_hypotheses": {
