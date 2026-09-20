@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
-  "change_id": "audit/human-ai-blind-routing-evidence-integrity-2026-09-20",
+  "change_id": "audit/reviewer-writer-independence-learning-2026-09-20",
   "materiality": "material",
-  "summary": "Correct PR #37's blind-routing evidence claim: classify WA-EVAL-031..033 as repository-visible regression cases, bind strict RP probe context to exact Git revision and a hashed bundle manifest/identity, preserve pre-oracle raw-response capture, and keep semantic grading/psychological freshness as separate review claims.",
+  "summary": "Persist the PR #37 real-use finding that reviewer→writer role drift can invalidate an independence claim: refine existing Review/Correction/Re-Review semantics so a material self-correction requires a fresh reviewer for independent confirmation, without adding a lifecycle stage, authority class, Building Block or standing reviewer role.",
   "source_refs": [
     "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
     "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",

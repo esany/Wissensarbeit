@@ -1195,6 +1195,18 @@ An Implementation Slice becomes part of a genuine iteration only when its real r
 | Persistence / Operationalization Slice | yes | evidence/planning artifacts | no | review if material; later activation when justified | implementation |
 | Implementation Slice | yes | implementation | only inherited from prior admission | assurance / result review / reconciliation | success or iteration |
 
+### Review/Correction independence boundary from real use
+
+A 2026-09-20 real-use incident on PR #37 showed a downstream reviewer transitioning into implementing its own material findings. Git history stayed linear, but the Review → Correction → Re-Review sequence began to recursively extend itself. This is evidence about **role/evidence independence**, not a need for a new role system.
+
+Operational boundary:
+
+- a reviewer may become the writer/corrector, but after a material write it cannot count its own later assessment of that correction as **independent** review evidence;
+- independent confirmation after a material self-correction requires a fresh reviewer bound to the new exact revision;
+- a reviewer claiming independent evidence should remain read-only for the reviewed target revision; if it materially writes, the role has changed and the prior verdict is stale for the changed revision;
+- sequential use of one branch is allowed; independence is an evidence/provenance property, not a branch-topology rule;
+- this refines existing WT-03 Review, WT-04 Re-Review, WT-05 Correction and OC-05/OC-07 only. It creates no new lifecycle stage, authority class, Building Block or standing reviewer role.
+
 ### Authority rule
 
 Only a type whose purpose is itself an authority transition may create the corresponding authority, and only when the correct authority holder and persistence requirements are satisfied.

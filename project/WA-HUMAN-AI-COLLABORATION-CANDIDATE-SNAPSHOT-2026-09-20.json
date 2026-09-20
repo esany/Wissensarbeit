@@ -416,7 +416,8 @@
       "positive_real_use_evidence": [],
       "negative_real_use_evidence": [
         "Human repeatedly requested more context, orientation and transparency.",
-        "CURRENT_STATE does not surface the current P2 admission gate as a complete decision-ready packet."
+        "CURRENT_STATE does not surface the current P2 admission gate as a complete decision-ready packet.",
+        "2026-09-20 real-use incident: a downstream reviewer transitioned into implementing its own material findings on PR #37; the resulting Review→Correction→Re-Review sequence began to recursively extend itself, showing that reviewer/writer role drift can contaminate an independence claim even when Git history remains linear."
       ],
       "uncertainties": [
         "Exact Human-facing presentation/UI and progressive-disclosure implementation remain open."
@@ -565,7 +566,8 @@
       "positive_real_use_evidence": [],
       "negative_real_use_evidence": [
         "Current conversation repeatedly incorporated the latest correction while dropping earlier peer concerns.",
-        "After the terminology distinction had already been corrected in the same conversation, the assistant again called a persistence/operationalization slice an iteration; the Human had to restore the semantic rule."
+        "After the terminology distinction had already been corrected in the same conversation, the assistant again called a persistence/operationalization slice an iteration; the Human had to restore the semantic rule.",
+        "2026-09-20 real-use incident: a downstream reviewer transitioned into implementing its own material findings on PR #37; the resulting Review→Correction→Re-Review sequence began to recursively extend itself, showing that reviewer/writer role drift can contaminate an independence claim even when Git history remains linear."
       ],
       "uncertainties": [
         "Whether correction/supersession semantics need explicit structure or can be reliably derived from existing material-state/trace mechanisms."
@@ -885,7 +887,8 @@
       "Reconciliation PASS does not equal Domain Truth or Human Acceptance.",
       "Persistence does not equal Priority.",
       "Implementation does not equal Iteration.",
-      "Correction does not equal Closed Finding."
+      "Correction does not equal Closed Finding.",
+      "Independent Review/Re-Review evidence cannot be claimed by an instance after that same instance materially implements the correction under review; a role change is allowed, but independent confirmation then requires a fresh reviewer on the new exact revision."
     ],
     "classification_order": [
       "learning-through-evidence-and-changed-next-state => iteration",
@@ -916,7 +919,31 @@
       "which evidence remains valid or became stale",
       "next real gate",
       "whether Human action is required and why"
-    ]
+    ],
+    "independence_boundary": {
+      "status": "candidate-semantic-refinement-from-real-use",
+      "applies_to": [
+        "WT-03",
+        "WT-04",
+        "WT-05",
+        "OC-05",
+        "OC-07"
+      ],
+      "real_use_evidence": "2026-09-20 real-use incident: a downstream reviewer transitioned into implementing its own material findings on PR #37; the resulting Review→Correction→Re-Review sequence began to recursively extend itself, showing that reviewer/writer role drift can contaminate an independence claim even when Git history remains linear.",
+      "rules": [
+        "A reviewer may transition into Correction work, but after a material write its later assessment of that correction is not independent review evidence.",
+        "Independent confirmation after material self-correction requires a fresh reviewer bound to the new exact revision.",
+        "A reviewer claiming independent evidence should be read-only for the reviewed target revision; a material write changes the role and makes the prior verdict stale for the changed revision.",
+        "Sequential use of the same branch is allowed; independence is an evidence/provenance property, not a branch-topology requirement."
+      ],
+      "non_effects": [
+        "no new lifecycle stage",
+        "no new authority class",
+        "no new Building Block",
+        "no permanent reviewer role",
+        "no automatic promotion or admission consequence"
+      ]
+    }
   },
   "known_candidate_routing": {
     "contract_ref": "system/material_state.json#known_candidate_routing",
