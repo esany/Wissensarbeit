@@ -1167,3 +1167,76 @@ Required follow-up for PR #37:
 4. reconcile any promoted contract change after merge.
 
 This is a **Correction** under the candidate work-type semantics, not a new iteration, promotion or implementation admission.
+
+
+
+---
+
+## 19. Focused re-review residuals — referential routing truth and Owner-model interpretation
+
+Focused re-review of corrected head `636713178969b594616b143937b1c5b569ab9a89` confirmed the original signal→known-candidate continuity finding as materially closed, including the authority boundary and the decision not to add a registry, matcher service or new Building Block.
+
+Two bounded residual findings remain before PR #37 should be treated as promotion-ready.
+
+### 19.1 Referential routing truth
+
+The first routing validator proved that a routing disposition existed and that status/trigger/authority combinations were coherent. It did **not** yet prove that the declared references were real/current.
+
+Residual examples included:
+
+- a fabricated `matched_candidate_refs: ["OC-999"]` could satisfy the prior structural validator;
+- `candidate_source_refs` was not bound to the current `execution_state.planning_source`;
+- candidate/fresh-state file existence was not checked;
+- a `no-match` could name an arbitrary candidate source set without any deterministic provenance check.
+
+Correction:
+
+- routing now carries explicit `planning_source_ref`;
+- it must equal the current `project/execution_state.json` planning source;
+- repository JSON `candidate_evidence_refs` must exist and also appear in `candidate_source_refs`;
+- every matched candidate ID must exist in referenced candidate evidence;
+- `fresh_state_refs` must include existing `project/execution_state.json` and `project/reconciliation.json`;
+- negative regression tests cover wrong planning source, fabricated candidate ID, missing evidence and incomplete fresh-state refs.
+
+Boundary retained:
+
+> These checks establish reference existence/current planning-source binding. They do not prove semantic overlap or completeness of the candidate search space. Those remain judgement and require fresh-context/real-use evidence.
+
+### 19.2 Human Problem Owner versus system competence/orchestration function
+
+The current Governing Objective already combines two ideas:
+
+- a Human Problem Owner with purpose/problem competence and material authority;
+- system compensation for missing specialist domain/method/technical/project competence.
+
+The prior operationalization plan represented only two interpretations of the phrase “fachlich bzw. konzeptionell kompetent”. A third open interpretation is now persisted:
+
+> Human Problem Owner and system competence/orchestration function are distinct roles. The Human retains purpose, meaning, constraints, priorities, risk/acceptance and material-decision authority. The system reconstructs and operationalizes situationally required domain, method, research, logical, technical and contextual competence.
+
+This is an interpretation hypothesis, not a Governing Objective rewrite or new authority class.
+
+The system-side function is currently modeled as composition across existing owners:
+
+`BB-BOOTSTRAP + BB-CONTEXT + BB-COMPETENCE + BB-RESEARCH + BB-INTEGRATE + BB-ASSURE + BB-TRACE`
+
+No canonical name such as “Logic Owner” is introduced because “Owner” could imply material meaning/decision authority.
+
+### 19.3 Fresh-context evidence gate
+
+Three blind evals are added:
+
+- `WA-EVAL-031`: competence-gap signal, no OC hint;
+- `WA-EVAL-032`: ambiguous context/orchestration signal, no OC hint;
+- `WA-EVAL-033`: material non-OC defect, no OC hint.
+
+`tools/evals.py render` hides expected outcomes. A regression test verifies that the rendered prompts do not leak `OC-01..OC-07`.
+
+This repository change **prepares** the fresh-context proof but does not self-certify it. A trial run produced by the same conversation/context must not be counted as independent fresh-context evidence.
+
+Required remaining evidence before promotion-candidate status:
+
+1. green formal assurance on the exact residual-correction head;
+2. focused qualitative re-review of the residual changes;
+3. independent fresh-instance execution of the blind routing probes with persisted trial evidence.
+
+P2 remains independently gated by explicit Human implementation admission.
