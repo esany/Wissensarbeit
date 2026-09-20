@@ -88,12 +88,12 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertEqual(state["current_step"]["next"][0]["id"], "p2-context-fidelity-result-review")
         self.assertEqual(state["current_step"]["next"][0]["status"], "blocked")
         self.assertEqual(
-            state["current_step"]["next"][0]["blocked_by"],
-            "qualitative-result-review",
+            state["current_step"]["next"][0]["continuation"],
+            "completed-correction",
         )
         self.assertEqual(
-            state["current_step"]["next"][0]["result_evidence"],
-            "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+            state["current_step"]["next"][0]["review_evidence"],
+            "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
         )
         self.assertTrue(work.execution_preflight("implement"))
         self.assertTrue(work.execution_preflight("merge"))

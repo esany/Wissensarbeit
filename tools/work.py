@@ -453,6 +453,40 @@ def repository_snapshot() -> str:
     return f"git:{proc.stdout.strip()}"
 
 
+CONTEXT_SOURCE_PATHS = (
+    OBJECTIVE,
+    REQ,
+    QUALITY,
+    CRITERIA,
+    VERIFICATION,
+    RISKS,
+    LIFECYCLE,
+    AUTHORITY,
+    COMPETENCE,
+    FITNESS,
+    BUILDING_BLOCKS,
+    MATERIAL_STATE,
+    RECONCILIATION_PACKET,
+)
+
+
+def context_source_errors() -> list[str]:
+    """Reject only relevant working-tree drift from the bound Git snapshot."""
+    paths = [rel(path) for path in CONTEXT_SOURCE_PATHS]
+    proc = subprocess.run(
+        ["git", "diff", "--quiet", "HEAD", "--", *paths],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode == 1:
+        return ["relevant context sources differ from the bound Git snapshot"]
+    if proc.returncode != 0:
+        return ["cannot verify relevant context sources against the bound Git snapshot"]
+    return []
+
+
 def context_request_errors(request: dict, candidates: dict, current_snapshot: str) -> list[str]:
     errors: list[str] = []
     for field in ("work_ref", "question_ref", "source_snapshot", "authority_ref", "selection_basis"):
@@ -508,6 +542,9 @@ def context_request_errors(request: dict, candidates: dict, current_snapshot: st
         if not isinstance(value, str) or not value.strip():
             errors.append(f"selection basis {field} must be a non-empty string")
 
+    if isinstance(basis.get("provenance_role"), str) and basis["provenance_role"].strip().lower() != "judgement":
+        errors.append("selection basis provenance_role must be judgement-based")
+
     rationale = basis.get("rationale")
     if not isinstance(rationale, dict):
         errors.append("selection basis rationale must be an object keyed by every candidate ref")
@@ -551,8 +588,14 @@ def compile_context(
     candidates: dict | None = None,
     current_snapshot: str | None = None,
 ) -> tuple[dict, dict]:
-    source = context() if candidates is None else candidates
     snapshot = repository_snapshot() if current_snapshot is None else current_snapshot
+    if candidates is None:
+        source_errors = context_source_errors()
+        if source_errors:
+            raise ValueError("; ".join(source_errors))
+        source = context()
+    else:
+        source = candidates
     request_errors = context_request_errors(request, source, snapshot)
     if request_errors:
         raise ValueError("; ".join(request_errors))

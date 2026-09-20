@@ -220,6 +220,40 @@ class ContextFidelityTests(unittest.TestCase):
                 current_snapshot=self.SNAPSHOT,
             )
 
+    def test_selection_with_non_judgement_role_fails(self):
+        request = self.request()
+        request["selection_basis"]["provenance_role"] = "deterministic"
+        with self.assertRaisesRegex(ValueError, "provenance_role must be judgement-based"):
+            work.compile_context(
+                request,
+                candidates=self.candidates(),
+                current_snapshot=self.SNAPSHOT,
+            )
+
+    def test_relevant_working_tree_drift_fails_closed(self):
+        source = work.OBJECTIVE
+        original = source.read_text(encoding="utf-8")
+        try:
+            source.write_text(original + "\nworking-tree-only drift\n", encoding="utf-8")
+            request = {
+                "work_ref": "test:working-tree-drift",
+                "question_ref": "test:bounded-cli",
+                "source_snapshot": work.repository_snapshot(),
+                "authority_ref": "system/authority.json",
+                "selection_basis": {
+                    "candidate_refs": ["governing_objective"],
+                    "required_refs": ["governing_objective"],
+                    "irrelevant_refs": [],
+                    "provenance_ref": "test:explicit-selection-judgement",
+                    "provenance_role": "judgement",
+                    "rationale": {"governing_objective": "required for this fixture"},
+                },
+            }
+            with self.assertRaisesRegex(ValueError, "relevant context sources differ"):
+                work.compile_context(request)
+        finally:
+            source.write_text(original, encoding="utf-8")
+
     def test_cli_bounded_context_separates_execution_payload_and_provenance(self):
         candidate_refs = [
             "governing_objective",
