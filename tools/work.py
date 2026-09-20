@@ -298,6 +298,7 @@ def validate() -> list[str]:
         competence = load(COMPETENCE)
         fitness = load(FITNESS)
         building_blocks = load(BUILDING_BLOCKS)
+        material_state = load(MATERIAL_STATE)
         foundation_harvest = load(FOUNDATION_HARVEST)
         decision_brief = load(DECISION_BRIEF)
         reconciliation = load(RECONCILIATION)
@@ -386,6 +387,14 @@ def validate() -> list[str]:
     if not building_blocks.get("composition_principles"):
         errors.append("building-block composition principles are missing")
 
+    routing_contract = material_state.get("known_candidate_routing", {})
+    if set(routing_contract.get("required_outcomes", [])) != {"match", "no-match", "uncertain-match"}:
+        errors.append("material-state contract must define match|no-match|uncertain-match routing outcomes")
+    if set(routing_contract.get("trigger_statuses", [])) != {"satisfied", "not-satisfied", "uncertain", "not-applicable"}:
+        errors.append("material-state contract must define current trigger statuses for known-candidate routing")
+    if routing_contract.get("owner") != "BB-INTEGRATE_with_current_planning_owner":
+        errors.append("known-candidate routing must remain owned by BB-INTEGRATE plus the current planning owner")
+
     errors.extend(validate_foundation_harvest(foundation_harvest, reqs))
     errors.extend(validate_p1_harvest(p1_harvest))
     errors.extend(validate_decision_brief_contract(decision_brief, authority, building_blocks))
@@ -435,7 +444,7 @@ def context() -> dict:
         "building_blocks": load(BUILDING_BLOCKS),
         "material_state": load(MATERIAL_STATE),
         "reconciliation": load(RECONCILIATION_PACKET),
-        "instruction": "Treat compiled repository state as authoritative over chat memory. Material changes must be reconciled against the whole project state before being described as systemically integrated. Automate routine work; retain existing material authority gates.",
+        "instruction": "Treat compiled repository state as authoritative over chat memory. Material changes must be reconciled against the whole project state before being described as systemically integrated. For a recognized material-state, failure or learning signal, use the current planning source and persistent candidate evidence to record known_candidate_routing as match, no-match or uncertain-match before treating it as novel work or activation. Automate routine work; retain existing material authority gates.",
     }
 
 
@@ -462,13 +471,75 @@ def trace(object_id: str) -> dict | None:
     return None
 
 
+def validate_known_candidate_routing(routing: dict) -> list[str]:
+    contract = load(MATERIAL_STATE).get("known_candidate_routing", {})
+    if not isinstance(routing, dict):
+        return ["known_candidate_routing must be an object"]
+
+    errors: list[str] = []
+    required = set(contract.get("required_fields", []))
+    missing = sorted(required - set(routing))
+    if missing:
+        return [f"known_candidate_routing missing fields {missing}"]
+
+    status = routing.get("status")
+    trigger_status = routing.get("trigger_status")
+    activation_candidate = routing.get("activation_candidate")
+    candidate_source_refs = routing.get("candidate_source_refs")
+    matched_candidate_refs = routing.get("matched_candidate_refs")
+    fresh_state_refs = routing.get("fresh_state_refs")
+
+    if status not in set(contract.get("required_outcomes", [])):
+        errors.append(f"known_candidate_routing has invalid status: {status}")
+    if trigger_status not in set(contract.get("trigger_statuses", [])):
+        errors.append(f"known_candidate_routing has invalid trigger_status: {trigger_status}")
+    if not isinstance(candidate_source_refs, list) or not candidate_source_refs:
+        errors.append("known_candidate_routing requires non-empty candidate_source_refs")
+    if not isinstance(matched_candidate_refs, list):
+        errors.append("known_candidate_routing matched_candidate_refs must be a list")
+    if not isinstance(fresh_state_refs, list) or not fresh_state_refs:
+        errors.append("known_candidate_routing requires non-empty fresh_state_refs")
+    if not isinstance(routing.get("rationale"), str) or not routing.get("rationale").strip():
+        errors.append("known_candidate_routing requires a rationale")
+    if not isinstance(activation_candidate, bool):
+        errors.append("known_candidate_routing activation_candidate must be boolean")
+    if routing.get("authority_effect") != "none":
+        errors.append("known_candidate_routing must not create priority, admission or implementation authority")
+
+    if status == "no-match":
+        if matched_candidate_refs:
+            errors.append("no-match must not contain matched_candidate_refs")
+        if trigger_status != "not-applicable":
+            errors.append("no-match requires trigger_status=not-applicable")
+        if activation_candidate is True:
+            errors.append("no-match cannot create an activation candidate")
+    elif status == "uncertain-match":
+        if activation_candidate is True:
+            errors.append("uncertain-match cannot create an activation candidate")
+        if trigger_status not in {"uncertain", "not-applicable"}:
+            errors.append("uncertain-match requires trigger_status=uncertain|not-applicable")
+    elif status == "match":
+        if not matched_candidate_refs:
+            errors.append("match requires at least one matched_candidate_ref")
+        if trigger_status == "not-applicable":
+            errors.append("match requires an evaluated trigger status")
+        if trigger_status == "satisfied" and activation_candidate is not True:
+            errors.append("satisfied matched trigger must produce an activation candidate")
+        if trigger_status in {"not-satisfied", "uncertain"} and activation_candidate is True:
+            errors.append("inactive or uncertain trigger cannot create an activation candidate")
+
+    if activation_candidate is True and not (status == "match" and trigger_status == "satisfied"):
+        errors.append("activation candidate requires match plus satisfied current trigger")
+    return errors
+
+
 def validate_integration_packet(path: Path) -> list[str]:
     try:
         packet = load(path)
     except Exception as exc:
         return [f"cannot load integration packet: {exc}"]
     errors: list[str] = []
-    required = ["aspect", "origin", "affects", "supports", "conflicts_with", "disposition", "rationale", "required_changes", "non_changes"]
+    required = ["aspect", "origin", "affects", "supports", "conflicts_with", "disposition", "rationale", "required_changes", "non_changes", "known_candidate_routing"]
     for field in required:
         if field not in packet:
             errors.append(f"integration packet missing {field}")
@@ -476,6 +547,8 @@ def validate_integration_packet(path: Path) -> list[str]:
         errors.append(f"invalid disposition: {packet.get('disposition')}")
     if packet.get("affects") is not None and not isinstance(packet.get("affects"), dict):
         errors.append("affects must be an object keyed by impacted system dimensions")
+    if "known_candidate_routing" in packet:
+        errors.extend(validate_known_candidate_routing(packet.get("known_candidate_routing")))
     return errors
 
 
