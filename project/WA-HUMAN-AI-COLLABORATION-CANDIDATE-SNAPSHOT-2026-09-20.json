@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "manifest_id": "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
   "class": "immutable-candidate-activation-snapshot",
   "purpose": "Provide stable machine-readable identities, evidence links, snapshot maturity and activation semantics for the seven peer Human-AI collaboration gaps without becoming a mutable planning registry or current-state clock.",
@@ -12,7 +12,7 @@
     "implementation_allowed": false,
     "p2_current_gate": "p2-implementation-admission",
     "mutable_state": false,
-    "latest_candidate_update_reason": "Independent review correction: bind newly recognized material/failure/learning signals to known-candidate routing through the existing BB-INTEGRATE/material-state path before activation; no registry, matcher service or new Building Block."
+    "latest_candidate_update_reason": "Focused re-review residual correction: deterministically bind routing to the current planning source and persistent candidate evidence, reject fabricated candidate refs, preserve semantic search completeness as judgement, and add the third Human-Owner/system-orchestration interpretation hypothesis."
   },
   "authority": {
     "status": "candidate-evidence-only",
@@ -601,7 +601,7 @@
     "OC-07": "compatibility-and-later"
   },
   "unresolved": [
-    "Interpretation of the Governing Objective phrase fachlich bzw. konzeptionell kompetent relative to the clarified Human input model.",
+    "Interpretation of the Governing Objective phrase fachlich bzw. konzeptionell kompetent remains open across OH-01/OH-02/OH-03; no normative role rewrite has been authorized.",
     "Whether any future axis requires a new Building Block after existing-owner fit is tested with real work.",
     "Whether repeated future activation creates enough burden to justify a mutable machine-readable registry.",
     "Whether a persistent Work Packet object is needed or work instructions can remain derived."
@@ -1005,6 +1005,54 @@
         "activation_candidate": true,
         "authority_effect": "none"
       }
-    ]
+    ],
+    "required_runtime_fields": [
+      "planning_source_ref",
+      "candidate_source_refs",
+      "candidate_evidence_refs",
+      "matched_candidate_refs",
+      "fresh_state_refs"
+    ],
+    "deterministic_provenance_checks": [
+      "planning_source_ref equals project/execution_state.json planning_source",
+      "candidate_source_refs includes planning_source_ref",
+      "candidate_evidence_refs exist as repository JSON files and are included in candidate_source_refs",
+      "matched candidate IDs exist in referenced candidate evidence",
+      "fresh_state_refs include existing project/execution_state.json and project/reconciliation.json"
+    ],
+    "judgement_boundary": "Deterministic provenance checks prove that routing used real current/persistent references; they do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require real-use/fresh-context evidence."
+  },
+  "owner_model_hypotheses": {
+    "status": "open-interpretation-no-normative-rewrite",
+    "governing_objective_ref": "project/GOVERNING_OBJECTIVE.md",
+    "hypotheses": [
+      {
+        "id": "OH-01",
+        "statement": "fachlich bzw. konzeptionell kompetent can be read as competence in purpose/problem experience rather than specialist analytical terminology.",
+        "authority_effect": "none"
+      },
+      {
+        "id": "OH-02",
+        "statement": "The current wording materially overstates expected Human Problem Owner competence and may require later Human-authorized refinement.",
+        "authority_effect": "none"
+      },
+      {
+        "id": "OH-03",
+        "statement": "Human Problem Owner and system competence/orchestration function are distinct: the Human retains purpose, meaning, constraints, priorities, risk/acceptance and material-decision authority, while the system reconstructs and operationalizes situational domain, method, research, logical, technical and contextual competence.",
+        "existing_owner_composition": [
+          "BB-BOOTSTRAP",
+          "BB-CONTEXT",
+          "BB-COMPETENCE",
+          "BB-RESEARCH",
+          "BB-INTEGRATE",
+          "BB-ASSURE",
+          "BB-TRACE"
+        ],
+        "naming_boundary": "Do not call the system-side function an Owner in canonical authority semantics unless later Human-authorized analysis establishes that wording; competence orchestration/systemic orchestration are descriptive candidates only.",
+        "authority_effect": "none",
+        "architecture_effect": "composition-hypothesis-only-no-new-building-block"
+      }
+    ],
+    "normative_change_requires": "explicit Human decision brief and existing authority boundary"
   }
 }
