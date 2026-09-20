@@ -1,6 +1,6 @@
 # WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20
 
-Status: **candidate operationalization plan / activation-ready evidence structure / no roadmap promotion / no implementation admission**
+Status: **review correction applied / focused re-review pending / no roadmap promotion / no implementation admission**
 
 This document operationalizes the material Human–AI collaboration findings captured in:
 
@@ -13,6 +13,38 @@ The machine-readable companion is:
 - `project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json`
 
 That JSON is an **immutable evidence/planning snapshot**, not a mutable registry or current-state clock.
+
+## Independent review correction — signal-first late activation
+
+Independent qualitative review of PR #37 on head `b71e2f7527092cf1f63014160fe36c7cf8416fb3` returned **NEEDS CORRECTION** for one narrow continuity gap:
+
+> The package described candidate triggers and what to do after a candidate had already been selected, but it did not bind a new material/failure/learning signal back to persistent known candidates. A competent worker could therefore still require Human/AI meta-orchestration to remember which OC candidate to inspect.
+
+The corrected chain is:
+
+`recognized material/failure/learning signal → known-candidate routing → match | no-match | uncertain-match → current trigger evaluation → at most activation candidate → problem validation/preflight → admission if authorized → implementation if authorized`
+
+The routing obligation is owned by the **existing** Material State / `BB-INTEGRATE` / current Planning Owner path. It does not create a registry, matcher service, new Building Block or roadmap.
+
+Deterministic enforcement is intentionally narrow: `tools/work.py integrate` checks that the routing disposition is present and authority-safe. The semantic match itself remains AI judgement with explicit uncertainty.
+
+Authority boundaries:
+
+- `match` ≠ activation;
+- `uncertain-match` must not activate automatically;
+- `no-match` is a valid explicit result;
+- matched candidate + unsatisfied/uncertain trigger remains inactive;
+- matched candidate + satisfied trigger creates **at most an activation candidate**;
+- activation candidate ≠ priority ≠ promotion ≠ admission ≠ implementation authority.
+
+### Concrete next steps after this correction
+
+1. Run formal repository assurance on the exact corrected PR head.
+2. Perform a focused independent re-review only of the former signal→known-candidate finding and any regressions introduced by this correction.
+3. If that re-review is `CONFIRM`, treat PR #37 as a **Promotion Candidate**, not as already promoted.
+4. Human Promotion Decision remains required before merge if the repository authority model requires that material promotion.
+5. After any merge, reconcile the new material-state/integration routing contract against current programme state.
+6. P2 remains independent: its implementation still requires its own explicit Human admission and does not wait for a future matcher/trigger engine.
 
 ---
 
@@ -74,13 +106,13 @@ Historical review/preflight artifacts remain valid evidence for their reviewed s
 
 That wording is stale after PR #35 promotion.
 
-This operationalization iteration does not edit the P2 admission proposal because doing so would mix this Human–AI planning persistence slice with the separate P2 admission surface. Current authority is not ambiguous because the execution/reconciliation owners explicitly record the promoted preflight and blocked admission.
+This persistence/operationalization slice does not edit the P2 admission proposal because doing so would mix this Human–AI planning persistence slice with the separate P2 admission surface. Current authority is not ambiguous because the execution/reconciliation owners explicitly record the promoted preflight and blocked admission.
 
 ### 3.3 Derived-state limitation
 
 `project/CURRENT_STATE.md` is reproducible from the reconciliation packet but its generic “Next operational proof” does not itself provide the decision-ready Human context for the current P2 admission gate.
 
-This is evidence relevant to OC-05, not a reason to expand P2 in this iteration.
+This is evidence relevant to OC-05, not a reason to expand P2 in this slice.
 
 ### 3.4 Historical roadmap text
 
@@ -233,37 +265,38 @@ Future activated slices may discover that existing Requirements need refinement;
 
 **Disposition: useful direction, but needs a stronger anti-state-clock boundary.**
 
-### Option F — selected: Audit + immutable operationalization snapshot + existing mutable Planning Owner + late activation
+### Option F — selected candidate, corrected: immutable snapshot + existing Planning Owner + signal-first late activation
 
 Structure:
 
 1. **Detailed audit** preserves full Human intent, evidence, failures and uncertainties.
 2. **This human-readable operationalization snapshot** records why and how later activation works.
-3. **Immutable machine-readable companion snapshot** records stable OC identities, refs, snapshot maturity and activation conditions.
+3. **Immutable machine-readable companion snapshot** records stable OC identities, refs, snapshot maturity, activation conditions and routing falsification cases.
 4. **Issue #7 remains the only mutable planning owner.**
 5. **Execution state remains the only small current execution cursor.**
 6. No per-axis Issue exists until that axis is actually activated.
-7. Activation creates a new focused work/preflight item referencing:
-   - OC ID;
-   - original audit;
-   - this operationalization snapshot;
-   - machine-readable snapshot;
-   - fresh repository state.
-8. The snapshot is not updated to track later work state. If the underlying model materially changes, a new superseding versioned snapshot is created with provenance.
+7. Every newly recognized material-state/failure/learning signal entering the existing integration/planning path must produce an explicit **known-candidate routing** result: `match`, `no-match` or `uncertain-match`.
+8. Routing resolves the fresh current planning source and persistent unresolved/activation-ready candidate evidence; it does not rely on chat memory or require the Human to name an OC candidate.
+9. A `match` re-binds original candidate evidence to fresh repository state and then evaluates the **current** activation trigger.
+10. Only `match + trigger satisfied` may produce an **activation candidate**. That candidate has no priority, promotion, admission or implementation authority.
+11. A later focused work/preflight item references the OC ID, original audit, this plan, the machine snapshot, routing evidence and fresh repository state.
+12. The snapshot is not mutated to track later work state. If the underlying model materially changes, a new superseding versioned snapshot is created with provenance.
 
 **Why this is preferable now**
 
+- closes the passive-archive gap identified by independent review;
 - preserves stable, machine-readable candidate identity;
-- avoids a mutable capability registry;
+- avoids a mutable capability registry or technical matcher service;
 - avoids seven premature work items;
 - keeps #7 and execution state authoritative for current planning/execution;
-- allows each topic to be activated independently later;
+- allows each topic to be activated independently from real signals;
 - makes original Human intent and omissions reconstructable by reference;
+- makes `no-match` and uncertainty explicit instead of forcing false candidate matches;
 - minimizes new meta-work.
 
-**Disposition: selected candidate persistence model.**
+**Disposition: selected corrected candidate persistence/routing model.**
 
-This selection is itself subject to independent qualitative review in PR #37.
+This correction is subject to focused independent qualitative re-review in PR #37.
 
 ---
 
@@ -499,7 +532,19 @@ Current evidence is already sufficient to establish the gap; additional recurren
 
 ## 8. Activation semantics
 
-Candidate registration is not activation.
+Candidate registration is not activation, and a trigger description is not a trigger detector.
+
+The process starts from the **new signal**, not from an already remembered OC ID:
+
+`recognized material/failure/learning signal → resolve current planning source → inspect persistent known candidates → match | no-match | uncertain-match`
+
+Routing consequences:
+
+- **no-match:** persist the rationale; do not invent a candidate merely to avoid no-match;
+- **uncertain-match:** preserve uncertainty; no automatic activation;
+- **match:** bind the earlier candidate evidence to fresh repository state, then evaluate the current trigger;
+- **match + trigger not satisfied/uncertain:** candidate remains inactive;
+- **match + trigger satisfied:** create at most an **activation candidate**.
 
 Activation may be justified by one or more of:
 
@@ -510,9 +555,9 @@ Activation may be justified by one or more of:
 - new SOTA/regulatory/safety evidence changes the risk;
 - Human Owner makes an explicit priority decision.
 
-Candidate activation is **not** Implementation Admission.
+An activation candidate is **not** Priority, Promotion, Implementation Admission or Implementation Authority.
 
-After activation, the default process is:
+After an activation candidate, the default process is:
 
 `confirm current problem → fresh state → competence/research → existing-owner fit → options → falsification → smallest adequate slice → acceptance/admission boundary → implementation if authorized`
 
@@ -579,7 +624,7 @@ A later normative change requires an explicit Human decision brief.
 
 ## 11. SOTA / best-practice research disposition
 
-No new external research was required to choose the persistence shape in this iteration.
+No new external research was required to choose the persistence shape in this slice.
 
 Reason:
 
@@ -607,6 +652,7 @@ New external research should be performed when an axis is activated and its meth
 | F10 Latest-note wins | PASS by design, not yet runtime proof | cumulative correction requirement is explicit; no claim it is implemented. |
 | F11 Declared = operationalized | PASS | maturity ladder and target-level assessment make the distinction explicit. |
 | F12 Meta-work becomes product | PASS, monitor | two versioned artifacts are added; no ongoing per-axis maintenance until activation. |
+| F13 Trigger exists but known candidate is never rediscovered | PASS by corrected design; runtime maturity remains bounded | Material State / BB-INTEGRATE now requires explicit match/no-match/uncertain-match routing through the existing integration path; semantic matching remains judgement, not a matcher service. |
 
 No deterministic PASS here proves Human-intent semantic completeness. Independent qualitative review remains required.
 
@@ -661,23 +707,27 @@ No deterministic PASS here proves Human-intent semantic completeness. Independen
 
 ## 14. Restart / future activation protocol
 
-A fresh worker activating an OC candidate should:
+A fresh worker processing a new material-state/failure/learning signal should:
 
 1. read current `main`, `GOVERNING_OBJECTIVE.md`, Authority, execution state and reconciliation;
-2. resolve current planning owner;
-3. read the source Human–AI collaboration audit;
-4. read this operationalization snapshot;
-5. read the machine-readable candidate snapshot and select the referenced OC ID;
-6. inspect any later evidence that supersedes/refines the 2026-09-20 snapshot;
-7. confirm that the activation trigger is actually present now;
-8. re-evaluate current capability maturity;
-9. perform current competence/SOTA research where material;
-10. reassess existing-owner fit;
-11. define/falsify the smallest adequate slice;
-12. create a focused Work/Preflight item only at that point;
-13. preserve Human authority/admission boundaries.
+2. resolve the current planning owner from repository state;
+3. inspect persistent unresolved/activation-ready candidate evidence referenced by that owner or canonical state;
+4. record one explicit routing result: `match`, `no-match` or `uncertain-match`;
+5. for `no-match`, preserve the rationale and continue without manufacturing an OC activation;
+6. for `uncertain-match`, preserve uncertainty and do not activate automatically;
+7. for `match`, read the original audit, human-readable plan, machine snapshot and any later superseding evidence for the matched candidate;
+8. bind that evidence to fresh current repository state;
+9. evaluate whether the candidate's current activation trigger is actually satisfied now;
+10. only if both match and current trigger are established, create an **activation candidate**;
+11. confirm the current problem rather than assuming historical evidence is still sufficient;
+12. re-evaluate current capability maturity;
+13. perform current competence/SOTA research where material;
+14. reassess existing-owner fit;
+15. define/falsify the smallest adequate slice;
+16. create a focused Work/Preflight item only when justified;
+17. preserve Human priority, promotion, admission and implementation authority boundaries.
 
-The worker must not infer priority merely because an OC candidate exists.
+The worker must not infer priority merely because an OC candidate exists, and must not require the Human to remember or name the OC candidate for routing to occur.
 
 ---
 
