@@ -204,6 +204,17 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(any("not bound to current planning source" in e for e in errors))
         self.assertTrue(any("matched candidate ref is not present in candidate evidence: OC-03" in e for e in errors))
 
+    def test_unbound_extra_candidate_source_fails(self):
+        routing = self._routing_record(
+            candidate_source_refs=[
+                "github:esany/Wissensarbeit#7",
+                "project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json",
+                "project/requirements.json",
+            ]
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("candidate_source_refs contains unbound sources" in e for e in errors))
+
     def test_stale_repository_revision_ref_fails(self):
         routing = self._routing_record(repository_revision_ref="0" * 40)
         errors = work.validate_known_candidate_routing(routing)
