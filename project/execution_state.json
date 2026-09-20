@@ -2,17 +2,18 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-implementation-admission",
+    "id": "p2-context-fidelity-implementation",
     "next": [
       {
-        "id": "p2-context-fidelity-implementation",
-        "status": "ready",
+        "id": "p2-context-fidelity-result-review",
+        "status": "blocked",
         "depends_on": [
-          "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01",
-          "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01"
+          "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01"
         ],
-        "admission_ref": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-        "scope": "P2-CONTEXT-FIDELITY-SLICE"
+        "blocked_by": "qualitative-result-review",
+        "result_evidence": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+        "review_brief": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-01.md",
+        "implementation_pr": "github:esany/Wissensarbeit#39"
       }
     ]
   },
@@ -40,17 +41,18 @@
     {
       "id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
       "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01",
+      "status": "resolved"
     }
   ],
   "allowed_actions": [
     "inspect",
-    "design",
-    "plan",
     "persist evidence",
-    "implement",
     "complete"
   ],
-  "implementation_allowed": true,
+  "implementation_allowed": false,
   "route": "local-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -61,13 +63,17 @@
     "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
     "p2-fidelity-manifest-preflight": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
     "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-    "p2-implementation-admission": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md"
+    "p2-implementation-admission": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+    "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+    "p2-context-fidelity-implementation": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md"
   },
   "follow_up": {
-    "candidate": "p2-context-fidelity-implementation",
-    "status": "ready",
-    "admission": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-    "scope": "P2-CONTEXT-FIDELITY-SLICE",
-    "rule": "Implementation authority is limited to the exact admitted P2 Context-Fidelity slice. Merge and result acceptance are not authorized; any scope expansion must stop fail-closed."
+    "candidate": "p2-context-fidelity-result-review",
+    "status": "blocked",
+    "blocked_until": "qualitative-result-review",
+    "implementation_pr": "github:esany/Wissensarbeit#39",
+    "result_evidence": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+    "review_brief": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-01.md",
+    "rule": "The admitted implementation exists as PR #39 candidate evidence. Further implementation, result acceptance and merge are not authorized; a separate qualitative result review is required."
   }
 }
