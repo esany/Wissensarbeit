@@ -23,7 +23,7 @@ domain, project, research, data, software, intelligence, operations, interfaces
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
-- Current change: `audit/human-ai-blind-probe-evidence-validity-2026-09-20`
+- Current change: `audit/human-ai-blind-routing-evidence-integrity-2026-09-20`
 - Systemically integrated: `true`
 - Unresolved reconciliation blockers: 0
 
