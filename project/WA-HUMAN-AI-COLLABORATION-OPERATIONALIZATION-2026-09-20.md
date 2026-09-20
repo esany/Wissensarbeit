@@ -47,12 +47,13 @@ The original signal→known-candidate finding is considered qualitatively closed
 4. Persist the third open Owner-model hypothesis: Human Problem Owner authority is distinct from the system's competence/orchestration function; no new Building Block or canonical role name is promoted.
 5. Run formal repository assurance on the resulting exact PR head.
 6. Perform focused independent qualitative re-review of the residual provenance/Owner-model corrections.
-7. Treat `WA-EVAL-031..033` as **visible regression/fresh-context cases only**, not as blind-evidence cases: their expectations are repository-visible in `tests/fixtures/eval_cases.json`.
-8. For blind evidence, use the separate two-phase probe protocol: an isolated operational repository snapshot with no eval/oracle material + a stimulus whose oracle is not yet persisted; persist the raw response before any oracle is added.
+7. Treat `WA-EVAL-031..033` as **visible regression cases only**, not as blind-evidence cases: their expectations are repository-visible in `tests/fixtures/eval_cases.json`.
+8. For blind evidence, use the separate two-phase protocol in `tests/probes/routing_fresh_context_stimuli_v1.json` and `tests/probes/fresh_context_trial_contract.json`: render an isolated exact-revision operational bundle with `tools/eval_integrity.py`, provide no full-repository/eval/prior-trial/oracle access, and persist the raw response before any oracle is revealed.
 9. Do not count a same-chat execution, a full-repository execution with repository-visible oracle material, or an execution after oracle persistence as blind fresh-context evidence. Until valid independent probe evidence exists, routing behavior is not `real-use-demonstrated`.
-10. Only if the focused re-review confirms the residual corrections and the two-phase blind probe produces valid independent evidence should PR #37 be treated as a **Promotion Candidate**.
-10. Human Promotion Decision remains required before merge where the existing authority boundary requires it; after any merge, reconcile the promoted contract change.
-11. P2 remains independent: its implementation still requires its own explicit Human admission and does not wait for PR #37 promotion or a future matcher/trigger engine.
+10. Treat capture metadata as integrity evidence only: exact revision, stimulus identity, allowed context and access declarations do not themselves prove semantic correctness, true freshness or Human effectiveness.
+11. Only if the focused re-review confirms the residual corrections and the two-phase blind probe produces valid independent evidence should PR #37 be treated as a **Promotion Candidate**.
+12. Human Promotion Decision remains required before merge where the existing authority boundary requires it; after any merge, reconcile the promoted contract change.
+13. P2 remains independent: its implementation still requires its own explicit Human admission and does not wait for PR #37 promotion or a future matcher/trigger engine.
 
 ---
 
