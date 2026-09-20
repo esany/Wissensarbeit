@@ -1232,22 +1232,39 @@ The system-side function is currently modeled as composition across existing own
 
 No canonical name such as “Logic Owner” is introduced because “Owner” could imply material meaning/decision authority.
 
-### 19.3 Fresh-context evidence gate
+### 19.3 Fresh-context evidence gate — oracle visibility correction
 
-Three blind evals are added:
+The first routing probe design used `WA-EVAL-031..033` from `tests/fixtures/eval_cases.json`.
 
-- `WA-EVAL-031`: competence-gap signal, no OC hint;
-- `WA-EVAL-032`: ambiguous context/orchestration signal, no OC hint;
-- `WA-EVAL-033`: material non-OC defect, no OC hint.
+Their rendered prompt omitted `expect`, and regression tests correctly proved **prompt-level** non-disclosure. Focused review identified a stronger evidence problem:
 
-`tools/evals.py render` hides expected outcomes. A regression test verifies that the rendered prompts do not leak `OC-01..OC-07`.
+> prompt-blind ≠ repository-blind.
 
-This repository change **prepares** the fresh-context proof but does not self-certify it. A trial run produced by the same conversation/context must not be counted as independent fresh-context evidence.
+A tested instance with repository access could search the case ID or fixture and read the repository-visible `expect` fields. Therefore `WA-EVAL-031..033` remain useful **oracle-visible regression cases**, but they are not valid independent blind/fresh-context evidence.
+
+Correction:
+
+- the visible cases are explicitly marked `regression-only-oracle-visible`;
+- the normal renderer labels them as regression cases rather than independent blind evidence;
+- independent routing evidence uses a separate stimulus-only set in `tests/probes/routing_fresh_context_stimuli_v1.json`;
+- the new probe definitions contain no `expect`, expected routing result or OC identifier;
+- the tested instance receives an **isolated exact-revision operational bundle** rendered by `tools/eval_integrity.py`, not full repository/eval access;
+- the allowlisted bundle contains only the operational repository state needed to resolve planning source, candidate evidence, routing contract, competence and authority;
+- a minimal capture record binds probe identity, exact repository revision, accessible context, fresh-instance declaration, external-repository access=false, prior-trial access=false, oracle access=false and the unchanged raw response;
+- raw response must be persisted before any separately held oracle is revealed or persisted.
+
+The capture validator improves evidence integrity but does not prove semantic correctness, actual psychological freshness or Human effectiveness. Those remain grading/review claims.
+
+No independent trial is claimed by this repository change.
 
 Required remaining evidence before promotion-candidate status:
 
-1. green formal assurance on the exact residual-correction head;
-2. focused qualitative re-review of the residual changes;
-3. independent fresh-instance execution of the blind routing probes with persisted trial evidence.
+1. green formal assurance on the exact oracle-visibility correction head;
+2. focused qualitative re-review of the evidence-design correction;
+3. independent fresh-instance execution using the isolated bundle protocol;
+4. persist raw response/capture first;
+5. only then disclose/persist the separately held oracle and grade/review the result.
+
+The original signal→candidate mechanism and referential routing fidelity remain separately CONFIRMED by the prior focused review; this finding concerns the validity of the planned behavioral evidence, not a new routing-mechanism defect.
 
 P2 remains independently gated by explicit Human implementation admission.
