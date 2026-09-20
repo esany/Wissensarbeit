@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Minimal integrity contract for independent fresh-context routing probe evidence.",
+  "capture_required_fields": [
+    "probe_id",
+    "probe_identity",
+    "repository_revision",
+    "context_mode",
+    "accessible_context_paths",
+    "fresh_instance",
+    "external_repository_access",
+    "prior_trial_access",
+    "oracle_access",
+    "raw_response",
+    "response_captured_before_oracle_reveal"
+  ],
+  "rules": {
+    "context_mode": "isolated-repository-bundle",
+    "fresh_instance": true,
+    "external_repository_access": false,
+    "prior_trial_access": false,
+    "oracle_access": false,
+    "response_captured_before_oracle_reveal": true,
+    "repository_revision": "exact 40-character Git SHA of the repository state used to build the isolated context bundle",
+    "accessible_context_paths": "must be exactly the allowlisted operational paths in routing_fresh_context_stimuli_v1.json",
+    "raw_response": "must preserve the tested instance response unchanged; JSON is preferred and probe_id must match when present",
+    "oracle_policy": "Oracle/expected outcome must not be repository-accessible or supplied to the tested instance before raw response persistence. Oracle reveal and grading happen only after capture."
+  },
+  "evidence_claim_boundary": "A valid capture record proves declared execution conditions and binds the response to a stimulus/revision. It does not by itself prove semantic correctness, true psychological freshness, or Human effectiveness; grading and qualitative review remain separate."
+}
