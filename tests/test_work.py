@@ -72,30 +72,43 @@ class OperationalCoreTests(unittest.TestCase):
             path.write_text(json.dumps(state), encoding="utf-8")
             self.assertTrue(work.execution_preflight("implement", path))
 
-    def test_execution_next_is_deterministic_or_explicitly_refuses(self):
+    def test_execution_next_is_existing_admitted_correction_step(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "no deterministic next action")
+        self.assertEqual(next_step, "p2-context-fidelity-implementation")
 
-    def test_execution_state_records_implementation_result_without_acceptance(self):
+    def test_execution_state_reopens_only_existing_admitted_step_for_two_findings(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-implementation")
-        self.assertFalse(state["implementation_allowed"])
-        self.assertNotIn("implement", state["allowed_actions"])
+        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-result-review")
+        self.assertTrue(state["implementation_allowed"])
+        self.assertIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        self.assertEqual(state["current_step"]["next"][0]["id"], "p2-context-fidelity-result-review")
-        self.assertEqual(state["current_step"]["next"][0]["status"], "blocked")
+        ready = [item for item in state["current_step"]["next"] if item.get("status") == "ready"]
+        self.assertEqual(len(ready), 1)
+        step = ready[0]
+        self.assertEqual(step["id"], "p2-context-fidelity-implementation")
         self.assertEqual(
-            state["current_step"]["next"][0]["blocked_by"],
-            "qualitative-result-review",
+            step["admission_ref"],
+            "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+        )
+        self.assertEqual(step["admission_id"], "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01")
+        self.assertEqual(step["continuation"], "needs-correction")
+        self.assertEqual(
+            step["review_evidence"],
+            "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
         )
         self.assertEqual(
-            state["current_step"]["next"][0]["result_evidence"],
-            "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+            step["correction_scope"],
+            [
+                "source-snapshot-working-tree-fidelity",
+                "judgement-based-selection-provenance-boundary",
+                "direct-regressions-for-these-two-findings",
+                "integrate-pr39-implementation-candidate-with-current-main-without-reverting-newer-canonical-state",
+            ],
         )
-        self.assertTrue(work.execution_preflight("implement"))
+        self.assertEqual(work.execution_preflight("implement"), [])
         self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
