@@ -602,6 +602,11 @@ def validate_known_candidate_routing(routing: dict) -> list[str]:
                     errors.append(f"candidate evidence ref must also appear in candidate_source_refs: {ref}")
         known_candidate_ids, evidence_errors = _candidate_ids_from_evidence_refs(candidate_evidence_refs, planning_source_ref)
         errors.extend(evidence_errors)
+        if isinstance(candidate_source_refs, list):
+            expected_sources = {planning_source_ref, *candidate_evidence_refs}
+            unexpected_sources = sorted(set(candidate_source_refs) - expected_sources)
+            if unexpected_sources:
+                errors.append(f"candidate_source_refs contains unbound sources {unexpected_sources}")
 
     if not isinstance(matched_candidate_refs, list):
         errors.append("known_candidate_routing matched_candidate_refs must be a list")
