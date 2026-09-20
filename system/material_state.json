@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "purpose": "Prevent material project state from remaining exclusively in chat or an execution environment after it has been recognized as material.",
   "principle": "Exploration may remain conversational; recognized material state must be externalized before a continuity boundary. Persistence does not imply canonical promotion.",
   "materiality_detection": {
@@ -103,7 +103,9 @@
     ],
     "required_fields": [
       "status",
+      "planning_source_ref",
       "candidate_source_refs",
+      "candidate_evidence_refs",
       "matched_candidate_refs",
       "rationale",
       "fresh_state_refs",
@@ -125,6 +127,14 @@
       "activation_candidate may be true only when status=match and trigger_status=satisfied.",
       "A satisfied matched trigger produces at most an activation candidate; it does not create priority, promotion, admission, implementation authority or implementation_allowed.",
       "A matched candidate with a not-satisfied or uncertain trigger remains inactive."
+    ],
+    "provenance_rules": [
+      "planning_source_ref must equal the current project/execution_state.json planning_source.",
+      "candidate_source_refs must include planning_source_ref and every repository candidate-evidence file used for the routing judgement.",
+      "candidate_evidence_refs must identify existing repository JSON evidence files whose candidate IDs can be checked deterministically.",
+      "Every matched_candidate_ref must exist in at least one referenced candidate-evidence file.",
+      "fresh_state_refs must include the current project/execution_state.json and project/reconciliation.json repository files.",
+      "Reference existence and planning-source binding are deterministic checks; semantic search-space completeness and material overlap remain judgement and must not be represented as deterministic proof."
     ]
   }
 }
