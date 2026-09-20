@@ -79,7 +79,7 @@
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-context-fidelity-implementation",
-        "next": "p2-context-fidelity-result-review",
+        "next": "none",
         "next_status": "blocked",
         "blocked_by": "fresh-independent-qualitative-result-rereview",
         "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
