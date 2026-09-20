@@ -1,15 +1,14 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/context-fidelity-implementation-admission-2026-09-20",
+  "change_id": "p2/context-fidelity-implementation-result-2026-09-20",
   "materiality": "material",
-  "summary": "Persist the explicit Human admission ADMIT P2-CONTEXT-FIDELITY-SLICE, bind the existing execution owner to the exact admitted implementation step, and enable implementation only for that slice without granting merge or result acceptance.",
+  "summary": "Record the admitted P2 Context-Fidelity implementation result: bounded compile behavior and F1–F11/P1–P3 regressions are formally green, implementation authority is closed, and the next gate is a separate qualitative result review with no merge or result acceptance implied.",
   "source_refs": [
-    "github:esany/Wissensarbeit#7",
-    "esany/Wissensarbeit@b590523d31db5f82628d6e0d5182821501729906",
-    "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
-    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md",
-    "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
-    "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md"
+    "github:esany/Wissensarbeit#39",
+    "esany/Wissensarbeit@961f5c61e3fa78a60b45fa0bac2fc3726b6fb51e",
+    "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+    "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+    "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-01.md"
   ],
   "surfaces": {
     "requirements": {
@@ -24,16 +23,15 @@
         "REQ-011",
         "REQ-012"
       ],
-      "rationale": "The Human admission authorizes implementation of the already-reviewed Existing-Owner slice; it does not change Requirement semantics."
+      "rationale": "The implementation operationalizes the admitted Existing-Owner slice and does not change Requirement semantics."
     },
     "issues_findings": {
-      "disposition": "confirmed",
+      "disposition": "refined",
       "objects": [
-        "github:esany/Wissensarbeit#7",
-        "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03",
-        "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01"
+        "github:esany/Wissensarbeit#39",
+        "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01"
       ],
-      "rationale": "The independently CONFIRMED preflight is canonical and the exact affirmative Human admission is now durably persisted. PR #37 remains outside this P2 dependency graph."
+      "rationale": "The P2 slice now has an implementation candidate with formal assurance PASS. Real-task usefulness, material completeness and overhead remain open qualitative result-review questions."
     },
     "risks": {
       "disposition": "confirmed",
@@ -47,23 +45,22 @@
         "R-008",
         "R-009"
       ],
-      "rationale": "Existing scope, authority, accretion, false-assurance and self-reinforcing-error risks remain applicable. Admission does not create a new risk family."
+      "rationale": "No new risk family is required. Existing false-assurance, scope, accretion and self-reinforcing-error risks remain relevant, especially because structural fidelity does not prove real selection quality or usefulness."
     },
     "decisions_concepts": {
-      "disposition": "confirmed",
+      "disposition": "refined",
       "objects": [
-        "existing-context-fidelity-slice",
-        "p2-minimal-existing-owner-candidate",
-        "P2-CONTEXT-FIDELITY-SLICE"
+        "P2-CONTEXT-FIDELITY-SLICE",
+        "p2-context-fidelity-implementation-candidate"
       ],
-      "rationale": "The previously reviewed candidate is now admitted only as the exact bounded implementation experiment. The admission does not accept any implementation result or authorize merge."
+      "rationale": "The admitted concept now has a concrete implementation candidate. It is not accepted architecture or a merge-approved result; separate qualitative result review remains mandatory."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The derived current-state view is refreshed only to bind to this admission reconciliation."
+      "rationale": "The derived current-state view is refreshed only to bind to the implementation-result reconciliation."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -71,20 +68,20 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The Human admission resolves p2-implementation-admission and makes p2-context-fidelity-implementation the sole ready implementation step bound to the persisted admission. implementation_allowed=true applies only to this persisted cursor/scope; merge remains outside allowed_actions.",
+      "rationale": "The admitted implementation step is complete as a PR candidate with formal assurance evidence. Implementation authority is closed; p2-context-fidelity-result-review is blocked pending a separate qualitative review, and no merge action is ready.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-implementation-admission",
-        "next": "p2-context-fidelity-implementation",
-        "implementation_allowed": true
+        "current_step": "p2-context-fidelity-implementation",
+        "next": "none",
+        "implementation_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
       "objects": [
-        "p2-context-fidelity-implementation"
+        "p2-context-fidelity-result-review"
       ],
-      "rationale": "The bounded implementation step is ready but not yet result-accepted or merge-authorized. Work may start only after this admission package is canonical and formally green."
+      "rationale": "No further P2 implementation work is admitted on this result state. The active material gate is qualitative result review; merge and result acceptance remain ungranted."
     }
   },
   "unresolved": [],
