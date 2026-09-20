@@ -611,14 +611,25 @@ Current disposition:
 
 **unresolved semantic interpretation / no silent edit**
 
-Two live hypotheses remain:
+Three live hypotheses remain:
 
 1. the wording is compatible if “fachlich bzw. konzeptionell kompetent” means competence in purpose/problem experience rather than specialist analytical terminology;
-2. the wording materially overstates expected Owner competence and needs later Human-authorized refinement.
+2. the wording materially overstates expected Owner competence and needs later Human-authorized refinement;
+3. **Human Problem Owner and system competence/orchestration function are distinct roles.** The Human retains purpose, meaning, constraints, priorities, risk/acceptance and material decision authority. The system reconstructs and operationalizes the situationally required domain, method, research, logical, technical and contextual competence through composition of existing capabilities.
+
+Hypothesis 3 is currently the strongest explanatory fit for the already-canonical combination of the Governing Objective, `system/competence.json` and `system/authority.json`, but it remains an **open interpretation**, not a normative rewrite.
+
+Working terminology for the system-side role should avoid “Owner” because that could imply material meaning or decision authority. Candidate descriptive terms include **competence orchestration** or **systemic competence/orchestration function**. No canonical role name is selected here.
+
+No new Building Block follows from this hypothesis. The function is currently best treated as a composition across existing owners, particularly:
+
+`BB-BOOTSTRAP + BB-CONTEXT + BB-COMPETENCE + BB-RESEARCH + BB-INTEGRATE + BB-ASSURE + BB-TRACE`
+
+This is a composition hypothesis to be tested through real work, not an architecture promotion.
 
 This tension does **not** block current P2 because the P2 contract already treats Human feedback as evidence rather than automatic semantic/solution authority.
 
-A later normative change requires an explicit Human decision brief.
+A later normative Governing Objective or authority change requires an explicit Human decision brief.
 
 ---
 
