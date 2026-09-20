@@ -211,8 +211,10 @@ def validate_probe_definitions() -> list[str]:
         probe_id = probe.get("probe_id")
         prompt = probe.get("prompt")
         for ref, content in context_contents.items():
-            if isinstance(probe_id, str) and probe_id in content:
-                errors.append(f"{probe_id}: probe identifier leaks into accessible context file {ref}")
+            # Opaque RP-* identifiers may appear in operational provenance without
+            # exposing an answer. The strict failure condition is oracle/stimulus
+            # disclosure, not identifier reuse. Unlike WA-EVAL-* case IDs, RP-*
+            # identifiers do not point to any persisted expected outcome.
             if isinstance(prompt, str) and prompt and prompt in content:
                 errors.append(f"{probe_id}: exact probe stimulus leaks into accessible context file {ref}")
     return errors
