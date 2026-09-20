@@ -1,14 +1,16 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/context-fidelity-implementation-result-2026-09-20",
+  "change_id": "p2/context-fidelity-result-correction-gate-2026-09-20",
   "materiality": "material",
-  "summary": "Record the admitted P2 Context-Fidelity implementation result: bounded compile behavior and F1–F11/P1–P3 regressions are formally green, implementation authority is closed, and the next gate is a separate qualitative result review with no merge or result acceptance implied.",
+  "summary": "Persist the independent PR #39 NEEDS CORRECTION result review and prepare a bounded correction gate that reuses the existing Human Admission and existing p2-context-fidelity-implementation step solely for Source Snapshot/Working-Tree fidelity and judgement-based Selection-Provenance boundary corrections.",
   "source_refs": [
     "github:esany/Wissensarbeit#39",
-    "esany/Wissensarbeit@961f5c61e3fa78a60b45fa0bac2fc3726b6fb51e",
+    "esany/Wissensarbeit@7d1619ebfec9915e0e60f4d43794b7f1ba0772b0",
+    "esany/Wissensarbeit@45ae94f124ee6b04be8b2c418a9cc5c8e36b69d1",
     "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
     "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
-    "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-01.md"
+    "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-01.md",
+    "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md"
   ],
   "surfaces": {
     "requirements": {
@@ -23,15 +25,17 @@
         "REQ-011",
         "REQ-012"
       ],
-      "rationale": "The implementation operationalizes the admitted Existing-Owner slice and does not change Requirement semantics."
+      "rationale": "The two review findings are implementation defects inside the already admitted Context-Fidelity slice; no Requirement semantics change."
     },
     "issues_findings": {
       "disposition": "refined",
       "objects": [
         "github:esany/Wissensarbeit#39",
-        "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01"
+        "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02",
+        "source-snapshot-working-tree-fidelity",
+        "judgement-based-selection-provenance-boundary"
       ],
-      "rationale": "The P2 slice now has an implementation candidate with formal assurance PASS. Real-task usefulness, material completeness and overhead remain open qualitative result-review questions."
+      "rationale": "The independent qualitative result review is now durable NEEDS CORRECTION evidence with exactly two material correction findings. Other real-use result dimensions remain open rather than being promoted to deterministic PASS."
     },
     "risks": {
       "disposition": "confirmed",
@@ -45,22 +49,23 @@
         "R-008",
         "R-009"
       ],
-      "rationale": "No new risk family is required. Existing false-assurance, scope, accretion and self-reinforcing-error risks remain relevant, especially because structural fidelity does not prove real selection quality or usefulness."
+      "rationale": "Existing false-assurance, stale-state, scope, accretion and self-reinforcing-error risks cover the correction. No new risk family or state owner is required."
     },
     "decisions_concepts": {
       "disposition": "refined",
       "objects": [
         "P2-CONTEXT-FIDELITY-SLICE",
-        "p2-context-fidelity-implementation-candidate"
+        "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
+        "p2-context-fidelity-implementation"
       ],
-      "rationale": "The admitted concept now has a concrete implementation candidate. It is not accepted architecture or a merge-approved result; separate qualitative result review remains mandatory."
+      "rationale": "The admitted Existing-Owner approach remains valid. The existing Human Admission and its existing implementation step are rebound only to the two review findings; no new Admission, implementation step, architecture, classifier or owner is created."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The derived current-state view is refreshed only to bind to the implementation-result reconciliation."
+      "rationale": "The derived view must bind to this correction-gate reconciliation through the existing derive/freshness contract; no derived-state contract expansion is introduced."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -68,20 +73,22 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The admitted implementation step is complete as a PR candidate with formal assurance evidence. Implementation authority is closed; p2-context-fidelity-result-review is blocked pending a separate qualitative review, and no merge action is ready.",
+      "rationale": "The completed result review returned NEEDS CORRECTION. The sole ready implementation action is the existing admitted p2-context-fidelity-implementation step, rebound to the existing Admission and limited to the two persisted findings plus direct regressions and current-main integration hygiene. Merge and result acceptance remain unauthorized.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-context-fidelity-implementation",
-        "next": "none",
-        "implementation_allowed": false
+        "current_step": "p2-context-fidelity-result-review",
+        "next": "p2-context-fidelity-implementation",
+        "implementation_allowed": true
       }
     },
     "active_work": {
       "disposition": "refined",
       "objects": [
-        "p2-context-fidelity-result-review"
+        "p2-context-fidelity-implementation",
+        "github:esany/Wissensarbeit#39",
+        "gate/p2-context-fidelity-correction-2026-09-20"
       ],
-      "rationale": "No further P2 implementation work is admitted on this result state. The active material gate is qualitative result review; merge and result acceptance remain ungranted."
+      "rationale": "After canonical promotion of this gate candidate, active work is only the correction continuation on the existing admitted step: integrate the PR #39 implementation candidate with then-current main without reverting newer canonical state, correct the two findings, add direct regressions, assure, close implementation authority, and request fresh independent qualitative result re-review."
     }
   },
   "unresolved": [],
