@@ -80,8 +80,17 @@ class EvalTrialIntegrityTests(unittest.TestCase):
             "repository_revision": bundle["repository_revision"],
             "context_mode": "isolated-repository-bundle",
             "accessible_context_paths": eval_integrity.probe_document()["operational_context_paths"],
+            "context_file_hashes": {
+                item["path"]: item["sha256"] for item in bundle["context_files"]
+            },
             "bundle_manifest": bundle["bundle_manifest"],
             "bundle_identity": bundle["bundle_identity"],
+            "instance_context": {
+                "provider_or_product": "test-harness",
+                "model_or_configuration": "fresh-instance-fixture",
+                "session_or_run_id": "test-run",
+                "fresh_context_declaration": "No prior project or trial context supplied beyond the isolated bundle.",
+            },
             "fresh_instance": True,
             "external_repository_access": False,
             "prior_trial_access": False,
@@ -143,6 +152,28 @@ class EvalTrialIntegrityTests(unittest.TestCase):
         record["bundle_identity"] = eval_integrity.probe_bundle_identity(record["bundle_manifest"])
         errors = eval_integrity.validate_fresh_probe_trial_record(record)
         self.assertTrue(any("bundle_manifest repository_revision mismatch" in error for error in errors))
+
+
+    def test_fresh_probe_capture_rejects_context_hash_mismatch(self):
+        record = self._fresh_probe_trial()
+        record["context_file_hashes"] = dict(record["context_file_hashes"])
+        first = next(iter(record["context_file_hashes"]))
+        record["context_file_hashes"][first] = "sha256:" + ("0" * 64)
+        errors = eval_integrity.validate_fresh_probe_trial_record(record)
+        self.assertTrue(any("context_file_hashes mismatch bundle_manifest" in error for error in errors))
+
+    def test_fresh_probe_capture_requires_instance_context(self):
+        record = self._fresh_probe_trial()
+        del record["instance_context"]
+        errors = eval_integrity.validate_fresh_probe_trial_record(record)
+        self.assertTrue(any("missing fields" in error and "instance_context" in error for error in errors))
+
+    def test_fresh_probe_capture_requires_nonempty_instance_provenance(self):
+        record = self._fresh_probe_trial()
+        record["instance_context"] = dict(record["instance_context"])
+        record["instance_context"]["session_or_run_id"] = ""
+        errors = eval_integrity.validate_fresh_probe_trial_record(record)
+        self.assertTrue(any("instance_context fields must be non-empty strings" in error for error in errors))
 
 
 if __name__ == "__main__":
