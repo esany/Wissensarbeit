@@ -12,7 +12,7 @@
     "implementation_allowed": false,
     "p2_current_gate": "p2-implementation-admission",
     "mutable_state": false,
-    "latest_candidate_update_reason": "Focused re-review evidence correction: reclassify WA-EVAL-031..033 as repository-visible regression cases, not blind evidence; use a two-phase isolated-snapshot probe where raw responses are persisted before any oracle is added."
+    "latest_candidate_update_reason": "Focused evidence-validity correction: visible-oracle WA-EVAL-031..033 are regression-only; independent routing evidence now requires stimulus-only probes, isolated operational repo bundles, exact-revision capture and oracle reveal only after raw-response persistence. OH-03 remains compatible but not preferred."
   },
   "authority": {
     "status": "candidate-evidence-only",
@@ -1025,23 +1025,31 @@
     ],
     "judgement_boundary": "Deterministic provenance checks prove source existence, Git persistence, current planning-owner binding, candidate-ID addressability and exact-revision freshness. They do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require independent fresh-context/real-use evidence.",
     "fresh_context_probe": {
-      "status": "repository-visible-regression-only-not-blind-evidence",
-      "cases": [
+      "status": "oracle-visibility-correction-applied-independent-execution-pending",
+      "visible_regression_cases": [
         "WA-EVAL-031",
         "WA-EVAL-032",
         "WA-EVAL-033"
       ],
-      "useful_for": [
-        "regression coverage",
-        "fresh-context prompt construction",
-        "post-fix behavioral checks where oracle visibility is acceptable"
+      "visible_regression_boundary": "These cases remain useful deterministic regressions but are not valid independent blind evidence because their expect fields are repository-visible.",
+      "stimulus_only_probe_ref": "tests/probes/routing_fresh_context_stimuli_v1.json",
+      "trial_contract_ref": "tests/probes/fresh_context_trial_contract.json",
+      "bundle_renderer": "python tools/eval_integrity.py render-probe-bundle <probe_id>",
+      "probe_ids": [
+        "RP-41B7",
+        "RP-8C2E",
+        "RP-D594"
       ],
-      "not_valid_for": [
-        "strict blind-evidence claim with full access to the PR branch"
+      "execution_boundary": "The tested instance must receive only the rendered isolated operational bundle; full repository/eval access, prior trial access and oracle access are disallowed during the trial.",
+      "sequence": [
+        "freeze exact repository revision",
+        "render isolated bundle plus one stimulus",
+        "run a fresh instance with no repository/eval/oracle access beyond the bundle",
+        "persist raw response and trial capture unchanged",
+        "only then reveal/persist the separately held oracle",
+        "grade and qualitatively review"
       ],
-      "reason": "The repository-visible fixture file contains each case's expect/oracle fields and the rendered prompt exposes the case identifier, so a repository-capable instance can recover the expected answer.",
-      "replacement_evidence_protocol_ref": "project/WA-PR37-BLIND-ROUTING-PROBE-PROTOCOL-2026-09-20.md",
-      "evidence_boundary": "Prompt-blind is not repository-blind. Strict blind evidence requires an isolated operational snapshot without eval/oracle material and temporal separation: raw response persistence before oracle persistence."
+      "evidence_boundary": "Probe definition and capture-integrity checks do not prove semantic correctness or Human effectiveness. No fresh-context capability claim is allowed before an independently produced capture is persisted and reviewed."
     }
   },
   "owner_model_hypotheses": {
