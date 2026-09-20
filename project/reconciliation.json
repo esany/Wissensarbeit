@@ -1,13 +1,16 @@
 {
   "schema_version": "1.1",
-  "change_id": "audit/human-ai-operational-collaboration-chat-delta-2026-09-20",
+  "change_id": "audit/human-ai-operational-collaboration-operationalization-2026-09-20",
   "materiality": "material",
-  "summary": "Integrate a detailed Human-Owner chat audit showing that multiple peer-level Human-AI collaboration capabilities are normatively present but not yet adequately operationalized end-to-end; preserve the current P2 implementation-admission gate and make no Requirement, Building-Block, lifecycle, priority or implementation promotion.",
+  "summary": "Operationalize the detailed Human-AI collaboration audit into a versioned, late-activation planning snapshot with seven peer OC identities and explicit activation/evidence semantics, while keeping Issue #7 and execution_state as the only mutable planning/execution authorities and preserving the current P2 implementation-admission gate.",
   "source_refs": [
     "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+    "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",
+    "project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json",
     "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
     "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
     "github:esany/Wissensarbeit#7",
+    "github:esany/Wissensarbeit#35",
     "tests/evals/failure_corpus.json"
   ],
   "surfaces": {
@@ -26,7 +29,7 @@
         "REQ-012",
         "REQ-013"
       ],
-      "rationale": "The current chat supplies stronger real-use evidence that existing promises around autonomy, competence, context, traceability, Human authority and automation are not yet fully demonstrated in operation. This audit does not alter Requirement text or create a new Requirement family."
+      "rationale": "The operationalization snapshot maps current real-use gaps to existing Requirements without changing Requirement text, criticality or authority. Future activation may re-evaluate whether refinement is needed."
     },
     "issues_findings": {
       "disposition": "refined",
@@ -34,9 +37,11 @@
         "github:esany/Wissensarbeit#7",
         "WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA",
         "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA",
-        "WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA"
+        "WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA",
+        "WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20",
+        "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20"
       ],
-      "rationale": "The prior Human-intent and design-method findings remain valid but are now integrated into a broader peer-level system finding: Human role/intent, work-context compilation, competence/research, partial automation/function allocation, Human decision/XAI, iterative learning and cumulative correction fidelity are equal operational collaboration gaps rather than subtopics of the PR-review example."
+      "rationale": "The detailed audit remains the primary semantic evidence. The new human-readable and machine-readable snapshots preserve seven peer axes, evidence maturity, activation semantics, omissions and restart instructions without creating seven premature work items."
     },
     "risks": {
       "disposition": "refined",
@@ -52,26 +57,29 @@
         "R-009",
         "R-010"
       ],
-      "rationale": "The chat provides new real-use evidence across existing continuity, drift, authority, solutionism, false-completion, self-reinforcement and competence-blind-spot risks. No new risk family is promoted."
+      "rationale": "The operationalization explicitly mitigates drift, authority creep, false completion, state duplication and meta-work risks by separating candidate identity, activation, execution priority, admission and demonstrated capability maturity."
     },
     "decisions_concepts": {
       "disposition": "refined",
       "objects": [
-        "existing-owner-operational-collaboration-gap",
-        "partial-automation-function-allocation-candidate",
-        "intent-bound-work-packet-candidate",
-        "decision-ready-human-context-candidate",
-        "operationalization-evidence-ladder-candidate",
-        "cumulative-correction-fidelity-candidate"
+        "OC-01",
+        "OC-02",
+        "OC-03",
+        "OC-04",
+        "OC-05",
+        "OC-06",
+        "OC-07",
+        "immutable-candidate-activation-snapshot",
+        "operationalization-evidence-ladder"
       ],
-      "rationale": "These are audit-derived candidate design directions and assessment concepts only. Existing-owner refinement remains the default hypothesis to test first, but neither a new Building Block nor the absence of one is treated as a proven final architecture conclusion."
+      "rationale": "OC identifiers are stable peer identities only, not rank or roadmap. The selected persistence model is audit + versioned immutable operationalization snapshots + existing mutable Planning Owner #7 + late focused activation. No mutable capability registry, new Building Block, Requirement family or workflow engine is introduced."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "Refresh the derived view only to bind it to this material audit reconciliation; the baseline counts and execution authority remain unchanged."
+      "rationale": "Refresh only the reconciliation provenance of the generated current-state view; baseline counts and execution authority remain unchanged."
     },
     "planning_execution_cursor": {
       "disposition": "unchanged",
@@ -79,7 +87,7 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "This audit is material evidence but does not manufacture priority. The current P2 preflight remains complete, p2-implementation-admission remains the separate blocked Human gate, and implementation_allowed remains false.",
+      "rationale": "Candidate persistence does not manufacture priority. The current P2 preflight remains complete, p2-implementation-admission remains the separate blocked Human gate, and implementation_allowed remains false. Future OC activation requires a fresh current-state work/preflight item.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -90,7 +98,7 @@
     "active_work": {
       "disposition": "unchanged",
       "objects": [],
-      "rationale": "Persisting and reviewing this audit does not activate implementation work on any of the seven axes and does not start P2 implementation."
+      "rationale": "No OC axis is activated as implementation work by this snapshot. P2 implementation also remains not admitted."
     }
   },
   "unresolved": [],
