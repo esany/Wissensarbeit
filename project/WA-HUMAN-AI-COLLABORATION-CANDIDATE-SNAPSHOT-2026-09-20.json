@@ -1020,7 +1020,23 @@
       "matched candidate IDs exist in referenced candidate evidence",
       "fresh_state_refs include existing project/execution_state.json and project/reconciliation.json"
     ],
-    "judgement_boundary": "Deterministic provenance checks prove that routing used real current/persistent references; they do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require real-use/fresh-context evidence."
+    "judgement_boundary": "Deterministic provenance checks prove that routing used real current/persistent references; they do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require real-use/fresh-context evidence.",
+    "fresh_context_probe": {
+      "status": "prepared-not-yet-independently-executed",
+      "harness": "tools/evals.py render/grade",
+      "blind_prompt_rule": "Rendered probe input must not expose OC identifiers or hidden expected outcomes.",
+      "cases": [
+        "WA-EVAL-031",
+        "WA-EVAL-032",
+        "WA-EVAL-033"
+      ],
+      "intended_coverage": {
+        "WA-EVAL-031": "new competence-gap signal should discover the persisted competence/research candidate without an OC hint",
+        "WA-EVAL-032": "overlap between context-compilation and orchestration should preserve ambiguity rather than force a single activation",
+        "WA-EVAL-033": "material implementation defect outside the OC collaboration candidates should produce explicit no-match"
+      },
+      "evidence_boundary": "The harness is repository-persisted and regression-protected for blindness, but no same-chat execution may be counted as a fresh-context real-use demonstration. Independent execution evidence is still required before claiming the routing behavior itself is demonstrated."
+    }
   },
   "owner_model_hypotheses": {
     "status": "open-interpretation-no-normative-rewrite",
