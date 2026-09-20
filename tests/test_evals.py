@@ -189,6 +189,13 @@ class EvalHarnessTests(unittest.TestCase):
                 self.assertNotIn(oc_id, rendered, f"{case_id} leaked {oc_id}")
 
 
+    def test_visible_oracle_routing_cases_are_regression_only(self):
+        for case_id in ("WA-EVAL-031", "WA-EVAL-032", "WA-EVAL-033"):
+            case = evals.get_case(case_id)
+            self.assertEqual(case.get("evidence_use"), "regression-only-oracle-visible")
+            self.assertEqual(case.get("blindness_status"), "not-valid-as-independent-blind-evidence")
+
+
 
 if __name__ == "__main__":
     unittest.main()
