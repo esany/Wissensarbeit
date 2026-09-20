@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "manifest_id": "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
   "class": "immutable-candidate-activation-snapshot",
   "purpose": "Provide stable machine-readable identities, evidence links, snapshot maturity and activation semantics for the seven peer Human-AI collaboration gaps without becoming a mutable planning registry or current-state clock.",
@@ -12,7 +12,7 @@
     "implementation_allowed": false,
     "p2_current_gate": "p2-implementation-admission",
     "mutable_state": false,
-    "latest_candidate_update_reason": "Focused evidence-validity correction: visible-oracle WA-EVAL-031..033 are regression-only; independent routing evidence now requires stimulus-only probes, isolated operational repo bundles, exact-revision capture and oracle reveal only after raw-response persistence. OH-03 remains compatible but not preferred."
+    "latest_candidate_update_reason": "Focused re-review evidence correction: visible WA-EVAL-031..033 are regression-only; strict blind routing evidence uses stimulus-only RP probes, an isolated Git-derived operational bundle, bundle identity, and raw-response capture before any oracle persistence."
   },
   "authority": {
     "status": "candidate-evidence-only",
@@ -1050,6 +1050,27 @@
         "grade and qualitatively review"
       ],
       "evidence_boundary": "Probe definition and capture-integrity checks do not prove semantic correctness or Human effectiveness. No fresh-context capability claim is allowed before an independently produced capture is persisted and reviewed."
+    },
+    "strict_blind_probe": {
+      "status": "pre-oracle-independent-execution-pending",
+      "protocol_ref": "project/WA-PR37-BLIND-ROUTING-PROBE-PROTOCOL-2026-09-20.md",
+      "stimulus_ref": "tests/probes/routing_fresh_context_stimuli_v1.json",
+      "trial_contract_ref": "tests/probes/fresh_context_trial_contract.json",
+      "renderer": "python tools/eval_integrity.py render-probe-bundle <probe_id>",
+      "trial_validator": "python tools/eval_integrity.py validate-probe-trial <record>",
+      "context_mode": "isolated-repository-bundle",
+      "controls": [
+        "stimulus-only definitions contain no oracle-like fields or OC identifiers",
+        "accessible context is an explicit operational allowlist excluding tests and tools",
+        "accessible context content is read from Git at the exact repository revision rather than from mutable working-tree files",
+        "accessible context must not contain the opaque probe identifier or exact probe stimulus",
+        "bundle manifest hashes every accessible context file plus instructions and stimulus",
+        "bundle_identity binds the capture to that concrete manifest",
+        "fresh instance has no external repository, prior-trial or oracle access",
+        "raw response is persisted unchanged before any oracle reveal"
+      ],
+      "evidence_boundary": "Passing deterministic integrity validation proves the declared capture is bound to a concrete isolated bundle and respects the encoded access boundary. It does not grade semantic routing correctness or prove Human effectiveness.",
+      "promotion_gate": "Do not claim strict blind routing behavior demonstrated, or PR #37 promotion-ready on that basis, until independent RP probe responses are persisted pre-oracle and then graded/reviewed."
     }
   },
   "owner_model_hypotheses": {
