@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "status": "stimulus-only-pre-oracle",
+  "purpose": "Independent fresh-context evidence for known-candidate routing without repository-visible expected outcomes.",
+  "evidence_boundary": "This file contains stimuli only. It must not contain expected candidate IDs, expected routing outcomes, grading tokens, or oracle material. A probe becomes evidence only after an isolated-bundle fresh-instance response is captured before oracle reveal.",
+  "execution_protocol": {
+    "context_mode": "isolated-repository-bundle",
+    "exact_revision_required": true,
+    "external_repository_access_during_trial": false,
+    "prior_trial_access_during_trial": false,
+    "oracle_access_during_trial": false,
+    "sequence": [
+      "freeze exact repository revision",
+      "render isolated operational context bundle plus one stimulus",
+      "execute in a fresh instance with no external repository/eval/oracle access",
+      "persist raw response and trial capture unchanged",
+      "only after capture reveal/persist the separately held oracle",
+      "grade and review",
+      "after evidence capture the probe may later become an ordinary visible regression case"
+    ]
+  },
+  "operational_context_paths": [
+    "project/GOVERNING_OBJECTIVE.md",
+    "project/execution_state.json",
+    "project/reconciliation.json",
+    "project/CURRENT_STATE.md",
+    "project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json",
+    "system/material_state.json",
+    "system/building_blocks.json",
+    "system/competence.json",
+    "system/authority.json"
+  ],
+  "probes": [
+    {
+      "probe_id": "RP-41B7",
+      "prompt": "Ich kenne das Ziel und die beobachteten Probleme, aber für den nächsten Schritt scheint Wissen aus einer Fach- oder Methodendisziplin nötig zu sein, die ich selbst nicht zuverlässig benennen kann. Ich möchte nicht erst herausfinden müssen, welcher Spezialist oder welches Fachgebiet gebraucht wird. Nutze den bereitgestellten Projektzustand und entscheide, wie dieses neue materielle Signal gegen bereits bekannte Candidate-Evidence geroutet werden muss."
+    },
+    {
+      "probe_id": "RP-8C2E",
+      "prompt": "Ich will die Prüfung dieses Changes nicht wieder selbst aus Repo-Dateien, Checks, Review-Grenzen, Arbeitsanweisungen und Human-Gates zusammensetzen. Der aktuelle Stand sollte weitgehend ableitbar sein. Nutze den bereitgestellten Projektzustand und route dieses neue materielle Signal gegen bereits bekannte Candidate-Evidence, ohne eine künstliche Eindeutigkeit zu erzwingen."
+    },
+    {
+      "probe_id": "RP-D594",
+      "prompt": "Nach einem bereits zugelassenen Refactoring interpretiert der Parser bestimmte gültige Datumswerte in der falschen Feldreihenfolge. Kontext, Rollen, Review-Grenzen und Human-Gates waren dabei nicht das Problem. Der Defekt ist materiell. Nutze den bereitgestellten Projektzustand und route dieses Signal gegen bereits bekannte Candidate-Evidence, ohne allein wegen der Materialität einen Match zu erfinden."
+    }
+  ]
+}
