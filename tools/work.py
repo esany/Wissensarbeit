@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import re
 import subprocess
@@ -439,6 +440,159 @@ def context() -> dict:
     }
 
 
+def repository_snapshot() -> str:
+    proc = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0 or not proc.stdout.strip():
+        raise RuntimeError("cannot resolve current Git snapshot")
+    return f"git:{proc.stdout.strip()}"
+
+
+def context_request_errors(request: dict, candidates: dict, current_snapshot: str) -> list[str]:
+    errors: list[str] = []
+    for field in ("work_ref", "question_ref", "source_snapshot", "authority_ref", "selection_basis"):
+        if field not in request:
+            errors.append(f"context request missing {field}")
+
+    for field in ("work_ref", "question_ref", "source_snapshot", "authority_ref"):
+        if field in request and (not isinstance(request[field], str) or not request[field].strip()):
+            errors.append(f"context request {field} must be a non-empty string")
+
+    if request.get("source_snapshot") != current_snapshot:
+        errors.append("context request source_snapshot is stale or does not match current snapshot")
+    if request.get("authority_ref") != rel(AUTHORITY):
+        errors.append(f"context request authority_ref must be {rel(AUTHORITY)}")
+
+    basis = request.get("selection_basis")
+    if not isinstance(basis, dict):
+        errors.append("context request selection_basis must be an object")
+        return errors
+
+    for field in ("candidate_refs", "required_refs", "irrelevant_refs", "provenance_ref", "provenance_role", "rationale"):
+        if field not in basis:
+            errors.append(f"selection basis missing {field}")
+
+    list_fields = {}
+    for field in ("candidate_refs", "required_refs", "irrelevant_refs"):
+        value = basis.get(field)
+        if not isinstance(value, list) or not all(isinstance(ref, str) and ref for ref in value):
+            errors.append(f"selection basis {field} must be a list of non-empty refs")
+            list_fields[field] = []
+        else:
+            if len(value) != len(set(value)):
+                errors.append(f"selection basis {field} must not contain duplicate refs")
+            list_fields[field] = value
+
+    candidate_refs = list_fields["candidate_refs"]
+    required_refs = list_fields["required_refs"]
+    irrelevant_refs = list_fields["irrelevant_refs"]
+    candidate_set = set(candidate_refs)
+    required_set = set(required_refs)
+    irrelevant_set = set(irrelevant_refs)
+
+    if required_set & irrelevant_set:
+        errors.append("selection basis R and I must be disjoint")
+    if required_set | irrelevant_set != candidate_set:
+        errors.append("selection basis R and I must completely partition closed candidate universe U")
+    missing_candidates = [ref for ref in candidate_refs if ref not in candidates]
+    if missing_candidates:
+        errors.append("selection basis contains refs not present in candidate source: " + ", ".join(missing_candidates))
+
+    for field in ("provenance_ref", "provenance_role"):
+        value = basis.get(field)
+        if not isinstance(value, str) or not value.strip():
+            errors.append(f"selection basis {field} must be a non-empty string")
+
+    rationale = basis.get("rationale")
+    if not isinstance(rationale, dict):
+        errors.append("selection basis rationale must be an object keyed by every candidate ref")
+    else:
+        missing_rationale = [ref for ref in candidate_refs if not isinstance(rationale.get(ref), str) or not rationale.get(ref, "").strip()]
+        if missing_rationale:
+            errors.append("selection basis rationale missing for refs: " + ", ".join(missing_rationale))
+
+    return errors
+
+
+def context_fidelity_errors(
+    request: dict,
+    candidates: dict,
+    execution_context: dict,
+    current_snapshot: str,
+) -> list[str]:
+    errors = context_request_errors(request, candidates, current_snapshot)
+    if errors:
+        return errors
+
+    required_refs = request["selection_basis"]["required_refs"]
+    required_set = set(required_refs)
+    actual_set = set(execution_context)
+    if actual_set != required_set:
+        missing = sorted(required_set - actual_set)
+        extra = sorted(actual_set - required_set)
+        if missing:
+            errors.append("bounded execution context is missing required refs: " + ", ".join(missing))
+        if extra:
+            errors.append("bounded execution context contains refs outside R: " + ", ".join(extra))
+
+    for ref in required_refs:
+        if ref in execution_context and execution_context[ref] != candidates[ref]:
+            errors.append(f"bounded execution context changed source payload semantics for {ref}")
+    return errors
+
+
+def compile_context(
+    request: dict,
+    candidates: dict | None = None,
+    current_snapshot: str | None = None,
+) -> tuple[dict, dict]:
+    source = context() if candidates is None else candidates
+    snapshot = repository_snapshot() if current_snapshot is None else current_snapshot
+    request_errors = context_request_errors(request, source, snapshot)
+    if request_errors:
+        raise ValueError("; ".join(request_errors))
+
+    basis = request["selection_basis"]
+    required_refs = basis["required_refs"]
+    irrelevant_refs = basis["irrelevant_refs"]
+    execution_context = {ref: copy.deepcopy(source[ref]) for ref in required_refs}
+
+    fidelity_errors = context_fidelity_errors(request, source, execution_context, snapshot)
+    if fidelity_errors:
+        raise ValueError("; ".join(fidelity_errors))
+
+    rationale = basis["rationale"]
+    record = {
+        "contract": "P2-CONTEXT-FIDELITY-SLICE",
+        "work_ref": request["work_ref"],
+        "question_ref": request["question_ref"],
+        "source_snapshot": request["source_snapshot"],
+        "authority_ref": request["authority_ref"],
+        "selection_basis": {
+            "provenance_ref": basis["provenance_ref"],
+            "provenance_role": basis["provenance_role"],
+            "candidate_refs": list(basis["candidate_refs"]),
+            "required_refs": list(required_refs),
+            "irrelevant_refs": list(irrelevant_refs),
+        },
+        "included": [{"ref": ref, "rationale": rationale[ref]} for ref in required_refs],
+        "omitted": [{"ref": ref, "rationale": rationale[ref]} for ref in irrelevant_refs],
+        "fidelity_checks": {
+            "closed_partition": True,
+            "execution_refs_equal_required_refs": set(execution_context) == set(required_refs),
+            "selected_payloads_unchanged": all(execution_context[ref] == source[ref] for ref in required_refs),
+        },
+        "refresh_condition": "invalidate when the repository Git snapshot differs from source_snapshot",
+        "semantic_claim_boundary": "Deterministic checks prove fidelity to the bound judgement selection basis, not real-world materiality or semantic completeness.",
+    }
+    return execution_context, record
+
+
 def trace(object_id: str) -> dict | None:
     reqs = load(REQ)["requirements"]
     criteria = load(CRITERIA)["criteria"]
@@ -541,8 +695,11 @@ def derive() -> str:
 def main() -> int:
     parser = argparse.ArgumentParser(prog="work", description="Wissensarbeit operational core")
     sub = parser.add_subparsers(dest="command", required=True)
-    for command in ("validate", "inspect", "context", "derive", "audit"):
+    for command in ("validate", "inspect", "derive", "audit"):
         sub.add_parser(command)
+    context_parser = sub.add_parser("context")
+    context_parser.add_argument("--request", type=Path)
+    context_parser.add_argument("--provenance-out", type=Path)
     sub.add_parser("status")
     sub.add_parser("next")
     preflight_parser = sub.add_parser("preflight")
@@ -587,7 +744,30 @@ def main() -> int:
     elif args.command == "inspect":
         print(json.dumps(inspect_state(), indent=2, ensure_ascii=False))
     elif args.command == "context":
-        print(json.dumps(context(), indent=2, ensure_ascii=False))
+        if args.request is None:
+            if args.provenance_out is not None:
+                print("CONTEXT COMPILE FAIL", file=sys.stderr)
+                print("- --provenance-out requires --request", file=sys.stderr)
+                return 1
+            print(json.dumps(context(), indent=2, ensure_ascii=False))
+            return 0
+        if args.provenance_out is None:
+            print("CONTEXT COMPILE FAIL", file=sys.stderr)
+            print("- bounded context compilation requires --provenance-out", file=sys.stderr)
+            return 1
+        try:
+            request = load(args.request)
+            execution_context, provenance = compile_context(request)
+            args.provenance_out.write_text(
+                json.dumps(provenance, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+        except Exception as exc:
+            print("CONTEXT COMPILE FAIL", file=sys.stderr)
+            print(f"- {exc}", file=sys.stderr)
+            return 1
+        print(json.dumps(execution_context, indent=2, ensure_ascii=False))
+        return 0
     elif args.command == "trace":
         result = trace(args.object_id)
         if result is None:
