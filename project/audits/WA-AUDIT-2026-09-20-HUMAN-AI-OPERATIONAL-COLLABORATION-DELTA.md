@@ -1097,3 +1097,36 @@ The current conversation itself is valuable evidence for axes 1, 2, 5, 6 and 7 b
 Finally, future audits must stop treating "present in the repository" as equivalent to "operationalized". Claims should be evidence-calibrated using the operationalization maturity ladder and real Human-use outcomes.
 
 Uncertainty remains valid. This audit captures and structures the demonstrated problem; it deliberately does not pretend the correct implementation architecture is already known.
+
+
+---
+
+## 17. Additional real-use evidence — work-type terminology drift
+
+After the operationalization package had been prepared, the assistant again described the completed persistence/operationalization work as an "iteration".
+
+The Human Owner corrected this immediately because the distinction had already been established earlier: not every bounded work unit, transition, review, correction, promotion or persistence action is an iteration.
+
+This recurrence is additional evidence for **OC-07 Cumulative Correction Fidelity / Interaction Continuity**:
+
+- the semantic correction already existed in the same conversation;
+- the assistant could reproduce the distinction when explicitly challenged;
+- the correction was still not reliably applied to later work-description;
+- therefore the failure is not only missing vocabulary but failure to carry a still-valid semantic rule forward.
+
+The Human then supplied/confirmed the intended distinctions:
+
+- **Iteration** — a genuine learning/development cycle in which a hypothesis, design or implementation is changed through real evidence and produces a changed next state;
+- **Preflight** — determines whether a later slice is sufficiently specified/admissible;
+- **Review / Re-Review** — qualitative assessment of a concrete state / focused reassessment after correction;
+- **Correction** — targeted change in response to a finding;
+- **Promotion / Admission** — authority transition, not iteration;
+- **Reconciliation** — systemic state alignment, not iteration;
+- **Persistence / Operationalization Slice** — makes findings/state restartable and later actionable; not automatically an iteration;
+- **Implementation Slice** — executes a bounded admitted scope; may participate in an iteration but is not one merely by being implemented.
+
+Material implication:
+
+> Work-type names must carry operational consequences. Classification should determine what authority is created, what evidence becomes stale, what follow-up checks are required, and which transitions are explicitly **not** implied.
+
+This audit does not promote these semantics into `system/lifecycle.json` or `system/authority.json`. They are added to the PR #37 candidate operationalization package for independent qualitative review first.
