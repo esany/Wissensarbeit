@@ -1,19 +1,231 @@
 {
   "building_blocks": [
-    {"id":"BB-BOOTSTRAP","name":"Bootstrap","purpose":"Create a restartable project baseline from an initial problem-owner input without requiring technical setup knowledge.","inputs":["owner intent","initial problem/context"],"outputs":["objective candidate","initial state","initial work items","domain/competence discovery needs"],"automation":"high"},
-    {"id":"BB-STATE","name":"Canonical State","purpose":"Persist accepted project knowledge, requirements, decisions and current state outside chat.","inputs":["accepted changes"],"outputs":["versioned canonical state"],"automation":"high"},
-    {"id":"BB-CONTEXT","name":"Context Compiler","purpose":"Compile task-relevant objective, state, evidence, methods, authority and constraints for AI/human work.","inputs":["canonical state","current work item"],"outputs":["bounded execution context"],"automation":"full"},
-    {"id":"BB-COMPETENCE","name":"Competence Discovery","purpose":"Detect domain, method, project, technical and interface competencies needed for a material question.","inputs":["problem/work item","current state"],"outputs":["required competence set","gaps","review depth"],"automation":"high"},
-    {"id":"BB-RESEARCH","name":"SOTA and Fit Research","purpose":"Research current state of the art, best practice, standards and comparable approaches, then assess project-specific fit.","inputs":["competence gap","decision/problem context"],"outputs":["evidence-backed options","fit assessment","limitations"],"automation":"high"},
-    {"id":"BB-INTEGRATE","name":"Systemic Integration","purpose":"Interpret new aspects against the whole system, externalize recognized material state during work, and complete systemic reconciliation before describing a material change as integrated.","inputs":["new aspect","canonical state","recognized material-state candidate","current reconciliation state"],"outputs":["impact analysis","integration disposition","required/non-changes","material-state disposition record","systemic reconciliation impact set","decision brief when material human consultation is required"],"automation":"high_with_material_human_gate"},
-    {"id":"BB-REQUIREMENTS","name":"Requirements and Criteria","purpose":"Translate validated needs into traceable requirements, acceptance criteria and verification methods.","inputs":["problem/need","analysis","evidence"],"outputs":["requirements","criteria","verification plan"],"automation":"high_with_material_human_gate"},
-    {"id":"BB-DESIGN","name":"Concept and Architecture","purpose":"Develop and compare domain/technical solution concepts from accepted requirements, including data, backend, ML/AI, infrastructure and DevOps when justified.","inputs":["requirements","competence/SOTA findings","constraints"],"outputs":["options","trade-offs","decision candidates","architecture fitness assessment"],"automation":"high_with_material_human_gate"},
-    {"id":"BB-IMPLEMENT","name":"Implementation","purpose":"Implement the selected solution with the simplest adequate stack; the result may be knowledge artifacts or pure software without AI.","inputs":["accepted decision","requirements"],"outputs":["code/data/docs/configuration","implementation trace"],"automation":"high"},
-    {"id":"BB-ASSURE","name":"Assurance","purpose":"Separate deterministic validation, procedural assurance, AI review, specialist review and human acceptance; verify systemic reconciliation completeness for material changes without pretending semantic judgement is deterministic.","inputs":["requirements","criteria","implementation","reconciliation packet"],"outputs":["test results","review findings","acceptance state","systemic reconciliation gate result"],"automation":"maximum_except_judgement"},
-    {"id":"BB-TRACE","name":"Trace and Explain","purpose":"Explain what exists, what changed, why, based on what, with which authority and consequences; expose material-state findings and systemic reconciliation across affected project state.","inputs":["object/change id","Git history","canonical state","material decision context","material-state checkpoint","reconciliation packet"],"outputs":["human-readable provenance and impact explanation","complete decision brief","unpersisted material-state findings","systemic reconciliation trace"],"automation":"full"},
-    {"id":"BB-DERIVE","name":"Derived Views","purpose":"Generate human-readable current-state, handoff, coverage, risk and audit views from canonical sources, including current systemic reconciliation status, without creating parallel truth.","inputs":["canonical state","reconciliation packet"],"outputs":["rebuildable views","systemic reconciliation status"],"automation":"full"},
-    {"id":"BB-OPERATE","name":"Operations and DevOps","purpose":"Keep required project/product operations running through CI/CD, dependency maintenance, backup/recovery, deployment, observability and security only as needs justify them; continuity boundaries fail closed when recognized material state remains unpersisted.","inputs":["operational requirements","architecture","material-state checkpoint"],"outputs":["automated operational capability","health/assurance evidence","continuity-boundary result"],"automation":"maximum"},
-    {"id":"BB-LEARN","name":"Use and Learn","purpose":"Feed real owner/domain usage and failures back into problem understanding, requirements, regressions and architecture without novelty-driven drift; material learnings are externalized continuously rather than retained only in conversation state.","inputs":["usage","feedback","failures","conversation/work events"],"outputs":["validated learning","reframed/refined state","regression candidates","persisted material-state candidates/findings"],"automation":"high_with_human_acceptance"}
+    {
+      "id": "BB-BOOTSTRAP",
+      "name": "Bootstrap",
+      "purpose": "Create a restartable project baseline from an initial problem-owner input without requiring technical setup knowledge.",
+      "inputs": [
+        "owner intent",
+        "initial problem/context"
+      ],
+      "outputs": [
+        "objective candidate",
+        "initial state",
+        "initial work items",
+        "domain/competence discovery needs"
+      ],
+      "automation": "high"
+    },
+    {
+      "id": "BB-STATE",
+      "name": "Canonical State",
+      "purpose": "Persist accepted project knowledge, requirements, decisions and current state outside chat.",
+      "inputs": [
+        "accepted changes"
+      ],
+      "outputs": [
+        "versioned canonical state"
+      ],
+      "automation": "high"
+    },
+    {
+      "id": "BB-CONTEXT",
+      "name": "Context Compiler",
+      "purpose": "Compile task-relevant objective, state, evidence, methods, authority and constraints for AI/human work.",
+      "inputs": [
+        "canonical state",
+        "current work item"
+      ],
+      "outputs": [
+        "bounded execution context"
+      ],
+      "automation": "full"
+    },
+    {
+      "id": "BB-COMPETENCE",
+      "name": "Competence Discovery",
+      "purpose": "Detect domain, method, project, technical and interface competencies needed for a material question.",
+      "inputs": [
+        "problem/work item",
+        "current state"
+      ],
+      "outputs": [
+        "required competence set",
+        "gaps",
+        "review depth"
+      ],
+      "automation": "high"
+    },
+    {
+      "id": "BB-RESEARCH",
+      "name": "SOTA and Fit Research",
+      "purpose": "Research current state of the art, best practice, standards and comparable approaches, then assess project-specific fit.",
+      "inputs": [
+        "competence gap",
+        "decision/problem context"
+      ],
+      "outputs": [
+        "evidence-backed options",
+        "fit assessment",
+        "limitations"
+      ],
+      "automation": "high"
+    },
+    {
+      "id": "BB-INTEGRATE",
+      "name": "Systemic Integration",
+      "purpose": "Interpret new aspects against the whole system, externalize recognized material state during work, route recognized material/failure/learning signals against known planning candidates, and complete systemic reconciliation before describing a material change as integrated.",
+      "inputs": [
+        "new aspect",
+        "canonical state",
+        "recognized material-state candidate",
+        "current reconciliation state",
+        "known unresolved/activation-ready planning candidate evidence"
+      ],
+      "outputs": [
+        "impact analysis",
+        "integration disposition",
+        "required/non-changes",
+        "material-state disposition record",
+        "systemic reconciliation impact set",
+        "decision brief when material human consultation is required",
+        "known-candidate routing disposition"
+      ],
+      "automation": "high_with_material_human_gate"
+    },
+    {
+      "id": "BB-REQUIREMENTS",
+      "name": "Requirements and Criteria",
+      "purpose": "Translate validated needs into traceable requirements, acceptance criteria and verification methods.",
+      "inputs": [
+        "problem/need",
+        "analysis",
+        "evidence"
+      ],
+      "outputs": [
+        "requirements",
+        "criteria",
+        "verification plan"
+      ],
+      "automation": "high_with_material_human_gate"
+    },
+    {
+      "id": "BB-DESIGN",
+      "name": "Concept and Architecture",
+      "purpose": "Develop and compare domain/technical solution concepts from accepted requirements, including data, backend, ML/AI, infrastructure and DevOps when justified.",
+      "inputs": [
+        "requirements",
+        "competence/SOTA findings",
+        "constraints"
+      ],
+      "outputs": [
+        "options",
+        "trade-offs",
+        "decision candidates",
+        "architecture fitness assessment"
+      ],
+      "automation": "high_with_material_human_gate"
+    },
+    {
+      "id": "BB-IMPLEMENT",
+      "name": "Implementation",
+      "purpose": "Implement the selected solution with the simplest adequate stack; the result may be knowledge artifacts or pure software without AI.",
+      "inputs": [
+        "accepted decision",
+        "requirements"
+      ],
+      "outputs": [
+        "code/data/docs/configuration",
+        "implementation trace"
+      ],
+      "automation": "high"
+    },
+    {
+      "id": "BB-ASSURE",
+      "name": "Assurance",
+      "purpose": "Separate deterministic validation, procedural assurance, AI review, specialist review and human acceptance; verify systemic reconciliation completeness for material changes without pretending semantic judgement is deterministic.",
+      "inputs": [
+        "requirements",
+        "criteria",
+        "implementation",
+        "reconciliation packet"
+      ],
+      "outputs": [
+        "test results",
+        "review findings",
+        "acceptance state",
+        "systemic reconciliation gate result"
+      ],
+      "automation": "maximum_except_judgement"
+    },
+    {
+      "id": "BB-TRACE",
+      "name": "Trace and Explain",
+      "purpose": "Explain what exists, what changed, why, based on what, with which authority and consequences; expose material-state findings and systemic reconciliation across affected project state.",
+      "inputs": [
+        "object/change id",
+        "Git history",
+        "canonical state",
+        "material decision context",
+        "material-state checkpoint",
+        "reconciliation packet"
+      ],
+      "outputs": [
+        "human-readable provenance and impact explanation",
+        "complete decision brief",
+        "unpersisted material-state findings",
+        "systemic reconciliation trace"
+      ],
+      "automation": "full"
+    },
+    {
+      "id": "BB-DERIVE",
+      "name": "Derived Views",
+      "purpose": "Generate human-readable current-state, handoff, coverage, risk and audit views from canonical sources, including current systemic reconciliation status, without creating parallel truth.",
+      "inputs": [
+        "canonical state",
+        "reconciliation packet"
+      ],
+      "outputs": [
+        "rebuildable views",
+        "systemic reconciliation status"
+      ],
+      "automation": "full"
+    },
+    {
+      "id": "BB-OPERATE",
+      "name": "Operations and DevOps",
+      "purpose": "Keep required project/product operations running through CI/CD, dependency maintenance, backup/recovery, deployment, observability and security only as needs justify them; continuity boundaries fail closed when recognized material state remains unpersisted.",
+      "inputs": [
+        "operational requirements",
+        "architecture",
+        "material-state checkpoint"
+      ],
+      "outputs": [
+        "automated operational capability",
+        "health/assurance evidence",
+        "continuity-boundary result"
+      ],
+      "automation": "maximum"
+    },
+    {
+      "id": "BB-LEARN",
+      "name": "Use and Learn",
+      "purpose": "Feed real owner/domain usage and failures back into problem understanding, requirements, regressions and architecture without novelty-driven drift; material learnings are externalized continuously rather than retained only in conversation state.",
+      "inputs": [
+        "usage",
+        "feedback",
+        "failures",
+        "conversation/work events"
+      ],
+      "outputs": [
+        "validated learning",
+        "reframed/refined state",
+        "regression candidates",
+        "persisted material-state candidates/findings"
+      ],
+      "automation": "high_with_human_acceptance"
+    }
   ],
   "composition_principles": [
     "Building blocks are capabilities, not mandatory folders, agents or services.",
