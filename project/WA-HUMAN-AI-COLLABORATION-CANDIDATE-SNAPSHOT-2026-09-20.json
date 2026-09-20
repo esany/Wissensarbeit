@@ -1035,11 +1035,6 @@
       "stimulus_only_probe_ref": "tests/probes/routing_fresh_context_stimuli_v1.json",
       "trial_contract_ref": "tests/probes/fresh_context_trial_contract.json",
       "bundle_renderer": "python tools/eval_integrity.py render-probe-bundle <probe_id>",
-      "probe_ids": [
-        "RP-41B7",
-        "RP-8C2E",
-        "RP-D594"
-      ],
       "execution_boundary": "The tested instance must receive only the rendered isolated operational bundle; full repository/eval access, prior trial access and oracle access are disallowed during the trial.",
       "sequence": [
         "freeze exact repository revision",
@@ -1049,7 +1044,8 @@
         "only then reveal/persist the separately held oracle",
         "grade and qualitatively review"
       ],
-      "evidence_boundary": "Probe definition and capture-integrity checks do not prove semantic correctness or Human effectiveness. No fresh-context capability claim is allowed before an independently produced capture is persisted and reviewed."
+      "evidence_boundary": "Probe definition and capture-integrity checks do not prove semantic correctness or Human effectiveness. No fresh-context capability claim is allowed before an independently produced capture is persisted and reviewed.",
+      "identifier_boundary": "Opaque probe identifiers exist only in the stimulus-only probe artifact and the rendered trial bundle; they are not repeated in the operational context supplied to the tested instance."
     },
     "strict_blind_probe": {
       "status": "pre-oracle-independent-execution-pending",
