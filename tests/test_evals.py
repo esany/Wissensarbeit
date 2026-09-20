@@ -180,6 +180,15 @@ class EvalHarnessTests(unittest.TestCase):
         self.assertIn("go", rendered)
         self.assertNotIn("continue-current-bounded-work", rendered)
 
+    def test_routing_probe_render_does_not_leak_oc_oracle(self):
+        for case_id in ("WA-EVAL-031", "WA-EVAL-032", "WA-EVAL-033"):
+            case = evals.get_case(case_id)
+            self.assertIsNotNone(case)
+            rendered = evals.render(case)
+            for oc_id in ("OC-01", "OC-02", "OC-03", "OC-04", "OC-05", "OC-06", "OC-07"):
+                self.assertNotIn(oc_id, rendered, f"{case_id} leaked {oc_id}")
+
+
 
 if __name__ == "__main__":
     unittest.main()
