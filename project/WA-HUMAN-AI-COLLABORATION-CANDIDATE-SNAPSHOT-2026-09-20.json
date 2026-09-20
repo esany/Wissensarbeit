@@ -1,0 +1,615 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
+  "class": "immutable-candidate-activation-snapshot",
+  "purpose": "Provide stable machine-readable identities, evidence links, snapshot maturity and activation semantics for the seven peer Human-AI collaboration gaps without becoming a mutable planning registry or current-state clock.",
+  "snapshot": {
+    "canonical_main_before_snapshot": "b590523d31db5f82628d6e0d5182821501729906",
+    "planning_owner": "github:esany/Wissensarbeit#7",
+    "source_audit": "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+    "human_readable_plan": "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",
+    "source_pr": "github:esany/Wissensarbeit#37",
+    "implementation_allowed": false,
+    "p2_current_gate": "p2-implementation-admission",
+    "mutable_state": false
+  },
+  "authority": {
+    "status": "candidate-evidence-only",
+    "numbering_rule": "OC number is stable identity only; it is not rank, phase, priority or sequence.",
+    "not_authority_for": [
+      "governing objective change",
+      "requirement promotion",
+      "architecture selection",
+      "priority change",
+      "implementation admission",
+      "implementation_allowed",
+      "programme cursor",
+      "P3/P4/P5 activation"
+    ],
+    "current_planning_and_execution_authority": [
+      "github:esany/Wissensarbeit#7",
+      "project/execution_state.json",
+      "project/reconciliation.json"
+    ],
+    "future_activation_rule": "Create a focused current work/preflight item only when a current activation trigger is established; reread fresh repository state and original evidence first."
+  },
+  "evidence_maturity_levels": [
+    "declared",
+    "wired",
+    "executable",
+    "regression-protected",
+    "real-use-demonstrated",
+    "human-effective",
+    "robust-restartable"
+  ],
+  "evidence_maturity_rule": "Levels describe positive capability evidence, not severity or priority. Negative real-use evidence must not be converted into a higher positive maturity level.",
+  "activation_semantics": {
+    "activation_is_not_implementation_admission": true,
+    "invalid_activation_reasons": [
+      "candidate is old",
+      "candidate has a low maturity level",
+      "audit mentions the candidate",
+      "assistant finds the topic interesting",
+      "unrelated work completed",
+      "new technology appears"
+    ],
+    "potentially_valid_activation_reasons": [
+      "current real workflow encounters the gap",
+      "current admitted slice depends on the capability",
+      "existing promised requirement cannot be credibly met without it",
+      "negative real-use evidence makes continued deferral materially costly",
+      "new SOTA regulatory or safety evidence changes the material risk",
+      "Human Owner explicitly changes priority"
+    ],
+    "post_activation_default_sequence": [
+      "confirm-current-problem",
+      "read-fresh-state",
+      "competence-and-research",
+      "existing-owner-fit",
+      "compare-options",
+      "falsify",
+      "define-smallest-adequate-slice",
+      "resolve-acceptance-and-admission-boundary",
+      "implement-only-if-authorized"
+    ]
+  },
+  "candidates": [
+    {
+      "id": "OC-01",
+      "name": "Human Role / Minimal Input / Intent Reconstruction",
+      "peer_axis": true,
+      "need": "The Human can communicate tersely, colloquially, symptom-first and with imperfect terminology without becoming the system's prompt engineer, domain analyst or repository orchestrator.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
+        "tests/evals/failure_corpus.json"
+      ],
+      "requirement_refs": [
+        "REQ-003",
+        "REQ-004",
+        "REQ-008"
+      ],
+      "building_block_refs": [
+        "BB-BOOTSTRAP",
+        "BB-INTEGRATE",
+        "BB-REQUIREMENTS",
+        "BB-LEARN"
+      ],
+      "quality_refs": [
+        "Q-XAI",
+        "Q-AUTO",
+        "Q-FIT",
+        "Q-COHERENCE"
+      ],
+      "risk_refs": [
+        "R-004",
+        "R-005",
+        "R-006",
+        "R-009",
+        "R-010"
+      ],
+      "failure_family_refs": [
+        "FF-EXECUTION-PROGRESS",
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-AUTHORITY-PROMOTION"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Material-state and Harvest contracts can preserve source role/authority candidates.",
+        "No end-to-end terse free-text intent reconstruction runtime is demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Current Human-AI collaboration chat required repeated reframing/correction.",
+        "FF-EXECUTION-PROGRESS explicitly records terse free-text intent reconstruction as an open gap."
+      ],
+      "uncertainties": [
+        "Exact boundary between safe reconstruction and Human clarification remains judgement-heavy.",
+        "Whether current Governing Objective owner wording is compatible with the clarified input model remains unresolved."
+      ],
+      "open_architecture_questions": [
+        "Whether intent reconstruction needs any persistent object beyond existing Material State / Context / Integration mechanisms."
+      ],
+      "dependencies_enablers": [
+        "current canonical context",
+        "authority boundary",
+        "material-state provenance"
+      ],
+      "activation_triggers": [
+        "A current admitted work item again requires the Human to provide derivable problem/context structure.",
+        "Terse Human input is materially misread after repository context reconstruction.",
+        "An admitted slice explicitly depends on intent reconstruction.",
+        "Human Owner explicitly prioritizes the capability."
+      ],
+      "non_activation_conditions": [
+        "A vague Human message exists.",
+        "The target maturity is low.",
+        "Unrelated work completes."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Human meaning/value/priority remains Human authority; reconstruction must not silently promote inferred meaning."
+    },
+    {
+      "id": "OC-02",
+      "name": "Context & Work Instruction Compilation",
+      "peer_axis": true,
+      "need": "The Human need not courier derivable context or construct expert execution prompts; the system should compile bounded work context/instructions from current state and intent.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
+        "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
+        "tests/evals/failure_corpus.json"
+      ],
+      "requirement_refs": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-004",
+        "REQ-008",
+        "REQ-012"
+      ],
+      "building_block_refs": [
+        "BB-CONTEXT",
+        "BB-TRACE",
+        "BB-ASSURE"
+      ],
+      "quality_refs": [
+        "Q-RESTART",
+        "Q-TRACE",
+        "Q-XAI",
+        "Q-AUTO",
+        "Q-LEAN"
+      ],
+      "risk_refs": [
+        "R-001",
+        "R-007",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-EXECUTION-PROGRESS",
+        "FF-STATE-CONTINUITY",
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-FALSE-ASSURANCE"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "tools/work.py context() is executable but currently coarse/near-full.",
+        "Pilot context/token fixtures are regression-protected for simpler reference-set behavior.",
+        "P2 bounded-context semantics are independently preflight-confirmed but not implemented."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "High-quality work repeatedly depended on Human-supplied long meta-prompts.",
+        "Current context() does not accept/bind a Human work intent as a full Work Instruction compiler."
+      ],
+      "uncertainties": [
+        "A persistent Work Packet object may be unnecessary; object/storage form remains open."
+      ],
+      "open_architecture_questions": [
+        "How much Work Instruction compilation belongs in BB-CONTEXT versus composition across existing owners."
+      ],
+      "dependencies_enablers": [
+        "P2 bounded context/provenance is a direct subset/enabler, not the whole OC-02 capability."
+      ],
+      "activation_triggers": [
+        "After P2, material Human-authored meta-prompting remains necessary.",
+        "A later admitted workflow needs derivable work instructions or stop conditions.",
+        "Repeated work shows the same context/instruction compilation burden."
+      ],
+      "non_activation_conditions": [
+        "P2 preflight alone exists.",
+        "A single task can be handled adequately without persistent new machinery."
+      ],
+      "snapshot_work_state": "candidate-partially-overlapping-current-p2",
+      "authority_boundary": "P2 scope remains bounded; broader Work Instruction compilation requires separate activation and current-state validation."
+    },
+    {
+      "id": "OC-03",
+      "name": "Competence / Research / Uncertainty Routing",
+      "peer_axis": true,
+      "need": "The system identifies and obtains missing domain, method and technical competence and researches current evidence when warranted instead of using the Human as substitute specialist.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "system/competence.json",
+        "system/building_blocks.json"
+      ],
+      "requirement_refs": [
+        "REQ-005",
+        "REQ-006"
+      ],
+      "building_block_refs": [
+        "BB-COMPETENCE",
+        "BB-RESEARCH"
+      ],
+      "quality_refs": [
+        "Q-FIT",
+        "Q-DOMAIN",
+        "Q-TECH",
+        "Q-XAI"
+      ],
+      "risk_refs": [
+        "R-004",
+        "R-006",
+        "R-010"
+      ],
+      "failure_family_refs": [
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-SOLUTIONISM-BLOAT",
+        "FF-EXECUTION-PROGRESS"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Competence taxonomy and SOTA/fit semantics exist.",
+        "Task-triggered end-to-end competence/research routing is not demonstrated in the current operational core."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Human explicitly states they cannot and will not supply missing domain/technology expertise."
+      ],
+      "uncertainties": [
+        "Which task classes require automated research versus judgement-based routing."
+      ],
+      "open_architecture_questions": [
+        "Whether existing BB-COMPETENCE/BB-RESEARCH composition is sufficient without new orchestration structure."
+      ],
+      "dependencies_enablers": [
+        "current problem/work context",
+        "fresh external sources when material"
+      ],
+      "activation_triggers": [
+        "Material work depends on competence absent from current task context.",
+        "A current workflow cannot establish fit without SOTA/standards evidence.",
+        "Human is again asked to supply specialist knowledge the system can acquire."
+      ],
+      "non_activation_conditions": [
+        "Research is merely interesting but not material to current work."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Research can inform options and fit; Human/specialist authority remains separate where meaning, risk or critical expertise requires it."
+    },
+    {
+      "id": "OC-04",
+      "name": "Partial Automation / Function Allocation / Orchestration",
+      "peer_axis": true,
+      "need": "Real workflows are decomposed into appropriate deterministic, routine-automation, AI-judgement, specialist-judgement and Human-authority functions instead of being manually orchestrated through meta-prompts.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "github:esany/Wissensarbeit#35",
+        "github:esany/Wissensarbeit#28",
+        "system/authority.json"
+      ],
+      "requirement_refs": [
+        "REQ-004",
+        "REQ-008",
+        "REQ-011",
+        "REQ-013"
+      ],
+      "building_block_refs": [
+        "BB-CONTEXT",
+        "BB-INTEGRATE",
+        "BB-ASSURE",
+        "BB-TRACE",
+        "BB-OPERATE"
+      ],
+      "quality_refs": [
+        "Q-AUTO",
+        "Q-LEAN",
+        "Q-XAI",
+        "Q-COHERENCE"
+      ],
+      "risk_refs": [
+        "R-003",
+        "R-005",
+        "R-007",
+        "R-008",
+        "R-010"
+      ],
+      "failure_family_refs": [
+        "FF-EXECUTION-PROGRESS",
+        "FF-SYSTEMIC-DRIFT",
+        "FF-AUTHORITY-PROMOTION",
+        "FF-SOLUTIONISM-BLOAT"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Execution guard and CI assurance provide executable automation for bounded functions.",
+        "No generic end-to-end function-allocation/orchestration capability is demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "PR #35 review/correction/re-review required substantial derivable orchestration through Human/assistant-authored prompts."
+      ],
+      "uncertainties": [
+        "How generic a reusable orchestration protocol should be.",
+        "Whether repeated workflows justify any new orchestration abstraction beyond existing owners."
+      ],
+      "open_architecture_questions": [
+        "Protocol/workflow composition versus new dedicated orchestration mechanism remains open."
+      ],
+      "dependencies_enablers": [
+        "authority rule classes",
+        "bounded context",
+        "assurance/trace/reconciliation"
+      ],
+      "activation_triggers": [
+        "A material workflow repeatedly requires manual coordination of deterministic, judgement and Human-gate steps.",
+        "Another real workflow confirms generic-fit of the same burden.",
+        "Human Owner explicitly prioritizes automation of an already evidenced workflow.",
+        "An admitted capability requires coordinated multi-step execution."
+      ],
+      "non_activation_conditions": [
+        "PR #35 exists as an example but no current work requires orchestration changes.",
+        "A new workflow can be completed adequately without persistent orchestration machinery."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Automation may coordinate work but must not create priority, material acceptance or implementation authority."
+    },
+    {
+      "id": "OC-05",
+      "name": "Human Decision Context / Review Experience / XAI",
+      "peer_axis": true,
+      "need": "At material Human gates, the system automatically provides orientation, evidence, uncertainty, alternatives, consequences, reversibility, exact decision scope and drill-down trace without making the Human integrate repository state manually.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "system/decision_brief.json",
+        "github:esany/Wissensarbeit#6",
+        "project/CURRENT_STATE.md"
+      ],
+      "requirement_refs": [
+        "REQ-004",
+        "REQ-007",
+        "REQ-008",
+        "REQ-011"
+      ],
+      "building_block_refs": [
+        "BB-INTEGRATE",
+        "BB-ASSURE",
+        "BB-TRACE",
+        "BB-DERIVE"
+      ],
+      "quality_refs": [
+        "Q-XAI",
+        "Q-TRACE",
+        "Q-AUTO",
+        "Q-RESTART"
+      ],
+      "risk_refs": [
+        "R-001",
+        "R-004",
+        "R-005",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-FALSE-ASSURANCE",
+        "FF-AUTHORITY-PROMOTION",
+        "FF-STATE-CONTINUITY"
+      ],
+      "target_maturity_at_snapshot": "wired",
+      "component_evidence": [
+        "Decision Brief contract is referenced by Authority/Building Blocks and structurally validated.",
+        "Automatic end-to-end generation/delivery at a real material gate is not demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Human repeatedly requested more context, orientation and transparency.",
+        "CURRENT_STATE does not surface the current P2 admission gate as a complete decision-ready packet."
+      ],
+      "uncertainties": [
+        "Exact Human-facing presentation/UI and progressive-disclosure implementation remain open."
+      ],
+      "open_architecture_questions": [
+        "Whether decision context is generated on demand from existing state or requires a dedicated derived artifact."
+      ],
+      "dependencies_enablers": [
+        "traceable evidence",
+        "reconciliation",
+        "decision brief semantics",
+        "bounded context/provenance"
+      ],
+      "activation_triggers": [
+        "A material Human gate again requires manual state reconstruction.",
+        "P2/result review or later work needs an automatic decision packet.",
+        "Issue #6 is explicitly activated by current planning."
+      ],
+      "non_activation_conditions": [
+        "A routine action requires no material Human decision."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Decision support must clarify Human authority, not replace it; readable summaries must preserve drill-down evidence and uncertainty."
+    },
+    {
+      "id": "OC-06",
+      "name": "Iterative Discovery / Error Culture / Operational Learning",
+      "peer_axis": true,
+      "need": "Failures, uncertainty and Human feedback remain visible and are converted into validated future behavior changes or explicit no-change/defer/reject dispositions.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
+        "tests/evals/failure_corpus.json"
+      ],
+      "requirement_refs": [
+        "REQ-003",
+        "REQ-006",
+        "REQ-011",
+        "REQ-013"
+      ],
+      "building_block_refs": [
+        "BB-LEARN",
+        "BB-DESIGN",
+        "BB-RESEARCH",
+        "BB-INTEGRATE"
+      ],
+      "quality_refs": [
+        "Q-FIT",
+        "Q-DOMAIN",
+        "Q-COHERENCE",
+        "Q-XAI"
+      ],
+      "risk_refs": [
+        "R-002",
+        "R-004",
+        "R-006",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-SYSTEMIC-DRIFT",
+        "FF-FALSE-ASSURANCE",
+        "FF-SOLUTIONISM-BLOAT"
+      ],
+      "target_maturity_at_snapshot": "wired",
+      "component_evidence": [
+        "Material-state persistence, audit deltas and failure-regression candidates exist.",
+        "Generic closure from observation through operational change to later effectiveness evidence is not demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Current conversation required repeated correction without an existing automated learning closure.",
+        "2026-09-19 design-method audit identifies real iterative discovery/learning gaps."
+      ],
+      "uncertainties": [
+        "Which learning classes warrant deterministic regression versus judgement review.",
+        "How to measure later Human effectiveness without creating burdensome telemetry."
+      ],
+      "open_architecture_questions": [
+        "No new learning store is justified; use of existing failure corpus/material state versus future refinements remains open."
+      ],
+      "dependencies_enablers": [
+        "real use/failure evidence",
+        "material-state persistence",
+        "reconciliation and regression mechanisms"
+      ],
+      "activation_triggers": [
+        "Repeated feedback is persisted but does not alter future checks/workflow or receive explicit no-change disposition.",
+        "A real implementation result generates learning needing operational closure.",
+        "The design-method gap becomes necessary for current product/problem work."
+      ],
+      "non_activation_conditions": [
+        "A one-off non-material observation has no future consequence."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Learning may propose reframe/refinement; material requirement/domain/priority promotion remains controlled."
+    },
+    {
+      "id": "OC-07",
+      "name": "Cumulative Correction Fidelity / Interaction Continuity",
+      "peer_axis": true,
+      "need": "Multiple Human corrections accumulate into one still-valid working model; later corrections do not silently erase earlier valid constraints.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "system/material_state.json",
+        "github:esany/Wissensarbeit#5"
+      ],
+      "requirement_refs": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-003",
+        "REQ-011"
+      ],
+      "building_block_refs": [
+        "BB-STATE",
+        "BB-CONTEXT",
+        "BB-INTEGRATE",
+        "BB-TRACE",
+        "BB-LEARN"
+      ],
+      "quality_refs": [
+        "Q-RESTART",
+        "Q-TRACE",
+        "Q-XAI",
+        "Q-COHERENCE",
+        "Q-DOMAIN"
+      ],
+      "risk_refs": [
+        "R-001",
+        "R-002",
+        "R-004",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-STATE-CONTINUITY",
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-SYSTEMIC-DRIFT"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Cross-session persistence/harvest controls exist.",
+        "No dedicated demonstrated same-interaction cumulative correction mechanism/regression exists."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Current conversation repeatedly incorporated the latest correction while dropping earlier peer concerns."
+      ],
+      "uncertainties": [
+        "Whether correction/supersession semantics need explicit structure or can be reliably derived from existing material-state/trace mechanisms."
+      ],
+      "open_architecture_questions": [
+        "Exact relation between same-interaction correction chains, Harvest and future Work Packet/context compilation."
+      ],
+      "dependencies_enablers": [
+        "material-state provenance",
+        "context compilation",
+        "trace and learning"
+      ],
+      "activation_triggers": [
+        "The failure recurs in another representative task.",
+        "An admitted Work Packet/Harvest/Context change requires explicit correction-chain semantics.",
+        "Current work cannot remain faithful without correction/supersession handling.",
+        "Human Owner explicitly prioritizes the capability."
+      ],
+      "non_activation_conditions": [
+        "Current negative evidence is acknowledged but no current work depends on a correction mechanism."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Correction fidelity preserves Human statements and their relations; it must not infer that every later statement supersedes earlier intent."
+    }
+  ],
+  "p2_impact": {
+    "OC-01": "compatibility-semantic-constraint-only",
+    "OC-02": "direct-bounded-context-subset-now-broader-capability-later",
+    "OC-03": "compatibility-and-later",
+    "OC-04": "later-with-p2-as-potential-enabler",
+    "OC-05": "compatibility-and-result-review-relevance",
+    "OC-06": "result-review-relevance-and-later",
+    "OC-07": "compatibility-and-later"
+  },
+  "unresolved": [
+    "Interpretation of the Governing Objective phrase fachlich bzw. konzeptionell kompetent relative to the clarified Human input model.",
+    "Whether any future axis requires a new Building Block after existing-owner fit is tested with real work.",
+    "Whether repeated future activation creates enough burden to justify a mutable machine-readable registry.",
+    "Whether a persistent Work Packet object is needed or work instructions can remain derived."
+  ],
+  "non_promotions": [
+    "no requirement change",
+    "no building block change",
+    "no lifecycle change",
+    "no priority change",
+    "no execution cursor change",
+    "no implementation admission",
+    "no P2 scope expansion",
+    "no P3/P4/P5 activation"
+  ]
+}
