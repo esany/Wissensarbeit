@@ -12,8 +12,14 @@ import work  # noqa: E402
 
 
 class OperationalCoreTests(unittest.TestCase):
-    def test_execution_guard_rejects_implementation_from_planning_cursor(self):
-        self.assertTrue(work.execution_preflight("implement"))
+    def test_execution_guard_rejects_implementation_without_persisted_admission(self):
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "state.json"
+            state = work.load(work.EXECUTION_STATE)
+            state["implementation_allowed"] = False
+            state["allowed_actions"] = [a for a in state["allowed_actions"] if a != "implement"]
+            path.write_text(json.dumps(state), encoding="utf-8")
+            self.assertTrue(work.execution_preflight("implement", path))
 
     def test_execution_guard_blocks_open_dependency(self):
         with tempfile.TemporaryDirectory() as td:
@@ -58,21 +64,36 @@ class OperationalCoreTests(unittest.TestCase):
             self.assertEqual(result["status"], "FAIL CLOSED")
 
     def test_execution_guard_does_not_treat_chat_go_as_authority(self):
-        self.assertTrue(work.execution_preflight("implement"))
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "state.json"
+            state = work.load(work.EXECUTION_STATE)
+            state["implementation_allowed"] = False
+            state["allowed_actions"] = [a for a in state["allowed_actions"] if a != "implement"]
+            path.write_text(json.dumps(state), encoding="utf-8")
+            self.assertTrue(work.execution_preflight("implement", path))
 
     def test_execution_next_is_deterministic_or_explicitly_refuses(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "no deterministic next action")
+        self.assertEqual(next_step, "p2-context-fidelity-implementation")
 
-    def test_execution_state_records_completed_preflight_without_starting_implementation(self):
+    def test_execution_state_binds_the_admitted_p2_slice(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertNotEqual(state["focus"], "github:esany/Wissensarbeit#28")
-        self.assertEqual(state["current_step"]["id"], "p2-fidelity-manifest-preflight")
-        self.assertFalse(state["implementation_allowed"])
-        self.assertEqual(state["current_step"]["next"][0]["status"], "blocked")
+        self.assertEqual(state["current_step"]["id"], "p2-implementation-admission")
+        self.assertTrue(state["implementation_allowed"])
+        self.assertIn("implement", state["allowed_actions"])
+        self.assertNotIn("merge", state["allowed_actions"])
+        self.assertEqual(state["current_step"]["next"][0]["id"], "p2-context-fidelity-implementation")
+        self.assertEqual(state["current_step"]["next"][0]["status"], "ready")
+        self.assertEqual(
+            state["current_step"]["next"][0]["admission_ref"],
+            "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+        )
+        self.assertEqual(state["current_step"]["next"][0]["scope"], "P2-CONTEXT-FIDELITY-SLICE")
+        self.assertEqual(work.execution_preflight("implement"), [])
+        self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
         self.assertEqual(work.validate(), [])
