@@ -482,7 +482,35 @@ def _repo_file_from_ref(ref: str) -> Path | None:
     return path
 
 
-def _candidate_ids_from_evidence_refs(refs: list[str]) -> tuple[set[str], list[str]]:
+def _git_tracked_repo_ref(ref: str) -> bool:
+    path = _repo_file_from_ref(ref)
+    if path is None or not path.is_file():
+        return False
+    tracked = subprocess.run(
+        ["git", "ls-files", "--error-unmatch", "--", ref],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return tracked.returncode == 0 and tracked.stdout.strip() == ref
+
+
+def current_repository_revision() -> str | None:
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None
+    revision = result.stdout.strip()
+    return revision or None
+
+
+def _candidate_ids_from_evidence_refs(refs: list[str], planning_source_ref: str | None) -> tuple[set[str], list[str]]:
     ids: set[str] = set()
     errors: list[str] = []
     for ref in refs:
@@ -493,6 +521,9 @@ def _candidate_ids_from_evidence_refs(refs: list[str]) -> tuple[set[str], list[s
         if not path.is_file():
             errors.append(f"candidate evidence ref does not exist: {ref}")
             continue
+        if not _git_tracked_repo_ref(ref):
+            errors.append(f"candidate evidence ref is not Git-persisted: {ref}")
+            continue
         if path.suffix.lower() != ".json":
             errors.append(f"candidate evidence ref must be JSON for deterministic ID validation: {ref}")
             continue
@@ -500,6 +531,14 @@ def _candidate_ids_from_evidence_refs(refs: list[str]) -> tuple[set[str], list[s
             document = load(path)
         except Exception as exc:
             errors.append(f"cannot load candidate evidence ref {ref}: {exc}")
+            continue
+        evidence_planning_owner = document.get("planning_owner")
+        if evidence_planning_owner is None and isinstance(document.get("snapshot"), dict):
+            evidence_planning_owner = document["snapshot"].get("planning_owner")
+        if evidence_planning_owner != planning_source_ref:
+            errors.append(
+                f"candidate evidence ref is not bound to current planning source {planning_source_ref!r}: {ref}"
+            )
             continue
         candidates = document.get("candidates")
         if not isinstance(candidates, list):
@@ -530,6 +569,7 @@ def validate_known_candidate_routing(routing: dict) -> list[str]:
     candidate_evidence_refs = routing.get("candidate_evidence_refs")
     matched_candidate_refs = routing.get("matched_candidate_refs")
     fresh_state_refs = routing.get("fresh_state_refs")
+    repository_revision_ref = routing.get("repository_revision_ref")
 
     if status not in set(contract.get("required_outcomes", [])):
         errors.append(f"known_candidate_routing has invalid status: {status}")
@@ -560,7 +600,7 @@ def validate_known_candidate_routing(routing: dict) -> list[str]:
             for ref in candidate_evidence_refs:
                 if ref not in candidate_source_refs:
                     errors.append(f"candidate evidence ref must also appear in candidate_source_refs: {ref}")
-        known_candidate_ids, evidence_errors = _candidate_ids_from_evidence_refs(candidate_evidence_refs)
+        known_candidate_ids, evidence_errors = _candidate_ids_from_evidence_refs(candidate_evidence_refs, planning_source_ref)
         errors.extend(evidence_errors)
 
     if not isinstance(matched_candidate_refs, list):
@@ -581,6 +621,19 @@ def validate_known_candidate_routing(routing: dict) -> list[str]:
             path = _repo_file_from_ref(ref)
             if path is None or not path.is_file():
                 errors.append(f"fresh state ref does not exist as a repository file: {ref}")
+            elif not _git_tracked_repo_ref(ref):
+                errors.append(f"fresh state ref is not Git-persisted: {ref}")
+
+    current_revision = current_repository_revision()
+    if not isinstance(repository_revision_ref, str) or not repository_revision_ref:
+        errors.append("known_candidate_routing requires repository_revision_ref")
+    elif current_revision is None:
+        errors.append("cannot resolve current repository revision")
+    elif repository_revision_ref != current_revision:
+        errors.append(
+            f"known_candidate_routing repository_revision_ref {repository_revision_ref!r} "
+            f"does not match current repository revision {current_revision!r}"
+        )
 
     if not isinstance(routing.get("rationale"), str) or not routing.get("rationale").strip():
         errors.append("known_candidate_routing requires a rationale")
