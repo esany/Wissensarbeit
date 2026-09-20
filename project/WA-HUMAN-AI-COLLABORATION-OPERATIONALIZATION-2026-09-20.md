@@ -648,7 +648,7 @@ Under this hypothesis:
 - the system reconstructs context, detects required competence, researches when needed, composes specialist/method/technical perspectives, checks project fit and supports execution;
 - system competence does not inherit Human Authority merely because it supplies reasoning or specialist capability.
 
-OH-03 is currently the strongest explanatory fit for the already-canonical combination of the Governing Objective, `system/competence.json` and `system/authority.json`, but it remains an **open interpretation**, not a normative rewrite.
+OH-03 is **compatible with** the already-canonical combination of the Governing Objective, `system/competence.json` and `system/authority.json`. Its comparative explanatory adequacy relative to other interpretations remains to be tested; it is an **open interpretation**, not a preferred or normative rewrite.
 
 Working terminology for the system-side function should avoid “Owner” because that could imply material meaning or decision authority. Candidate descriptive terms include **competence orchestration**, **reasoning/competence orchestration** or **systemic competence/orchestration function**. No canonical role name is selected here.
 
