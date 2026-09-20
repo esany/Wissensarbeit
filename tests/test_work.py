@@ -111,7 +111,14 @@ class OperationalCoreTests(unittest.TestCase):
     def _routing_record(self, **updates):
         record = {
             "status": "no-match",
-            "candidate_source_refs": ["github:esany/Wissensarbeit#7"],
+            "planning_source_ref": "github:esany/Wissensarbeit#7",
+            "candidate_source_refs": [
+                "github:esany/Wissensarbeit#7",
+                "project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json",
+            ],
+            "candidate_evidence_refs": [
+                "project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json",
+            ],
             "matched_candidate_refs": [],
             "rationale": "No known unresolved or activation-ready candidate materially overlaps this signal.",
             "fresh_state_refs": ["project/execution_state.json", "project/reconciliation.json"],
@@ -148,6 +155,44 @@ class OperationalCoreTests(unittest.TestCase):
             path.write_text(json.dumps(packet), encoding="utf-8")
             errors = work.validate_integration_packet(path)
         self.assertEqual(errors, [])
+
+    def test_wrong_planning_source_ref_fails(self):
+        routing = self._routing_record(planning_source_ref="github:esany/Wissensarbeit#999")
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("does not match current planning source" in e for e in errors))
+
+    def test_candidate_source_refs_must_include_planning_source(self):
+        routing = self._routing_record(
+            candidate_source_refs=[
+                "project/WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20.json",
+            ]
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("must include planning_source_ref" in e for e in errors))
+
+    def test_unknown_matched_candidate_ref_fails(self):
+        routing = self._routing_record(
+            status="match",
+            matched_candidate_refs=["OC-999"],
+            rationale="Fabricated candidate must not pass referential validation.",
+            trigger_status="not-satisfied",
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("matched candidate ref is not present in candidate evidence: OC-999" in e for e in errors))
+
+    def test_missing_candidate_evidence_ref_fails(self):
+        missing = "project/DOES-NOT-EXIST-CANDIDATES.json"
+        routing = self._routing_record(
+            candidate_source_refs=["github:esany/Wissensarbeit#7", missing],
+            candidate_evidence_refs=[missing],
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("candidate evidence ref does not exist" in e for e in errors))
+
+    def test_fresh_state_refs_must_bind_execution_and_reconciliation(self):
+        routing = self._routing_record(fresh_state_refs=["project/execution_state.json"])
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("project/reconciliation.json" in e for e in errors))
 
     def test_uncertain_known_candidate_match_cannot_activate(self):
         routing = self._routing_record(
