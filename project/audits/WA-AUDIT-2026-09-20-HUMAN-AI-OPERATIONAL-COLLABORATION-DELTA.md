@@ -1130,3 +1130,40 @@ Material implication:
 > Work-type names must carry operational consequences. Classification should determine what authority is created, what evidence becomes stale, what follow-up checks are required, and which transitions are explicitly **not** implied.
 
 This audit does not promote these semantics into `system/lifecycle.json` or `system/authority.json`. They are added to the PR #37 candidate operationalization package for independent qualitative review first.
+
+
+
+---
+
+## 18. Independent qualitative review correction — signal to known-candidate routing
+
+Independent qualitative review of PR #37 at exact head `b71e2f7527092cf1f63014160fe36c7cf8416fb3` returned **NEEDS CORRECTION**.
+
+The finding was narrow but material:
+
+> Promotion of the immutable OC snapshot would protect the candidate knowledge from loss, but would not itself guarantee that a later newly recognized signal is routed back to the relevant known candidate. The original Option F began too late: it assumed somebody already knew which candidate to activate.
+
+The missing edge was:
+
+`new material/failure/learning signal → known unresolved/activation-ready candidate check → match | no-match | uncertain-match → current trigger evaluation`
+
+This correction uses existing owners rather than new architecture:
+
+- `system/material_state.json` now defines the generic known-candidate routing contract;
+- `BB-INTEGRATE` is refined as the existing procedural owner for that routing together with the current Planning Owner;
+- `tools/work.py integrate` validates that routing was explicitly dispositioned and that authority boundaries were preserved;
+- regression tests cover no/uncertain/matched trigger cases and prevent activation from creating priority/admission/implementation authority;
+- the OC snapshot contains signal-driven falsification cases so later review can distinguish content discovery from authority transitions.
+
+The semantic match remains judgement. This change deliberately does **not** add a matcher service, registry, new Building Block, roadmap phase or autonomous trigger engine.
+
+P2 remains independent. Its current implementation gate remains explicit Human admission; this correction neither grants nor blocks that admission.
+
+Required follow-up for PR #37:
+
+1. formal assurance on the corrected exact head;
+2. focused independent re-review of this former finding and regression risk;
+3. only after qualitative `CONFIRM`, consider promotion/merge through the existing authority boundary;
+4. reconcile any promoted contract change after merge.
+
+This is a **Correction** under the candidate work-type semantics, not a new iteration, promotion or implementation admission.
