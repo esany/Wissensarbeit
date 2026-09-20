@@ -193,9 +193,28 @@ def validate_probe_definitions() -> list[str]:
     context_paths = doc.get("operational_context_paths", [])
     if not isinstance(context_paths, list) or not context_paths:
         errors.append("probe operational_context_paths must be non-empty")
+        return errors
+    revision = current_repository_revision()
+    if revision is None:
+        errors.append("cannot resolve exact repository revision for probe context validation")
+        return errors
+    context_contents: dict[str, str] = {}
     for ref in context_paths:
         if ref.startswith(("tests/", "tools/")):
             errors.append(f"probe context must exclude eval/tool surfaces: {ref}")
+            continue
+        try:
+            context_contents[ref] = _git_text_at_revision(revision, ref)
+        except ValueError as exc:
+            errors.append(str(exc))
+    for probe in probes:
+        probe_id = probe.get("probe_id")
+        prompt = probe.get("prompt")
+        for ref, content in context_contents.items():
+            if isinstance(probe_id, str) and probe_id in content:
+                errors.append(f"{probe_id}: probe identifier leaks into accessible context file {ref}")
+            if isinstance(prompt, str) and prompt and prompt in content:
+                errors.append(f"{probe_id}: exact probe stimulus leaks into accessible context file {ref}")
     return errors
 
 
