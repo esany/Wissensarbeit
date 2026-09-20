@@ -75,24 +75,27 @@ class OperationalCoreTests(unittest.TestCase):
     def test_execution_next_is_deterministic_or_explicitly_refuses(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "p2-context-fidelity-implementation")
+        self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_binds_the_admitted_p2_slice(self):
+    def test_execution_state_records_implementation_result_without_acceptance(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["current_step"]["id"], "p2-implementation-admission")
-        self.assertTrue(state["implementation_allowed"])
-        self.assertIn("implement", state["allowed_actions"])
+        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-implementation")
+        self.assertFalse(state["implementation_allowed"])
+        self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        self.assertEqual(state["current_step"]["next"][0]["id"], "p2-context-fidelity-implementation")
-        self.assertEqual(state["current_step"]["next"][0]["status"], "ready")
+        self.assertEqual(state["current_step"]["next"][0]["id"], "p2-context-fidelity-result-review")
+        self.assertEqual(state["current_step"]["next"][0]["status"], "blocked")
         self.assertEqual(
-            state["current_step"]["next"][0]["admission_ref"],
-            "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+            state["current_step"]["next"][0]["blocked_by"],
+            "qualitative-result-review",
         )
-        self.assertEqual(state["current_step"]["next"][0]["scope"], "P2-CONTEXT-FIDELITY-SLICE")
-        self.assertEqual(work.execution_preflight("implement"), [])
+        self.assertEqual(
+            state["current_step"]["next"][0]["result_evidence"],
+            "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+        )
+        self.assertTrue(work.execution_preflight("implement"))
         self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
