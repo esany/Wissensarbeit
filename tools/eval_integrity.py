@@ -294,6 +294,30 @@ def validate_fresh_probe_trial_record(record: dict) -> list[str]:
 
     manifest = record.get("bundle_manifest")
     errors.extend(validate_probe_bundle_manifest(manifest, record))
+
+    context_file_hashes = record.get("context_file_hashes")
+    manifest_hashes = {}
+    if isinstance(manifest, dict) and isinstance(manifest.get("context_files"), list):
+        for item in manifest["context_files"]:
+            if isinstance(item, dict) and isinstance(item.get("path"), str) and isinstance(item.get("sha256"), str):
+                manifest_hashes[item["path"]] = item["sha256"]
+    if not isinstance(context_file_hashes, dict):
+        errors.append("fresh probe trial context_file_hashes must be an object")
+    elif context_file_hashes != manifest_hashes:
+        errors.append("fresh probe trial context_file_hashes mismatch bundle_manifest")
+
+    instance_context = record.get("instance_context")
+    required_instance_fields = {
+        "provider_or_product",
+        "model_or_configuration",
+        "session_or_run_id",
+        "fresh_context_declaration",
+    }
+    if not isinstance(instance_context, dict) or not required_instance_fields.issubset(instance_context):
+        errors.append("fresh probe trial instance_context must record provider/model/session/fresh-context declaration")
+    elif not all(isinstance(instance_context.get(field), str) and instance_context.get(field).strip() for field in required_instance_fields):
+        errors.append("fresh probe trial instance_context fields must be non-empty strings")
+
     bundle_identity = record.get("bundle_identity")
     if not isinstance(bundle_identity, str) or re.fullmatch(r"sha256:[0-9a-f]{64}", bundle_identity) is None:
         errors.append("fresh probe trial bundle_identity must be sha256")
