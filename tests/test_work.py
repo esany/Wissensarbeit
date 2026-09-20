@@ -108,6 +108,20 @@ class OperationalCoreTests(unittest.TestCase):
     def test_unknown_trace_is_not_fabricated(self):
         self.assertIsNone(work.trace("REQ-DOES-NOT-EXIST"))
 
+    def _routing_record(self, **updates):
+        record = {
+            "status": "no-match",
+            "candidate_source_refs": ["github:esany/Wissensarbeit#7"],
+            "matched_candidate_refs": [],
+            "rationale": "No known unresolved or activation-ready candidate materially overlaps this signal.",
+            "fresh_state_refs": ["project/execution_state.json", "project/reconciliation.json"],
+            "trigger_status": "not-applicable",
+            "activation_candidate": False,
+            "authority_effect": "none",
+        }
+        record.update(updates)
+        return record
+
     def test_integration_packet_requires_systemic_disposition(self):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "packet.json"
@@ -126,13 +140,68 @@ class OperationalCoreTests(unittest.TestCase):
             "disposition": "refine",
             "rationale": "clarifies an existing capability",
             "required_changes": ["clarify requirement"],
-            "non_changes": ["governing objective"]
+            "non_changes": ["governing objective"],
+            "known_candidate_routing": self._routing_record(),
         }
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "packet.json"
             path.write_text(json.dumps(packet), encoding="utf-8")
             errors = work.validate_integration_packet(path)
         self.assertEqual(errors, [])
+
+    def test_uncertain_known_candidate_match_cannot_activate(self):
+        routing = self._routing_record(
+            status="uncertain-match",
+            matched_candidate_refs=["OC-02"],
+            rationale="OC-02 may overlap, but the current signal is not specific enough to establish the match.",
+            trigger_status="uncertain",
+            activation_candidate=True,
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("uncertain-match cannot create an activation candidate" in e for e in errors))
+
+    def test_known_candidate_match_without_current_trigger_stays_inactive(self):
+        routing = self._routing_record(
+            status="match",
+            matched_candidate_refs=["OC-07"],
+            rationale="The signal materially overlaps OC-07, but its current activation trigger is not satisfied.",
+            trigger_status="not-satisfied",
+            activation_candidate=False,
+        )
+        self.assertEqual(work.validate_known_candidate_routing(routing), [])
+
+    def test_satisfied_known_candidate_trigger_requires_activation_candidate(self):
+        routing = self._routing_record(
+            status="match",
+            matched_candidate_refs=["OC-03"],
+            rationale="The signal matches OC-03 and the current workflow again requires missing specialist competence.",
+            trigger_status="satisfied",
+            activation_candidate=False,
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("satisfied matched trigger must produce an activation candidate" in e for e in errors))
+
+    def test_activation_candidate_creates_no_authority(self):
+        routing = self._routing_record(
+            status="match",
+            matched_candidate_refs=["OC-05"],
+            rationale="The signal matches OC-05 and a current material Human gate again requires manual decision-context reconstruction.",
+            trigger_status="satisfied",
+            activation_candidate=True,
+            authority_effect="priority",
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("must not create priority, admission or implementation authority" in e for e in errors))
+
+    def test_satisfied_match_can_create_bounded_activation_candidate(self):
+        routing = self._routing_record(
+            status="match",
+            matched_candidate_refs=["OC-05"],
+            rationale="The signal matches OC-05 and its current activation trigger is satisfied.",
+            trigger_status="satisfied",
+            activation_candidate=True,
+        )
+        self.assertEqual(work.validate_known_candidate_routing(routing), [])
 
     def test_building_blocks_are_formalized(self):
         blocks = work.load(work.BUILDING_BLOCKS)["building_blocks"]
