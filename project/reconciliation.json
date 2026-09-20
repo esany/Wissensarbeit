@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
-  "change_id": "audit/human-ai-work-type-semantics-operationalization-2026-09-20",
+  "change_id": "audit/human-ai-known-candidate-routing-correction-2026-09-20",
   "materiality": "material",
-  "summary": "Refine the Human-AI collaboration operationalization with a candidate work-type semantic contract that distinguishes iteration, preflight, review/re-review, correction, promotion, admission, reconciliation, persistence/operationalization slice and implementation slice by evidence, authority, staleness and follow-up consequences; preserve current P2 scope and all canonical authority boundaries.",
+  "summary": "Correct PR #37's late-activation continuity gap by binding recognized material/failure/learning signals to explicit known-candidate routing through the existing Material State / BB-INTEGRATE / Planning Owner path, regression-protect match|no-match|uncertain-match and activation authority boundaries, and preserve current P2 scope and execution gate.",
   "source_refs": [
     "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
     "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",
@@ -11,7 +11,11 @@
     "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
     "github:esany/Wissensarbeit#7",
     "github:esany/Wissensarbeit#35",
-    "tests/evals/failure_corpus.json"
+    "tests/evals/failure_corpus.json",
+    "system/material_state.json",
+    "system/building_blocks.json",
+    "tools/work.py",
+    "tests/test_work.py"
   ],
   "surfaces": {
     "requirements": {
@@ -39,9 +43,10 @@
         "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA",
         "WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA",
         "WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20",
-        "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20"
+        "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
+        "known-candidate-routing-review-finding"
       ],
-      "rationale": "The detailed audit remains the primary semantic evidence. The new human-readable and machine-readable snapshots preserve seven peer axes, evidence maturity, activation semantics, omissions and restart instructions without creating seven premature work items. A repeated same-chat misuse of the term iteration after prior Human correction is now captured as additional OC-07 real-use evidence."
+      "rationale": "Independent qualitative review found a specific passive-archive gap in Option F: a later signal could be persisted without reliably rejoining the known OC candidate. The correction makes that routing disposition explicit and reviewable while preserving the original audit/candidate evidence."
     },
     "risks": {
       "disposition": "refined",
@@ -57,7 +62,7 @@
         "R-009",
         "R-010"
       ],
-      "rationale": "The operationalization explicitly mitigates drift, authority creep, false completion, state duplication and meta-work risks by separating candidate identity, activation, execution priority, admission and demonstrated capability maturity."
+      "rationale": "The correction directly addresses passive-archive/continuity risk while retaining anti-bloat and authority boundaries: no-match and uncertainty remain valid, and a satisfied matched trigger yields at most an activation candidate."
     },
     "decisions_concepts": {
       "disposition": "refined",
@@ -81,16 +86,18 @@
         "WT-07",
         "WT-08",
         "WT-09",
-        "WT-10"
+        "WT-10",
+        "known-candidate-routing-contract",
+        "activation-candidate"
       ],
-      "rationale": "Candidate work-type semantics now bind terminology to operational consequences: required evidence, authority created (if any), stale evidence, next obligations and explicit non-consequences. This remains inside PR #37 candidate planning evidence; system/lifecycle.json and system/authority.json are unchanged pending independent qualitative review and later promotion decision."
+      "rationale": "The correction refines the existing Material State / BB-INTEGRATE procedure so recognized material/failure/learning signals must record match|no-match|uncertain-match against persistent known candidate evidence before activation. Semantic matching remains judgement. No new Building Block, registry, matcher service, priority, promotion, admission or implementation authority is created."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "Refresh only the reconciliation provenance of the generated current-state view; baseline counts and execution authority remain unchanged."
+      "rationale": "Refresh the derived current-state reconciliation provenance to the known-candidate-routing correction; baseline counts and execution authority remain unchanged."
     },
     "planning_execution_cursor": {
       "disposition": "unchanged",
@@ -98,7 +105,7 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "Work-type semantics do not manufacture priority or execution permission. Current P2 preflight remains complete, p2-implementation-admission remains the separate blocked Human gate, implementation_allowed remains false, and the P2 scope is unchanged.",
+      "rationale": "Known-candidate routing correction does not manufacture programme priority. Current P2 preflight remains complete, p2-implementation-admission remains blocked on explicit Human admission, implementation_allowed remains false, and P2 does not depend on PR #37 promotion.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -109,7 +116,7 @@
     "active_work": {
       "disposition": "unchanged",
       "objects": [],
-      "rationale": "No OC axis, work-type contract, or P2 implementation is activated as implementation work by this semantic refinement."
+      "rationale": "PR #37 correction is review work on the candidate package. No OC implementation and no P2 implementation is activated."
     }
   },
   "unresolved": [],
