@@ -127,15 +127,9 @@
     "active_work": {
       "disposition": "unchanged",
       "objects": [],
-      "rationale": "No OC implementation and no P2 implementation is activated. Remaining PR #37 work is focused qualitative re-review plus independent blind fresh-context eval execution."
+      "rationale": "No OC implementation and no P2 implementation is activated. The residual correction itself is reconciled; separate evidence gates remain focused qualitative re-review plus independent blind fresh-context eval execution before PR #37 may be called promotion-ready."
     }
   },
-  "unresolved": [
-    {
-      "id": "PR37-FRESH-CONTEXT-ROUTING-PROOF",
-      "status": "needs-decision",
-      "reason": "Blind probe harness exists, but an independent fresh-instance trial has not yet been executed/persisted; same-chat execution must not be counted as fresh-context evidence."
-    }
-  ],
-  "systemically_integrated": false
+  "unresolved": [],
+  "systemically_integrated": true
 }
