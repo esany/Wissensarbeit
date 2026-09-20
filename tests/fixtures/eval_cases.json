@@ -753,7 +753,10 @@
           "OC-07",
           "implementation-authorized"
         ]
-      }
+      },
+      "evidence_use": "regression-only-oracle-visible",
+      "blindness_status": "not-valid-as-independent-blind-evidence",
+      "blindness_reason": "The canonical fixture stores its expected outcome in the same repository branch. A repository-capable instance could discover that oracle even though tools/evals.py render omits expect fields."
     },
     {
       "id": "WA-EVAL-032",
@@ -783,7 +786,10 @@
           "satisfied",
           "implementation-authorized"
         ]
-      }
+      },
+      "evidence_use": "regression-only-oracle-visible",
+      "blindness_status": "not-valid-as-independent-blind-evidence",
+      "blindness_reason": "The canonical fixture stores its expected outcome in the same repository branch. A repository-capable instance could discover that oracle even though tools/evals.py render omits expect fields."
     },
     {
       "id": "WA-EVAL-033",
@@ -817,7 +823,10 @@
           "OC-07",
           "implementation-authorized"
         ]
-      }
+      },
+      "evidence_use": "regression-only-oracle-visible",
+      "blindness_status": "not-valid-as-independent-blind-evidence",
+      "blindness_reason": "The canonical fixture stores its expected outcome in the same repository branch. A repository-capable instance could discover that oracle even though tools/evals.py render omits expect fields."
     }
   ]
 }
