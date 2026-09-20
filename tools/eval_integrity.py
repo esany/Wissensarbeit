@@ -99,6 +99,31 @@ def current_repository_revision() -> str | None:
     return value if re.fullmatch(r"[0-9a-f]{40}", value) else None
 
 
+def _git_text_at_revision(revision: str, ref: str) -> str:
+    result = subprocess.run(
+        ["git", "show", f"{revision}:{ref}"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        detail = result.stderr.decode("utf-8", errors="replace").strip()
+        raise ValueError(f"probe context is not Git-readable at {revision}: {ref}: {detail}")
+    try:
+        return result.stdout.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError(f"probe context is not UTF-8 text at {revision}: {ref}") from exc
+
+
+def _sha256_text(value: str) -> str:
+    return "sha256:" + hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def probe_bundle_identity(manifest: dict) -> str:
+    encoded = json.dumps(manifest, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
 def render_probe_bundle(probe_id: str) -> dict:
     doc = probe_document()
     probe = get_probe(probe_id)
@@ -110,30 +135,40 @@ def render_probe_bundle(probe_id: str) -> dict:
     paths = doc.get("operational_context_paths", [])
     context_files = []
     for ref in paths:
-        path = (ROOT / ref).resolve()
-        path.relative_to(ROOT.resolve())
-        if not path.is_file():
-            raise ValueError(f"probe context file missing: {ref}")
-        content = path.read_text(encoding="utf-8")
+        content = _git_text_at_revision(revision, ref)
         context_files.append({
             "path": ref,
-            "sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
+            "sha256": _sha256_text(content),
             "content": content,
         })
-    return {
+    instructions = (
+        "You are a fresh project-working instance. Use only the stimulus and repository context files "
+        "contained in this bundle. Do not access the repository, eval fixtures, prior trial outputs or "
+        "external oracle material. Resolve the current planning source and known candidate evidence from "
+        "the supplied repository state. Return JSON with probe_id, selected_action, claims, preserved_states, "
+        "authority, routing, questions, notes. Preserve uncertainty and authority boundaries."
+    )
+    stimulus = probe.get("prompt")
+    manifest = {
         "schema_version": "1.0",
         "probe_id": probe_id,
         "probe_identity": probe_identity(probe),
         "repository_revision": revision,
         "context_mode": doc.get("execution_protocol", {}).get("context_mode"),
-        "instructions": (
-            "You are a fresh project-working instance. Use only the stimulus and repository context files "
-            "contained in this bundle. Do not access the repository, eval fixtures, prior trial outputs or "
-            "external oracle material. Resolve the current planning source and known candidate evidence from "
-            "the supplied repository state. Return JSON with probe_id, selected_action, claims, preserved_states, "
-            "authority, routing, questions, notes. Preserve uncertainty and authority boundaries."
-        ),
-        "stimulus": probe.get("prompt"),
+        "context_files": [{"path": item["path"], "sha256": item["sha256"]} for item in context_files],
+        "instructions_sha256": _sha256_text(instructions),
+        "stimulus_sha256": _sha256_text(stimulus),
+    }
+    return {
+        "schema_version": "1.1",
+        "probe_id": probe_id,
+        "probe_identity": probe_identity(probe),
+        "repository_revision": revision,
+        "context_mode": doc.get("execution_protocol", {}).get("context_mode"),
+        "bundle_manifest": manifest,
+        "bundle_identity": probe_bundle_identity(manifest),
+        "instructions": instructions,
+        "stimulus": stimulus,
         "context_files": context_files,
     }
 
@@ -161,6 +196,44 @@ def validate_probe_definitions() -> list[str]:
     for ref in context_paths:
         if ref.startswith(("tests/", "tools/")):
             errors.append(f"probe context must exclude eval/tool surfaces: {ref}")
+    return errors
+
+
+def validate_probe_bundle_manifest(manifest: object, record: dict) -> list[str]:
+    if not isinstance(manifest, dict):
+        return ["fresh probe trial bundle_manifest must be an object"]
+    errors: list[str] = []
+    for field in ("probe_id", "probe_identity", "repository_revision", "context_mode", "context_files", "instructions_sha256", "stimulus_sha256"):
+        if field not in manifest:
+            errors.append(f"fresh probe trial bundle_manifest missing {field}")
+    if errors:
+        return errors
+
+    if manifest.get("probe_id") != record.get("probe_id"):
+        errors.append("fresh probe trial bundle_manifest probe_id mismatch")
+    if manifest.get("probe_identity") != record.get("probe_identity"):
+        errors.append("fresh probe trial bundle_manifest probe_identity mismatch")
+    if manifest.get("repository_revision") != record.get("repository_revision"):
+        errors.append("fresh probe trial bundle_manifest repository_revision mismatch")
+    if manifest.get("context_mode") != record.get("context_mode"):
+        errors.append("fresh probe trial bundle_manifest context_mode mismatch")
+
+    doc = probe_document()
+    expected_paths = doc.get("operational_context_paths", [])
+    context_files = manifest.get("context_files")
+    if not isinstance(context_files, list):
+        errors.append("fresh probe trial bundle_manifest context_files must be a list")
+    else:
+        actual_paths = [item.get("path") for item in context_files if isinstance(item, dict)]
+        if actual_paths != expected_paths:
+            errors.append("fresh probe trial bundle_manifest context paths must exactly match the operational allowlist")
+        for item in context_files:
+            if not isinstance(item, dict) or not isinstance(item.get("sha256"), str) or re.fullmatch(r"sha256:[0-9a-f]{64}", item.get("sha256", "")) is None:
+                errors.append("fresh probe trial bundle_manifest context hashes must be sha256 values")
+
+    for field in ("instructions_sha256", "stimulus_sha256"):
+        if not isinstance(manifest.get(field), str) or re.fullmatch(r"sha256:[0-9a-f]{64}", manifest.get(field, "")) is None:
+            errors.append(f"fresh probe trial bundle_manifest {field} must be sha256")
     return errors
 
 
@@ -199,6 +272,14 @@ def validate_fresh_probe_trial_record(record: dict) -> list[str]:
         errors.append("fresh probe trial must declare oracle_access=false")
     if record.get("response_captured_before_oracle_reveal") is not True:
         errors.append("fresh probe trial must capture response before oracle reveal")
+
+    manifest = record.get("bundle_manifest")
+    errors.extend(validate_probe_bundle_manifest(manifest, record))
+    bundle_identity = record.get("bundle_identity")
+    if not isinstance(bundle_identity, str) or re.fullmatch(r"sha256:[0-9a-f]{64}", bundle_identity) is None:
+        errors.append("fresh probe trial bundle_identity must be sha256")
+    elif isinstance(manifest, dict) and bundle_identity != probe_bundle_identity(manifest):
+        errors.append("fresh probe trial bundle_identity mismatch")
 
     raw_response = record.get("raw_response")
     if not isinstance(raw_response, str) or not raw_response.strip():
