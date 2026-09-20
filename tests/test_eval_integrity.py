@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import evals  # noqa: E402
+import eval_integrity  # noqa: E402
 
 
 class EvalTrialIntegrityTests(unittest.TestCase):
@@ -57,6 +58,66 @@ class EvalTrialIntegrityTests(unittest.TestCase):
         record = self.record("WA-EVAL-019")
         del record["fixture_identity"]
         self.assertIn("trial missing fixture_identity", evals.validate_trial_record(record))
+
+
+    def test_fresh_probe_definitions_are_oracle_free(self):
+        self.assertEqual(eval_integrity.validate_probe_definitions(), [])
+
+    def test_rendered_fresh_probe_bundle_contains_only_operational_allowlist(self):
+        bundle = eval_integrity.render_probe_bundle("RP-41B7")
+        expected = eval_integrity.probe_document()["operational_context_paths"]
+        actual = [item["path"] for item in bundle["context_files"]]
+        self.assertEqual(actual, expected)
+        self.assertTrue(all(not path.startswith(("tests/", "tools/")) for path in actual))
+        self.assertEqual(bundle["context_mode"], "isolated-repository-bundle")
+
+    def _fresh_probe_trial(self, **updates):
+        probe = eval_integrity.get_probe("RP-41B7")
+        record = {
+            "probe_id": "RP-41B7",
+            "probe_identity": eval_integrity.probe_identity(probe),
+            "repository_revision": eval_integrity.current_repository_revision(),
+            "context_mode": "isolated-repository-bundle",
+            "accessible_context_paths": eval_integrity.probe_document()["operational_context_paths"],
+            "fresh_instance": True,
+            "external_repository_access": False,
+            "prior_trial_access": False,
+            "oracle_access": False,
+            "raw_response": json.dumps({
+                "probe_id": "RP-41B7",
+                "selected_action": "route",
+                "claims": [],
+                "preserved_states": [],
+                "authority": [],
+                "routing": [],
+                "questions": [],
+                "notes": [],
+            }),
+            "response_captured_before_oracle_reveal": True,
+        }
+        record.update(updates)
+        return record
+
+    def test_valid_fresh_probe_capture_contract_passes(self):
+        self.assertEqual(eval_integrity.validate_fresh_probe_trial_record(self._fresh_probe_trial()), [])
+
+    def test_fresh_probe_capture_rejects_oracle_access(self):
+        errors = eval_integrity.validate_fresh_probe_trial_record(self._fresh_probe_trial(oracle_access=True))
+        self.assertTrue(any("oracle_access=false" in error for error in errors))
+
+    def test_fresh_probe_capture_rejects_external_repository_access(self):
+        errors = eval_integrity.validate_fresh_probe_trial_record(self._fresh_probe_trial(external_repository_access=True))
+        self.assertTrue(any("external_repository_access=false" in error for error in errors))
+
+    def test_fresh_probe_capture_rejects_prior_trial_access(self):
+        errors = eval_integrity.validate_fresh_probe_trial_record(self._fresh_probe_trial(prior_trial_access=True))
+        self.assertTrue(any("prior_trial_access=false" in error for error in errors))
+
+    def test_fresh_probe_capture_requires_pre_oracle_response_capture(self):
+        errors = eval_integrity.validate_fresh_probe_trial_record(
+            self._fresh_probe_trial(response_captured_before_oracle_reveal=False)
+        )
+        self.assertTrue(any("before oracle reveal" in error for error in errors))
 
 
 if __name__ == "__main__":
