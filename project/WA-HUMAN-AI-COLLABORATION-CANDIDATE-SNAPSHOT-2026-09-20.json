@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "manifest_id": "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
   "class": "immutable-candidate-activation-snapshot",
   "purpose": "Provide stable machine-readable identities, evidence links, snapshot maturity and activation semantics for the seven peer Human-AI collaboration gaps without becoming a mutable planning registry or current-state clock.",
@@ -12,7 +12,7 @@
     "implementation_allowed": false,
     "p2_current_gate": "p2-implementation-admission",
     "mutable_state": false,
-    "latest_candidate_update_reason": "Added work-type semantic consequences after repeated real-use terminology drift; no lifecycle/authority promotion."
+    "latest_candidate_update_reason": "Independent review correction: bind newly recognized material/failure/learning signals to known-candidate routing through the existing BB-INTEGRATE/material-state path before activation; no registry, matcher service or new Building Block."
   },
   "authority": {
     "status": "candidate-evidence-only",
@@ -32,7 +32,7 @@
       "project/execution_state.json",
       "project/reconciliation.json"
     ],
-    "future_activation_rule": "Create a focused current work/preflight item only when a current activation trigger is established; reread fresh repository state and original evidence first."
+    "future_activation_rule": "A newly recognized material-state, failure or learning signal must first produce an explicit known-candidate routing result (match|no-match|uncertain-match) against persistent unresolved/activation-ready candidate evidence using fresh repository state. Only a matched candidate with a currently satisfied trigger may produce an activation candidate; that creates no priority, admission or implementation authority."
   },
   "evidence_maturity_levels": [
     "declared",
@@ -72,7 +72,9 @@
       "define-smallest-adequate-slice",
       "resolve-acceptance-and-admission-boundary",
       "implement-only-if-authorized"
-    ]
+    ],
+    "activation_requires_known_candidate_routing": true,
+    "activation_authority_effect": "none"
   },
   "candidates": [
     {
@@ -914,6 +916,95 @@
       "which evidence remains valid or became stale",
       "next real gate",
       "whether Human action is required and why"
+    ]
+  },
+  "known_candidate_routing": {
+    "contract_ref": "system/material_state.json#known_candidate_routing",
+    "operational_owner": "BB-INTEGRATE + current planning owner",
+    "current_planning_owner": "github:esany/Wissensarbeit#7",
+    "runtime_validation_path": "python tools/work.py integrate <packet>",
+    "outcomes": [
+      "match",
+      "no-match",
+      "uncertain-match"
+    ],
+    "chain": [
+      "recognized-material/failure/learning-signal",
+      "resolve-current-planning-source",
+      "inspect-persistent-known-candidate-evidence",
+      "record-match|no-match|uncertain-match",
+      "for-match-rebind-original-evidence-to-fresh-state",
+      "evaluate-current-trigger",
+      "create-activation-candidate-only-if-match-and-trigger-satisfied",
+      "problem-validation/preflight",
+      "admission-if-authorized",
+      "implementation-if-authorized"
+    ],
+    "authority_boundary": "Routing and activation-candidate creation are operational dispositions only. They do not create priority, promotion, admission, implementation authority or implementation_allowed.",
+    "falsification_cases": [
+      {
+        "id": "RF-01",
+        "signal": "Human again has to provide a long expert/meta-prompt or manually orchestrate derivable work context.",
+        "must_consider": [
+          "OC-02",
+          "OC-04"
+        ],
+        "expected": "explicit routing; do not blindly create a novel problem without checking prior candidate evidence"
+      },
+      {
+        "id": "RF-02",
+        "signal": "A still-valid earlier Human correction is lost again.",
+        "must_consider": [
+          "OC-07"
+        ],
+        "expected": "explicit routing against OC-07 and current trigger evaluation"
+      },
+      {
+        "id": "RF-03",
+        "signal": "The Human is again asked to supply missing specialist expertise that the system could obtain or route.",
+        "must_consider": [
+          "OC-03"
+        ],
+        "expected": "explicit routing against OC-03 and current trigger evaluation"
+      },
+      {
+        "id": "RF-04",
+        "signal": "The Human again has to reconstruct decision/review context across repository state.",
+        "must_consider": [
+          "OC-05"
+        ],
+        "expected": "explicit routing against OC-05 and current trigger evaluation"
+      },
+      {
+        "id": "RF-05",
+        "signal": "A material signal fits no persistent known candidate after fresh-state inspection.",
+        "expected_status": "no-match",
+        "activation_candidate": false,
+        "authority_effect": "none"
+      },
+      {
+        "id": "RF-06",
+        "signal": "A material signal plausibly overlaps a known candidate but the match is not established.",
+        "expected_status": "uncertain-match",
+        "activation_candidate": false,
+        "authority_effect": "none"
+      },
+      {
+        "id": "RF-07",
+        "signal": "A known candidate matches but its current activation trigger is not satisfied.",
+        "expected_status": "match",
+        "trigger_status": "not-satisfied",
+        "activation_candidate": false,
+        "authority_effect": "none"
+      },
+      {
+        "id": "RF-08",
+        "signal": "A known candidate matches and its current activation trigger is satisfied.",
+        "expected_status": "match",
+        "trigger_status": "satisfied",
+        "activation_candidate": true,
+        "authority_effect": "none"
+      }
     ]
   }
 }
