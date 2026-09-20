@@ -733,3 +733,456 @@ Stop after:
 - status remains `READY FOR INDEPENDENT QUALITATIVE REVIEW`.
 
 No capability implementation, P2 admission, roadmap creation or additional architecture follows automatically.
+
+
+---
+
+## 18. Work-type semantic contract — candidate operationalization
+
+This section operationalizes a Human-corrected terminology rule that has already failed repeatedly in real use.
+
+It is a **candidate semantic contract inside PR #37**, not yet a promoted modification of `system/lifecycle.json` or `system/authority.json`.
+
+### Core rule
+
+> Classify work by its actual function and consequence, not by the generic fact that “some work happened”.
+
+A bounded unit of work is **not automatically an iteration**.
+
+A workflow may contain several work types. For example:
+
+`Preflight → Admission → Implementation Slice → Assurance → Review → Correction → Re-Review → Promotion → Reconciliation`
+
+That complete sequence may contribute to a larger genuine iteration **only if** real evidence changes the hypothesis/design/implementation understanding and produces a changed next state.
+
+### WT-01 — Iteration
+
+**Definition**
+
+A genuine learning/development cycle in which a hypothesis, problem framing, design or implementation is exposed to real evidence, and that evidence changes what is understood or what happens next.
+
+Minimal semantic shape:
+
+`starting hypothesis/state → intervention/attempt → evidence/result → learning → changed next state`
+
+**Required evidence**
+
+- starting hypothesis/state or explicit question;
+- what was tried or observed;
+- evidence/result;
+- what was learned;
+- what changed in the next state because of the learning.
+
+**Allowed consequences**
+
+- refine/reframe/supersede a hypothesis or candidate;
+- change a design or implementation candidate;
+- generate new uncertainty;
+- justify a later planning/admission proposal;
+- produce validated learning for BB-LEARN.
+
+**Does not imply**
+
+- Human acceptance;
+- promotion;
+- implementation admission;
+- merge;
+- successful outcome;
+- requirement change.
+
+**Misclassification failure**
+
+Calling a gate, merge, persistence action or administrative transition an iteration hides whether actual learning occurred.
+
+### WT-02 — Preflight
+
+**Definition**
+
+A bounded check of whether a later proposed slice is sufficiently specified, evidentially grounded, owner-aligned and safe enough to be considered for admission/execution.
+
+**Required evidence**
+
+- proposed later scope;
+- relevant owners/requirements/authority;
+- known risks and uncertainties;
+- falsification/stop conditions;
+- smallest credible candidate;
+- explicit residuals.
+
+**Allowed consequences**
+
+- PASS / FAIL / NEEDS CORRECTION / INSUFFICIENT EVIDENCE;
+- recommendation that admission may or may not be considered;
+- refinement of the proposed slice.
+
+**Does not imply**
+
+- implementation start;
+- implementation permission;
+- merge;
+- promotion;
+- result acceptance.
+
+**Staleness consequence**
+
+A materially changed target/scope can invalidate the preflight and require re-evaluation.
+
+### WT-03 — Review
+
+**Definition**
+
+Qualitative assessment of a concrete, identifiable state against stated semantic/quality/authority criteria.
+
+**Required evidence**
+
+- exact review target/revision;
+- review scope;
+- applicable criteria/owners;
+- findings and uncertainty;
+- verdict.
+
+**Allowed consequences**
+
+- CONFIRM;
+- NEEDS CORRECTION;
+- INSUFFICIENT EVIDENCE;
+- block or support consideration of a later authority transition.
+
+**Does not imply**
+
+- promotion;
+- admission;
+- implementation success;
+- Human acceptance unless the Human explicitly owns and performs that acceptance.
+
+**Revision consequence**
+
+A material change after review makes the old verdict insufficient for the changed state until the delta is assessed.
+
+### WT-04 — Re-Review
+
+**Definition**
+
+A review performed after correction/change, normally focused on whether identified findings were closed and whether the correction introduced material regressions inside the agreed review boundary.
+
+**Required evidence**
+
+- prior review target/verdict;
+- exact corrected target/revision;
+- identified findings;
+- correction delta;
+- focused re-review scope.
+
+**Allowed consequences**
+
+- close or retain prior findings;
+- identify correction-induced problems;
+- update the qualitative verdict for the exact reviewed state.
+
+**Does not imply**
+
+- that unrelated parts were freshly reviewed;
+- promotion/admission;
+- merge authority.
+
+**Freshness consequence**
+
+The re-review verdict is bound to the reviewed revision. A later material delta requires another assessment.
+
+### WT-05 — Correction
+
+**Definition**
+
+A targeted change made in response to an identified finding, failure or discrepancy.
+
+**Required evidence**
+
+- triggering finding/failure;
+- intended correction boundary;
+- actual delta;
+- unchanged/non-target areas where relevant.
+
+**Allowed consequences**
+
+- modify the candidate/artifact;
+- invalidate prior formal or qualitative evidence where the changed surface matters;
+- trigger re-assurance and/or re-review.
+
+**Does not imply**
+
+- that the finding is actually closed;
+- that the new state is accepted;
+- that scope may expand beyond the correction boundary.
+
+**Default consequence**
+
+After a material correction, assurance/review evidence bound to the old revision must not be reused as if it covered the new revision.
+
+### WT-06 — Promotion
+
+**Definition**
+
+An authority transition by which an already reviewed/accepted candidate state becomes canonical or accepted project state.
+
+Typical repository example:
+
+candidate PR → approved merge/promotion → canonical `main`.
+
+**Required evidence**
+
+- exact candidate state;
+- required assurance/review;
+- applicable Human/authority decision;
+- known material consequences;
+- reconciliation requirement.
+
+**Allowed consequences**
+
+- canonical state changes;
+- prior candidate becomes accepted/promoted state;
+- downstream current-state views may need refresh/reconciliation.
+
+**Does not imply**
+
+- implementation admission for a different/later slice;
+- result acceptance beyond the promoted artifact;
+- priority change unless explicitly part of the authority decision.
+
+**Default follow-up**
+
+Material promotion requires systemic reconciliation before the change is described as fully integrated.
+
+### WT-07 — Admission
+
+**Definition**
+
+An authority transition that permits a specifically bounded next action or implementation slice that was previously not authorized.
+
+**Required evidence**
+
+- exact admitted scope;
+- preconditions/dependencies;
+- explicit authority;
+- stop conditions;
+- what remains excluded;
+- persisted admission.
+
+**Allowed consequences**
+
+- the admitted action may become executable;
+- `implementation_allowed` or equivalent execution permission may change **only if the canonical execution contract explicitly binds it**.
+
+**Does not imply**
+
+- implementation success;
+- merge;
+- result acceptance;
+- permission for adjacent scope;
+- promotion of later findings.
+
+**Scope consequence**
+
+Anything outside the admitted boundary remains unauthorized and requires a new decision/preflight as applicable.
+
+### WT-08 — Reconciliation
+
+**Definition**
+
+Systemic alignment of the wider project state after or around a material change, ensuring all required impact surfaces are explicitly dispositioned.
+
+**Required evidence**
+
+- material change reference;
+- required impact surfaces;
+- impacted objects;
+- disposition/rationale;
+- cursor impact;
+- unresolved conflicts.
+
+**Allowed consequences**
+
+- establish that the wider project state is explicitly aligned;
+- expose conflicts or needed decisions;
+- block a claim of systemic integration if incomplete.
+
+**Does not imply**
+
+- new priority;
+- new scope;
+- promotion;
+- admission;
+- semantic correctness of the underlying decision.
+
+### WT-09 — Persistence / Operationalization Slice
+
+**Definition**
+
+A bounded work unit that externalizes findings, intent, planning semantics, activation rules or other material state so future work can reconstruct and use it reliably.
+
+**Required evidence**
+
+- what is being persisted;
+- source/intent provenance;
+- why it is material;
+- authority status;
+- what it enables later;
+- what it explicitly does not authorize;
+- coverage/omission where fidelity is material.
+
+**Allowed consequences**
+
+- material knowledge leaves chat-only state;
+- future restart/activation becomes possible;
+- candidate structure may become machine-readable;
+- reconciliation/traceability may improve.
+
+**Does not imply**
+
+- that the persisted finding is accepted as a Requirement;
+- priority;
+- activation;
+- admission;
+- implementation;
+- successful operational capability.
+
+**Key distinction**
+
+PR #37 is currently this type: a persistence/operationalization slice prepared for qualitative review. It is not itself a genuine iteration merely because substantial work occurred.
+
+### WT-10 — Implementation Slice
+
+**Definition**
+
+Concrete implementation work within an already permitted, bounded scope.
+
+Possible outputs include code, tests, data, configuration, docs or operational mechanisms.
+
+**Required evidence**
+
+- admitted/authorized scope where material;
+- implementation delta;
+- tests/assurance evidence;
+- known residuals;
+- result review/reconciliation as required.
+
+**Allowed consequences**
+
+- executable behavior may change;
+- new result evidence exists;
+- later review/learning can evaluate the implementation.
+
+**Does not imply**
+
+- that the implementation is correct;
+- Human-effective;
+- accepted;
+- merged;
+- promoted;
+- a genuine iteration.
+
+**Iteration relationship**
+
+An Implementation Slice becomes part of a genuine iteration only when its real result feeds evidence/learning back into a changed next state.
+
+---
+
+## 19. Consequence matrix
+
+| Type | Creates new evidence? | Can change artifact/state? | Creates authority? | Typical next obligation | Explicitly not equivalent to |
+|---|---|---|---|---|---|
+| Iteration | yes | often | no by itself | persist learning / reconcile material change | “some work happened” |
+| Preflight | yes | proposal may refine | no | admission decision or correction | admission |
+| Review | yes | no, except findings | no | correction or later authority decision | promotion |
+| Re-Review | yes | no, except updated findings | no | later authority decision or more correction | full fresh review of unrelated scope |
+| Correction | yes | yes | no | re-assurance / re-review | finding closed |
+| Promotion | yes | yes, canonical state | **yes, for canonicalization** | reconciliation | implementation admission |
+| Admission | yes | changes permission state | **yes, for bounded action** | execute only admitted scope | result acceptance |
+| Reconciliation | yes | project-state dispositions | no new material authority | resolve blockers / integrated-state claim | promotion or prioritization |
+| Persistence / Operationalization Slice | yes | evidence/planning artifacts | no | review if material; later activation when justified | implementation |
+| Implementation Slice | yes | implementation | only inherited from prior admission | assurance / result review / reconciliation | success or iteration |
+
+### Authority rule
+
+Only a type whose purpose is itself an authority transition may create the corresponding authority, and only when the correct authority holder and persistence requirements are satisfied.
+
+Therefore:
+
+- Review CONFIRM ≠ Promotion.
+- Promotion ≠ Implementation Admission.
+- Admission ≠ Implementation Result Acceptance.
+- CI PASS ≠ Review CONFIRM.
+- Reconciliation PASS ≠ Domain/Human Acceptance.
+- Persistence ≠ Priority.
+- Implementation ≠ Iteration.
+- Correction ≠ Closed Finding.
+
+---
+
+## 20. Classification rules for future work
+
+A fresh worker should classify a work unit by asking, in order:
+
+1. **Is the purpose to learn through evidence and change the next understanding/state?**  
+   → Iteration candidate.
+
+2. **Is the purpose to decide whether later work is sufficiently defined/safe to consider?**  
+   → Preflight.
+
+3. **Is the purpose to judge a concrete existing state?**  
+   → Review / Re-Review.
+
+4. **Is the purpose to change something because a finding exists?**  
+   → Correction.
+
+5. **Is the purpose to grant authority?**  
+   → Promotion or Admission; distinguish canonicalization from permission-to-act.
+
+6. **Is the purpose to align all affected project surfaces?**  
+   → Reconciliation.
+
+7. **Is the purpose to make knowledge/planning/state restartable and later actionable?**  
+   → Persistence / Operationalization Slice.
+
+8. **Is the purpose to build/change the admitted solution?**  
+   → Implementation Slice.
+
+If more than one applies, treat the workflow as a **composition of typed steps**, not as one overloaded label.
+
+If uncertain, preserve the uncertainty and use the narrower non-authority interpretation until the actual consequence is resolved.
+
+### Terminology-fidelity rule
+
+Before reporting a work unit as complete, state:
+
+- work type;
+- exact target/scope;
+- evidence produced;
+- authority gained, if any;
+- evidence invalidated/staled, if any;
+- required next gate;
+- explicit non-consequences.
+
+This is intended to prevent language from silently granting process meaning that did not occur.
+
+---
+
+## 21. Transparent Human explanation contract
+
+When explaining a typed work step to the Human Owner, do not merely name the type.
+
+Explain in plain language:
+
+1. **What kind of step was this?**
+2. **Why is that the correct type?**
+3. **What changed because of it?**
+4. **What did not change?**
+5. **Did it create any authority? If yes, exactly which authority?**
+6. **Which previous evidence is still valid and which became stale?**
+7. **What is the next real gate?**
+8. **Is Human action required now? Why?**
+
+Example:
+
+> “This was a correction, not a new iteration. We changed the artifact specifically to close Finding X. That invalidates the prior assurance/review for the changed revision, so re-assurance and focused re-review are needed. It does not authorize merge or implementation.”
+
+The explanation should remain proportional to the consequence. Routine typed steps can be concise; material authority transitions require the full decision-context contract.
