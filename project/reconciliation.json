@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
-  "change_id": "audit/human-ai-blind-probe-evidence-validity-2026-09-20",
+  "change_id": "audit/human-ai-blind-routing-evidence-integrity-2026-09-20",
   "materiality": "material",
-  "summary": "Correct PR #37 behavioral-evidence design after focused review: preserve OH-03 as compatible but not preferred, classify WA-EVAL-031..033 as repository-visible regression cases only, add oracle-free stimulus-only probes with isolated exact-revision operational bundles, and bind trial capture to concrete bundle identity, context hashes, instance/session provenance and pre-oracle raw-response persistence.",
+  "summary": "Correct PR #37's blind-routing evidence claim: classify WA-EVAL-031..033 as repository-visible regression cases, bind strict RP probe context to exact Git revision and a hashed bundle manifest/identity, preserve pre-oracle raw-response capture, and keep semantic grading/psychological freshness as separate review claims.",
   "source_refs": [
     "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
     "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",
@@ -21,7 +21,8 @@
     "tests/probes/routing_fresh_context_stimuli_v1.json",
     "tests/probes/fresh_context_trial_contract.json",
     "tools/eval_integrity.py",
-    "tests/test_eval_integrity.py"
+    "tests/test_eval_integrity.py",
+    "project/WA-PR37-BLIND-ROUTING-PROBE-PROTOCOL-2026-09-20.md"
   ],
   "surfaces": {
     "requirements": {
@@ -54,9 +55,13 @@
         "routing-referential-truth-residual",
         "owner-model-third-hypothesis",
         "fresh-context-routing-probe",
-        "oracle-visibility-review-finding"
+        "oracle-visibility-review-finding",
+        "oracle-visible-wa-eval-routing-cases",
+        "strict-blind-rp-probe-path",
+        "git-derived-probe-bundle",
+        "bundle-identity-trial-binding"
       ],
-      "rationale": "The routing mechanism and referential-fidelity residual remain confirmed. A later focused review found that WA-EVAL-031..033 could not support independent blind evidence because their expect fields were repository-visible. The correction explicitly downgrades them to regression-only and introduces a separate oracle-free, isolated-bundle, two-phase probe protocol. OH-03 wording is also kept non-preferential."
+      "rationale": "Focused evidence review confirmed the routing mechanism/referential fidelity and exposed a test-validity distinction: WA-EVAL-031..033 are prompt-blind but repository-visible and therefore regression-only for this claim. Strict evidence uses the existing stimulus-only RP probe path, now hardened so accessible context is read from the exact Git revision and the captured response is bound to a hashed bundle manifest/identity."
     },
     "risks": {
       "disposition": "refined",
@@ -72,7 +77,7 @@
         "R-009",
         "R-010"
       ],
-      "rationale": "The correction reduces false-assurance risk: prompt-level oracle omission is no longer treated as repository-level blindness. Trial capture now records concrete bundle identity, file hashes, exact revision, instance/session provenance and declared oracle/repository/prior-trial isolation. These integrity controls do not overclaim semantic correctness or true freshness."
+      "rationale": "The correction reduces false-assurance risk by separating prompt blindness from repository blindness and by binding the trial to exact Git-derived context. Remaining uncertainty is behavioral/semantic: the RP probes have not yet been independently executed and no oracle has been persisted."
     },
     "decisions_concepts": {
       "disposition": "refined",
@@ -109,16 +114,18 @@
         "isolated-fresh-context-probe-protocol",
         "RP-41B7",
         "RP-8C2E",
-        "RP-D594"
+        "RP-D594",
+        "oracle-isolated-operational-bundle",
+        "pre-oracle-trial-capture"
       ],
-      "rationale": "WA-EVAL-031..033 remain visible regression cases only. Independent behavioral evidence must use stimulus-only probes RP-41B7/RP-8C2E/RP-D594 delivered through an isolated exact-revision operational bundle, with raw response persisted before oracle reveal. OH-03 remains a compatible open system-function hypothesis, not the preferred interpretation. No new Building Block, registry, authority class, priority or implementation authority is created."
+      "rationale": "Strict blind routing evidence is a bounded evaluation protocol, not a new lifecycle/authority concept: stimulus-only RP probes, exact-revision operational allowlist, no external repository/prior-trial/oracle access, bundle identity, raw-response capture before oracle reveal, then later grading/review. OH-03 remains open/non-preferred and no new Building Block, registry, matcher service or authority class is introduced."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "Refresh derived current-state provenance to the behavioral-evidence validity correction; baseline counts and execution authority remain unchanged."
+      "rationale": "Refresh derived current-state reconciliation provenance only; programme counts and execution authority remain unchanged."
     },
     "planning_execution_cursor": {
       "disposition": "unchanged",
@@ -126,7 +133,7 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "Behavioral-evidence correction does not change programme priority or P2 authority. PR #37 remains candidate/review work; P2 remains independently blocked on explicit Human implementation admission with implementation_allowed=false.",
+      "rationale": "PR #37 remains review/evidence work and is not yet a Promotion Candidate. P2 remains independently blocked on explicit Human implementation admission with implementation_allowed=false.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -137,7 +144,7 @@
     "active_work": {
       "disposition": "unchanged",
       "objects": [],
-      "rationale": "No OC or P2 implementation is activated. The evidence-design Correction is reconciled. Independent fresh-instance probe execution and focused qualitative re-review remain separate promotion-readiness evidence gates, not unresolved reconciliation conflicts."
+      "rationale": "No OC or P2 implementation is activated. The evidence-control correction is systemically reconciled. Independent RP probe execution, later oracle reveal/grading and qualitative review remain separate promotion-readiness evidence gates."
     }
   },
   "unresolved": [],
