@@ -1,42 +1,47 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/post-pr35-preflight-promotion-reconciliation-2026-09-20",
+  "change_id": "audit/human-ai-operational-collaboration-chat-delta-2026-09-20",
   "materiality": "material",
-  "summary": "Reconcile the canonical promotion of PR #35: the independently CONFIRMED P2 preflight is now on main; remove the stale pre-merge promotion gate while preserving implementation_allowed=false and the separately blocked Human implementation-admission decision.",
+  "summary": "Integrate a detailed Human-Owner chat audit showing that multiple peer-level Human-AI collaboration capabilities are normatively present but not yet adequately operationalized end-to-end; preserve the current P2 implementation-admission gate and make no Requirement, Building-Block, lifecycle, priority or implementation promotion.",
   "source_refs": [
-    "github:esany/Wissensarbeit#35",
-    "esany/Wissensarbeit@4e4098a9d8cf27145bba90a02e18384efb031016",
-    "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
-    "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md",
-    "project/WA-P2-POST-PR35-PROMOTION-RECON-2026-09-20-01.md"
+    "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+    "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
+    "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
+    "github:esany/Wissensarbeit#7",
+    "tests/evals/failure_corpus.json"
   ],
   "surfaces": {
     "requirements": {
-      "disposition": "unchanged",
+      "disposition": "confirmed",
       "objects": [
         "REQ-001",
         "REQ-002",
         "REQ-003",
         "REQ-004",
+        "REQ-005",
+        "REQ-006",
         "REQ-007",
         "REQ-008",
         "REQ-011",
-        "REQ-012"
+        "REQ-012",
+        "REQ-013"
       ],
-      "rationale": "PR #35 promotion does not change Requirement semantics; it makes the already-reviewed preflight package canonical."
+      "rationale": "The current chat supplies stronger real-use evidence that existing promises around autonomy, competence, context, traceability, Human authority and automation are not yet fully demonstrated in operation. This audit does not alter Requirement text or create a new Requirement family."
     },
     "issues_findings": {
-      "disposition": "confirmed",
+      "disposition": "refined",
       "objects": [
-        "github:esany/Wissensarbeit#35",
-        "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03",
-        "WA-P2-POST-PR35-PROMOTION-RECON-2026-09-20-01"
+        "github:esany/Wissensarbeit#7",
+        "WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA",
+        "WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA",
+        "WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA"
       ],
-      "rationale": "PR #35 is now merged and the final qualitative CONFIRM is canonical. The previous pre-merge promotion decision is no longer an open gate."
+      "rationale": "The prior Human-intent and design-method findings remain valid but are now integrated into a broader peer-level system finding: Human role/intent, work-context compilation, competence/research, partial automation/function allocation, Human decision/XAI, iterative learning and cumulative correction fidelity are equal operational collaboration gaps rather than subtopics of the PR-review example."
     },
     "risks": {
-      "disposition": "unchanged",
+      "disposition": "refined",
       "objects": [
+        "R-001",
         "R-002",
         "R-003",
         "R-004",
@@ -44,32 +49,37 @@
         "R-006",
         "R-007",
         "R-008",
-        "R-009"
+        "R-009",
+        "R-010"
       ],
-      "rationale": "Promotion does not create a new risk family or change the reviewed P2 risk boundaries."
+      "rationale": "The chat provides new real-use evidence across existing continuity, drift, authority, solutionism, false-completion, self-reinforcement and competence-blind-spot risks. No new risk family is promoted."
     },
     "decisions_concepts": {
-      "disposition": "confirmed",
+      "disposition": "refined",
       "objects": [
-        "existing-context-fidelity-slice",
-        "p2-minimal-existing-owner-candidate"
+        "existing-owner-operational-collaboration-gap",
+        "partial-automation-function-allocation-candidate",
+        "intent-bound-work-packet-candidate",
+        "decision-ready-human-context-candidate",
+        "operationalization-evidence-ladder-candidate",
+        "cumulative-correction-fidelity-candidate"
       ],
-      "rationale": "The independently reviewed Existing-Owner implementation candidate is now canonically documented as a proposal only. Promotion does not grant implementation admission, result acceptance or merge authority for later code."
+      "rationale": "These are audit-derived candidate design directions and assessment concepts only. Existing-owner refinement remains the default hypothesis to test first, but neither a new Building Block nor the absence of one is treated as a proven final architecture conclusion."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The derived current-state view is refreshed only to bind to this post-promotion reconciliation change."
+      "rationale": "Refresh the derived view only to bind it to this material audit reconciliation; the baseline counts and execution authority remain unchanged."
     },
     "planning_execution_cursor": {
-      "disposition": "refined",
+      "disposition": "unchanged",
       "objects": [
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The P2 preflight is now canonically complete. The next candidate remains p2-implementation-admission with status blocked on explicit Human admission; no implementation action is ready and implementation_allowed remains false.",
+      "rationale": "This audit is material evidence but does not manufacture priority. The current P2 preflight remains complete, p2-implementation-admission remains the separate blocked Human gate, and implementation_allowed remains false.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -80,7 +90,7 @@
     "active_work": {
       "disposition": "unchanged",
       "objects": [],
-      "rationale": "No P2 implementation is active. The only current material gate is the separate Human implementation-admission decision."
+      "rationale": "Persisting and reviewing this audit does not activate implementation work on any of the seven axes and does not start P2 implementation."
     }
   },
   "unresolved": [],
