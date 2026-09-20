@@ -1,14 +1,15 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/post-pr35-preflight-promotion-reconciliation-2026-09-20",
+  "change_id": "p2/context-fidelity-implementation-admission-2026-09-20",
   "materiality": "material",
-  "summary": "Reconcile the canonical promotion of PR #35: the independently CONFIRMED P2 preflight is now on main; remove the stale pre-merge promotion gate while preserving implementation_allowed=false and the separately blocked Human implementation-admission decision.",
+  "summary": "Persist the explicit Human admission ADMIT P2-CONTEXT-FIDELITY-SLICE, bind the existing execution owner to the exact admitted implementation step, and enable implementation only for that slice without granting merge or result acceptance.",
   "source_refs": [
-    "github:esany/Wissensarbeit#35",
-    "esany/Wissensarbeit@4e4098a9d8cf27145bba90a02e18384efb031016",
+    "github:esany/Wissensarbeit#7",
+    "esany/Wissensarbeit@b590523d31db5f82628d6e0d5182821501729906",
     "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
     "project/WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03.md",
-    "project/WA-P2-POST-PR35-PROMOTION-RECON-2026-09-20-01.md"
+    "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
+    "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md"
   ],
   "surfaces": {
     "requirements": {
@@ -23,19 +24,19 @@
         "REQ-011",
         "REQ-012"
       ],
-      "rationale": "PR #35 promotion does not change Requirement semantics; it makes the already-reviewed preflight package canonical."
+      "rationale": "The Human admission authorizes implementation of the already-reviewed Existing-Owner slice; it does not change Requirement semantics."
     },
     "issues_findings": {
       "disposition": "confirmed",
       "objects": [
-        "github:esany/Wissensarbeit#35",
+        "github:esany/Wissensarbeit#7",
         "WA-P2-PREFLIGHT-REREVIEW-2026-09-20-03",
-        "WA-P2-POST-PR35-PROMOTION-RECON-2026-09-20-01"
+        "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01"
       ],
-      "rationale": "PR #35 is now merged and the final qualitative CONFIRM is canonical. The previous pre-merge promotion decision is no longer an open gate."
+      "rationale": "The independently CONFIRMED preflight is canonical and the exact affirmative Human admission is now durably persisted. PR #37 remains outside this P2 dependency graph."
     },
     "risks": {
-      "disposition": "unchanged",
+      "disposition": "confirmed",
       "objects": [
         "R-002",
         "R-003",
@@ -46,22 +47,23 @@
         "R-008",
         "R-009"
       ],
-      "rationale": "Promotion does not create a new risk family or change the reviewed P2 risk boundaries."
+      "rationale": "Existing scope, authority, accretion, false-assurance and self-reinforcing-error risks remain applicable. Admission does not create a new risk family."
     },
     "decisions_concepts": {
       "disposition": "confirmed",
       "objects": [
         "existing-context-fidelity-slice",
-        "p2-minimal-existing-owner-candidate"
+        "p2-minimal-existing-owner-candidate",
+        "P2-CONTEXT-FIDELITY-SLICE"
       ],
-      "rationale": "The independently reviewed Existing-Owner implementation candidate is now canonically documented as a proposal only. Promotion does not grant implementation admission, result acceptance or merge authority for later code."
+      "rationale": "The previously reviewed candidate is now admitted only as the exact bounded implementation experiment. The admission does not accept any implementation result or authorize merge."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The derived current-state view is refreshed only to bind to this post-promotion reconciliation change."
+      "rationale": "The derived current-state view is refreshed only to bind to this admission reconciliation."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -69,18 +71,20 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The P2 preflight is now canonically complete. The next candidate remains p2-implementation-admission with status blocked on explicit Human admission; no implementation action is ready and implementation_allowed remains false.",
+      "rationale": "The Human admission resolves p2-implementation-admission and makes p2-context-fidelity-implementation the sole ready implementation step bound to the persisted admission. implementation_allowed=true applies only to this persisted cursor/scope; merge remains outside allowed_actions.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-fidelity-manifest-preflight",
-        "next": "none",
-        "implementation_allowed": false
+        "current_step": "p2-implementation-admission",
+        "next": "p2-context-fidelity-implementation",
+        "implementation_allowed": true
       }
     },
     "active_work": {
-      "disposition": "unchanged",
-      "objects": [],
-      "rationale": "No P2 implementation is active. The only current material gate is the separate Human implementation-admission decision."
+      "disposition": "refined",
+      "objects": [
+        "p2-context-fidelity-implementation"
+      ],
+      "rationale": "The bounded implementation step is ready but not yet result-accepted or merge-authorized. Work may start only after this admission package is canonical and formally green."
     }
   },
   "unresolved": [],
