@@ -47,9 +47,10 @@ The original signal→known-candidate finding is considered qualitatively closed
 4. Persist the third open Owner-model hypothesis: Human Problem Owner authority is distinct from the system's competence/orchestration function; no new Building Block or canonical role name is promoted.
 5. Run formal repository assurance on the resulting exact PR head.
 6. Perform focused independent qualitative re-review of the residual provenance/Owner-model corrections.
-7. Execute the blind fresh-context routing probes `WA-EVAL-031..033` with an **independent fresh instance**. The rendered inputs expose the signal and current repository context but not OC identifiers or hidden expected outcomes.
-8. Do not count a same-chat execution as fresh-context evidence. Until independent probe evidence exists, routing behavior is not `real-use-demonstrated`.
-9. Only if the focused re-review confirms the residual corrections and the blind probe behaves as expected should PR #37 be treated as a **Promotion Candidate**.
+7. Treat `WA-EVAL-031..033` as **visible regression/fresh-context cases only**, not as blind-evidence cases: their expectations are repository-visible in `tests/fixtures/eval_cases.json`.
+8. For blind evidence, use the separate two-phase probe protocol: an isolated operational repository snapshot with no eval/oracle material + a stimulus whose oracle is not yet persisted; persist the raw response before any oracle is added.
+9. Do not count a same-chat execution, a full-repository execution with repository-visible oracle material, or an execution after oracle persistence as blind fresh-context evidence. Until valid independent probe evidence exists, routing behavior is not `real-use-demonstrated`.
+10. Only if the focused re-review confirms the residual corrections and the two-phase blind probe produces valid independent evidence should PR #37 be treated as a **Promotion Candidate**.
 10. Human Promotion Decision remains required before merge where the existing authority boundary requires it; after any merge, reconcile the promoted contract change.
 11. P2 remains independent: its implementation still requires its own explicit Human admission and does not wait for PR #37 promotion or a future matcher/trigger engine.
 
