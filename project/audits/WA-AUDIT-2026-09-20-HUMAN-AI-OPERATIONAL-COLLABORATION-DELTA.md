@@ -1268,3 +1268,52 @@ Required remaining evidence before promotion-candidate status:
 The original signal→candidate mechanism and referential routing fidelity remain separately CONFIRMED by the prior focused review; this finding concerns the validity of the planned behavioral evidence, not a new routing-mechanism defect.
 
 P2 remains independently gated by explicit Human implementation admission.
+
+
+
+---
+
+## 20. Focused evidence-integrity correction — strict blind bundle binding
+
+A later focused review of the exact PR #37 state confirmed:
+
+- the original signal→known-candidate routing finding is closed;
+- referential routing fidelity is closed for the current architecture boundary;
+- OH-03 is structurally persisted as an open, non-authority composition hypothesis;
+- `WA-EVAL-031..033` cannot be used as strict blind evidence because their expected outcomes are repository-visible.
+
+Fresh repository inspection also found that PR #37 already contained a **separate stimulus-only probe path**:
+
+- `tests/probes/routing_fresh_context_stimuli_v1.json`;
+- `tests/probes/fresh_context_trial_contract.json`;
+- `tools/eval_integrity.py render-probe-bundle`;
+- `tools/eval_integrity.py validate-probe-trial`.
+
+That path correctly separates stimulus-only `RP-*` probes from the visible `WA-EVAL-031..033` fixtures and requires a fresh instance with no external repository, prior-trial or oracle access.
+
+Two remaining integrity weaknesses were identified in the implementation of that otherwise appropriate path:
+
+1. the renderer recorded an exact Git revision but read accessible context from the mutable working tree rather than from Git at that revision;
+2. the trial capture recorded revision/path metadata but did not bind the response to an identity of the concrete rendered bundle.
+
+Correction:
+
+- accessible context is now read with Git object access at the exact recorded revision;
+- every accessible context file is SHA-256 hashed;
+- instructions and stimulus are SHA-256 hashed;
+- a deterministic `bundle_manifest` records probe identity, revision, context mode, exact allowlist and hashes;
+- `bundle_identity` hashes that manifest and is mandatory in the trial record;
+- trial validation rejects manifest/record mismatches and invalid bundle identities;
+- probe-definition validation fails if an opaque probe ID or the exact probe stimulus appears in any accessible context file;
+- the Human-readable plan and machine snapshot explicitly classify `WA-EVAL-031..033` as visible regression cases, not strict blind evidence;
+- `project/WA-PR37-BLIND-ROUTING-PROBE-PROTOCOL-2026-09-20.md` documents the two-phase evidence sequence.
+
+Evidence boundary retained:
+
+> Bundle/capture validation proves exact-revision context binding and the encoded access conditions. It does not grade semantic correctness, prove psychological freshness, or establish Human effectiveness.
+
+No independent `RP-*` trial is claimed by this correction. The oracle for those stimulus-only probes must remain unpersisted until the raw responses are captured and persisted.
+
+PR #37 therefore remains **not yet promotion-ready on blind behavior evidence** until independent pre-oracle trials are executed, captured, later graded against a separately revealed oracle, and qualitatively reviewed.
+
+P2 remains independent and unchanged.
