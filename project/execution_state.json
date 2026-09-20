@@ -2,27 +2,55 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-fidelity-manifest-preflight",
+    "id": "p2-implementation-admission",
     "next": [
       {
-        "id": "p2-implementation-admission",
-        "status": "blocked",
+        "id": "p2-context-fidelity-implementation",
+        "status": "ready",
         "depends_on": [
-          "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01"
+          "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01",
+          "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01"
         ],
-        "blocked_by": "explicit-human-admission"
+        "admission_ref": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+        "scope": "P2-CONTEXT-FIDELITY-SLICE"
       }
     ]
   },
   "dependencies": [
-    {"id": "WA-HARVEST-P1-001", "status": "resolved"},
-    {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"},
-    {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"},
-    {"id": "WA-P2-BASELINE-RECON-2026-09-17-01", "status": "resolved"},
-    {"id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01", "status": "resolved"}
+    {
+      "id": "WA-HARVEST-P1-001",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-RESTART-2026-09-11-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-BASELINE-RECON-2026-09-17-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
+      "status": "resolved"
+    }
   ],
-  "allowed_actions": ["inspect", "design", "plan", "persist evidence", "complete"],
-  "implementation_allowed": false,
+  "allowed_actions": [
+    "inspect",
+    "design",
+    "plan",
+    "persist evidence",
+    "implement",
+    "complete"
+  ],
+  "implementation_allowed": true,
   "route": "local-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -31,12 +59,15 @@
     "WA-P2-BASELINE-RECON-2026-09-17-01": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
     "p2-post-pr33-baseline-reconciliation": "project/WA-P2-BASELINE-RECON-2026-09-17-01-EVIDENCE.md",
     "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
-    "p2-fidelity-manifest-preflight": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md"
+    "p2-fidelity-manifest-preflight": "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
+    "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+    "p2-implementation-admission": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md"
   },
   "follow_up": {
-    "candidate": "p2-implementation-admission",
-    "blocked_until": "explicit-human-admission",
-    "proposal": "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
-    "rule": "P2 implementation remains blocked. A preflight PASS does not grant implementation authority; a separate explicit Human-approved implementation admission must be persisted before implementation_allowed may become true."
+    "candidate": "p2-context-fidelity-implementation",
+    "status": "ready",
+    "admission": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
+    "scope": "P2-CONTEXT-FIDELITY-SLICE",
+    "rule": "Implementation authority is limited to the exact admitted P2 Context-Fidelity slice. Merge and result acceptance are not authorized; any scope expansion must stop fail-closed."
   }
 }
