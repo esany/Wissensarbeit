@@ -113,7 +113,8 @@
         "prompt-blind-not-repository-blind",
         "isolated-fresh-context-probe-protocol",
         "oracle-isolated-operational-bundle",
-        "pre-oracle-trial-capture"
+        "pre-oracle-trial-capture",
+        "opaque-stimulus-only-routing-probes"
       ],
       "rationale": "WA-EVAL-031..033 remain visible regression cases only. Independent behavioral evidence must use stimulus-only opaque probes delivered through an isolated exact-revision operational bundle, with probe identifiers kept out of the accessible operational context and raw response persisted before oracle reveal. OH-03 remains a compatible open system-function hypothesis, not the preferred interpretation. No new Building Block, registry, authority class, priority or implementation authority is created."
     },
