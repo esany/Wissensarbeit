@@ -7,6 +7,9 @@
     "repository_revision",
     "context_mode",
     "accessible_context_paths",
+    "context_file_hashes",
+    "bundle_identity",
+    "instance_context",
     "fresh_instance",
     "external_repository_access",
     "prior_trial_access",
@@ -24,7 +27,10 @@
     "repository_revision": "exact 40-character Git SHA of the repository state used to build the isolated context bundle",
     "accessible_context_paths": "must be exactly the allowlisted operational paths in routing_fresh_context_stimuli_v1.json",
     "raw_response": "must preserve the tested instance response unchanged; JSON is preferred and probe_id must match when present",
-    "oracle_policy": "Oracle/expected outcome must not be repository-accessible or supplied to the tested instance before raw response persistence. Oracle reveal and grading happen only after capture."
+    "oracle_policy": "Oracle/expected outcome must not be repository-accessible or supplied to the tested instance before raw response persistence. Oracle reveal and grading happen only after capture.",
+    "context_file_hashes": "must cover exactly the allowlisted operational paths and record the SHA-256 of each file content in the rendered bundle",
+    "bundle_identity": "SHA-256 identity over probe_identity, repository_revision and ordered context_file_hashes; proves capture/bundle self-consistency, not external repository truth by itself",
+    "instance_context": "must record provider/product context, model/configuration where known, a session_or_run_id, and a fresh_context_declaration"
   },
-  "evidence_claim_boundary": "A valid capture record proves declared execution conditions and binds the response to a stimulus/revision. It does not by itself prove semantic correctness, true psychological freshness, or Human effectiveness; grading and qualitative review remain separate."
+  "evidence_claim_boundary": "A valid capture record proves internal stimulus/bundle/response integrity and records the declared execution conditions. It does not by itself prove semantic correctness, external repository truth, actual psychological freshness, absence of hidden system-level contamination, or Human effectiveness; independent grading/review remain separate."
 }
