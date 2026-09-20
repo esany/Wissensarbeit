@@ -2,11 +2,11 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-context-fidelity-result-review",
+    "id": "p2-context-fidelity-implementation",
     "next": [
       {
-        "id": "p2-context-fidelity-implementation",
-        "status": "ready",
+        "id": "p2-context-fidelity-result-review",
+        "status": "blocked",
         "depends_on": [
           "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
           "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02"
@@ -14,7 +14,7 @@
         "admission_ref": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
         "admission_id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
         "scope": "P2-CONTEXT-FIDELITY-SLICE",
-        "continuation": "needs-correction",
+        "continuation": "completed-correction",
         "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
         "implementation_pr": "github:esany/Wissensarbeit#39",
         "correction_scope": [
@@ -23,7 +23,10 @@
           "direct-regressions-for-these-two-findings",
           "integrate-pr39-implementation-candidate-with-current-main-without-reverting-newer-canonical-state"
         ],
-        "rule": "Only the two persisted NEEDS CORRECTION findings and their direct regressions/integration hygiene are executable under the existing Human Admission. Merge, result acceptance, PR #37 and P3/P4/P5 remain unauthorized."
+        "rule": "The admitted correction continuation is complete. No further implementation is authorized; merge and result acceptance remain unauthorized. The only next material gate is a fresh independent qualitative result re-review against the exact corrected PR #39 head.",
+        "blocked_by": "fresh-independent-qualitative-result-rereview",
+        "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+        "correction_head": "8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
       }
     ]
   },
@@ -64,10 +67,9 @@
   "allowed_actions": [
     "inspect",
     "persist evidence",
-    "implement",
     "complete"
   ],
-  "implementation_allowed": true,
+  "implementation_allowed": false,
   "route": "local-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -82,12 +84,13 @@
     "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
     "p2-context-fidelity-implementation": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
     "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
-    "p2-context-fidelity-result-review": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md"
+    "p2-context-fidelity-result-review": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
+    "p2-context-fidelity-correction": "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md"
   },
   "follow_up": {
-    "candidate": "p2-context-fidelity-implementation",
-    "status": "ready",
-    "continuation": "needs-correction",
+    "candidate": "p2-context-fidelity-result-review",
+    "status": "blocked",
+    "continuation": "completed-correction",
     "admission_ref": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
     "admission_id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
     "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
@@ -99,6 +102,8 @@
       "integrate-pr39-implementation-candidate-with-current-main-without-reverting-newer-canonical-state"
     ],
     "blocked_after_correction_until": "fresh-independent-qualitative-result-rereview",
-    "rule": "The existing admitted p2-context-fidelity-implementation step is reopened only for the two persisted correction findings. After correction and assurance, implementation authority must be closed again before fresh qualitative result re-review."
+    "rule": "Correction implementation under the existing Human Admission is complete and implementation authority is closed. After canonical promotion of this state candidate, the only material continuation is fresh independent qualitative result re-review of the exact corrected PR #39 head.",
+    "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+    "correction_head": "8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
   }
 }
