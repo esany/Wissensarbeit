@@ -601,7 +601,7 @@ These concerns are already substantially compatible with the confirmed P2 prefli
 
 ---
 
-## 10. Governing Objective tension
+## 10. Governing Objective tension and role-function separation
 
 Current wording:
 
@@ -611,32 +611,56 @@ Current Human clarification:
 
 - no assumption of correct domain terminology;
 - no assumption of technically correct solution language;
-- no assumption that the Owner can perform specialist domain/method/engineering analysis;
-- Human contributes purpose, experience, observations, constraints, values and material decisions.
+- no assumption that the Human can perform specialist domain/method/engineering analysis;
+- Human contributes purpose, experience, observations, constraints, values and material decisions;
+- the system is expected to identify, obtain and compose missing specialist competence where this is operationally necessary.
 
 Current disposition:
 
 **unresolved semantic interpretation / no silent edit**
 
-Three live hypotheses remain:
+The open question must be split into two different questions rather than treating all hypotheses as alternative definitions of one Owner role.
 
-1. the wording is compatible if “fachlich bzw. konzeptionell kompetent” means competence in purpose/problem experience rather than specialist analytical terminology;
-2. the wording materially overstates expected Owner competence and needs later Human-authorized refinement;
-3. **Human Problem Owner and system competence/orchestration function are distinct roles.** The Human retains purpose, meaning, constraints, priorities, risk/acceptance and material decision authority. The system reconstructs and operationalizes the situationally required domain, method, research, logical, technical and contextual competence through composition of existing capabilities.
+### A. Human Problem Owner semantics
 
-Hypothesis 3 is currently the strongest explanatory fit for the already-canonical combination of the Governing Objective, `system/competence.json` and `system/authority.json`, but it remains an **open interpretation**, not a normative rewrite.
+Question:
 
-Working terminology for the system-side role should avoid “Owner” because that could imply material meaning or decision authority. Candidate descriptive terms include **competence orchestration** or **systemic competence/orchestration function**. No canonical role name is selected here.
+> Which competence must the Human actually possess for the Governing Objective to remain valid?
 
-No new Building Block follows from this hypothesis. The function is currently best treated as a composition across existing owners, particularly:
+Two live hypotheses remain:
+
+- **OH-01:** “fachlich bzw. konzeptionell kompetent” can be read as competence in purpose, lived/problem experience, constraints and material meaning rather than specialist analytical terminology.
+- **OH-02:** the wording materially overstates expected Human competence and may require later Human-authorized refinement.
+
+No normative choice between OH-01 and OH-02 is made here.
+
+### B. Systemic competence/orchestration function
+
+Separate question:
+
+> Which domain, method, research, logical, technical, contextual and transdisciplinary competence must the system situationally detect, obtain, synthesize and orchestrate so the Human does not become the substitute specialist?
+
+**OH-03:** Human Problem Ownership and systemic competence/reasoning orchestration are distinct functions.
+
+Under this hypothesis:
+
+- the Human retains purpose, meaning, constraints, values, priorities, risk/acceptance and material-decision authority;
+- the system reconstructs context, detects required competence, researches when needed, composes specialist/method/technical perspectives, checks project fit and supports execution;
+- system competence does not inherit Human Authority merely because it supplies reasoning or specialist capability.
+
+OH-03 is currently the strongest explanatory fit for the already-canonical combination of the Governing Objective, `system/competence.json` and `system/authority.json`, but it remains an **open interpretation**, not a normative rewrite.
+
+Working terminology for the system-side function should avoid “Owner” because that could imply material meaning or decision authority. Candidate descriptive terms include **competence orchestration**, **reasoning/competence orchestration** or **systemic competence/orchestration function**. No canonical role name is selected here.
+
+No new Building Block follows from OH-03. The current composition hypothesis is:
 
 `BB-BOOTSTRAP + BB-CONTEXT + BB-COMPETENCE + BB-RESEARCH + BB-INTEGRATE + BB-ASSURE + BB-TRACE`
 
 This is a composition hypothesis to be tested through real work, not an architecture promotion.
 
-This tension does **not** block current P2 because the P2 contract already treats Human feedback as evidence rather than automatic semantic/solution authority.
+This role-model tension does **not** block current P2 because the P2 contract already treats Human feedback as evidence rather than automatic semantic/solution authority.
 
-A later normative Governing Objective or authority change requires an explicit Human decision brief.
+A later normative Governing Objective, authority or role change requires an explicit Human decision brief.
 
 ---
 
