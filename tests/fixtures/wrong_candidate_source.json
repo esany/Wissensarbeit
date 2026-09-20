@@ -1,0 +1,12 @@
+{
+  "snapshot": {
+    "planning_owner": "github:esany/Wissensarbeit#999",
+    "purpose": "Regression fixture: contains a real-looking OC-03 ID but is intentionally bound to the wrong planning owner."
+  },
+  "candidates": [
+    {
+      "id": "OC-03",
+      "name": "Wrong-source OC-03 regression fixture"
+    }
+  ]
+}

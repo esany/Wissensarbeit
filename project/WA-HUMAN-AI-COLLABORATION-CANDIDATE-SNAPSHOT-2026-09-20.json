@@ -1,0 +1,1169 @@
+{
+  "schema_version": "1.4",
+  "manifest_id": "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20",
+  "class": "immutable-candidate-activation-snapshot",
+  "purpose": "Provide stable machine-readable identities, evidence links, snapshot maturity and activation semantics for the seven peer Human-AI collaboration gaps without becoming a mutable planning registry or current-state clock.",
+  "snapshot": {
+    "canonical_main_before_snapshot": "b590523d31db5f82628d6e0d5182821501729906",
+    "planning_owner": "github:esany/Wissensarbeit#7",
+    "source_audit": "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+    "human_readable_plan": "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",
+    "source_pr": "github:esany/Wissensarbeit#37",
+    "implementation_allowed": false,
+    "p2_current_gate": "p2-implementation-admission",
+    "mutable_state": false,
+    "latest_candidate_update_reason": "Focused re-review evidence correction: visible WA-EVAL-031..033 are regression-only; strict blind routing evidence uses stimulus-only RP probes, an isolated Git-derived operational bundle, bundle identity, and raw-response capture before any oracle persistence."
+  },
+  "authority": {
+    "status": "candidate-evidence-only",
+    "numbering_rule": "OC number is stable identity only; it is not rank, phase, priority or sequence.",
+    "not_authority_for": [
+      "governing objective change",
+      "requirement promotion",
+      "architecture selection",
+      "priority change",
+      "implementation admission",
+      "implementation_allowed",
+      "programme cursor",
+      "P3/P4/P5 activation"
+    ],
+    "current_planning_and_execution_authority": [
+      "github:esany/Wissensarbeit#7",
+      "project/execution_state.json",
+      "project/reconciliation.json"
+    ],
+    "future_activation_rule": "A newly recognized material-state, failure or learning signal must first produce an explicit known-candidate routing result (match|no-match|uncertain-match) against persistent unresolved/activation-ready candidate evidence using fresh repository state. Only a matched candidate with a currently satisfied trigger may produce an activation candidate; that creates no priority, admission or implementation authority."
+  },
+  "evidence_maturity_levels": [
+    "declared",
+    "wired",
+    "executable",
+    "regression-protected",
+    "real-use-demonstrated",
+    "human-effective",
+    "robust-restartable"
+  ],
+  "evidence_maturity_rule": "Levels describe positive capability evidence, not severity or priority. Negative real-use evidence must not be converted into a higher positive maturity level.",
+  "activation_semantics": {
+    "activation_is_not_implementation_admission": true,
+    "invalid_activation_reasons": [
+      "candidate is old",
+      "candidate has a low maturity level",
+      "audit mentions the candidate",
+      "assistant finds the topic interesting",
+      "unrelated work completed",
+      "new technology appears"
+    ],
+    "potentially_valid_activation_reasons": [
+      "current real workflow encounters the gap",
+      "current admitted slice depends on the capability",
+      "existing promised requirement cannot be credibly met without it",
+      "negative real-use evidence makes continued deferral materially costly",
+      "new SOTA regulatory or safety evidence changes the material risk",
+      "Human Owner explicitly changes priority"
+    ],
+    "post_activation_default_sequence": [
+      "confirm-current-problem",
+      "read-fresh-state",
+      "competence-and-research",
+      "existing-owner-fit",
+      "compare-options",
+      "falsify",
+      "define-smallest-adequate-slice",
+      "resolve-acceptance-and-admission-boundary",
+      "implement-only-if-authorized"
+    ],
+    "activation_requires_known_candidate_routing": true,
+    "activation_authority_effect": "none"
+  },
+  "candidates": [
+    {
+      "id": "OC-01",
+      "name": "Human Role / Minimal Input / Intent Reconstruction",
+      "peer_axis": true,
+      "need": "The Human can communicate tersely, colloquially, symptom-first and with imperfect terminology without becoming the system's prompt engineer, domain analyst or repository orchestrator.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "project/audits/WA-AUDIT-2026-09-18-HUMAN-INTENT-SYMPTOM-DELTA.md",
+        "tests/evals/failure_corpus.json"
+      ],
+      "requirement_refs": [
+        "REQ-003",
+        "REQ-004",
+        "REQ-008"
+      ],
+      "building_block_refs": [
+        "BB-BOOTSTRAP",
+        "BB-INTEGRATE",
+        "BB-REQUIREMENTS",
+        "BB-LEARN"
+      ],
+      "quality_refs": [
+        "Q-XAI",
+        "Q-AUTO",
+        "Q-FIT",
+        "Q-COHERENCE"
+      ],
+      "risk_refs": [
+        "R-004",
+        "R-005",
+        "R-006",
+        "R-009",
+        "R-010"
+      ],
+      "failure_family_refs": [
+        "FF-EXECUTION-PROGRESS",
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-AUTHORITY-PROMOTION"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Material-state and Harvest contracts can preserve source role/authority candidates.",
+        "No end-to-end terse free-text intent reconstruction runtime is demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Current Human-AI collaboration chat required repeated reframing/correction.",
+        "FF-EXECUTION-PROGRESS explicitly records terse free-text intent reconstruction as an open gap."
+      ],
+      "uncertainties": [
+        "Exact boundary between safe reconstruction and Human clarification remains judgement-heavy.",
+        "Whether current Governing Objective owner wording is compatible with the clarified input model remains unresolved."
+      ],
+      "open_architecture_questions": [
+        "Whether intent reconstruction needs any persistent object beyond existing Material State / Context / Integration mechanisms."
+      ],
+      "dependencies_enablers": [
+        "current canonical context",
+        "authority boundary",
+        "material-state provenance"
+      ],
+      "activation_triggers": [
+        "A current admitted work item again requires the Human to provide derivable problem/context structure.",
+        "Terse Human input is materially misread after repository context reconstruction.",
+        "An admitted slice explicitly depends on intent reconstruction.",
+        "Human Owner explicitly prioritizes the capability."
+      ],
+      "non_activation_conditions": [
+        "A vague Human message exists.",
+        "The target maturity is low.",
+        "Unrelated work completes."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Human meaning/value/priority remains Human authority; reconstruction must not silently promote inferred meaning."
+    },
+    {
+      "id": "OC-02",
+      "name": "Context & Work Instruction Compilation",
+      "peer_axis": true,
+      "need": "The Human need not courier derivable context or construct expert execution prompts; the system should compile bounded work context/instructions from current state and intent.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "project/WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01-EVIDENCE.md",
+        "project/WA-P2-IMPLEMENTATION-ADMISSION-PROPOSAL-2026-09-19-01.md",
+        "tests/evals/failure_corpus.json"
+      ],
+      "requirement_refs": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-004",
+        "REQ-008",
+        "REQ-012"
+      ],
+      "building_block_refs": [
+        "BB-CONTEXT",
+        "BB-TRACE",
+        "BB-ASSURE"
+      ],
+      "quality_refs": [
+        "Q-RESTART",
+        "Q-TRACE",
+        "Q-XAI",
+        "Q-AUTO",
+        "Q-LEAN"
+      ],
+      "risk_refs": [
+        "R-001",
+        "R-007",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-EXECUTION-PROGRESS",
+        "FF-STATE-CONTINUITY",
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-FALSE-ASSURANCE"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "tools/work.py context() is executable but currently coarse/near-full.",
+        "Pilot context/token fixtures are regression-protected for simpler reference-set behavior.",
+        "P2 bounded-context semantics are independently preflight-confirmed but not implemented."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "High-quality work repeatedly depended on Human-supplied long meta-prompts.",
+        "Current context() does not accept/bind a Human work intent as a full Work Instruction compiler."
+      ],
+      "uncertainties": [
+        "A persistent Work Packet object may be unnecessary; object/storage form remains open."
+      ],
+      "open_architecture_questions": [
+        "How much Work Instruction compilation belongs in BB-CONTEXT versus composition across existing owners."
+      ],
+      "dependencies_enablers": [
+        "P2 bounded context/provenance is a direct subset/enabler, not the whole OC-02 capability."
+      ],
+      "activation_triggers": [
+        "After P2, material Human-authored meta-prompting remains necessary.",
+        "A later admitted workflow needs derivable work instructions or stop conditions.",
+        "Repeated work shows the same context/instruction compilation burden."
+      ],
+      "non_activation_conditions": [
+        "P2 preflight alone exists.",
+        "A single task can be handled adequately without persistent new machinery."
+      ],
+      "snapshot_work_state": "candidate-partially-overlapping-current-p2",
+      "authority_boundary": "P2 scope remains bounded; broader Work Instruction compilation requires separate activation and current-state validation."
+    },
+    {
+      "id": "OC-03",
+      "name": "Competence / Research / Uncertainty Routing",
+      "peer_axis": true,
+      "need": "The system identifies and obtains missing domain, method and technical competence and researches current evidence when warranted instead of using the Human as substitute specialist.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "system/competence.json",
+        "system/building_blocks.json"
+      ],
+      "requirement_refs": [
+        "REQ-005",
+        "REQ-006"
+      ],
+      "building_block_refs": [
+        "BB-COMPETENCE",
+        "BB-RESEARCH"
+      ],
+      "quality_refs": [
+        "Q-FIT",
+        "Q-DOMAIN",
+        "Q-TECH",
+        "Q-XAI"
+      ],
+      "risk_refs": [
+        "R-004",
+        "R-006",
+        "R-010"
+      ],
+      "failure_family_refs": [
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-SOLUTIONISM-BLOAT",
+        "FF-EXECUTION-PROGRESS"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Competence taxonomy and SOTA/fit semantics exist.",
+        "Task-triggered end-to-end competence/research routing is not demonstrated in the current operational core."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Human explicitly states they cannot and will not supply missing domain/technology expertise."
+      ],
+      "uncertainties": [
+        "Which task classes require automated research versus judgement-based routing."
+      ],
+      "open_architecture_questions": [
+        "Whether existing BB-COMPETENCE/BB-RESEARCH composition is sufficient without new orchestration structure."
+      ],
+      "dependencies_enablers": [
+        "current problem/work context",
+        "fresh external sources when material"
+      ],
+      "activation_triggers": [
+        "Material work depends on competence absent from current task context.",
+        "A current workflow cannot establish fit without SOTA/standards evidence.",
+        "Human is again asked to supply specialist knowledge the system can acquire."
+      ],
+      "non_activation_conditions": [
+        "Research is merely interesting but not material to current work."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Research can inform options and fit; Human/specialist authority remains separate where meaning, risk or critical expertise requires it."
+    },
+    {
+      "id": "OC-04",
+      "name": "Partial Automation / Function Allocation / Orchestration",
+      "peer_axis": true,
+      "need": "Real workflows are decomposed into appropriate deterministic, routine-automation, AI-judgement, specialist-judgement and Human-authority functions instead of being manually orchestrated through meta-prompts.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "github:esany/Wissensarbeit#35",
+        "github:esany/Wissensarbeit#28",
+        "system/authority.json"
+      ],
+      "requirement_refs": [
+        "REQ-004",
+        "REQ-008",
+        "REQ-011",
+        "REQ-013"
+      ],
+      "building_block_refs": [
+        "BB-CONTEXT",
+        "BB-INTEGRATE",
+        "BB-ASSURE",
+        "BB-TRACE",
+        "BB-OPERATE"
+      ],
+      "quality_refs": [
+        "Q-AUTO",
+        "Q-LEAN",
+        "Q-XAI",
+        "Q-COHERENCE"
+      ],
+      "risk_refs": [
+        "R-003",
+        "R-005",
+        "R-007",
+        "R-008",
+        "R-010"
+      ],
+      "failure_family_refs": [
+        "FF-EXECUTION-PROGRESS",
+        "FF-SYSTEMIC-DRIFT",
+        "FF-AUTHORITY-PROMOTION",
+        "FF-SOLUTIONISM-BLOAT"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Execution guard and CI assurance provide executable automation for bounded functions.",
+        "No generic end-to-end function-allocation/orchestration capability is demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "PR #35 review/correction/re-review required substantial derivable orchestration through Human/assistant-authored prompts."
+      ],
+      "uncertainties": [
+        "How generic a reusable orchestration protocol should be.",
+        "Whether repeated workflows justify any new orchestration abstraction beyond existing owners."
+      ],
+      "open_architecture_questions": [
+        "Protocol/workflow composition versus new dedicated orchestration mechanism remains open."
+      ],
+      "dependencies_enablers": [
+        "authority rule classes",
+        "bounded context",
+        "assurance/trace/reconciliation"
+      ],
+      "activation_triggers": [
+        "A material workflow repeatedly requires manual coordination of deterministic, judgement and Human-gate steps.",
+        "Another real workflow confirms generic-fit of the same burden.",
+        "Human Owner explicitly prioritizes automation of an already evidenced workflow.",
+        "An admitted capability requires coordinated multi-step execution."
+      ],
+      "non_activation_conditions": [
+        "PR #35 exists as an example but no current work requires orchestration changes.",
+        "A new workflow can be completed adequately without persistent orchestration machinery."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Automation may coordinate work but must not create priority, material acceptance or implementation authority."
+    },
+    {
+      "id": "OC-05",
+      "name": "Human Decision Context / Review Experience / XAI",
+      "peer_axis": true,
+      "need": "At material Human gates, the system automatically provides orientation, evidence, uncertainty, alternatives, consequences, reversibility, exact decision scope and drill-down trace without making the Human integrate repository state manually.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "system/decision_brief.json",
+        "github:esany/Wissensarbeit#6",
+        "project/CURRENT_STATE.md"
+      ],
+      "requirement_refs": [
+        "REQ-004",
+        "REQ-007",
+        "REQ-008",
+        "REQ-011"
+      ],
+      "building_block_refs": [
+        "BB-INTEGRATE",
+        "BB-ASSURE",
+        "BB-TRACE",
+        "BB-DERIVE"
+      ],
+      "quality_refs": [
+        "Q-XAI",
+        "Q-TRACE",
+        "Q-AUTO",
+        "Q-RESTART"
+      ],
+      "risk_refs": [
+        "R-001",
+        "R-004",
+        "R-005",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-FALSE-ASSURANCE",
+        "FF-AUTHORITY-PROMOTION",
+        "FF-STATE-CONTINUITY"
+      ],
+      "target_maturity_at_snapshot": "wired",
+      "component_evidence": [
+        "Decision Brief contract is referenced by Authority/Building Blocks and structurally validated.",
+        "Automatic end-to-end generation/delivery at a real material gate is not demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Human repeatedly requested more context, orientation and transparency.",
+        "CURRENT_STATE does not surface the current P2 admission gate as a complete decision-ready packet.",
+        "2026-09-20 real-use incident: a downstream reviewer transitioned into implementing its own material findings on PR #37; the resulting Review→Correction→Re-Review sequence began to recursively extend itself, showing that reviewer/writer role drift can contaminate an independence claim even when Git history remains linear."
+      ],
+      "uncertainties": [
+        "Exact Human-facing presentation/UI and progressive-disclosure implementation remain open."
+      ],
+      "open_architecture_questions": [
+        "Whether decision context is generated on demand from existing state or requires a dedicated derived artifact."
+      ],
+      "dependencies_enablers": [
+        "traceable evidence",
+        "reconciliation",
+        "decision brief semantics",
+        "bounded context/provenance"
+      ],
+      "activation_triggers": [
+        "A material Human gate again requires manual state reconstruction.",
+        "P2/result review or later work needs an automatic decision packet.",
+        "Issue #6 is explicitly activated by current planning."
+      ],
+      "non_activation_conditions": [
+        "A routine action requires no material Human decision."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Decision support must clarify Human authority, not replace it; readable summaries must preserve drill-down evidence and uncertainty."
+    },
+    {
+      "id": "OC-06",
+      "name": "Iterative Discovery / Error Culture / Operational Learning",
+      "peer_axis": true,
+      "need": "Failures, uncertainty and Human feedback remain visible and are converted into validated future behavior changes or explicit no-change/defer/reject dispositions.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "project/audits/WA-AUDIT-2026-09-19-DESIGN-PROJECT-DEVELOPMENT-METHOD-DELTA.md",
+        "tests/evals/failure_corpus.json"
+      ],
+      "requirement_refs": [
+        "REQ-003",
+        "REQ-006",
+        "REQ-011",
+        "REQ-013"
+      ],
+      "building_block_refs": [
+        "BB-LEARN",
+        "BB-DESIGN",
+        "BB-RESEARCH",
+        "BB-INTEGRATE"
+      ],
+      "quality_refs": [
+        "Q-FIT",
+        "Q-DOMAIN",
+        "Q-COHERENCE",
+        "Q-XAI"
+      ],
+      "risk_refs": [
+        "R-002",
+        "R-004",
+        "R-006",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-SYSTEMIC-DRIFT",
+        "FF-FALSE-ASSURANCE",
+        "FF-SOLUTIONISM-BLOAT"
+      ],
+      "target_maturity_at_snapshot": "wired",
+      "component_evidence": [
+        "Material-state persistence, audit deltas and failure-regression candidates exist.",
+        "Generic closure from observation through operational change to later effectiveness evidence is not demonstrated."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Current conversation required repeated correction without an existing automated learning closure.",
+        "2026-09-19 design-method audit identifies real iterative discovery/learning gaps."
+      ],
+      "uncertainties": [
+        "Which learning classes warrant deterministic regression versus judgement review.",
+        "How to measure later Human effectiveness without creating burdensome telemetry."
+      ],
+      "open_architecture_questions": [
+        "No new learning store is justified; use of existing failure corpus/material state versus future refinements remains open."
+      ],
+      "dependencies_enablers": [
+        "real use/failure evidence",
+        "material-state persistence",
+        "reconciliation and regression mechanisms"
+      ],
+      "activation_triggers": [
+        "Repeated feedback is persisted but does not alter future checks/workflow or receive explicit no-change disposition.",
+        "A real implementation result generates learning needing operational closure.",
+        "The design-method gap becomes necessary for current product/problem work."
+      ],
+      "non_activation_conditions": [
+        "A one-off non-material observation has no future consequence."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Learning may propose reframe/refinement; material requirement/domain/priority promotion remains controlled."
+    },
+    {
+      "id": "OC-07",
+      "name": "Cumulative Correction Fidelity / Interaction Continuity",
+      "peer_axis": true,
+      "need": "Multiple Human corrections accumulate into one still-valid working model; later corrections do not silently erase earlier valid constraints.",
+      "source_refs": [
+        "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
+        "system/material_state.json",
+        "github:esany/Wissensarbeit#5"
+      ],
+      "requirement_refs": [
+        "REQ-001",
+        "REQ-002",
+        "REQ-003",
+        "REQ-011"
+      ],
+      "building_block_refs": [
+        "BB-STATE",
+        "BB-CONTEXT",
+        "BB-INTEGRATE",
+        "BB-TRACE",
+        "BB-LEARN"
+      ],
+      "quality_refs": [
+        "Q-RESTART",
+        "Q-TRACE",
+        "Q-XAI",
+        "Q-COHERENCE",
+        "Q-DOMAIN"
+      ],
+      "risk_refs": [
+        "R-001",
+        "R-002",
+        "R-004",
+        "R-008",
+        "R-009"
+      ],
+      "failure_family_refs": [
+        "FF-STATE-CONTINUITY",
+        "FF-EPISTEMIC-INTEGRITY",
+        "FF-SYSTEMIC-DRIFT"
+      ],
+      "target_maturity_at_snapshot": "declared",
+      "component_evidence": [
+        "Cross-session persistence/harvest controls exist.",
+        "No dedicated demonstrated same-interaction cumulative correction mechanism/regression exists."
+      ],
+      "positive_real_use_evidence": [],
+      "negative_real_use_evidence": [
+        "Current conversation repeatedly incorporated the latest correction while dropping earlier peer concerns.",
+        "After the terminology distinction had already been corrected in the same conversation, the assistant again called a persistence/operationalization slice an iteration; the Human had to restore the semantic rule.",
+        "2026-09-20 real-use incident: a downstream reviewer transitioned into implementing its own material findings on PR #37; the resulting Review→Correction→Re-Review sequence began to recursively extend itself, showing that reviewer/writer role drift can contaminate an independence claim even when Git history remains linear."
+      ],
+      "uncertainties": [
+        "Whether correction/supersession semantics need explicit structure or can be reliably derived from existing material-state/trace mechanisms."
+      ],
+      "open_architecture_questions": [
+        "Exact relation between same-interaction correction chains, Harvest and future Work Packet/context compilation."
+      ],
+      "dependencies_enablers": [
+        "material-state provenance",
+        "context compilation",
+        "trace and learning"
+      ],
+      "activation_triggers": [
+        "The failure recurs in another representative task.",
+        "An admitted Work Packet/Harvest/Context change requires explicit correction-chain semantics.",
+        "Current work cannot remain faithful without correction/supersession handling.",
+        "Human Owner explicitly prioritizes the capability."
+      ],
+      "non_activation_conditions": [
+        "Current negative evidence is acknowledged but no current work depends on a correction mechanism."
+      ],
+      "snapshot_work_state": "candidate-not-active",
+      "authority_boundary": "Correction fidelity preserves Human statements and their relations; it must not infer that every later statement supersedes earlier intent."
+    }
+  ],
+  "p2_impact": {
+    "OC-01": "compatibility-semantic-constraint-only",
+    "OC-02": "direct-bounded-context-subset-now-broader-capability-later",
+    "OC-03": "compatibility-and-later",
+    "OC-04": "later-with-p2-as-potential-enabler",
+    "OC-05": "compatibility-and-result-review-relevance",
+    "OC-06": "result-review-relevance-and-later",
+    "OC-07": "compatibility-and-later"
+  },
+  "unresolved": [
+    "Interpretation of the Governing Objective phrase fachlich bzw. konzeptionell kompetent remains open across OH-01/OH-02/OH-03; no normative role rewrite has been authorized.",
+    "Whether any future axis requires a new Building Block after existing-owner fit is tested with real work.",
+    "Whether repeated future activation creates enough burden to justify a mutable machine-readable registry.",
+    "Whether a persistent Work Packet object is needed or work instructions can remain derived."
+  ],
+  "non_promotions": [
+    "no requirement change",
+    "no building block change",
+    "no lifecycle change",
+    "no priority change",
+    "no execution cursor change",
+    "no implementation admission",
+    "no P2 scope expansion",
+    "no P3/P4/P5 activation"
+  ],
+  "work_type_semantics": {
+    "status": "candidate-semantic-contract-pending-independent-qualitative-review",
+    "purpose": "Prevent generic use of 'iteration' and bind each work-type label to its actual evidence, authority, staleness and follow-up consequences.",
+    "core_rule": "Classify work by actual function and consequence. A bounded unit of work is not automatically an iteration. Compound workflows should be represented as compositions of typed steps.",
+    "types": [
+      {
+        "id": "WT-01",
+        "name": "iteration",
+        "definition": "Genuine learning/development cycle: starting hypothesis/state -> intervention/attempt -> evidence/result -> learning -> changed next state.",
+        "required_evidence": [
+          "starting hypothesis/state or question",
+          "intervention/attempt",
+          "evidence/result",
+          "learning",
+          "changed next state"
+        ],
+        "may_cause": [
+          "refine/reframe/supersede a hypothesis or candidate",
+          "new uncertainty",
+          "later planning/admission proposal",
+          "validated learning"
+        ],
+        "does_not_imply": [
+          "Human acceptance",
+          "promotion",
+          "implementation admission",
+          "merge",
+          "success",
+          "requirement change"
+        ],
+        "staleness_effect": "none intrinsic; evidence generated by the iteration may invalidate earlier hypotheses/assumptions."
+      },
+      {
+        "id": "WT-02",
+        "name": "preflight",
+        "definition": "Bounded check whether a later proposed slice is sufficiently specified, evidenced, owner-aligned and safe enough to consider for admission/execution.",
+        "required_evidence": [
+          "proposed later scope",
+          "owners/requirements/authority",
+          "risks/uncertainties",
+          "falsification/stop conditions",
+          "smallest credible candidate",
+          "residuals"
+        ],
+        "may_cause": [
+          "PASS/FAIL/NEEDS CORRECTION/INSUFFICIENT EVIDENCE",
+          "refinement of proposed slice",
+          "recommendation that admission may be considered"
+        ],
+        "does_not_imply": [
+          "implementation start",
+          "implementation permission",
+          "merge",
+          "promotion",
+          "result acceptance"
+        ],
+        "staleness_effect": "material target/scope change can invalidate the preflight."
+      },
+      {
+        "id": "WT-03",
+        "name": "review",
+        "definition": "Qualitative assessment of an exact concrete state against stated semantic, quality and authority criteria.",
+        "required_evidence": [
+          "exact target/revision",
+          "review scope",
+          "criteria/owners",
+          "findings/uncertainty",
+          "verdict"
+        ],
+        "may_cause": [
+          "CONFIRM",
+          "NEEDS CORRECTION",
+          "INSUFFICIENT EVIDENCE",
+          "support or block later authority consideration"
+        ],
+        "does_not_imply": [
+          "promotion",
+          "admission",
+          "implementation success",
+          "Human acceptance unless explicitly performed by the Human authority holder"
+        ],
+        "staleness_effect": "a material post-review change makes the prior verdict insufficient for the changed state until its delta is assessed."
+      },
+      {
+        "id": "WT-04",
+        "name": "re-review",
+        "definition": "Review after correction/change, normally focused on closing prior findings and detecting correction-induced problems within the agreed boundary.",
+        "required_evidence": [
+          "prior review/verdict",
+          "exact corrected target/revision",
+          "prior findings",
+          "correction delta",
+          "focused review scope"
+        ],
+        "may_cause": [
+          "close/retain findings",
+          "identify correction-induced problems",
+          "updated verdict for exact reviewed state"
+        ],
+        "does_not_imply": [
+          "fresh review of unrelated scope",
+          "promotion",
+          "admission",
+          "merge authority"
+        ],
+        "staleness_effect": "verdict is revision-bound; later material delta requires another assessment."
+      },
+      {
+        "id": "WT-05",
+        "name": "correction",
+        "definition": "Targeted change in response to an identified finding, failure or discrepancy.",
+        "required_evidence": [
+          "triggering finding/failure",
+          "correction boundary",
+          "actual delta",
+          "relevant unchanged/non-target areas"
+        ],
+        "may_cause": [
+          "artifact change",
+          "invalidate affected prior assurance/review evidence",
+          "trigger re-assurance/re-review"
+        ],
+        "does_not_imply": [
+          "finding closed",
+          "acceptance",
+          "scope expansion"
+        ],
+        "staleness_effect": "formal/qualitative evidence bound to the old changed revision must not be reused as if it covered the new revision."
+      },
+      {
+        "id": "WT-06",
+        "name": "promotion",
+        "definition": "Authority transition by which a reviewed/accepted candidate state becomes canonical or accepted project state.",
+        "required_evidence": [
+          "exact candidate state",
+          "required assurance/review",
+          "applicable authority decision",
+          "material consequences",
+          "reconciliation requirement"
+        ],
+        "may_cause": [
+          "canonical state change",
+          "candidate becomes promoted/accepted",
+          "derived/current-state refresh"
+        ],
+        "does_not_imply": [
+          "implementation admission for a different/later slice",
+          "unrelated result acceptance",
+          "priority change unless explicitly decided"
+        ],
+        "authority_created": "canonicalization/acceptance authority for the exact promoted artifact/state",
+        "staleness_effect": "material promotion requires systemic reconciliation before a fully integrated-state claim."
+      },
+      {
+        "id": "WT-07",
+        "name": "admission",
+        "definition": "Authority transition permitting a specifically bounded next action or implementation slice that was previously unauthorized.",
+        "required_evidence": [
+          "exact admitted scope",
+          "preconditions/dependencies",
+          "explicit authority",
+          "stop conditions",
+          "excluded scope",
+          "persisted admission"
+        ],
+        "may_cause": [
+          "admitted action becomes executable",
+          "implementation permission changes only where canonical execution contract binds it"
+        ],
+        "does_not_imply": [
+          "implementation success",
+          "merge",
+          "result acceptance",
+          "adjacent scope permission",
+          "promotion of later findings"
+        ],
+        "authority_created": "permission to perform the exact admitted action/slice",
+        "staleness_effect": "scope outside the admitted boundary remains unauthorized."
+      },
+      {
+        "id": "WT-08",
+        "name": "reconciliation",
+        "definition": "Systemic alignment of wider project state around/after a material change so required impact surfaces are explicitly dispositioned.",
+        "required_evidence": [
+          "material change ref",
+          "required impact surfaces",
+          "impacted objects",
+          "dispositions/rationales",
+          "cursor impact",
+          "unresolved conflicts"
+        ],
+        "may_cause": [
+          "systemic integration claim when complete",
+          "surface conflicts/decisions",
+          "block integration claim when incomplete"
+        ],
+        "does_not_imply": [
+          "new priority",
+          "new scope",
+          "promotion",
+          "admission",
+          "semantic correctness of underlying decision"
+        ],
+        "staleness_effect": "new material changes require fresh impact assessment/reconciliation as applicable."
+      },
+      {
+        "id": "WT-09",
+        "name": "persistence-operationalization-slice",
+        "definition": "Bounded work unit externalizing findings, intent, planning semantics, activation rules or material state so future work can reconstruct/use it reliably.",
+        "required_evidence": [
+          "persisted subject",
+          "source/intent provenance",
+          "materiality",
+          "authority status",
+          "later enablement",
+          "explicit non-authorizations",
+          "coverage/omission where material"
+        ],
+        "may_cause": [
+          "material knowledge leaves chat-only state",
+          "restart/activation becomes possible",
+          "candidate structure becomes inspectable/machine-readable",
+          "traceability improves"
+        ],
+        "does_not_imply": [
+          "requirement acceptance",
+          "priority",
+          "activation",
+          "admission",
+          "implementation",
+          "successful operational capability"
+        ],
+        "staleness_effect": "later evidence may supersede/refine the snapshot; the snapshot remains historical evidence rather than a mutable current-state clock."
+      },
+      {
+        "id": "WT-10",
+        "name": "implementation-slice",
+        "definition": "Concrete implementation work inside an already permitted bounded scope.",
+        "required_evidence": [
+          "authorized/admitted scope where material",
+          "implementation delta",
+          "tests/assurance",
+          "residuals",
+          "result review/reconciliation as required"
+        ],
+        "may_cause": [
+          "executable behavior changes",
+          "new result evidence",
+          "later review/learning"
+        ],
+        "does_not_imply": [
+          "correctness",
+          "Human effectiveness",
+          "acceptance",
+          "merge",
+          "promotion",
+          "iteration"
+        ],
+        "staleness_effect": "result evidence is bound to the implemented revision; subsequent material changes require renewed assurance/review."
+      }
+    ],
+    "cross_type_invariants": [
+      "Review CONFIRM does not equal Promotion.",
+      "Promotion does not equal Implementation Admission.",
+      "Admission does not equal Implementation Result Acceptance.",
+      "CI PASS does not equal qualitative Review CONFIRM.",
+      "Reconciliation PASS does not equal Domain Truth or Human Acceptance.",
+      "Persistence does not equal Priority.",
+      "Implementation does not equal Iteration.",
+      "Correction does not equal Closed Finding.",
+      "Independent Review/Re-Review evidence cannot be claimed by an instance after that same instance materially implements the correction under review; a role change is allowed, but independent confirmation then requires a fresh reviewer on the new exact revision."
+    ],
+    "classification_order": [
+      "learning-through-evidence-and-changed-next-state => iteration",
+      "later-slice-sufficiency/admissibility-check => preflight",
+      "qualitative-judgement-of-concrete-state => review/re-review",
+      "targeted-change-due-to-finding => correction",
+      "authority-transition => distinguish promotion from admission",
+      "system-wide-impact-alignment => reconciliation",
+      "restartable-externalization => persistence-operationalization-slice",
+      "build/change-within-authorized-scope => implementation-slice"
+    ],
+    "ambiguity_rule": "If multiple functions occur, model a composition of typed steps. If still uncertain, preserve uncertainty and use the narrower non-authority interpretation until the actual consequence is resolved.",
+    "completion_report_fields": [
+      "work_type",
+      "exact_target_scope",
+      "evidence_produced",
+      "authority_gained_if_any",
+      "evidence_staled_if_any",
+      "required_next_gate",
+      "explicit_non_consequences"
+    ],
+    "human_explanation_fields": [
+      "what kind of step this was",
+      "why that type fits",
+      "what changed",
+      "what did not change",
+      "what authority was created if any",
+      "which evidence remains valid or became stale",
+      "next real gate",
+      "whether Human action is required and why"
+    ],
+    "independence_boundary": {
+      "status": "candidate-semantic-refinement-from-real-use",
+      "applies_to": [
+        "WT-03",
+        "WT-04",
+        "WT-05",
+        "OC-05",
+        "OC-07"
+      ],
+      "real_use_evidence": "2026-09-20 real-use incident: a downstream reviewer transitioned into implementing its own material findings on PR #37; the resulting Review→Correction→Re-Review sequence began to recursively extend itself, showing that reviewer/writer role drift can contaminate an independence claim even when Git history remains linear.",
+      "rules": [
+        "A reviewer may transition into Correction work, but after a material write its later assessment of that correction is not independent review evidence.",
+        "Independent confirmation after material self-correction requires a fresh reviewer bound to the new exact revision.",
+        "A reviewer claiming independent evidence should be read-only for the reviewed target revision; a material write changes the role and makes the prior verdict stale for the changed revision.",
+        "Sequential use of the same branch is allowed; independence is an evidence/provenance property, not a branch-topology requirement."
+      ],
+      "non_effects": [
+        "no new lifecycle stage",
+        "no new authority class",
+        "no new Building Block",
+        "no permanent reviewer role",
+        "no automatic promotion or admission consequence"
+      ]
+    }
+  },
+  "known_candidate_routing": {
+    "contract_ref": "system/material_state.json#known_candidate_routing",
+    "operational_owner": "BB-INTEGRATE + current planning owner",
+    "current_planning_owner": "github:esany/Wissensarbeit#7",
+    "runtime_validation_path": "python tools/work.py integrate <packet>",
+    "outcomes": [
+      "match",
+      "no-match",
+      "uncertain-match"
+    ],
+    "chain": [
+      "recognized-material/failure/learning-signal",
+      "resolve-current-planning-source",
+      "inspect-persistent-known-candidate-evidence",
+      "record-match|no-match|uncertain-match",
+      "for-match-rebind-original-evidence-to-fresh-state",
+      "evaluate-current-trigger",
+      "create-activation-candidate-only-if-match-and-trigger-satisfied",
+      "problem-validation/preflight",
+      "admission-if-authorized",
+      "implementation-if-authorized"
+    ],
+    "authority_boundary": "Routing and activation-candidate creation are operational dispositions only. They do not create priority, promotion, admission, implementation authority or implementation_allowed.",
+    "falsification_cases": [
+      {
+        "id": "RF-01",
+        "signal": "Human again has to provide a long expert/meta-prompt or manually orchestrate derivable work context.",
+        "must_consider": [
+          "OC-02",
+          "OC-04"
+        ],
+        "expected": "explicit routing; do not blindly create a novel problem without checking prior candidate evidence"
+      },
+      {
+        "id": "RF-02",
+        "signal": "A still-valid earlier Human correction is lost again.",
+        "must_consider": [
+          "OC-07"
+        ],
+        "expected": "explicit routing against OC-07 and current trigger evaluation"
+      },
+      {
+        "id": "RF-03",
+        "signal": "The Human is again asked to supply missing specialist expertise that the system could obtain or route.",
+        "must_consider": [
+          "OC-03"
+        ],
+        "expected": "explicit routing against OC-03 and current trigger evaluation"
+      },
+      {
+        "id": "RF-04",
+        "signal": "The Human again has to reconstruct decision/review context across repository state.",
+        "must_consider": [
+          "OC-05"
+        ],
+        "expected": "explicit routing against OC-05 and current trigger evaluation"
+      },
+      {
+        "id": "RF-05",
+        "signal": "A material signal fits no persistent known candidate after fresh-state inspection.",
+        "expected_status": "no-match",
+        "activation_candidate": false,
+        "authority_effect": "none"
+      },
+      {
+        "id": "RF-06",
+        "signal": "A material signal plausibly overlaps a known candidate but the match is not established.",
+        "expected_status": "uncertain-match",
+        "activation_candidate": false,
+        "authority_effect": "none"
+      },
+      {
+        "id": "RF-07",
+        "signal": "A known candidate matches but its current activation trigger is not satisfied.",
+        "expected_status": "match",
+        "trigger_status": "not-satisfied",
+        "activation_candidate": false,
+        "authority_effect": "none"
+      },
+      {
+        "id": "RF-08",
+        "signal": "A known candidate matches and its current activation trigger is satisfied.",
+        "expected_status": "match",
+        "trigger_status": "satisfied",
+        "activation_candidate": true,
+        "authority_effect": "none"
+      }
+    ],
+    "required_runtime_fields": [
+      "planning_source_ref",
+      "candidate_source_refs",
+      "candidate_evidence_refs",
+      "matched_candidate_refs",
+      "fresh_state_refs",
+      "repository_revision_ref"
+    ],
+    "deterministic_provenance_checks": [
+      "planning_source_ref equals project/execution_state.json planning_source",
+      "candidate_source_refs includes planning_source_ref",
+      "candidate_evidence_refs are existing Git-persisted repository JSON files included in candidate_source_refs",
+      "each candidate evidence source is explicitly bound to the current planning source",
+      "matched candidate IDs exist in candidate evidence bound to the current planning source",
+      "fresh_state_refs include existing Git-persisted project/execution_state.json and project/reconciliation.json",
+      "repository_revision_ref equals the exact checked-out Git revision used for the routing decision"
+    ],
+    "judgement_boundary": "Deterministic provenance checks prove source existence, Git persistence, current planning-owner binding, candidate-ID addressability and exact-revision freshness. They do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require independent fresh-context/real-use evidence.",
+    "fresh_context_probe": {
+      "status": "oracle-visibility-correction-applied-independent-execution-pending",
+      "visible_regression_cases": [
+        "WA-EVAL-031",
+        "WA-EVAL-032",
+        "WA-EVAL-033"
+      ],
+      "visible_regression_boundary": "These cases remain useful deterministic regressions but are not valid independent blind evidence because their expect fields are repository-visible.",
+      "stimulus_only_probe_ref": "tests/probes/routing_fresh_context_stimuli_v1.json",
+      "trial_contract_ref": "tests/probes/fresh_context_trial_contract.json",
+      "bundle_renderer": "python tools/eval_integrity.py render-probe-bundle <probe_id>",
+      "execution_boundary": "The tested instance must receive only the rendered isolated operational bundle; full repository/eval access, prior trial access and oracle access are disallowed during the trial.",
+      "sequence": [
+        "freeze exact repository revision",
+        "render isolated bundle plus one stimulus",
+        "run a fresh instance with no repository/eval/oracle access beyond the bundle",
+        "persist raw response and trial capture unchanged",
+        "only then reveal/persist the separately held oracle",
+        "grade and qualitatively review"
+      ],
+      "evidence_boundary": "Probe definition and capture-integrity checks do not prove semantic correctness or Human effectiveness. No fresh-context capability claim is allowed before an independently produced capture is persisted and reviewed.",
+      "identifier_boundary": "Opaque probe identifiers exist only in the stimulus-only probe artifact and the rendered trial bundle; they are not repeated in the operational context supplied to the tested instance.",
+      "probe_definition_ref": "tests/probes/routing_fresh_context_stimuli_v1.json",
+      "identity_exposure_rule": "Individual opaque probe identifiers must not appear in any operational context file supplied to the tested instance."
+    },
+    "strict_blind_probe": {
+      "status": "pre-oracle-independent-execution-pending",
+      "protocol_ref": "project/WA-PR37-BLIND-ROUTING-PROBE-PROTOCOL-2026-09-20.md",
+      "stimulus_ref": "tests/probes/routing_fresh_context_stimuli_v1.json",
+      "trial_contract_ref": "tests/probes/fresh_context_trial_contract.json",
+      "renderer": "python tools/eval_integrity.py render-probe-bundle <probe_id>",
+      "trial_validator": "python tools/eval_integrity.py validate-probe-trial <record>",
+      "context_mode": "isolated-repository-bundle",
+      "controls": [
+        "stimulus-only definitions contain no oracle-like fields or OC identifiers",
+        "accessible context is an explicit operational allowlist excluding tests and tools",
+        "accessible context content is read from Git at the exact repository revision rather than from mutable working-tree files",
+        "accessible context must not contain the opaque probe identifier or exact probe stimulus",
+        "bundle manifest hashes every accessible context file plus instructions and stimulus",
+        "bundle_identity binds the capture to that concrete manifest",
+        "fresh instance has no external repository, prior-trial or oracle access",
+        "raw response is persisted unchanged before any oracle reveal"
+      ],
+      "evidence_boundary": "Passing deterministic integrity validation proves the declared capture is bound to a concrete isolated bundle and respects the encoded access boundary. It does not grade semantic routing correctness or prove Human effectiveness.",
+      "promotion_gate": "Do not claim strict blind routing behavior demonstrated, or PR #37 promotion-ready on that basis, until independent RP probe responses are persisted pre-oracle and then graded/reviewed."
+    }
+  },
+  "owner_model_hypotheses": {
+    "status": "open-interpretation-no-normative-rewrite",
+    "governing_objective_ref": "project/GOVERNING_OBJECTIVE.md",
+    "hypotheses": [
+      {
+        "id": "OH-01",
+        "statement": "fachlich bzw. konzeptionell kompetent can be read as competence in purpose/problem experience rather than specialist analytical terminology.",
+        "authority_effect": "none"
+      },
+      {
+        "id": "OH-02",
+        "statement": "The current wording materially overstates expected Human Problem Owner competence and may require later Human-authorized refinement.",
+        "authority_effect": "none"
+      },
+      {
+        "id": "OH-03",
+        "statement": "Human Problem Owner and system competence/orchestration function are distinct: the Human retains purpose, meaning, constraints, priorities, risk/acceptance and material-decision authority, while the system reconstructs and operationalizes situational domain, method, research, logical, technical and contextual competence.",
+        "existing_owner_composition": [
+          "BB-BOOTSTRAP",
+          "BB-CONTEXT",
+          "BB-COMPETENCE",
+          "BB-RESEARCH",
+          "BB-INTEGRATE",
+          "BB-ASSURE",
+          "BB-TRACE"
+        ],
+        "naming_boundary": "Do not call the system-side function an Owner in canonical authority semantics unless later Human-authorized analysis establishes that wording; competence orchestration/systemic orchestration are descriptive candidates only.",
+        "authority_effect": "none",
+        "architecture_effect": "composition-hypothesis-only-no-new-building-block"
+      }
+    ],
+    "normative_change_requires": "explicit Human decision brief and existing authority boundary"
+  },
+  "owner_role_model": {
+    "status": "open-interpretation-no-normative-rewrite",
+    "question_a_human_problem_owner_semantics": {
+      "question": "Which competence must the Human actually possess for the Governing Objective to remain valid?",
+      "hypotheses": [
+        "OH-01",
+        "OH-02"
+      ],
+      "authority_boundary": "Any normative change to Governing Objective or Human role semantics requires the existing Human decision authority."
+    },
+    "question_b_systemic_competence_function": {
+      "question": "Which domain, method, research, logical, technical, contextual and transdisciplinary competence must the system situationally detect, obtain, synthesize and orchestrate?",
+      "hypothesis": "OH-03",
+      "human_authority_retained": [
+        "purpose",
+        "meaning",
+        "constraints",
+        "values",
+        "priorities",
+        "risk acceptance",
+        "material acceptance",
+        "material decisions"
+      ],
+      "system_function_candidate": [
+        "context reconstruction",
+        "competence detection",
+        "research",
+        "specialist/method/technical synthesis",
+        "project-fit assessment",
+        "execution support"
+      ],
+      "authority_boundary": "System competence/orchestration does not inherit Human Authority.",
+      "architecture_boundary": "Existing-owner composition hypothesis only; no new Building Block or canonical role name is promoted."
+    }
+  }
+}

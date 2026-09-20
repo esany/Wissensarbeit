@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.1",
+  "purpose": "Minimal integrity contract for independent fresh-context routing probe evidence.",
+  "capture_required_fields": [
+    "probe_id",
+    "probe_identity",
+    "repository_revision",
+    "context_mode",
+    "accessible_context_paths",
+    "context_file_hashes",
+    "bundle_identity",
+    "instance_context",
+    "fresh_instance",
+    "external_repository_access",
+    "prior_trial_access",
+    "oracle_access",
+    "raw_response",
+    "response_captured_before_oracle_reveal",
+    "bundle_manifest"
+  ],
+  "rules": {
+    "context_mode": "isolated-repository-bundle",
+    "fresh_instance": true,
+    "external_repository_access": false,
+    "prior_trial_access": false,
+    "oracle_access": false,
+    "response_captured_before_oracle_reveal": true,
+    "repository_revision": "exact 40-character Git SHA used by the renderer; operational context contents are read from Git at that revision, not from mutable working-tree files",
+    "accessible_context_paths": "must be exactly the allowlisted operational paths in routing_fresh_context_stimuli_v1.json",
+    "raw_response": "must preserve the tested instance response unchanged; JSON is preferred and probe_id must match when present",
+    "oracle_policy": "Oracle/expected outcome must not be repository-accessible or supplied to the tested instance before raw response persistence. Oracle reveal and grading happen only after capture.",
+    "context_file_hashes": "must cover exactly the allowlisted operational paths and record the SHA-256 of each file content in the rendered bundle",
+    "bundle_identity": "must equal the SHA-256 identity of bundle_manifest; this binds the captured response to the concrete delivered bundle rather than only to a declared revision/path list",
+    "instance_context": "must record provider/product context, model/configuration where known, a session_or_run_id, and a fresh_context_declaration",
+    "bundle_manifest": "must be the manifest returned by the isolated probe renderer: exact probe/stimulus identity, exact repository revision, exact operational allowlist, and SHA-256 hashes of every accessible context file plus instructions/stimulus"
+  },
+  "evidence_claim_boundary": "A valid capture record binds the raw response to a stimulus and concrete Git-derived isolated bundle and records declared independence conditions. It still does not prove semantic correctness, psychological freshness, or Human effectiveness; later oracle grading and qualitative review remain separate."
+}

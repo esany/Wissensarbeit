@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.2",
   "purpose": "Prevent material project state from remaining exclusively in chat or an execution environment after it has been recognized as material.",
   "principle": "Exploration may remain conversational; recognized material state must be externalized before a continuity boundary. Persistence does not imply canonical promotion.",
   "materiality_detection": {
@@ -32,19 +32,112 @@
       "uncertainty",
       "persistent_action"
     ],
-    "allowed_dispositions": ["duplicate", "refine", "conflict", "new", "project-specific", "generic", "defer", "reject", "no-change"],
-    "persistent_action_types": ["issue", "issue-comment", "pr", "file", "commit", "external-case-ref", "no_change"],
+    "allowed_dispositions": [
+      "duplicate",
+      "refine",
+      "conflict",
+      "new",
+      "project-specific",
+      "generic",
+      "defer",
+      "reject",
+      "no-change"
+    ],
+    "persistent_action_types": [
+      "issue",
+      "issue-comment",
+      "pr",
+      "file",
+      "commit",
+      "external-case-ref",
+      "no_change"
+    ],
     "promotion_rule": "Externalization records a candidate, finding, decision need or no-change. It must not silently promote material state to canonical truth."
   },
-  "continuity_boundaries": ["handoff", "archive", "session_end", "environment_switch", "context_compaction"],
+  "continuity_boundaries": [
+    "handoff",
+    "archive",
+    "session_end",
+    "environment_switch",
+    "context_compaction"
+  ],
   "fail_closed": {
     "class": "deterministic",
     "rule": "At a continuity boundary, every item with materiality=material must have persistence_status=persisted and a valid persistent_action.",
-    "terminal_statuses": ["persisted", "non-material"],
-    "blocking_statuses": ["unpersisted", "persistence-failed", "unknown"]
+    "terminal_statuses": [
+      "persisted",
+      "non-material"
+    ],
+    "blocking_statuses": [
+      "unpersisted",
+      "persistence-failed",
+      "unknown"
+    ]
   },
   "authority_boundary": {
-    "automatic": ["detect candidate materiality", "structure candidate", "compare against known canonical refs", "persist candidate/finding/no-change", "check boundary completeness"],
-    "requires_material_authority": ["accept requirement", "accept decision", "change governing objective", "change domain meaning", "change priority or risk acceptance"]
+    "automatic": [
+      "detect candidate materiality",
+      "structure candidate",
+      "compare against known canonical refs",
+      "persist candidate/finding/no-change",
+      "check boundary completeness",
+      "record known-candidate routing disposition"
+    ],
+    "requires_material_authority": [
+      "accept requirement",
+      "accept decision",
+      "change governing objective",
+      "change domain meaning",
+      "change priority or risk acceptance"
+    ]
+  },
+  "known_candidate_routing": {
+    "class": "procedural_with_judgement",
+    "owner": "BB-INTEGRATE_with_current_planning_owner",
+    "applies_when": "A recognized material-state, failure or learning candidate is being integrated or considered for new planning/work.",
+    "candidate_source_rule": "Resolve the current planning source from repository state. Candidate evidence must be Git-persisted repository evidence explicitly bound to that planning source, and matched candidate IDs must be addressable inside that evidence. Semantic match/search-space completeness remain judgement; do not rely on chat memory and do not require the Human to name the candidate.",
+    "required_outcomes": [
+      "match",
+      "no-match",
+      "uncertain-match"
+    ],
+    "required_fields": [
+      "status",
+      "planning_source_ref",
+      "candidate_source_refs",
+      "candidate_evidence_refs",
+      "matched_candidate_refs",
+      "rationale",
+      "fresh_state_refs",
+      "repository_revision_ref",
+      "trigger_status",
+      "activation_candidate",
+      "authority_effect"
+    ],
+    "trigger_statuses": [
+      "satisfied",
+      "not-satisfied",
+      "uncertain",
+      "not-applicable"
+    ],
+    "rules": [
+      "Every applicable routing decision must be explicit; silence is not a no-match.",
+      "no-match must preserve an explicit rationale and must not manufacture a new candidate merely to avoid the no-match result.",
+      "uncertain-match must remain uncertain and must not create an activation candidate automatically.",
+      "match must bind the earlier candidate evidence to the current planning source and exact repository revision before the current activation trigger is evaluated.",
+      "Candidate evidence existence, Git persistence, planning-owner binding, candidate-ID addressability and repository-revision freshness are deterministic checks; semantic overlap and search-space completeness remain judgement.",
+      "activation_candidate may be true only when status=match and trigger_status=satisfied.",
+      "A satisfied matched trigger produces at most an activation candidate; it does not create priority, promotion, admission, implementation authority or implementation_allowed.",
+      "A matched candidate with a not-satisfied or uncertain trigger remains inactive."
+    ],
+    "provenance_rules": [
+      "planning_source_ref must equal the current project/execution_state.json planning_source.",
+      "candidate_source_refs must include planning_source_ref and every repository candidate-evidence file used for the routing judgement.",
+      "candidate_evidence_refs must identify existing repository JSON evidence files whose candidate IDs can be checked deterministically.",
+      "Every matched_candidate_ref must exist in at least one referenced candidate-evidence file.",
+      "fresh_state_refs must include the current project/execution_state.json and project/reconciliation.json repository files.",
+      "Reference existence and planning-source binding are deterministic checks; semantic search-space completeness and material overlap remain judgement and must not be represented as deterministic proof."
+    ],
+    "fresh_state_rule": "Routing must bind the evidence decision to the exact checked-out repository revision via repository_revision_ref. fresh_state_refs must be existing Git-tracked repository files used at that revision; a free-form path string is not sufficient freshness evidence."
   }
 }
