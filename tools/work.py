@@ -444,7 +444,7 @@ def context() -> dict:
         "building_blocks": load(BUILDING_BLOCKS),
         "material_state": load(MATERIAL_STATE),
         "reconciliation": load(RECONCILIATION_PACKET),
-        "instruction": "Treat compiled repository state as authoritative over chat memory. Material changes must be reconciled against the whole project state before being described as systemically integrated. For a recognized material-state, failure or learning signal, use the current planning source and persistent candidate evidence to record known_candidate_routing as match, no-match or uncertain-match before treating it as novel work or activation. Automate routine work; retain existing material authority gates.",
+        "instruction": "Treat compiled repository state as authoritative over chat memory. Material changes must be reconciled against the whole project state before being described as systemically integrated. For a recognized material-state, failure or learning signal, use the current planning source and persistent candidate evidence to record known_candidate_routing as match, no-match or uncertain-match, bind it to the current planning source and persistent candidate evidence, and validate repository-state references before treating it as novel work or activation. Automate routine work; retain existing material authority gates.",
     }
 
 
@@ -471,6 +471,46 @@ def trace(object_id: str) -> dict | None:
     return None
 
 
+def _repo_file_from_ref(ref: str) -> Path | None:
+    if not isinstance(ref, str) or not ref or ref.startswith(("github:", "http://", "https://")):
+        return None
+    path = (ROOT / ref).resolve()
+    try:
+        path.relative_to(ROOT.resolve())
+    except ValueError:
+        return None
+    return path
+
+
+def _candidate_ids_from_evidence_refs(refs: list[str]) -> tuple[set[str], list[str]]:
+    ids: set[str] = set()
+    errors: list[str] = []
+    for ref in refs:
+        path = _repo_file_from_ref(ref)
+        if path is None:
+            errors.append(f"candidate evidence ref must be a repository file: {ref}")
+            continue
+        if not path.is_file():
+            errors.append(f"candidate evidence ref does not exist: {ref}")
+            continue
+        if path.suffix.lower() != ".json":
+            errors.append(f"candidate evidence ref must be JSON for deterministic ID validation: {ref}")
+            continue
+        try:
+            document = load(path)
+        except Exception as exc:
+            errors.append(f"cannot load candidate evidence ref {ref}: {exc}")
+            continue
+        candidates = document.get("candidates")
+        if not isinstance(candidates, list):
+            errors.append(f"candidate evidence ref has no candidates list: {ref}")
+            continue
+        for candidate in candidates:
+            if isinstance(candidate, dict) and isinstance(candidate.get("id"), str):
+                ids.add(candidate["id"])
+    return ids, errors
+
+
 def validate_known_candidate_routing(routing: dict) -> list[str]:
     contract = load(MATERIAL_STATE).get("known_candidate_routing", {})
     if not isinstance(routing, dict):
@@ -485,7 +525,9 @@ def validate_known_candidate_routing(routing: dict) -> list[str]:
     status = routing.get("status")
     trigger_status = routing.get("trigger_status")
     activation_candidate = routing.get("activation_candidate")
+    planning_source_ref = routing.get("planning_source_ref")
     candidate_source_refs = routing.get("candidate_source_refs")
+    candidate_evidence_refs = routing.get("candidate_evidence_refs")
     matched_candidate_refs = routing.get("matched_candidate_refs")
     fresh_state_refs = routing.get("fresh_state_refs")
 
@@ -493,12 +535,53 @@ def validate_known_candidate_routing(routing: dict) -> list[str]:
         errors.append(f"known_candidate_routing has invalid status: {status}")
     if trigger_status not in set(contract.get("trigger_statuses", [])):
         errors.append(f"known_candidate_routing has invalid trigger_status: {trigger_status}")
+
+    try:
+        current_planning_source = load(EXECUTION_STATE).get("planning_source")
+    except Exception as exc:
+        current_planning_source = None
+        errors.append(f"cannot resolve current planning source: {exc}")
+    if planning_source_ref != current_planning_source:
+        errors.append(
+            f"known_candidate_routing planning_source_ref {planning_source_ref!r} "
+            f"does not match current planning source {current_planning_source!r}"
+        )
+
     if not isinstance(candidate_source_refs, list) or not candidate_source_refs:
         errors.append("known_candidate_routing requires non-empty candidate_source_refs")
+    elif planning_source_ref not in candidate_source_refs:
+        errors.append("candidate_source_refs must include planning_source_ref")
+
+    if not isinstance(candidate_evidence_refs, list) or not candidate_evidence_refs:
+        errors.append("known_candidate_routing requires non-empty candidate_evidence_refs")
+        known_candidate_ids: set[str] = set()
+    else:
+        if isinstance(candidate_source_refs, list):
+            for ref in candidate_evidence_refs:
+                if ref not in candidate_source_refs:
+                    errors.append(f"candidate evidence ref must also appear in candidate_source_refs: {ref}")
+        known_candidate_ids, evidence_errors = _candidate_ids_from_evidence_refs(candidate_evidence_refs)
+        errors.extend(evidence_errors)
+
     if not isinstance(matched_candidate_refs, list):
         errors.append("known_candidate_routing matched_candidate_refs must be a list")
+    else:
+        for ref in matched_candidate_refs:
+            if ref not in known_candidate_ids:
+                errors.append(f"matched candidate ref is not present in candidate evidence: {ref}")
+
+    required_fresh_refs = {"project/execution_state.json", "project/reconciliation.json"}
     if not isinstance(fresh_state_refs, list) or not fresh_state_refs:
         errors.append("known_candidate_routing requires non-empty fresh_state_refs")
+    else:
+        missing_fresh = sorted(required_fresh_refs - set(fresh_state_refs))
+        if missing_fresh:
+            errors.append(f"known_candidate_routing missing required fresh_state_refs {missing_fresh}")
+        for ref in fresh_state_refs:
+            path = _repo_file_from_ref(ref)
+            if path is None or not path.is_file():
+                errors.append(f"fresh state ref does not exist as a repository file: {ref}")
+
     if not isinstance(routing.get("rationale"), str) or not routing.get("rationale").strip():
         errors.append("known_candidate_routing requires a rationale")
     if not isinstance(activation_candidate, bool):
