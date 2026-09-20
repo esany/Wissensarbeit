@@ -73,12 +73,15 @@ class EvalTrialIntegrityTests(unittest.TestCase):
 
     def _fresh_probe_trial(self, **updates):
         probe = eval_integrity.get_probe("RP-41B7")
+        bundle = eval_integrity.render_probe_bundle("RP-41B7")
         record = {
             "probe_id": "RP-41B7",
             "probe_identity": eval_integrity.probe_identity(probe),
-            "repository_revision": eval_integrity.current_repository_revision(),
+            "repository_revision": bundle["repository_revision"],
             "context_mode": "isolated-repository-bundle",
             "accessible_context_paths": eval_integrity.probe_document()["operational_context_paths"],
+            "bundle_manifest": bundle["bundle_manifest"],
+            "bundle_identity": bundle["bundle_identity"],
             "fresh_instance": True,
             "external_repository_access": False,
             "prior_trial_access": False,
@@ -118,6 +121,28 @@ class EvalTrialIntegrityTests(unittest.TestCase):
             self._fresh_probe_trial(response_captured_before_oracle_reveal=False)
         )
         self.assertTrue(any("before oracle reveal" in error for error in errors))
+
+    def test_fresh_probe_bundle_is_bound_to_git_revision_content(self):
+        bundle = eval_integrity.render_probe_bundle("RP-41B7")
+        revision = bundle["repository_revision"]
+        for item in bundle["context_files"]:
+            expected = eval_integrity._git_text_at_revision(revision, item["path"])
+            self.assertEqual(item["content"], expected)
+            self.assertEqual(item["sha256"], eval_integrity._sha256_text(expected))
+
+    def test_fresh_probe_capture_rejects_bundle_identity_mismatch(self):
+        record = self._fresh_probe_trial()
+        record["bundle_identity"] = "sha256:" + ("0" * 64)
+        errors = eval_integrity.validate_fresh_probe_trial_record(record)
+        self.assertTrue(any("bundle_identity mismatch" in error for error in errors))
+
+    def test_fresh_probe_capture_rejects_bundle_manifest_revision_mismatch(self):
+        record = self._fresh_probe_trial()
+        record["bundle_manifest"] = dict(record["bundle_manifest"])
+        record["bundle_manifest"]["repository_revision"] = "0" * 40
+        record["bundle_identity"] = eval_integrity.probe_bundle_identity(record["bundle_manifest"])
+        errors = eval_integrity.validate_fresh_probe_trial_record(record)
+        self.assertTrue(any("bundle_manifest repository_revision mismatch" in error for error in errors))
 
 
 if __name__ == "__main__":
