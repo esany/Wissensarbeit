@@ -95,7 +95,7 @@
     "class": "procedural_with_judgement",
     "owner": "BB-INTEGRATE_with_current_planning_owner",
     "applies_when": "A recognized material-state, failure or learning candidate is being integrated or considered for new planning/work.",
-    "candidate_source_rule": "Resolve the current planning source from repository state and inspect persistent unresolved or activation-ready candidate evidence referenced by it or by canonical state; do not rely on chat memory and do not require the Human to name the candidate.",
+    "candidate_source_rule": "Resolve the current planning source from repository state. Candidate evidence must be Git-persisted repository evidence explicitly bound to that planning source, and matched candidate IDs must be addressable inside that evidence. Semantic match/search-space completeness remain judgement; do not rely on chat memory and do not require the Human to name the candidate.",
     "required_outcomes": [
       "match",
       "no-match",
@@ -109,6 +109,7 @@
       "matched_candidate_refs",
       "rationale",
       "fresh_state_refs",
+      "repository_revision_ref",
       "trigger_status",
       "activation_candidate",
       "authority_effect"
@@ -123,7 +124,8 @@
       "Every applicable routing decision must be explicit; silence is not a no-match.",
       "no-match must preserve an explicit rationale and must not manufacture a new candidate merely to avoid the no-match result.",
       "uncertain-match must remain uncertain and must not create an activation candidate automatically.",
-      "match must bind the earlier candidate evidence to fresh repository state before the current activation trigger is evaluated.",
+      "match must bind the earlier candidate evidence to the current planning source and exact repository revision before the current activation trigger is evaluated.",
+      "Candidate evidence existence, Git persistence, planning-owner binding, candidate-ID addressability and repository-revision freshness are deterministic checks; semantic overlap and search-space completeness remain judgement.",
       "activation_candidate may be true only when status=match and trigger_status=satisfied.",
       "A satisfied matched trigger produces at most an activation candidate; it does not create priority, promotion, admission, implementation authority or implementation_allowed.",
       "A matched candidate with a not-satisfied or uncertain trigger remains inactive."
@@ -135,6 +137,7 @@
       "Every matched_candidate_ref must exist in at least one referenced candidate-evidence file.",
       "fresh_state_refs must include the current project/execution_state.json and project/reconciliation.json repository files.",
       "Reference existence and planning-source binding are deterministic checks; semantic search-space completeness and material overlap remain judgement and must not be represented as deterministic proof."
-    ]
+    ],
+    "fresh_state_rule": "Routing must bind the evidence decision to the exact checked-out repository revision via repository_revision_ref. fresh_state_refs must be existing Git-tracked repository files used at that revision; a free-form path string is not sufficient freshness evidence."
   }
 }
