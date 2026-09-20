@@ -1191,16 +1191,27 @@ Residual examples included:
 
 Correction:
 
-- routing now carries explicit `planning_source_ref`;
-- it must equal the current `project/execution_state.json` planning source;
-- repository JSON `candidate_evidence_refs` must exist and also appear in `candidate_source_refs`;
-- every matched candidate ID must exist in referenced candidate evidence;
-- `fresh_state_refs` must include existing `project/execution_state.json` and `project/reconciliation.json`;
-- negative regression tests cover wrong planning source, fabricated candidate ID, missing evidence and incomplete fresh-state refs.
+The routing provenance is split explicitly into three deterministic properties:
+
+- **existence** — candidate evidence and fresh-state refs must resolve to existing Git-persisted repository files;
+- **binding** — `planning_source_ref` must equal the current `project/execution_state.json` planning source; candidate evidence must itself declare that same planning owner; matched candidate IDs must be addressable inside evidence bound to that owner;
+- **freshness** — `repository_revision_ref` must equal the exact checked-out Git revision on which the routing decision is validated, and the required execution/reconciliation state refs must be Git-tracked at that revision.
+
+This rejects not only fabricated `OC-999`, but also a valid-looking `OC-03` taken from candidate evidence bound to another planning owner.
+
+Negative regression coverage therefore includes:
+
+- wrong planning source;
+- fabricated candidate ID;
+- nonexistent candidate evidence;
+- valid candidate ID from the wrong planning-owner evidence;
+- unbound extra candidate-source claims;
+- incomplete fresh-state refs;
+- stale/falsely bound repository revision.
 
 Boundary retained:
 
-> These checks establish reference existence/current planning-source binding. They do not prove semantic overlap or completeness of the candidate search space. Those remain judgement and require fresh-context/real-use evidence.
+> These checks establish source existence, Git persistence, planning-owner binding, candidate addressability and exact-revision freshness. They do not prove semantic overlap or completeness of the candidate search space. Those remain judgement and require independent fresh-context/real-use evidence.
 
 ### 19.2 Human Problem Owner versus system competence/orchestration function
 
