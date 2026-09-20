@@ -12,7 +12,7 @@
     "implementation_allowed": false,
     "p2_current_gate": "p2-implementation-admission",
     "mutable_state": false,
-    "latest_candidate_update_reason": "Focused re-review residual correction: deterministically bind routing to the current planning source and persistent candidate evidence, reject fabricated candidate refs, preserve semantic search completeness as judgement, and add the third Human-Owner/system-orchestration interpretation hypothesis."
+    "latest_candidate_update_reason": "Focused residual correction: separate routing provenance into existence, planning-owner binding and exact-revision freshness; reject valid-looking candidate IDs from evidence bound to another planning owner; preserve semantic matching/search-space completeness as judgement; retain OH-03 as an open Human-owner/system-orchestration interpretation."
   },
   "authority": {
     "status": "candidate-evidence-only",
@@ -1011,16 +1011,19 @@
       "candidate_source_refs",
       "candidate_evidence_refs",
       "matched_candidate_refs",
-      "fresh_state_refs"
+      "fresh_state_refs",
+      "repository_revision_ref"
     ],
     "deterministic_provenance_checks": [
       "planning_source_ref equals project/execution_state.json planning_source",
       "candidate_source_refs includes planning_source_ref",
-      "candidate_evidence_refs exist as repository JSON files and are included in candidate_source_refs",
-      "matched candidate IDs exist in referenced candidate evidence",
-      "fresh_state_refs include existing project/execution_state.json and project/reconciliation.json"
+      "candidate_evidence_refs are existing Git-persisted repository JSON files included in candidate_source_refs",
+      "each candidate evidence source is explicitly bound to the current planning source",
+      "matched candidate IDs exist in candidate evidence bound to the current planning source",
+      "fresh_state_refs include existing Git-persisted project/execution_state.json and project/reconciliation.json",
+      "repository_revision_ref equals the exact checked-out Git revision used for the routing decision"
     ],
-    "judgement_boundary": "Deterministic provenance checks prove that routing used real current/persistent references; they do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require real-use/fresh-context evidence.",
+    "judgement_boundary": "Deterministic provenance checks prove source existence, Git persistence, current planning-owner binding, candidate-ID addressability and exact-revision freshness. They do not prove semantic overlap or completeness of the known-candidate search space. Those remain judgement and require independent fresh-context/real-use evidence.",
     "fresh_context_probe": {
       "status": "prepared-not-yet-independently-executed",
       "harness": "tools/evals.py render/grade",
