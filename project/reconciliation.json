@@ -114,9 +114,10 @@
         "isolated-fresh-context-probe-protocol",
         "oracle-isolated-operational-bundle",
         "pre-oracle-trial-capture",
-        "opaque-stimulus-only-routing-probes"
+        "opaque-stimulus-only-routing-probes",
+        "stimulus-only-blind-routing-probes"
       ],
-      "rationale": "WA-EVAL-031..033 remain visible regression cases only. Independent behavioral evidence must use stimulus-only opaque probes delivered through an isolated exact-revision operational bundle, with probe identifiers kept out of the accessible operational context and raw response persisted before oracle reveal. OH-03 remains a compatible open system-function hypothesis, not the preferred interpretation. No new Building Block, registry, authority class, priority or implementation authority is created."
+      "rationale": "Strict blind routing evidence is a bounded evaluation protocol, not a new lifecycle/authority concept: stimulus-only opaque probes remain outside the operational context, exact-revision operational allowlist, no external repository/prior-trial/oracle access, bundle identity, raw-response capture before oracle reveal, then later grading/review. Concrete probe identifiers are deliberately not repeated in operational state supplied to the tested instance. OH-03 remains open/non-preferred and no new Building Block, registry, matcher service or authority class is introduced."
     },
     "derived_views": {
       "disposition": "refined",
