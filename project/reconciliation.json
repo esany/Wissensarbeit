@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
-  "change_id": "audit/human-ai-operational-collaboration-operationalization-2026-09-20",
+  "change_id": "audit/human-ai-work-type-semantics-operationalization-2026-09-20",
   "materiality": "material",
-  "summary": "Operationalize the detailed Human-AI collaboration audit into a versioned, late-activation planning snapshot with seven peer OC identities and explicit activation/evidence semantics, while keeping Issue #7 and execution_state as the only mutable planning/execution authorities and preserving the current P2 implementation-admission gate.",
+  "summary": "Refine the Human-AI collaboration operationalization with a candidate work-type semantic contract that distinguishes iteration, preflight, review/re-review, correction, promotion, admission, reconciliation, persistence/operationalization slice and implementation slice by evidence, authority, staleness and follow-up consequences; preserve current P2 scope and all canonical authority boundaries.",
   "source_refs": [
     "project/audits/WA-AUDIT-2026-09-20-HUMAN-AI-OPERATIONAL-COLLABORATION-DELTA.md",
     "project/WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20.md",
@@ -41,7 +41,7 @@
         "WA-HUMAN-AI-COLLABORATION-OPERATIONALIZATION-2026-09-20",
         "WA-HUMAN-AI-COLLABORATION-CANDIDATE-SNAPSHOT-2026-09-20"
       ],
-      "rationale": "The detailed audit remains the primary semantic evidence. The new human-readable and machine-readable snapshots preserve seven peer axes, evidence maturity, activation semantics, omissions and restart instructions without creating seven premature work items."
+      "rationale": "The detailed audit remains the primary semantic evidence. The new human-readable and machine-readable snapshots preserve seven peer axes, evidence maturity, activation semantics, omissions and restart instructions without creating seven premature work items. A repeated same-chat misuse of the term iteration after prior Human correction is now captured as additional OC-07 real-use evidence."
     },
     "risks": {
       "disposition": "refined",
@@ -70,9 +70,20 @@
         "OC-06",
         "OC-07",
         "immutable-candidate-activation-snapshot",
-        "operationalization-evidence-ladder"
+        "operationalization-evidence-ladder",
+        "candidate-work-type-semantic-contract",
+        "WT-01",
+        "WT-02",
+        "WT-03",
+        "WT-04",
+        "WT-05",
+        "WT-06",
+        "WT-07",
+        "WT-08",
+        "WT-09",
+        "WT-10"
       ],
-      "rationale": "OC identifiers are stable peer identities only, not rank or roadmap. The selected persistence model is audit + versioned immutable operationalization snapshots + existing mutable Planning Owner #7 + late focused activation. No mutable capability registry, new Building Block, Requirement family or workflow engine is introduced."
+      "rationale": "Candidate work-type semantics now bind terminology to operational consequences: required evidence, authority created (if any), stale evidence, next obligations and explicit non-consequences. This remains inside PR #37 candidate planning evidence; system/lifecycle.json and system/authority.json are unchanged pending independent qualitative review and later promotion decision."
     },
     "derived_views": {
       "disposition": "refined",
@@ -87,7 +98,7 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "Candidate persistence does not manufacture priority. The current P2 preflight remains complete, p2-implementation-admission remains the separate blocked Human gate, and implementation_allowed remains false. Future OC activation requires a fresh current-state work/preflight item.",
+      "rationale": "Work-type semantics do not manufacture priority or execution permission. Current P2 preflight remains complete, p2-implementation-admission remains the separate blocked Human gate, implementation_allowed remains false, and the P2 scope is unchanged.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-fidelity-manifest-preflight",
@@ -98,7 +109,7 @@
     "active_work": {
       "disposition": "unchanged",
       "objects": [],
-      "rationale": "No OC axis is activated as implementation work by this snapshot. P2 implementation also remains not admitted."
+      "rationale": "No OC axis, work-type contract, or P2 implementation is activated as implementation work by this semantic refinement."
     }
   },
   "unresolved": [],
