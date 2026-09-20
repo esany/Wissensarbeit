@@ -122,6 +122,7 @@ class OperationalCoreTests(unittest.TestCase):
             "matched_candidate_refs": [],
             "rationale": "No known unresolved or activation-ready candidate materially overlaps this signal.",
             "fresh_state_refs": ["project/execution_state.json", "project/reconciliation.json"],
+            "repository_revision_ref": work.current_repository_revision(),
             "trigger_status": "not-applicable",
             "activation_candidate": False,
             "authority_effect": "none",
@@ -188,6 +189,25 @@ class OperationalCoreTests(unittest.TestCase):
         )
         errors = work.validate_known_candidate_routing(routing)
         self.assertTrue(any("candidate evidence ref does not exist" in e for e in errors))
+
+    def test_valid_candidate_id_from_wrong_planning_owner_fails(self):
+        wrong_source = "tests/fixtures/wrong_candidate_source.json"
+        routing = self._routing_record(
+            status="match",
+            candidate_source_refs=["github:esany/Wissensarbeit#7", wrong_source],
+            candidate_evidence_refs=[wrong_source],
+            matched_candidate_refs=["OC-03"],
+            rationale="A valid-looking candidate ID from evidence bound to another planning owner must fail.",
+            trigger_status="not-satisfied",
+        )
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("not bound to current planning source" in e for e in errors))
+        self.assertTrue(any("matched candidate ref is not present in candidate evidence: OC-03" in e for e in errors))
+
+    def test_stale_repository_revision_ref_fails(self):
+        routing = self._routing_record(repository_revision_ref="0" * 40)
+        errors = work.validate_known_candidate_routing(routing)
+        self.assertTrue(any("does not match current repository revision" in e for e in errors))
 
     def test_fresh_state_refs_must_bind_execution_and_reconciliation(self):
         routing = self._routing_record(fresh_state_refs=["project/execution_state.json"])
