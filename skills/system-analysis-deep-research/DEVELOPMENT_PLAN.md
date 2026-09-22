@@ -5,7 +5,7 @@
 **Work packages:** #44 → #45 → #46  
 **Method provenance:** Histo-Orla PR #123 and its v3 method/refactoring artifacts  
 **Execution constraint for this development:** web-only; no local checkout/shell  
-**Planning principle:** Chat first; Work/Codex only for prepared bounded execution tasks
+**Planning principle:** Chat first and quota-aware; Work/Codex only when they add non-substitutable quality/capability value, then only for the smallest quality-preserving bounded slice
 
 ---
 
@@ -86,67 +86,140 @@ When a later implementation choice conflicts with these principles, the implemen
 
 ---
 
-## 4. Work allocation
+## 4. Work allocation and scarce-execution budget
 
-### 4.1 Chat — primary steering and reasoning context
+### 4.1 Governing rule: quality first, scarce modes only when justified
+
+For this development, Chat is the default because it is the abundant execution context; Work and Codex are quota-constrained resources.
+
+Routing order:
+
+```text
+Can Chat + currently available web/GitHub capabilities produce
+an equally reliable, reviewable and restartable result?
+        │
+        ├─ yes → stay in Chat
+        │        even if Work/Codex would be more convenient
+        │
+        └─ no  → identify the exact qualitative/capability gap
+                 ↓
+                 prepare everything substitutable in Chat
+                 ↓
+                 hand off only the non-substitutable slice
+                 ↓
+                 return concise evidence/delta to Chat
+```
+
+A handoff is justified by **quality or capability necessity**, not by convenience, task category, or elegance of workflow.
+
+If a Chat-based workaround is less direct but yields an equivalent-quality canonical handoff/foundation for later work, prefer it.
+
+If avoiding Work/Codex would cause a material quality loss, do **not** accept the loss merely to save quota. Instead:
+- state the quality/capability gap;
+- decompose the task;
+- perform analysis, source selection, semantic decisions, acceptance design and review preparation in Chat;
+- send only the irreducible execution slice to the scarce mode;
+- make the expected quality gain and token/quota cost visible.
+
+### 4.2 Chat — default steering, reasoning and execution context
 
 Use Chat for:
 - owner dialogue and problem clarification;
 - conceptual development;
+- repository reading/writing when current web/GitHub capabilities are sufficient;
+- preparation of canonical inputs and exact change sets;
 - interpretation of trial/review evidence;
 - material scope and quality decisions;
-- deciding whether a proposed Work/Codex task is ready;
+- semantic review;
+- task decomposition before any scarce-mode handoff;
 - reviewing returned work before it changes the next step;
 - deciding whether a failed run is method, model, execution or eval failure.
 
-Chat should **not** manually perform repetitive repository production work when a prepared Work task can do it more efficiently.
+Do not hand off repository production merely because another mode can perform it more conveniently.
 
-### 4.2 Work — prepared web/repository execution
+### 4.3 Work — scarce multi-step web execution
 
-Use Work when the task is already bounded and benefits from multi-step web/repository/artifact execution, for example:
-- create/update the Skill package from an accepted contract;
-- persist a reviewed specification;
-- prepare trial fixtures/evidence packages;
-- execute a bounded repository-wide check;
-- run a prepared Deep Research task with specified sources and outputs.
+Use Work only when:
+1. the task is already bounded and prepared; **and**
+2. Chat cannot achieve equivalent quality/restartability with available web capabilities without a material loss; **and**
+3. Work's multi-step execution materially improves the result.
 
-Work receives no open-ended “figure out the architecture” assignment for this Skill.
+Potential examples:
+- a long multi-step browser/repository process that Chat cannot reliably complete end-to-end;
+- a bounded artifact operation whose correctness depends on Work-only capabilities;
+- an execution task that would otherwise lose material evidence or consistency.
 
-Every material Work task must be prepared in Chat/repo first using the task packet in §5.
+Work receives no open-ended “figure out the architecture” assignment.
 
-Current development constraint: **web-only**. Use web/cloud/connector capabilities; no local checkout, local shell or local-only workflow.
+Every Work task must be prepared in Chat/repo first using §5 and should contain no history or reasoning that can be replaced by canonical references.
 
-### 4.3 Deep Research — evidence-intensive research execution
+Current development constraint: **web-only**. No local checkout, local shell or local-only workflow.
 
-Use dedicated Deep Research when a research question is genuinely multi-step and source-intensive, especially Tier-A finding research.
+### 4.4 Deep Research — quality-driven research escalation
 
-It is an execution mode, not an epistemic authority and not part of the vendor-neutral Core.
+Use dedicated Deep Research when the Research Agenda requires source depth, breadth, citation chaining or multi-step evidence work that ordinary Chat/web research cannot provide at equivalent quality.
 
-A task may only claim Deep Research-level execution when the actual environment provided an appropriate research workflow. No silent downgrade to a few searches.
+Do not invoke it just because a topic is “research”.
 
-### 4.4 Codex — targeted implementation only when appropriate
+Before escalation, Chat should already provide:
+- project finding / research anchor;
+- precise research questions;
+- scope and exclusions;
+- known competing explanations;
+- evidence classes sought;
+- counterevidence target;
+- required output/reconnection fields.
 
-Codex is reserved for well-specified repository/code/test work, not conceptual exploration.
+Thus scarce research execution spends its budget on evidence acquisition and synthesis, not rediscovering project context.
+
+A task may only claim Deep Research-level execution when the actual environment provided an appropriate research workflow. No silent downgrade.
+
+### 4.5 Codex — scarce targeted implementation/test execution
+
+Codex is reserved for well-specified repository/code/test work where its execution capability materially improves quality or enables work Chat cannot equivalently perform.
+
+Before Codex:
+- semantics, contract, affected paths, acceptance and must-not rules are fixed in Chat/repo;
+- expected tests/checks are named;
+- unresolved design choices are removed from the task;
+- the task is sliced to the smallest **quality-preserving** executable unit.
 
 For this web-only development:
 - do not require local Codex workflows;
-- use a web/cloud Codex path only if available and materially better for an already frozen coding/test task;
-- otherwise use Work/GitHub-capable execution.
+- use a web/cloud Codex path only if available and necessary for the bounded task;
+- otherwise remain in Chat/Work/GitHub-capable execution.
 
-Codex never receives unresolved semantic design questions that should first be decided in Chat.
+### 4.6 Quality-equivalence test
+
+Before every Work/Codex handoff ask:
+
+1. What exact capability/quality would be lost by staying in Chat?
+2. Can that loss be avoided by changing the Chat approach rather than the execution mode?
+3. Which parts of the task are semantic/reasoning work that should remain in Chat?
+4. What is the smallest remaining execution slice?
+5. What evidence must come back so Chat can review it without replaying the work?
+6. Is the expected quality gain worth the scarce-mode token/quota cost?
+
+If question 1 has no material answer, do not hand off.
 
 ---
 
-## 5. Token-efficient execution packet
+## 5. Token-transparent execution packet
 
 Before handing work to Work/Codex, prepare this compact packet:
 
 ```text
+WHY THIS MODE
+Exact non-substitutable capability / expected quality gain versus Chat.
+
+CHAT PREPARATION ALREADY DONE
+Decisions, analysis and narrowing completed before handoff.
+
 TASK
 Exact action and intended outcome.
 
 CANONICAL INPUTS
-Only the required repo paths / issues / commits / accepted review findings.
+Only required repo paths / issues / commits / accepted review findings.
 
 SCOPE
 What may change.
@@ -164,21 +237,27 @@ OUTPUT / PERSISTENCE
 Exact files/issues/PR/evidence to produce.
 
 STOP / RETURN
-When to stop rather than improvise, and what short summary to return.
+When to stop rather than improvise, and the shortest sufficient evidence summary.
+
+COST / QUALITY TRADE-OFF
+Why the scarce-mode budget is justified and what would be lost by a Chat-only route.
 ```
 
 Rules:
+- front-load all substitutable reasoning and context reduction in Chat;
 - do not paste broad history when stable repo references suffice;
 - do not ask execution models to rediscover decisions already made;
 - do not send unresolved conceptual alternatives into implementation tasks;
 - return deltas/evidence, not long narrative repeats;
-- if a task cannot be specified this way, it is not ready for bounded Work/Codex execution.
+- split large tasks so scarce modes receive only irreducible execution;
+- never split so aggressively that cross-file/system correctness or reviewability is lost;
+- if a task cannot state its non-substitutable value and quality/cost trade-off, it is not ready for Work/Codex.
 
 ---
 
 ## 6. Model / reasoning routing
 
-Model choice follows **semantic risk and verifiability**, not a blanket “cheapest model” rule.
+Model choice follows **semantic risk, verifiability and scarce-mode economics**. Use the lowest-cost route that preserves required quality; never trade away material quality merely to reduce tokens/quota.
 
 ### High reasoning / strongest available model
 Use for:
@@ -444,6 +523,6 @@ Only then may a generic-candidate status be considered.
 
 Proceed with #44 only after this planning PR is reviewed/accepted.
 
-#44 should be prepared in Chat first, then handed to Work only as a bounded artifact task once the conceptual Contract/Eval semantics are sufficiently resolved.
+#44 should be developed and reviewed in Chat as far as current web/GitHub capabilities allow. Hand off any remainder to Work/Codex only after the §4.6 quality-equivalence test shows a material non-substitutable benefit, and then only as the smallest quality-preserving bounded execution slice.
 
 No Skill implementation belongs in the planning PR.
