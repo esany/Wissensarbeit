@@ -69,7 +69,7 @@ If a mixed request begins with analysis and then asks for solutions, perform onl
 Establish enough information to identify and bound:
 
 1. **Investigation object** — what system is being investigated.
-2. **Scope** — relevant time period, components/workstreams, actors/user groups, domain boundaries, exclusions, and motivating concern.
+2. **Scope** — relevant time period, components/workstreams, actors/user groups, domain boundaries, exclusions, and motivating concern. The scope may evolve when empirical evidence reveals a material interface or dependency; any material expansion must be made visible rather than silently assumed.
 3. **Current project/system evidence** — sources capable of supporting present or relevant historical reconstruction.
 4. **Known constraints** — access, confidentiality, time, tooling, research, source, or execution limits.
 5. **Prior interpretations** — earlier audits/diagnoses/reviews when available; treat them as prior interpretation, not current truth.
