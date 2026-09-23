@@ -47,22 +47,38 @@ Package structure MUST NOT weaken these behaviors in order to reduce file count 
 
 ---
 
-## 2. Required Initial Package Shape
+## 2. Initial Package Shape and Presence Requirements
 
-The first implementation SHOULD use this structure:
+The initial implementation MUST contain these default-path files:
 
 ```text
 skills/system-analysis-deep-research/
 ├── skill.md
 └── references/
-    ├── core-method.md
-    ├── challenge-checklist.md
-    ├── disciplinary-discovery-map.md
-    └── execution-profiles/
-        └── chatgpt-deep-research.md
+    └── core-method.md
 ```
 
-This is the smallest currently justified package split.
+The optional late-helper references MAY be instantiated when #45 implements those optional capabilities:
+
+```text
+references/
+├── challenge-checklist.md
+└── disciplinary-discovery-map.md
+```
+
+If present, they remain subject to the late-loading rules in this specification and MUST NOT become default-path inputs.
+
+The first package SHOULD also include the reviewed ChatGPT-specific execution profile:
+
+```text
+references/
+└── execution-profiles/
+    └── chatgpt-deep-research.md
+```
+
+That profile is recommended for the initial package but is not part of the vendor-neutral Core.
+
+This is the smallest currently justified package split: `skill.md` and `core-method.md` are physically mandatory; the two helper modules are optional capabilities; the ChatGPT execution profile is recommended rather than Core-mandatory.
 
 The following #44 assurance/design artifacts are intentionally **not runtime package inputs**:
 
