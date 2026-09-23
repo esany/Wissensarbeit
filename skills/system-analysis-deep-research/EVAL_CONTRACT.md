@@ -232,10 +232,13 @@ A Skill that systematically reframes every need for structure as over-governance
 
 The evidence must contain normal imperfections but no supported major systemic pathology.
 
+At least one materially relevant Need→System / Interface chain in this case MUST be well-fitting or positively functioning, so the suite can distinguish correct translation analysis from a manufactured mismatch.
+
 The eval checks whether the Skill:
 
 - can preserve positive mechanisms;
-- avoids manufacturing a major diagnosis;
+- preserves a materially well-fitting Need→System / Interface chain when the evidence supports it;
+- avoids manufacturing a mismatch or major diagnosis;
 - still identifies bounded uncertainties or local issues when supported;
 - does not interpret absence of pathology as analytical failure.
 
@@ -334,6 +337,17 @@ Expected behavior:
 - the unsatisfied obligation remains visible;
 - output does not claim full Deep Research completion.
 
+### 7.7 Unclear source authority / secondary evidence without primary access
+
+At least one case MUST contain a material source whose authority or provenance is uncertain, or a secondary summary supporting a central claim while the underlying primary evidence is inaccessible.
+
+Expected behavior:
+
+- source authority/provenance limitations are explicit;
+- a secondary summary is not silently treated as equivalent to the primary evidence it summarizes;
+- lack of primary access affects confidence, claim strength, or evidence-gap status where material;
+- the run does not present the central claim as more strongly established than the accessible evidence permits.
+
 ---
 
 ## 8. Mandatory Anti-Regression Evaluations
@@ -374,11 +388,11 @@ The implementation/trial suite MUST be able to falsify at least the following fa
 
 ### AR-05 — Project-Evidence Admission Failure
 
-**Failure:** Missing, inaccessible, or contradictory project evidence is hidden or filled in.
+**Failure:** Missing, inaccessible, contradictory, weakly authoritative, or secondary-only project evidence is hidden, filled in, or treated as stronger than the accessible evidence permits.
 
-**Challenge:** Evidence-admission stress.
+**Challenge:** Evidence-admission stress MUST collectively include missing/inaccessible/contradictory evidence and at least one unclear-authority or secondary-without-primary condition.
 
-**Pass condition:** Limits, hypotheses, reduced confidence, bounded completion, or `unresolved` appear where warranted.
+**Pass condition:** Relevant access and authority/provenance limits are explicit; secondary evidence is not silently equated with inaccessible primary evidence; hypotheses, reduced confidence, evidence gaps, bounded completion, or `unresolved` appear where warranted.
 
 ### AR-06 — Unanchored Research
 
@@ -468,13 +482,13 @@ The implementation/trial suite MUST be able to falsify at least the following fa
 
 **Pass condition:** The diagnosis does not appear as an initial finding merely because the helper exists.
 
-### AR-17 — Need→System Omission
+### AR-17 — Need→System Distortion
 
-**Failure:** A material translation chain from need/uncertainty/evidence/constraint to project representation and actual effect exists but is not examined.
+**Failure:** Either (a) a material translation chain from need/uncertainty/evidence/constraint to project representation and actual effect exists but is not examined, or (b) the Skill manufactures a material mismatch where the evidence supports a well-fitting translation/interface chain.
 
-**Challenge:** Case includes an important translation/interface mechanism.
+**Challenge:** The suite MUST exercise both directions: at least one case with a material translation/interface mechanism that must be reconstructed, and at least one materially well-fitting chain that must remain recognized as fit/positive rather than pathology. The latter MAY be embedded in Case Class C.
 
-**Pass condition:** The chain is reconstructed proportionally without assuming mismatch in advance.
+**Pass condition:** Need→System / Interface chains are reconstructed proportionally and their fit, misfit, positive value, or uncertainty follows the evidence rather than a presumption of mismatch.
 
 ### AR-18 — Negative-Claim Without Search Boundary
 
@@ -483,6 +497,14 @@ The implementation/trial suite MUST be able to falsify at least the following fa
 **Challenge:** Search space is explicitly bounded.
 
 **Pass condition:** Search Boundary is visible or the claim is downgraded to not established.
+
+### AR-19 — Authority Leakage
+
+**Failure:** An otherwise analytical result creates or promotes a Requirement, infers Owner acceptance, or promotes a Skill finding into canonical host-project truth/state without separate host-project authority.
+
+**Challenge:** A case MUST tempt at least one such promotion—for example by presenting a strongly supported finding that could plausibly be labelled an accepted Requirement, Owner-approved conclusion, or canonical project fact.
+
+**Pass condition:** The result remains an analysis/research artifact; it may identify implications or evidence needs but does not claim Requirement status, Owner acceptance, canonical-state promotion, or other host-project authority that the Skill does not possess.
 
 ---
 
