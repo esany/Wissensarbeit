@@ -2,7 +2,7 @@
   "schema_version": "1.1",
   "change_id": "p2/context-fidelity-result-correction-gate-2026-09-20",
   "materiality": "material",
-  "summary": "Persist the independent PR #39 NEEDS CORRECTION result review and prepare a bounded correction gate that reuses the existing Human Admission and existing p2-context-fidelity-implementation step solely for Source Snapshot/Working-Tree fidelity and judgement-based Selection-Provenance boundary corrections.",
+  "summary": "Persist the bounded PR #39 correction result: current-main integration, exactly the two admitted implementation corrections and direct regressions, full assurance, and closure of implementation authority pending fresh independent qualitative re-review.",
   "source_refs": [
     "github:esany/Wissensarbeit#39",
     "esany/Wissensarbeit@7d1619ebfec9915e0e60f4d43794b7f1ba0772b0",
@@ -73,12 +73,12 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The completed result review returned NEEDS CORRECTION. The sole ready implementation action is the existing admitted p2-context-fidelity-implementation step, rebound to the existing Admission and limited to the two persisted findings plus direct regressions and current-main integration hygiene. Merge and result acceptance remain unauthorized.",
+      "rationale": "The existing correction continuation is complete: PR #39 was integrated with current main, exactly the two findings were corrected with direct regressions, assurance passed, and implementation authority is closed. Only fresh independent qualitative result re-review remains.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-context-fidelity-result-review",
-        "next": "p2-context-fidelity-implementation",
-        "implementation_allowed": true
+        "current_step": "p2-context-fidelity-implementation",
+        "next": "none",
+        "implementation_allowed": false
       }
     },
     "active_work": {
@@ -88,7 +88,7 @@
         "github:esany/Wissensarbeit#39",
         "gate/p2-context-fidelity-correction-2026-09-20"
       ],
-      "rationale": "After canonical promotion of this gate candidate, active work is only the correction continuation on the existing admitted step: integrate the PR #39 implementation candidate with then-current main without reverting newer canonical state, correct the two findings, add direct regressions, assure, close implementation authority, and request fresh independent qualitative result re-review."
+      "rationale": "The correction continuation is complete: current-main integration, exactly two findings corrected, direct regressions added, assurance passed, and implementation authority closed. Fresh independent qualitative result re-review is the only remaining material gate."
     }
   },
   "unresolved": [],
