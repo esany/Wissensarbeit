@@ -72,43 +72,45 @@ class OperationalCoreTests(unittest.TestCase):
             path.write_text(json.dumps(state), encoding="utf-8")
             self.assertTrue(work.execution_preflight("implement", path))
 
-    def test_execution_next_is_existing_admitted_correction_step(self):
+    def test_execution_next_has_no_ready_implementation_after_correction(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "p2-context-fidelity-implementation")
+        self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_reopens_only_existing_admitted_step_for_two_findings(self):
+    def test_execution_state_closes_existing_admitted_step_after_correction(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-result-review")
-        self.assertTrue(state["implementation_allowed"])
-        self.assertIn("implement", state["allowed_actions"])
+        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-implementation")
+        self.assertFalse(state["implementation_allowed"])
+        self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
         ready = [item for item in state["current_step"]["next"] if item.get("status") == "ready"]
-        self.assertEqual(len(ready), 1)
-        step = ready[0]
-        self.assertEqual(step["id"], "p2-context-fidelity-implementation")
+        self.assertEqual(ready, [])
+
+        review = state["current_step"]["next"][0]
+        self.assertEqual(review["id"], "p2-context-fidelity-result-review")
+        self.assertEqual(review["status"], "blocked")
+        self.assertEqual(review["continuation"], "completed-correction")
+        self.assertEqual(review["blocked_by"], "fresh-independent-qualitative-result-rereview")
         self.assertEqual(
-            step["admission_ref"],
+            review["review_target"],
+            "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+        )
+        self.assertEqual(
+            review["admission_ref"],
             "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
         )
-        self.assertEqual(step["admission_id"], "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01")
-        self.assertEqual(step["continuation"], "needs-correction")
+        self.assertEqual(review["admission_id"], "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01")
         self.assertEqual(
-            step["review_evidence"],
+            review["review_evidence"],
             "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
         )
-        self.assertEqual(
-            step["correction_scope"],
-            [
-                "source-snapshot-working-tree-fidelity",
-                "judgement-based-selection-provenance-boundary",
-                "direct-regressions-for-these-two-findings",
-                "integrate-pr39-implementation-candidate-with-current-main-without-reverting-newer-canonical-state",
-            ],
-        )
-        self.assertEqual(work.execution_preflight("implement"), [])
+
+        evidence = "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md"
+        self.assertEqual(state["completion_evidence"]["p2-context-fidelity-correction"], evidence)
+        self.assertTrue((ROOT / evidence).exists())
+        self.assertTrue(work.execution_preflight("implement"))
         self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
