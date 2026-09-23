@@ -3,7 +3,7 @@
 **Status:** planning candidate / pre-implementation  
 **Parent Work Owner:** #43  
 **Work packages:** #44 → #45 → #46  
-**Method provenance:** Histo-Orla PR #123 and its v3 method/refactoring artifacts  
+**Method provenance:** Histo-Orla PR #123 at reviewed head `e112a8985e8c5149b6f84fb3ae8174a6202a40a2`  
 **Execution constraint for this development:** web-only; no local checkout/shell  
 **Planning principle:** Chat first and quota-aware; Work/Codex only when they add non-substitutable quality/capability value, then only for the smallest quality-preserving bounded slice
 
@@ -83,6 +83,19 @@ The detailed method lives in the Histo-Orla v3 provenance. Development must pres
 15. **No new workflow engine, ontology, truth store or framework coupling without observed need.**
 
 When a later implementation choice conflicts with these principles, the implementation changes; the principle is not silently weakened for convenience.
+
+---
+
+## 3.1 Reviewed v3 provenance lock
+
+This development plan was reviewed against these Histo-Orla v3 artifacts at PR #123 head `e112a8985e8c5149b6f84fb3ae8174a6202a40a2`:
+
+- `docs/architecture/assurance/generic-system-analysis-deep-research-prompt-v3-20260922.md` — blob `368a14eea3dcabae3f828b29a6a96b9dd5b23c0b`;
+- `docs/architecture/assurance/generic-system-analysis-deep-research-v3-refactoring-20260922.md` — blob `07abe77a99787bd716270b3037331cb6ce2ac379`;
+- `docs/architecture/assurance/generic-system-analysis-deep-research-v3-appendices-20260922.md` — blob `677e69a31768d0b3ce149cf59a1b558b5e9ba769`;
+- `docs/architecture/assurance/execution-profile-chatgpt-deep-research-v3-20260922.md` — blob `ad15c8eed8fdd5a602d473948c94e1383dcba659`.
+
+These SHAs identify the provenance reviewed for this planning baseline. If the source method changes materially, R1 must explicitly inspect the delta rather than silently treating a newer PR head as equivalent.
 
 ---
 
@@ -269,7 +282,7 @@ Use for:
 - changes that could alter the method;
 - independent qualitative review.
 
-For ChatGPT, GPT-5.6 Sol with high reasoning is an appropriate current default where available for this class of complex knowledge work.
+Use the strongest reasoning capability needed to preserve the required semantic quality in the current environment; do not freeze a model/version into the generic development contract.
 
 ### Lower-cost/faster model
 May be used for:
@@ -285,8 +298,18 @@ Do not use a cheaper/faster model merely to save tokens when an error could chan
 ### Deep Research
 Research depth is routed by the Research Agenda and evidence need, not by model prestige. Dedicated Deep Research is preferred for genuine multi-source Tier-A work.
 
-### Independent review diversity
-Where practical, use a fresh context and avoid giving the reviewer the originating chat's reasoning narrative. Provide canonical artifacts, review question and acceptance criteria. Independence is about evidence and context separation, not pretending prior work does not exist.
+### Independent review protocol
+For R1 and R3, independence is a required evidence condition, not merely a preference.
+
+Minimum conditions:
+- reviewer is not the same authoring context that produced the artifact/result under review;
+- review input is limited to the frozen canonical artifacts, explicit source/capability boundaries, the review question/criteria, and—where relevant—raw first-run outputs;
+- do not provide the originating reasoning narrative or expected verdict;
+- the reviewer may inspect referenced primary evidence as needed, but must distinguish source evidence from prior interpretation;
+- materially divergent findings must be recorded and dispositioned explicitly rather than normalized away;
+- if these conditions cannot be met, record the limitation and downgrade the strength of the review evidence rather than calling it independent.
+
+Independence is about evidence/context separation and the possibility of disagreement, not pretending prior work does not exist.
 
 Product/model details are execution-profile information and should be rechecked against current official documentation when used; they are not frozen Skill semantics.
 
@@ -317,7 +340,8 @@ Produce together, before implementation:
 - output and failure/stop behavior;
 - package/reference specification;
 - semantic Eval Contract;
-- cross-project test-case requirements.
+- cross-project test-case requirements;
+- explicit **late-helper admission rule**: the empirical Core runs before Challenge/Completeness checklists or disciplinary discovery/search aids are allowed to shape interpretation; such helpers load only after empirical reconstruction and, where relevant, after the Research Agenda is formed, unless a specific exception is justified and recorded.
 
 Reason to combine:
 The eval must be capable of falsifying the exact behavior the contract claims. Designing them separately risks a self-confirming test suite.
@@ -327,7 +351,8 @@ Fresh review asks:
 - Does the contract preserve v3 without importing Histo-Orla diagnoses?
 - Can the Skill conclude healthy / under-formalized / differently broken?
 - Can counterevidence change the diagnosis?
-- Are failure/capability states complete?
+- Are failure/capability states complete, including missing, inaccessible or contradictory current project evidence?
+- Does the contract keep Challenge/Completeness and disciplinary discovery aids late enough to avoid leading the empirical analysis?
 - Does the eval actually challenge the contract?
 - Is any proposed runtime/package structure speculative?
 - Is anything required for full functionality missing?
@@ -415,6 +440,7 @@ The Eval Contract must test at least:
 | Unresearched Major Finding | central finding receives insufficient external challenge |
 | Theory/method collapse | explanatory theory confused with method for testing it |
 | Counterevidence ignored | external evidence should weaken/reframe initial finding |
+| Project-evidence admission failure | current project evidence is incomplete, inaccessible or contradictory; Skill must expose limits/open hypotheses/`unresolved` rather than invent reconstruction or overstate diagnosis |
 | Silent Deep-Research downgrade | capability insufficient but output claims deep research |
 | Best-practice solution drift | evidence about a practice turns into adoption advice |
 | Historical/current collapse | resolved historical problem reported as current-active |
@@ -519,7 +545,21 @@ Only then may a generic-candidate status be considered.
 
 ---
 
-## 13. Current next action
+## 13. Review disposition — independent planning review
+
+Independent review verdict: `READY WITH CORRECTIONS`.
+
+Disposition of findings:
+- **F-01 material — independent review not operationalized:** corrected in §6 and applied as a required protocol for R1/R3.
+- **F-02 material — late helper admission not explicit in P1:** corrected in §7 P1/R1.
+- **F-03 material — no adversarial case for incomplete/conflicting project evidence:** corrected in §8 and R1.
+- **F-04 minor — mutable provenance + version-specific model default:** corrected via §3.1 provenance lock and vendor/version-neutral model routing.
+
+No additional issue/gate/framework structure was added.
+
+---
+
+## 14. Current next action
 
 Proceed with #44 only after this planning PR is reviewed/accepted.
 
