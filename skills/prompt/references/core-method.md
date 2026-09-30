@@ -35,16 +35,17 @@ Erstellen ist eine **dünne Schicht**. Es gibt hier keine eigene Methode für Ko
    - **Stopp** am Ende
 5. **Vorgegebene Hinweise neutral formulieren:** Fundort und Frage statt Ergebnisrichtung, mit Gegenprobe („eine widersprechende Stelle oder ‚keine gefunden'").
 6. **An Modell und Umgebung anpassen** (Abschnitt E).
-7. **Internen Review durchführen** (Abschnitt C), Befunde einarbeiten.
+7. **Internen Review durchführen** (Abschnitt C), Befunde einarbeiten. Dabei gilt die Regel zum Atom aus C (Schritt 2a) und die Dosierung aus C (Schritt 3a). Das Atom `failure-pattern-check` liegt im selben Repo unter `skills/failure-pattern-check/` und ist nutzbar. „Nicht nutzbar" gilt nur für BB-CONTEXT und #55 (Schritt 3).
 8. **Ausgeben:** vollständiger Prompt, kurze Annahmenliste, Hinweis „intern geprüft, ungetestet (`declared`)", Kostenhinweis.
 
 ## C. `.prompt review`: Prüfen
 
 1. **Unabhängige erste Lesart.** Was will der Prompt? Befunde mit Zitat sammeln, ohne Checkliste.
 2. **Späte Lückenprüfung:**
-   a) Skill `failure-pattern-check` auf den Prompt anwenden (Fehlerfamilien des Repos).
+   a) Skill `failure-pattern-check` auf den Prompt anwenden (Fehlerfamilien des Repos). **Regel:** anwenden bei Agent-, Code-, schreibenden, mehrphasigen oder Repo-Prompts, und wenn die Fehlerkosten nicht niedrig sind. **Entfällt** bei einem einfachen Chat-Prompt (eine Aufgabe, nur Text, niedrige Fehlerkosten); dann ausweisen: „Fehlerfamilien-Prüfung nicht angewendet: einfacher Chat-Prompt". Gilt im Modus `.prompt` (interner Review) wie in `.prompt review`. Ist die Sammlung nicht lesbar: Zustand `bounded` mit Grund.
    b) Prompt-Formkriterien (Abschnitt C.1) als Fragen an den Text.
 3. **Befund-Format:** Zitat · Problem · mögliche Folge · Änderungsvorschlag · **Art** (`deterministic`, `procedural`, `judgement`) · Sicherheit (hoch, mittel, niedrig, mit Grund). „Keine Familie" ist zulässig.
+3a. **Dosierung:** Der Umfang folgt der Größe des Prompts und den Fehlerkosten. Bei einem einfachen Chat-Prompt höchstens die 2–3 wesentlichen Befunde, als kurze Liste statt Tabelle. Keine Füllbefunde (Harmloses, Stilfragen, bereits Gutes als Mangel). Testvorschlag nur bei Bedarf. Bei Agent- oder Repo-Prompts gilt der volle Umfang.
 4. **Gesamturteil:** der Zustand (`complete`, `bounded`, `blocked`, `unresolved`, `needs-decision`) und **ein Satz** in Worten: „gut", „mit Vorbehalt" oder „so nicht einsetzen", mit den wichtigsten 3–5 Gründen.
    **Prognose:** „Was passiert, wenn der Prompt so eingesetzt wird?" (als Prognose gekennzeichnet, nicht als Test).
 5. **Stärken** kurz nennen, damit sie beim Überarbeiten erhalten bleiben.
