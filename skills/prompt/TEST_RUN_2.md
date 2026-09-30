@@ -40,3 +40,8 @@ Verbrauch je Lauf (Unterkontext, ungefähre Tokens): ohne Skill etwa 41–43 Tau
 - F-01: Erwartung anpassen oder Atom-Regel zu Gate und Schreibaktionen schärfen?
 - Atom: Pflicht, beide Quelldateien vollständig zu lesen, sonst `bounded` (Verhalten ist dann schon richtig ausgewiesen).
 - Wirkung auf OpenAI-Werkzeugen: nicht getestet.
+
+## Nach dem Lauf umgesetzt (Owner: „Empfehlungen 1 und 2 umsetzen")
+- Atom: neue Regel 4a in `failure-pattern-check/references/core-method.md` („Schutzlücke", unabhängig von der Familie); F-01 in dessen `CONTRACT.md` entsprechend angepasst.
+- Prompt-Skill: Kurzausgabe bei einfachen Prompts in `references/core-method.md` C, Schritt 3a.
+- **Beide Änderungen sind nicht erneut getestet** (`NOT EXECUTED`).
