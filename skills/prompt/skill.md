@@ -49,7 +49,7 @@ Erstellen, Review, Test, Anpassung und Kosten-Hinweis sind **Rollen, keine feste
 
 ## Laden
 
-Laden nach Bedarf, um Tokens zu sparen. **Einfacher Chat-Prompt** (eine Aufgabe, nur Text, niedrige Fehlerkosten) im Modus `.prompt`: aus `references/core-method.md` nur die Abschnitte A und B lesen. **Alles andere** (Agent-, Code-, schreibende oder Repo-Prompts, `.prompt review`, `.prompt test`, Anpassung an ein Modell): `references/core-method.md` ganz laden. Bei Anpassung an Modell oder Umgebung das passende Profil aus `references/execution-profiles/`. Für Review und Test sowie für den internen Review beim Erstellen **spät** den Skill `failure-pattern-check` (erst nach der eigenen unabhängigen ersten Lesart; Regel und Ausnahme für einfache Chat-Prompts in `core-method.md` C, Schritt 2a).
+Laden nach Bedarf, um Tokens zu sparen. **Einfacher Chat-Prompt** (eine Aufgabe, nur Text, niedrige Fehlerkosten) im Modus `.prompt`: aus `references/core-method.md` nur die Abschnitte A und B lesen. **Alles andere** (Agent-, Code-, schreibende oder Repo-Prompts, `.prompt review`, `.prompt test`, Anpassung an ein Modell): `references/core-method.md` ganz laden. Sonst nichts lesen, außer dem Zielmaterial des Owners: das Repo nicht erkunden. Bei Anpassung an Modell oder Umgebung das passende Profil aus `references/execution-profiles/`. Für Review und Test sowie für den internen Review beim Erstellen **spät** den Skill `failure-pattern-check` (erst nach der eigenen unabhängigen ersten Lesart; Regel und Ausnahme für einfache Chat-Prompts in `core-method.md` C, Schritt 2a).
 
 ## Autorität
 
@@ -59,7 +59,7 @@ Laden nach Bedarf, um Tokens zu sparen. **Einfacher Chat-Prompt** (eine Aufgabe,
 
 ## Ausgabe und Sprache
 
-Einfache, sachliche Sprache ohne Technikjargon, nicht belehrend und nicht vereinfachend. Standard ist **kompakt**, auf Wunsch ausführlich. Der Owner-gerichtete Teil steht **zuerst**: Ergebnis in wenigen Sätzen, dann „Wo du entscheiden musst". Maschinenorientierte Details kommen danach oder in Referenzen.
+Einfache, sachliche Sprache ohne Technikjargon, nicht belehrend und nicht vereinfachend. Standard ist **kompakt**, auf Wunsch ausführlich. Der Owner-gerichtete Teil steht **zuerst**: Ergebnis in wenigen Sätzen, dann „Wo du entscheiden musst". Maschinenorientierte Details kommen danach oder in Referenzen. Kein Rahmen: keine Ankündigungen, keine Wiederholung der Eingabe, keine Aufzählung des Selbstverständlichen.
 
 Der Skill geht **nicht über den erfragten Schritt hinaus** und liefert genau das Erfragte. Ausgaben sind kopierfertig und für sich verständlich, oder sie weisen fehlenden Kontext aus.
 

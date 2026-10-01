@@ -57,11 +57,11 @@ Orte: **S** = `skills/prompt/skill.md` · **K** = `skills/prompt/references/core
 | D-4 | beim Erstellen strukturiert | umgesetzt | K B | |
 | D-5 | Qualitätsbewertung eines Prompts | umgesetzt | K C.4 | Gesamturteil: Zustand und ein Satz |
 | D-6 | berücksichtigt, ob ein Prompt KI-erzeugt ist | umgesetzt | S Eingaben | fragt nicht danach |
-| D-7 | Prognose bei unverändertem Einsatz | umgesetzt | K C.4 | als Prognose gekennzeichnet |
+| D-7 | Prognose bei unverändertem Einsatz | umgesetzt | K C.3a, C.4 | als Prognose gekennzeichnet; Standard nur bei Folgewirkung eine Zeile, sonst auf Wunsch (Tokenersparnis) |
 | D-8 | Feedback für die erzeugende KI | umgesetzt | K G | |
 | D-9 | funktioniert ohne Entstehungs-Chat | umgesetzt | S Ausgabe und Sprache | |
 | D-10 | Test-/Review-Bausteine anhängbar | umgesetzt | K C.2 | |
-| D-11 | vollständiger Prompt, nicht nur Änderungen | umgesetzt | K C.6 | |
+| D-11 | vollständiger Prompt, nicht nur Änderungen | umgesetzt | K C.5 | |
 | D-12 | Folgeprompts auf Anforderung | umgesetzt | K B | |
 | D-13 | Codewort als Auslöser | umgesetzt | S Auslöser | |
 | D-14 | Review Teil der Erstellung, interne QS | umgesetzt | K B.7 | als „intern" ausgewiesen |

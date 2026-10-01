@@ -34,7 +34,7 @@ Siehe `references/core-method.md`. Kurz: Der Skill arbeitet **spät**, erst nach
 - **Sicherheit** (hoch, mittel, niedrig, mit Begründung)
 - **Korrekturhinweis**
 
-**„Keine Familie" ist ein zulässiges Ergebnis.** Es wird nichts in eine Familie gezwungen. „Keine Treffer" ist ebenfalls zulässig und wird ohne erfundene Probleme ausgegeben.
+**Ausgabe knapp:** nur Treffer und „keine Familie"-Punkte, je mit Zitat. Die übrigen Familien in einer Zeile („kein Treffer: …"), ohne Begründung je Familie, es sei denn, der Owner fragt danach. **„Keine Familie" ist ein zulässiges Ergebnis.** Es wird nichts in eine Familie gezwungen. „Keine Treffer" ist ebenfalls zulässig und wird ohne erfundene Probleme ausgegeben.
 
 ## Autorität und Grenzen
 
