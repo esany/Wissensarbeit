@@ -2,7 +2,7 @@
 
 Dieses Dokument gehört **nicht** zur Laufzeit des Skills. Es beschreibt, was der Skill leisten muss und woran man es prüft. Laufzeit: `skill.md` und `references/core-method.md`.
 
-**Status:** `declared` (Kandidat #63). Es gibt keinen geprüften Verhaltensnachweis, keinen Generic Fit und keine Admission über diese Version hinaus.
+**Status:** Kandidat #63 · Evidence maturity: `executable` · reale Nutzungsevidenz vorhanden · nicht `regression-protected`. Verhaltensbelege sind vorhanden, aber schwach und teils nicht unabhängig. Kein Generic Fit und keine Admission über diese Version hinaus.
 
 ## Zweck
 
