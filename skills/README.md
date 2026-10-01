@@ -1,11 +1,11 @@
 # Skills (Kandidaten, Branch-Stand)
 
-**Status:** `declared`. Nicht gemergt. Kein Generic Fit. Keine Autorität.
+**Status:** Kandidaten. Nicht gemergt. Kein Generic Fit. Keine Autorität. Evidence maturity wird je Skill getrennt geführt.
 
-| Skill | Zweck | Kandidat |
-|---|---|---|
-| `prompt/` | Prompts erstellen (`.prompt`), prüfen (`.prompt review`), Ergebnisse prüfen (`.prompt test`), an Modell und Umgebung anpassen | #63 |
-| `failure-pattern-check/` | Artefakte gegen die Fehlerfamilien des Repos prüfen (Atom, wird vom Prompt-Skill genutzt) | #65 |
+| Skill | Zweck | Kandidat | Evidence maturity |
+|---|---|---|---|
+| `prompt/` | Prompts erstellen (`.prompt`), prüfen (`.prompt review`), Ergebnisse prüfen (`.prompt test`), an Modell und Umgebung anpassen | #63 | `executable`; reale Nutzungsevidenz vorhanden; nicht `regression-protected` |
+| `failure-pattern-check/` | Artefakte gegen die Fehlerfamilien des Repos prüfen (Atom, wird vom Prompt-Skill genutzt) | #65 | `declared` (unverändert; in dieser Statuskorrektur nicht neu bewertet) |
 
 ## So ist jeder Skill aufgebaut
 
