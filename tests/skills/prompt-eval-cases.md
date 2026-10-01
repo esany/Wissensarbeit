@@ -31,3 +31,9 @@ Je Fall ein Lauf mit einem Claude-Modell, Fälle und Bewertung von derselben Ins
 - **Atom** (F-01, F-02, F-04): F-02 und F-04 erfüllt. F-01: Der Lauf verwarf FF-AUTHORITY-PROMOTION, weil die Anweisung vom Owner kam, und fand die Lücke unter anderem Namen. Daraufhin Regel 4a „Schutzlücke" im Atom und F-01 angepasst, nicht erneut getestet. F-03 durch E-08 abgedeckt; F-05 und F-06 zurückgestellt.
 - **Nicht getestet:** Kurzausgabe, Regel 4a, Klammer zu #55, Auslöser in `AGENTS.md`, OpenAI-Werkzeuge, Codewort-Erkennung je Plattform.
 - **Ersatz für die zurückgestellten Fälle:** echte Nutzung mit kurzer Notiz (Aufgabe, Werkzeug, Korrekturrunden, was fehlte oder zu viel war), als Kommentar bei #63.
+
+## Vorfall 2026-10-01: `.prompt` lieferte das Ergebnis statt des Prompts
+- **Aufgetreten:** zweimal in der ersten echten Nutzung. (1) `.prompt` plus Analysefrage: Der Skill behandelte sie als Nicht-Auslöser und beantwortete sie. (2) `.prompt` plus „erstelle einen Handoff": Er lieferte direkt den Handoff, nicht den Prompt, der ihn beauftragt. Der gelieferte Handoff begann zusätzlich selbst mit `.prompt` und hätte den Erstellen-Modus erneut ausgelöst.
+- **Ursache:** `skill.md` sagte nicht ausdrücklich, dass alles nach dem Codewort die Aufgabenbeschreibung ist und das Ergebnis der Prompt dafür.
+- **Gefunden durch:** den Owner in echter Nutzung, nicht durch die Testläufe.
+- **Behoben:** Grundregel in `skill.md` (Commit `89454d1`). Testfall E-13. Die Behebung ist nicht getestet.
