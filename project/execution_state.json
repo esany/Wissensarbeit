@@ -2,30 +2,28 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-context-fidelity-implementation",
+    "id": "p2-context-fidelity-result-review",
     "next": [
       {
-        "id": "p2-context-fidelity-result-review",
+        "id": "p2-context-fidelity-current-main-integration-assurance",
         "status": "blocked",
         "depends_on": [
-          "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
-          "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02"
+          "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
+          "separate-current-main-integration-authority"
         ],
-        "admission_ref": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-        "admission_id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
         "scope": "P2-CONTEXT-FIDELITY-SLICE",
-        "continuation": "completed-correction",
-        "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
+        "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
         "implementation_pr": "github:esany/Wissensarbeit#39",
-        "correction_scope": [
-          "source-snapshot-working-tree-fidelity",
-          "judgement-based-selection-provenance-boundary",
-          "direct-regressions-for-these-two-findings",
-          "integrate-pr39-implementation-candidate-with-current-main-without-reverting-newer-canonical-state"
-        ],
-        "rule": "The admitted correction continuation is complete. No further implementation is authorized; merge and result acceptance remain unauthorized. The only next material gate is a fresh independent qualitative result re-review against the exact corrected PR #39 head.",
-        "blocked_by": "fresh-independent-qualitative-result-rereview",
         "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+        "supported_next_gate": [
+          "integrate the confirmed PR #39 candidate with current main",
+          "run full formal assurance against the integrated candidate",
+          "persist the exact integrated head and assurance result",
+          "close implementation authority again"
+        ],
+        "authority_boundary": "supported next gate != currently authorized implementation",
+        "blocked_by": "no separate current-main integration authority is persisted",
+        "rule": "The independent qualitative CONFIRM is complete evidence, not Result Acceptance or merge authority. Current-main integration and full assurance are the only supported technical continuation; implementation_allowed remains false until a separate authority exists. QP-1ff, PR #39 merge, result acceptance and P3/P4/P5 remain unauthorized.",
         "correction_head": "8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
       }
     ]
@@ -62,6 +60,10 @@
     {
       "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02",
       "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
+      "status": "resolved"
     }
   ],
   "allowed_actions": [
@@ -85,25 +87,26 @@
     "p2-context-fidelity-implementation": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
     "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
     "p2-context-fidelity-result-review": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
-    "p2-context-fidelity-correction": "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md"
+    "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+    "p2-context-fidelity-current-main-integration-assurance": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+    "p2-context-fidelity-correction": "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md",
+    "chat-continuity-recovery": "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md"
   },
   "follow_up": {
-    "candidate": "p2-context-fidelity-result-review",
+    "candidate": "p2-context-fidelity-current-main-integration-assurance",
     "status": "blocked",
-    "continuation": "completed-correction",
-    "admission_ref": "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-    "admission_id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
-    "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
+    "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
     "implementation_pr": "github:esany/Wissensarbeit#39",
-    "correction_scope": [
-      "source-snapshot-working-tree-fidelity",
-      "judgement-based-selection-provenance-boundary",
-      "direct-regressions-for-these-two-findings",
-      "integrate-pr39-implementation-candidate-with-current-main-without-reverting-newer-canonical-state"
-    ],
-    "blocked_after_correction_until": "fresh-independent-qualitative-result-rereview",
-    "rule": "Correction implementation under the existing Human Admission is complete and implementation authority is closed. After canonical promotion of this state candidate, the only material continuation is fresh independent qualitative result re-review of the exact corrected PR #39 head.",
     "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+    "supported_next_gate": [
+      "current-main integration",
+      "full formal assurance",
+      "persist exact integrated head and assurance result",
+      "close implementation authority again"
+    ],
+    "blocked_after_confirm_until": "separate current-main integration authority and bounded assurance",
+    "authority_boundary": "supported next gate != currently authorized implementation",
+    "rule": "The independent CONFIRM completes the qualitative review gate but grants no merge, Result Acceptance or implementation authority. The only supported continuation is bounded current-main integration plus full assurance after separate authority.",
     "correction_head": "8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
   }
 }

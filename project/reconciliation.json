@@ -1,73 +1,64 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/context-fidelity-correction-result-authority-closure-2026-09-20",
+  "change_id": "p2/context-fidelity-rereview-confirm-recovery-2026-10-02",
   "materiality": "material",
-  "summary": "Persist the completed PR #39 correction result as a state candidate: exactly two technical findings corrected with direct regressions, formal assurance green, implementation authority closed, qualitative result confirmation still pending, and fresh independent qualitative result re-review as the sole next material gate.",
+  "summary": "Repair the stale P2 execution/reconciliation cursor after the independently persisted CONFIRM re-review, preserve its no-acceptance/no-merge boundary, and bind the supported current-main integration assurance gate without granting implementation authority.",
   "source_refs": [
     "github:esany/Wissensarbeit#39",
-    "esany/Wissensarbeit@0e13798f37d2f5e1a39640d2c4c63150fb9aea38",
-    "esany/Wissensarbeit@45ae94f124ee6b04be8b2c418a9cc5c8e36b69d1",
+    "github:esany/Wissensarbeit#68",
+    "esany/Wissensarbeit@8be017288ec9457615b1f04922dc66e81738d722",
     "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
-    "github:esany/Wissensarbeit/actions/runs/35535265567",
-    "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-    "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
+    "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
     "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
-    "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md"
+    "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md",
+    "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
-      "objects": [
-        "REQ-001",
-        "REQ-002",
-        "REQ-003",
-        "REQ-004",
-        "REQ-007",
-        "REQ-008",
-        "REQ-011",
-        "REQ-012"
-      ],
-      "rationale": "The correction result changes no Requirement semantics. The existing admitted P2 Context-Fidelity slice remains the governing requirement boundary."
+      "objects": ["project/requirements.json"],
+      "rationale": "Fresh read confirms that the independent CONFIRM and the state repair change no Requirement semantics."
     },
     "issues_findings": {
       "disposition": "refined",
       "objects": [
         "github:esany/Wissensarbeit#39",
-        "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02",
-        "source-snapshot-working-tree-fidelity",
-        "judgement-based-selection-provenance-boundary"
+        "github:esany/Wissensarbeit#68",
+        "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
+        "stale-review-pending-cursor",
+        "chat-continuity-recovery"
       ],
-      "rationale": "Exactly the two persisted implementation findings are technically corrected and directly regression-protected on the exact corrected PR #39 head. Their qualitative result significance is not yet independently reconfirmed."
+      "rationale": "The independent qualitative result review is now durable CONFIRM evidence. The prior pending-review state is stale; PR #39 remains an unmerged candidate and the retained real-use dimensions remain open."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": [
+        "R-001",
         "R-002",
         "R-003",
         "R-004",
         "R-005",
-        "R-006",
         "R-007",
         "R-008",
         "R-009"
       ],
-      "rationale": "Existing false-assurance, stale-state, scope, accretion and self-reinforcing-error risks remain sufficient. No new risk family is introduced; qualitative usefulness and material completeness remain review questions."
+      "rationale": "Existing continuity, systemic-drift, authority, false-assurance, accretion and self-reinforcing-error risks cover the factual repair. No new risk family or state owner is required."
     },
     "decisions_concepts": {
       "disposition": "confirmed",
       "objects": [
         "P2-CONTEXT-FIDELITY-SLICE",
         "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
-        "p2-context-fidelity-implementation"
+        "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01"
       ],
-      "rationale": "Requirement, Authority, Building-Block and architecture semantics are unchanged. The existing Human Admission remains historical authority for the completed slice and grants no further open implementation authority."
+      "rationale": "The existing P2 semantics and admission remain unchanged. CONFIRM is retained as review evidence only; no new Admission, implementation step, architecture, classifier or owner is created."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The derived view is rebound to this new correction-result/authority-closure reconciliation change through the existing derive/freshness contract; derive() is unchanged."
+      "rationale": "The derived view is regenerated through the existing derive/freshness contract and binds to this recovery reconciliation; no derived-state contract expansion is introduced."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -75,25 +66,28 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "Correction implementation is complete, exactly two findings were corrected with direct regressions, formal assurance is green, and implementation authority is closed. No implementation or merge action is ready; the result-review gate remains blocked until fresh independent qualitative re-review of the exact corrected PR #39 head.",
+      "rationale": "The independent qualitative re-review is complete and formally persisted as CONFIRM. No implementation or merge action is ready; current-main integration plus full assurance is the supported technical gate, blocked until separate implementation authority is persisted.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-context-fidelity-implementation",
+        "current_step": "p2-context-fidelity-result-review",
         "next": "none",
         "next_status": "blocked",
-        "blocked_by": "fresh-independent-qualitative-result-rereview",
+        "blocked_by": "no separate current-main integration authority is persisted",
         "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
-        "implementation_allowed": false
+        "implementation_allowed": false,
+        "supported_next_gate": "p2-context-fidelity-current-main-integration-assurance",
+        "supported_next_gate_status": "blocked"
       }
     },
     "active_work": {
       "disposition": "refined",
       "objects": [
-        "p2-context-fidelity-result-review",
+        "p2-context-fidelity-current-main-integration-assurance",
         "github:esany/Wissensarbeit#39",
+        "github:esany/Wissensarbeit#68",
         "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
       ],
-      "rationale": "Correction continuation is complete. After canonical promotion of this state candidate, active material work is only a fresh independent qualitative Result Re-Review of PR #39 against the exact corrected head; PR #39 remains an unmerged candidate."
+      "rationale": "The qualitative re-review is complete and confirms the corrected candidate, but PR #39 remains open/unmerged. The only supported continuation is bounded current-main integration plus full assurance, blocked until separate implementation authority is persisted."
     }
   },
   "unresolved": [],
