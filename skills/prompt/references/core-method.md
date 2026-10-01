@@ -113,6 +113,7 @@ Maßgeblich ist `tests/evals/failure_corpus.json`. Diese Zuordnung ist eine abge
 **Zuordnung:** Nur was in `references/execution-profiles/` für das Modell steht. **Ohne Profil gilt „nicht eingestuft":** vorsichtige Vorgaben (kleine Schritte, Schema, Zitate), Hinweis und Vorschlag eines Kalibrierungslaufs (derselbe Fall, ein Lauf).
 
 **Warnung bei Missverhältnis:** Ist die Prompt-Komplexität für Modell oder Umgebung zu hoch (z. B. mehrphasiger Audit für ein kleines, schnelles Modell), Zerlegung oder anderes Modell vorschlagen.
+**Grenze der Zerlegung:** Zerlegung für kleine oder nicht eingestufte Modelle ist eine Prompt-Anpassung, keine eigenständige Task Compilation. Ist #55 (Task Compilation) verfügbar oder erforderlich, nutzt der Skill deren Ergebnis. Ist #55 nicht verfügbar, darf der Skill eine pragmatische Zerlegung als **Übergangslösung** vorschlagen und kennzeichnet sie so. Die Zerlegung schafft keine Projekt-, Prioritäts-, Ausführungs- oder Folgeautorität.
 
 **Master und Varianten:** Ein vollständiger Prompt, Varianten für andere Modelle daraus ableiten statt neu schreiben.
 
