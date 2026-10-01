@@ -1,6 +1,6 @@
 # Prompt: Erstellen, Review, Test, Anpassung
 
-**Status:** `declared` · Skill-Kandidat #63 · nicht gemergt · kein Generic Fit · keine Autorität (siehe Abschnitt „Autorität")
+**Status:** Skill-Kandidat #63 · Evidence maturity: `executable` · reale Nutzungsevidenz vorhanden · nicht `regression-protected` · nicht gemergt · kein Generic Fit · keine Autorität (siehe Abschnitt „Autorität")
 
 ## Zweck
 
