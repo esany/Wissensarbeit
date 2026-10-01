@@ -45,13 +45,11 @@ Erstellen ist eine **dünne Schicht**. Es gibt hier keine eigene Methode für Ko
    a) Skill `failure-pattern-check` auf den Prompt anwenden (Fehlerfamilien des Repos). **Regel:** anwenden bei Agent-, Code-, schreibenden, mehrphasigen oder Repo-Prompts, und wenn die Fehlerkosten nicht niedrig sind. **Entfällt** bei einem einfachen Chat-Prompt (eine Aufgabe, nur Text, niedrige Fehlerkosten); dann ausweisen: „Fehlerfamilien-Prüfung nicht angewendet: einfacher Chat-Prompt". Gilt im Modus `.prompt` (interner Review) wie in `.prompt review`. Ist die Sammlung nicht lesbar: Zustand `bounded` mit Grund.
    b) Prompt-Formkriterien (Abschnitt C.1) als Fragen an den Text.
 3. **Befund-Format:** Zitat · Problem · mögliche Folge · Änderungsvorschlag · **Art** (`deterministic`, `procedural`, `judgement`) · Sicherheit (hoch, mittel, niedrig, mit Grund). „Keine Familie" ist zulässig.
-3a. **Dosierung:** Der Umfang folgt der Größe des Prompts und den Fehlerkosten. Bei einem einfachen Chat-Prompt höchstens die 2–3 wesentlichen Befunde, als kurze Liste statt Tabelle. Keine Füllbefunde (Harmloses, Stilfragen, bereits Gutes als Mangel). Testvorschlag nur bei Bedarf. **Ausgabe dann kurz:** Urteil in einem Satz, die 2–3 Befunde, die verbesserte Fassung, eine Zeile „intern geprüft, ungetestet". Annahmen, Stärken, Änderungsliste, Prognose und Kostenhinweis nur, wenn sie etwas ändern oder der Owner sie erbittet. Bei Agent- oder Repo-Prompts gilt der volle Umfang.
-4. **Gesamturteil:** der Zustand (`complete`, `bounded`, `blocked`, `unresolved`, `needs-decision`) und **ein Satz** in Worten: „gut", „mit Vorbehalt" oder „so nicht einsetzen", mit den wichtigsten 3–5 Gründen.
-   **Prognose:** „Was passiert, wenn der Prompt so eingesetzt wird?" (als Prognose gekennzeichnet, nicht als Test).
-5. **Stärken** kurz nennen, damit sie beim Überarbeiten erhalten bleiben.
-6. **Verbesserte Fassung** vollständig und kopierfertig, dazu **Änderungsliste** (geändert / bewusst unverändert).
-7. **Testvorschlag:** 1–2 Fälle mit bekanntem Ergebnis für eine frische Sitzung.
-8. **Kosten- und Limithinweise.**
+3a. **Standardausgabe (alle Prompts, spart Tokens):** Zustand und Gesamturteil in einem Satz mit den wichtigsten Gründen; die wichtigsten Befunde (bei einfachen Chat-Prompts 2–3 als kurze Liste, sonst höchstens 5, weitere nur als Zahl); die **verbesserte Fassung** vollständig und kopierfertig; eine Zeile „intern geprüft, ungetestet". Keine Füllbefunde (Harmloses, Stilfragen, bereits Gutes als Mangel), keine Wiederholung der Eingabe, keine Aufzählung dessen, was nicht gefunden wurde.
+   **Nur auf Wunsch oder wenn es etwas ändert:** Prognose (bei Agent- oder Repo-Prompts mit Folgewirkung eine Zeile), Stärken (nur was beim Überarbeiten verloren gehen könnte), Änderungsliste, Annahmen (nur nicht erkennbare), Testvorschlag, Kosten- und Limithinweis. Bei Agent- oder Repo-Prompts mit hohen Fehlerkosten wird nicht an Befunden oder Absicherungen gespart.
+4. **Gesamturteil:** der Zustand (`complete`, `bounded`, `blocked`, `unresolved`, `needs-decision`) und **ein Satz**: „gut", „mit Vorbehalt" oder „so nicht einsetzen", mit 3–5 Gründen. **Prognose** („Was passiert bei unverändertem Einsatz?") ist als Prognose gekennzeichnet, nicht als Test.
+5. **Verbesserte Fassung** vollständig, mit Änderungsliste (geändert / bewusst unverändert) auf Wunsch.
+6. **Testvorschlag** (1–2 Fälle für eine frische Sitzung) und **Kostenhinweis** auf Wunsch.
 
 ### C.1 Prompt-Formkriterien (Fragen an den Text)
 
@@ -113,6 +111,7 @@ Maßgeblich ist `tests/evals/failure_corpus.json`. Diese Zuordnung ist eine abge
 **Zuordnung:** Nur was in `references/execution-profiles/` für das Modell steht. **Ohne Profil gilt „nicht eingestuft":** vorsichtige Vorgaben (kleine Schritte, Schema, Zitate), Hinweis und Vorschlag eines Kalibrierungslaufs (derselbe Fall, ein Lauf).
 
 **Warnung bei Missverhältnis:** Ist die Prompt-Komplexität für Modell oder Umgebung zu hoch (z. B. mehrphasiger Audit für ein kleines, schnelles Modell), Zerlegung oder anderes Modell vorschlagen.
+**Grenze der Zerlegung:** Zerlegung für kleine oder nicht eingestufte Modelle ist eine Prompt-Anpassung, keine eigenständige Task Compilation. Ist #55 (Task Compilation) verfügbar oder erforderlich, nutzt der Skill deren Ergebnis. Ist #55 nicht verfügbar, darf der Skill eine pragmatische Zerlegung als **Übergangslösung** vorschlagen und kennzeichnet sie so. Die Zerlegung schafft keine Projekt-, Prioritäts-, Ausführungs- oder Folgeautorität.
 
 **Master und Varianten:** Ein vollständiger Prompt, Varianten für andere Modelle daraus ableiten statt neu schreiben.
 

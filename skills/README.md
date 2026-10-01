@@ -1,18 +1,26 @@
 # Skills (Kandidaten, Branch-Stand)
 
-**Status:** `declared`. Nicht gemergt. Kein Generic Fit. Keine Autorität.
+**Status:** Kandidaten. Nicht gemergt. Kein Generic Fit. Keine Autorität. Evidence maturity wird je Skill getrennt geführt.
 
-| Skill | Zweck | Kandidat |
-|---|---|---|
-| `prompt/` | Prompts erstellen (`.prompt`), prüfen (`.prompt review`), Ergebnisse prüfen (`.prompt test`), an Modell und Umgebung anpassen | #63 |
-| `failure-pattern-check/` | Artefakte gegen die Fehlerfamilien des Repos prüfen (Atom, wird vom Prompt-Skill genutzt) | #65 |
+| Skill | Zweck | Kandidat | Evidence maturity |
+|---|---|---|---|
+| `prompt/` | Prompts erstellen (`.prompt`), prüfen (`.prompt review`), Ergebnisse prüfen (`.prompt test`), an Modell und Umgebung anpassen | #63 | `executable`; reale Nutzungsevidenz vorhanden; nicht `regression-protected` |
+| `failure-pattern-check/` | Artefakte gegen die Fehlerfamilien des Repos prüfen (Atom, wird vom Prompt-Skill genutzt) | #65 | `declared` (unverändert; in dieser Statuskorrektur nicht neu bewertet) |
+
+## Reifegradlogik
+
+Identity/Disposition und Evidence maturity sind getrennt. Für Evidence maturity gilt die in #52 wiederverwendete Skala aus PR #37:
+
+`declared → wired → executable → regression-protected → real-use-demonstrated → human-effective → robust/restartable`
+
+Reale Nutzungsevidenz kann vorhanden sein, ohne dass eine fehlende Zwischenstufe übersprungen wird. Beim Prompt-Skill ist `executable` die höchste durchgängig getragene Stufe; reale Nutzung ist zusätzlich belegt, aber eine belastbare Regression-Protection fehlt.
 
 ## So ist jeder Skill aufgebaut
 
 - `skill.md`: Einstieg (Zweck, Auslöser, Autorität, Abschluss, STOP)
 - `references/core-method.md`: verpflichtende Kernmethode
 - `references/execution-profiles/`: Modell- und Umgebungsprofile (nicht Kern, datiert)
-- `CONTRACT.md`, `EVAL_CASES.md`, `COVERAGE.md`: Prüf- und Nachweisdokumente, **nicht Laufzeit**
+- `CONTRACT.md`: was der Skill leisten muss, **nicht Laufzeit**. Testfälle und Abdeckungsliste liegen in `tests/skills/`
 
 ## Nutzung
 
@@ -20,4 +28,4 @@ Codewörter: `.prompt`, `.prompt review`, `.prompt test`. Wie die jeweilige Plat
 
 ## Grenzen
 
-Dieser Stand ist auf einem Branch. Mergen ist Sache des Owners. Die Abdeckung der Anforderungen steht in `prompt/COVERAGE.md`.
+Die Abdeckung der Anforderungen steht in `tests/skills/coverage-prompt-skills.md`.

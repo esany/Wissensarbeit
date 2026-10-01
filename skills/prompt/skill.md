@@ -1,6 +1,6 @@
 # Prompt: Erstellen, Review, Test, Anpassung
 
-**Status:** `declared` · Skill-Kandidat #63 · nicht gemergt · kein Generic Fit · keine Autorität (siehe Abschnitt „Autorität")
+**Status:** Skill-Kandidat #63 · Evidence maturity: `executable` · reale Nutzungsevidenz vorhanden · nicht `regression-protected` · nicht gemergt · kein Generic Fit · keine Autorität (siehe Abschnitt „Autorität")
 
 ## Zweck
 
@@ -15,6 +15,8 @@ Er ist kein Orchestrator, kein Planer, keine universelle Prompt-Vorlage und schr
 | `.prompt` | Einen Prompt **erstellen**. Der Review ist eingebaut und primär interne Qualitätssicherung. |
 | `.prompt review` | Einen **vorhandenen** Prompt ausdrücklich prüfen und verbessern. |
 | `.prompt test` | Ein **Ergebnis** gegen den Auftrag prüfen, auf Wunsch das Verhalten eines Prompts in einem Testlauf. **Urteil, kein Beweis.** |
+
+**Grundregel:** Alles nach `.prompt` ist die **Aufgabenbeschreibung**. Das Ergebnis des Skills ist **der Prompt dafür**, nie das Ergebnis der Aufgabe. Der Skill führt den Prompt nicht aus und beantwortet auch keine Frage, die nach dem Codewort steht: Er liefert die optimierte Fassung. Lautet die Aufgabe selbst „erstelle einen Prompt, Handoff oder Text", ist das Ergebnis ein Prompt, der genau diese Erstellung beauftragt. Der Owner führt den Prompt danach aus oder gibt ihn weiter.
 
 Das Codewort gilt einheitlich für alle Plattformen. Ein Wort allein löst nichts aus: Das Wort „prompt" im normalen Gespräch ist **kein** Auslöser. Wie eine Plattform das Codewort tatsächlich erkennt, steht in `references/execution-profiles/` und ist je Plattform noch nicht geprüft.
 
@@ -49,7 +51,7 @@ Erstellen, Review, Test, Anpassung und Kosten-Hinweis sind **Rollen, keine feste
 
 ## Laden
 
-Immer laden: `references/core-method.md`. Bei Anpassung an Modell oder Umgebung das passende Profil aus `references/execution-profiles/`. Für Review und Test sowie für den internen Review beim Erstellen **spät** den Skill `failure-pattern-check` (erst nach der eigenen unabhängigen ersten Lesart; Regel und Ausnahme für einfache Chat-Prompts in `core-method.md` C, Schritt 2a).
+Laden nach Bedarf, um Tokens zu sparen. **Einfacher Chat-Prompt** (eine Aufgabe, nur Text, niedrige Fehlerkosten) im Modus `.prompt`: aus `references/core-method.md` nur die Abschnitte A und B lesen. **Alles andere** (Agent-, Code-, schreibende oder Repo-Prompts, `.prompt review`, `.prompt test`, Anpassung an ein Modell): `references/core-method.md` ganz laden. Sonst nichts lesen, außer dem Zielmaterial des Owners: das Repo nicht erkunden. Bei Anpassung an Modell oder Umgebung das passende Profil aus `references/execution-profiles/`. Für Review und Test sowie für den internen Review beim Erstellen **spät** den Skill `failure-pattern-check` (erst nach der eigenen unabhängigen ersten Lesart; Regel und Ausnahme für einfache Chat-Prompts in `core-method.md` C, Schritt 2a).
 
 ## Autorität
 
@@ -59,9 +61,9 @@ Immer laden: `references/core-method.md`. Bei Anpassung an Modell oder Umgebung 
 
 ## Ausgabe und Sprache
 
-Einfache, sachliche Sprache ohne Technikjargon, nicht belehrend und nicht vereinfachend. Standard ist **kompakt**, auf Wunsch ausführlich. Der Owner-gerichtete Teil steht **zuerst**: Ergebnis in wenigen Sätzen, dann „Wo du entscheiden musst". Maschinenorientierte Details kommen danach oder in Referenzen.
+Einfache, sachliche Sprache ohne Technikjargon, nicht belehrend und nicht vereinfachend. Standard ist **kompakt**, auf Wunsch ausführlich. Der Owner-gerichtete Teil steht **zuerst**: Ergebnis in wenigen Sätzen, dann „Wo du entscheiden musst". Maschinenorientierte Details kommen danach oder in Referenzen. Kein Rahmen: keine Ankündigungen, keine Wiederholung der Eingabe, keine Aufzählung des Selbstverständlichen.
 
-Der Skill geht **nicht über den erfragten Schritt hinaus** und liefert genau das Erfragte. Ausgaben sind kopierfertig und für sich verständlich, oder sie weisen fehlenden Kontext aus.
+Der Skill geht **nicht über den erfragten Schritt hinaus** und liefert genau das Erfragte: bei `.prompt` den Prompt, nicht das Ergebnis der Aufgabe. Ausgaben sind kopierfertig und für sich verständlich, oder sie weisen fehlenden Kontext aus.
 
 ## Abschluss
 

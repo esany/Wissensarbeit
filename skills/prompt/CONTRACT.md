@@ -2,7 +2,7 @@
 
 Dieses Dokument gehört **nicht** zur Laufzeit des Skills. Es beschreibt, was der Skill leisten muss und woran man es prüft. Laufzeit: `skill.md` und `references/core-method.md`.
 
-**Status:** `declared` (Kandidat #63). Es gibt keinen geprüften Verhaltensnachweis, keinen Generic Fit und keine Admission über diese Version hinaus.
+**Status:** Kandidat #63 · Evidence maturity: `executable` · reale Nutzungsevidenz vorhanden · nicht `regression-protected`. Verhaltensbelege sind vorhanden, aber schwach und teils nicht unabhängig. Kein Generic Fit und keine Admission über diese Version hinaus.
 
 ## Zweck
 
@@ -47,7 +47,7 @@ Kandidat, keine Autorität. Kein Requirement, kein Building Block, kein Cursor-W
 
 ## Eval-Grenze
 
-Fälle in `EVAL_CASES.md`. **Nicht zirkulär:** Fälle einfrieren, erforderliche Arbeit ableiten, erst danach bewerten. Baseline A: Prompt ohne Skill (von Hand oder mit KI). Treatment B: mit Skill. Gemessen: Korrekturrunden, gefundene und vermiedene Fehler, Verhalten beim ersten Lauf, Verbrauch. Bestehen heißt nicht „Generic Fit".
+Fälle in `tests/skills/prompt-eval-cases.md`. **Nicht zirkulär:** Fälle einfrieren, erforderliche Arbeit ableiten, erst danach bewerten. Baseline A: Prompt ohne Skill (von Hand oder mit KI). Treatment B: mit Skill. Gemessen: Korrekturrunden, gefundene und vermiedene Fehler, Verhalten beim ersten Lauf, Verbrauch. Bestehen heißt nicht „Generic Fit".
 
 ## Kill- und Korrekturkriterien
 
