@@ -9,7 +9,7 @@
 - `zurückgestellt`: bewusst nicht in Version 1, mit Grund.
 - `kein Auftrag`: Entscheidung oder Freigabe, keine Anforderung an den Skill.
 
-Orte: **S** = `skills/prompt/skill.md` · **K** = `skills/prompt/references/core-method.md` · **P** = `skills/prompt/references/execution-profiles/` · **A** = `skills/failure-pattern-check/` · **E** = `skills/prompt/EVAL_CASES.md`
+Orte: **S** = `skills/prompt/skill.md` · **K** = `skills/prompt/references/core-method.md` · **P** = `skills/prompt/references/execution-profiles/` · **A** = `skills/failure-pattern-check/` · **E** = `tests/skills/prompt-eval-cases.md`
 
 ## 1. Owner-Aussagen
 
@@ -102,7 +102,7 @@ Diese Vorschläge sind keine bestätigten Anforderungen. Sie sind übernommen, w
 | Z-1 | Erkennung des Codeworts je Plattform (ChatGPT, Work, Codex, Claude) | Test auf der Plattform nötig |
 | Z-2 | Modelleinordnung (Astra, Sol, Luna gegen OpenAI-Dokumentation; Claude-Modelle) | Information fehlt, Quellen nicht lesbar |
 | Z-3 | technischer Träger je Plattform (Kopfdaten, Dateiname) | spätere Entscheidung (#52 §39) |
-| Z-4 | Verhaltenstests E-01 bis E-12 und F-01 bis F-06 | nicht ausgeführt (`NOT EXECUTED`) |
+| Z-4 | Verhaltenstests E-01 bis E-12 und F-01 bis F-06 | elf Fälle einmal gelaufen (schwacher Beleg), Rest zurückgestellt; siehe `prompt-eval-cases.md` |
 | Z-5 | Überschneidung mit #55 und BB-CONTEXT im Verhalten | beide nicht als Laufzeit verfügbar |
 | Z-6 | Ergebnisprüfung: Abgrenzung zu #55, BB-ASSURE, Trial-Protokoll #46 | Zuständigkeit offen |
 | Z-7 | ein vom Owner als gut bewerteter Repo-Prompt für E-03 | fehlt |

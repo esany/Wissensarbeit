@@ -12,7 +12,7 @@
 - `skill.md`: Einstieg (Zweck, Auslöser, Autorität, Abschluss, STOP)
 - `references/core-method.md`: verpflichtende Kernmethode
 - `references/execution-profiles/`: Modell- und Umgebungsprofile (nicht Kern, datiert)
-- `CONTRACT.md`, `EVAL_CASES.md`, `COVERAGE.md`: Prüf- und Nachweisdokumente, **nicht Laufzeit**
+- `CONTRACT.md`: was der Skill leisten muss, **nicht Laufzeit**. Testfälle und Abdeckungsliste liegen in `tests/skills/`
 
 ## Nutzung
 
@@ -20,4 +20,4 @@ Codewörter: `.prompt`, `.prompt review`, `.prompt test`. Wie die jeweilige Plat
 
 ## Grenzen
 
-Dieser Stand ist auf einem Branch. Mergen ist Sache des Owners. Die Abdeckung der Anforderungen steht in `prompt/COVERAGE.md`.
+Die Abdeckung der Anforderungen steht in `tests/skills/coverage-prompt-skills.md`.

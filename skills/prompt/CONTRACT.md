@@ -47,7 +47,7 @@ Kandidat, keine Autorität. Kein Requirement, kein Building Block, kein Cursor-W
 
 ## Eval-Grenze
 
-Fälle in `EVAL_CASES.md`. **Nicht zirkulär:** Fälle einfrieren, erforderliche Arbeit ableiten, erst danach bewerten. Baseline A: Prompt ohne Skill (von Hand oder mit KI). Treatment B: mit Skill. Gemessen: Korrekturrunden, gefundene und vermiedene Fehler, Verhalten beim ersten Lauf, Verbrauch. Bestehen heißt nicht „Generic Fit".
+Fälle in `tests/skills/prompt-eval-cases.md`. **Nicht zirkulär:** Fälle einfrieren, erforderliche Arbeit ableiten, erst danach bewerten. Baseline A: Prompt ohne Skill (von Hand oder mit KI). Treatment B: mit Skill. Gemessen: Korrekturrunden, gefundene und vermiedene Fehler, Verhalten beim ersten Lauf, Verbrauch. Bestehen heißt nicht „Generic Fit".
 
 ## Kill- und Korrekturkriterien
 
