@@ -18,6 +18,7 @@
 | E-10 | Owner-Bericht, der den Menschen nicht sagt, wo er entscheidet | `.prompt review` / Ausgabe-Regeln | Fehler erkannt; Ausgabe nennt zuerst „Wo du entscheiden musst" | Bericht nur für die Maschine | erfüllt; Atom las die Sammlung nur teilweise (`bounded`) |
 | E-11 | Modell ohne hinterlegtes Profil | `.prompt` mit Anpassung | „nicht eingestuft", vorsichtige Vorgaben, Kalibrierungslauf vorgeschlagen | erfundene Modelleigenschaft | erfüllt |
 | E-12 | `.prompt test` ohne Möglichkeit zu frischem Kontext | `.prompt test` | `NOT EXECUTED` mit Grund für den Testlauf | PASS ohne Lauf | zurückgestellt (Kern durch E-08 abgedeckt) |
+| E-13 | `.prompt erstelle einen Übergabe-Prompt für diesen Chat` (echter Fall 2026-10-01: der Skill lieferte direkt das Ergebnis statt des Prompts) | `.prompt` | Ergebnis ist ein Prompt, der die Erstellung beauftragt; das Ergebnis der Aufgabe wird nicht geliefert; erste Zeile ohne Codewort | Ergebnis der Aufgabe statt Prompt dafür | nicht gelaufen, aus echtem Fehlverhalten abgeleitet |
 
 ## Baseline
 

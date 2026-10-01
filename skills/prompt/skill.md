@@ -16,6 +16,8 @@ Er ist kein Orchestrator, kein Planer, keine universelle Prompt-Vorlage und schr
 | `.prompt review` | Einen **vorhandenen** Prompt ausdrücklich prüfen und verbessern. |
 | `.prompt test` | Ein **Ergebnis** gegen den Auftrag prüfen, auf Wunsch das Verhalten eines Prompts in einem Testlauf. **Urteil, kein Beweis.** |
 
+**Grundregel:** Alles nach `.prompt` ist die **Aufgabenbeschreibung**. Das Ergebnis des Skills ist **der Prompt dafür**, nie das Ergebnis der Aufgabe. Der Skill führt den Prompt nicht aus und beantwortet auch keine Frage, die nach dem Codewort steht: Er liefert die optimierte Fassung. Lautet die Aufgabe selbst „erstelle einen Prompt, Handoff oder Text", ist das Ergebnis ein Prompt, der genau diese Erstellung beauftragt. Der Owner führt den Prompt danach aus oder gibt ihn weiter.
+
 Das Codewort gilt einheitlich für alle Plattformen. Ein Wort allein löst nichts aus: Das Wort „prompt" im normalen Gespräch ist **kein** Auslöser. Wie eine Plattform das Codewort tatsächlich erkennt, steht in `references/execution-profiles/` und ist je Plattform noch nicht geprüft.
 
 ## Nicht-Auslöser
@@ -61,7 +63,7 @@ Laden nach Bedarf, um Tokens zu sparen. **Einfacher Chat-Prompt** (eine Aufgabe,
 
 Einfache, sachliche Sprache ohne Technikjargon, nicht belehrend und nicht vereinfachend. Standard ist **kompakt**, auf Wunsch ausführlich. Der Owner-gerichtete Teil steht **zuerst**: Ergebnis in wenigen Sätzen, dann „Wo du entscheiden musst". Maschinenorientierte Details kommen danach oder in Referenzen. Kein Rahmen: keine Ankündigungen, keine Wiederholung der Eingabe, keine Aufzählung des Selbstverständlichen.
 
-Der Skill geht **nicht über den erfragten Schritt hinaus** und liefert genau das Erfragte. Ausgaben sind kopierfertig und für sich verständlich, oder sie weisen fehlenden Kontext aus.
+Der Skill geht **nicht über den erfragten Schritt hinaus** und liefert genau das Erfragte: bei `.prompt` den Prompt, nicht das Ergebnis der Aufgabe. Ausgaben sind kopierfertig und für sich verständlich, oder sie weisen fehlenden Kontext aus.
 
 ## Abschluss
 
