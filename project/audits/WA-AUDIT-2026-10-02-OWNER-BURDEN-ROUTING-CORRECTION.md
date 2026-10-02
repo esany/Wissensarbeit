@@ -1,6 +1,6 @@
 # WA-AUDIT-2026-10-02 — Owner-Burden / Execution-Routing Thin Correction
 
-Status: **bounded candidate correction / fresh-main derivation / independent review required / no promotion authority**
+Status: **bounded candidate correction / independent review incorporated / no promotion authority**
 
 ## Trigger
 
@@ -27,7 +27,26 @@ Freshly checked owners:
 - #7: Planning Owner;
 - #80: only active correction candidate after Human priority selection.
 
-## Disposition of stale branch
+## Independent semantic review
+
+Fresh independent review on exact writer head `da7d0a9003fe199468edb617fb3df78c5c5123bf` against exact main `1e68aee25c75f7cf2ef90642c6ab101554808bf1` is persisted at:
+
+- `https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5961073344`
+
+Verdict: **ACCEPT WITH BOUNDED CORRECTION**.
+
+The review rejected the no-change counterhypothesis as a complete protection: current broad Authority wording is directionally correct, but does not explicitly enough assign routine route/capability/technical-permission mechanics to AI responsibility. The review simultaneously rejected the first writer shape as non-minimal.
+
+Required corrections from review:
+
+1. remove the standalone `operational_orchestration` routing mini-contract;
+2. keep one compact canonical responsibility boundary;
+3. separate technical permission necessity from security/privacy/material-risk/consequential-action authorization;
+4. replace the universal one-action cap with the smallest unavoidable Human action set, preferring one bundled instruction when sufficient;
+5. rework deterministic coverage around semantic positive/negative invariants;
+6. preserve #48/#55/#5 boundaries, product neutrality, #80-only cursor, no successor and no merge authority.
+
+## Disposition of stale historical branch
 
 Historical branch:
 
@@ -39,7 +58,7 @@ Retained evidence:
 
 1. the Owner-burden incident is real;
 2. routine route/permission mechanics should not be shifted to the Human when derivable;
-3. unexpected permission requests require a concrete operational instruction rather than workflow reconstruction;
+3. unexpected permission requests require concrete bounded operational guidance rather than workflow reconstruction;
 4. deterministic regression coverage is useful but cannot prove product UI/model behavior.
 
 Rejected implementation shape:
@@ -47,27 +66,27 @@ Rejected implementation shape:
 - canonical route names such as `normal-chat-first` or `work-or-codex`;
 - a generic Authority rule specifically about Chrome/browser access;
 - product/vendor/application names as permanent core routing semantics;
+- old #73/#74 and stale-main bindings;
+- validator coupling to a product-specific route model;
 - any interpretation that Authority itself becomes #48's quality/cost route-selection method;
 - any interpretation that Authority becomes #55's task/instruction compiler.
 
-Reason: those details are environment-specific evidence. Encoding them in generic Authority would increase coupling, stale semantics and second-owner risk.
+## Corrected smallest candidate
 
-## Smallest candidate correction
+Canonical Authority now adds one compact `operational_responsibility_boundary` only.
 
-The current branch changes only the operational responsibility boundary in canonical Authority:
+It states that, when derivable from task/current state/available capabilities:
 
-1. routine execution-route choice is AI-owned when derivable;
-2. capability and permission preflight is AI-owned when derivable;
-3. the AI checks adequate existing capabilities before escalating;
-4. operational permission is requested only when necessary for a concrete required action unavailable through an already adequate capability;
-5. convenience alone does not justify escalation;
-6. execution route never transfers project/semantic/acceptance/priority authority;
-7. when Human action is genuinely unavoidable, expose at most one action and state:
-   - what to do;
-   - why it is needed;
-   - the exact option;
-   - what the Human is not being asked to decide;
-8. core semantics remain product/vendor/model/application/interface neutral.
+- AI carries routine execution-route choice, available-capability inspection, least-privilege technical preflight and technical permission-necessity mechanics;
+- an already adequate capability is checked before stronger escalation;
+- convenience alone does not justify escalation;
+- technical necessity does not itself authorize security/privacy-sensitive permission, accept material risk or decide consequential external effects;
+- route choice does not transfer project, semantic, acceptance or priority authority;
+- if Human/specialist action remains unavoidable, only the smallest unavoidable action set is exposed;
+- one bundled instruction is preferred when sufficient, but independent unavoidable decisions are not hidden to satisfy a numeric cap;
+- each unavoidable action states `what_to_do`, `why_needed`, `exact_option`, `what_not_to_decide`.
+
+There is no canonical product/vendor/model/application route table and no standalone routing mini-contract.
 
 ## Existing-owner boundaries
 
@@ -77,37 +96,35 @@ Retains the candidate method question:
 
 > Which available route preserves required quality/capability under contextual scarcity?
 
-This correction does not implement that Skill. Authority only states that routine route mechanics are not a Human meta-decision.
+This correction does not implement that Skill. Authority only assigns routine operational responsibility and preserves material authority boundaries.
 
 ### #55
 
-Retains task/instruction compilation semantics, including smallest sufficient instruction and derive-before-asking. This correction only requires a concrete Human action instruction when action is unavoidable; it does not compile general task packets.
+Retains task/instruction compilation semantics, including smallest sufficient instruction and derive-before-asking. This correction constrains unavoidable Human burden but does not compile general task packets.
 
 ### #5
 
 Retains continuity/restartability semantics across environment boundaries. No new run registry or handoff store is created here.
 
-## Falsification / independent review target
+## Regression coverage
 
-A fresh reviewer must test both directions:
+`tests/test_owner_burden.py` protects the corrected semantic boundary rather than the first writer representation.
 
-1. **No-change counterhypothesis:** current Authority already says enough (`maintain_required_project_operations`, `do_not_burden_human_with`), so the new operational-orchestration wording is redundant and should be removed.
-2. **Under-specification counterhypothesis:** without the explicit responsibility boundary, the observed route/permission burden can recur while still appearing consistent with current generic Authority.
+`tests/fixtures/owner_burden_cases.json` records six bounded deterministic cases:
 
-Reject or shrink the Authority delta if it:
+- `WA-EVAL-031`: existing adequate capability → no Human route decision;
+- `WA-EVAL-032`: technically unnecessary stronger capability → no convenience escalation;
+- `WA-EVAL-033`: technical permission necessity ≠ security/privacy/material-risk authorization;
+- `WA-EVAL-034`: independent unavoidable Human actions remain explicit rather than artificially collapsed;
+- `WA-EVAL-035`: operational route choice preserves project/semantic/acceptance/priority authority;
+- `WA-EVAL-036`: product-specific incident evidence remains outside canonical Authority.
 
-- duplicates #48/#55 method semantics;
-- embeds environment/product policy;
-- adds more maintenance than operational clarity;
-- creates a second routing owner;
-- does not materially change the expected response to the observed Owner-burden case.
+These tests/fixtures prove repository contract semantics only. They do not establish model behavior, UI behavior or Human effectiveness.
 
 ## Promotion boundary
 
-This branch is a candidate only.
+The independent review applied to the superseded writer head. The corrected exact head requires fresh formal assurance and then a fresh independent re-review before any Human promotion decision.
 
-Formal CI can establish syntax/contract consistency and regression behavior; it cannot establish that the Authority refinement is semantically necessary or Human-effective.
-
-No merge/promotion before fresh independent semantic review of the exact candidate head.
+No merge/promotion is authorized by the Human priority selection, writer correction, internal reconciliation, CI or the earlier review.
 
 No downstream priority follows from completion of #80.
