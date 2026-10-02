@@ -9,7 +9,7 @@ class OwnerBurdenAuthorityTests(unittest.TestCase):
     def setUp(self):
         self.authority = json.loads((ROOT / "system" / "authority.json").read_text(encoding="utf-8"))
         self.state = json.loads((ROOT / "project" / "execution_state.json").read_text(encoding="utf-8"))
-        self.cases = json.loads((ROOT / "tests" / "fixtures" / "eval_cases.json").read_text(encoding="utf-8"))["cases"]
+        self.cases = json.loads((ROOT / "tests" / "fixtures" / "owner_burden_cases.json").read_text(encoding="utf-8"))["cases"]
         self.boundary = self.authority["consultation_contract"]["operational_responsibility_boundary"]
 
     def test_authority_uses_one_compact_responsibility_boundary(self):
@@ -54,11 +54,17 @@ class OwnerBurdenAuthorityTests(unittest.TestCase):
         ):
             self.assertNotIn(product_specific, encoded)
 
-    def test_review_required_eval_cases_are_present(self):
+    def test_review_required_regression_cases_are_present(self):
         by_id = {case["id"]: case for case in self.cases}
         required = {f"WA-EVAL-{number:03d}" for number in range(31, 37)}
         self.assertTrue(required.issubset(by_id))
         self.assertTrue(all(by_id[cid]["family"] == "FF-EXECUTION-PROGRESS" for cid in required))
+        self.assertIn("no-human-route-decision", by_id["WA-EVAL-031"]["expected"])
+        self.assertIn("reject-unnecessary-escalation", by_id["WA-EVAL-032"]["expected"])
+        self.assertIn("authorization-remains-human-or-specialist", by_id["WA-EVAL-033"]["expected"])
+        self.assertIn("both-independent-actions-explicit", by_id["WA-EVAL-034"]["expected"])
+        self.assertIn("material-authority-preserved", by_id["WA-EVAL-035"]["expected"])
+        self.assertIn("canonical-authority-remains-product-neutral", by_id["WA-EVAL-036"]["expected"])
 
     def test_correction_cursor_activates_only_issue_80_without_merge_authority(self):
         self.assertEqual(self.state["planning_source"], "github:esany/Wissensarbeit#7")
