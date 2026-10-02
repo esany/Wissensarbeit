@@ -1,51 +1,49 @@
 {
   "schema_version": "1.1",
-  "change_id": "planning-integrity-thin-correction-promotion-closure-2026-10-02",
+  "change_id": "track-b-handoff-discrimination-activation-2026-10-02",
   "materiality": "material",
-  "summary": "Reconcile the Human-authorized merge of PR #74, record the canonical Planning-Integrity Thin Correction promotion, close bounded implementation authority for #73, and leave downstream priority unselected.",
+  "summary": "Reconcile the Human Owner selection `Track B zuerst`, activate bounded Work Package #76 under Planning Owner #7, and preserve all downstream semantic/architecture/promotion questions as unresolved until the discrimination work supplies evidence.",
   "source_refs": [
-    "github:esany/Wissensarbeit#74",
-    "esany/Wissensarbeit@1de4e1bd208cf3a2efb5d55486b93f4301c66924",
-    "github:esany/Wissensarbeit/actions/runs/37025583258",
-    "https://github.com/esany/Wissensarbeit/pull/74#issuecomment-5954570717",
-    "github:esany/Wissensarbeit#73",
-    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
-    "project/GOVERNING_OBJECTIVE.md"
+    "github:esany/Wissensarbeit#76",
+    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
+    "github:esany/Wissensarbeit#64",
+    "project/GOVERNING_OBJECTIVE.md",
+    "system/authority.json"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "The promotion closes the already-reviewed bounded planning-integrity correction; no Requirement semantics are changed."
+      "rationale": "Selecting Track B authorizes bounded investigation/discrimination work only; it does not change any Requirement semantics."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
-      "rationale": "#73 is completed by the Human-authorized merge of corrected PR #74. #7 remains the Planning Owner. The independent review's rejection of the extra Planning Baseline remains the accepted disposition."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#64"],
+      "rationale": "#76 is the current Human-selected bounded Work Package. #64 remains historical candidate evidence/gate design and is not elevated to current authority or accepted finding."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "Continuity, drift, authority, accretion and false-assurance risks remain applicable. Canonical promotion preserves the cursor-only design and introduces no second planning clock."
+      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-006", "R-007", "R-008", "R-009", "R-010"],
+      "rationale": "Continuity, systemic drift, authority, solutionism, false assurance, execution progress and technical-blind-spot risks remain relevant. The bounded discrimination design is specifically constrained against architecture/pipeline/ontology creep and unsupported capability claims."
     },
     "decisions_concepts": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
-      "rationale": "The Human Owner explicitly authorized merge of PR #74 after the snapshot hypothesis had been falsified and removed. Canonical planning integrity therefore remains Planning Owner #7 plus the narrow execution cursor, with no additional planning representation."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#64", "github:esany/Wissensarbeit#52", "github:esany/Wissensarbeit#53", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#48"],
+      "rationale": "The only material decision introduced here is priority: Track B first. No verdict is accepted on whether existing mechanisms suffice, need contract sharpening/composition, or a distinct interface capability exists. Adjacent candidate owners remain candidates/evidence, not promoted implementations."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE is regenerated only to bind its reconciliation provenance to the post-merge closure; it does not become a parallel planning surface."
+      "rationale": "CURRENT_STATE is refreshed only for reconciliation provenance; it remains a derived view and not a parallel planning source."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
-      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
-      "rationale": "PR #74 promotion is complete. The bounded #73 implementation authority is closed, focus returns to Planning Owner #7, no deterministic next action exists, and downstream follow-up remains unselected.",
+      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76"],
+      "rationale": "Human priority selection activates #76 as current focus under #7. Analysis/research/evidence work is permitted; runtime implementation and merge remain unauthorized. Downstream follow-up remains unselected.",
       "cursor_binding": {
         "planning_owner": "github:esany/Wissensarbeit#7",
-        "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "planning-integrity-thin-correction-promotion",
+        "focus": "github:esany/Wissensarbeit#76",
+        "current_step": "track-b-wirknetz-skill-handoff-discrimination",
         "next": "none",
         "follow_up_status": "not-derived",
         "implementation_allowed": false,
@@ -54,8 +52,8 @@
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#73"],
-      "rationale": "#73 is completed by canonical promotion of PR #74 and is no longer active implementation work. No other open Issue/PR is activated by this closure; the next candidate requires fresh derivation and material Human priority authority."
+      "objects": ["github:esany/Wissensarbeit#76"],
+      "rationale": "#76 is the only newly active bounded Work Package. PR #64 and other open Issues/PRs remain evidence or candidates unless separately selected/authorized."
     }
   },
   "unresolved": [],
