@@ -9,29 +9,42 @@ class OwnerBurdenAuthorityTests(unittest.TestCase):
     def setUp(self):
         self.authority = json.loads((ROOT / "system" / "authority.json").read_text(encoding="utf-8"))
         self.state = json.loads((ROOT / "project" / "execution_state.json").read_text(encoding="utf-8"))
+        self.cases = json.loads((ROOT / "tests" / "fixtures" / "eval_cases.json").read_text(encoding="utf-8"))["cases"]
+        self.boundary = self.authority["consultation_contract"]["operational_responsibility_boundary"]
 
-    def test_routine_route_and_permission_mechanics_are_ai_owned(self):
+    def test_authority_uses_one_compact_responsibility_boundary(self):
+        consultation = self.authority["consultation_contract"]
+        self.assertIn("operational_responsibility_boundary", consultation)
+        self.assertNotIn("operational_orchestration", consultation)
         autonomous = self.authority["authorities"]["ai_autonomous_operational"]
-        self.assertIn("select_routine_execution_route", autonomous)
-        self.assertIn("check_capability_and_permission_necessity", autonomous)
+        self.assertNotIn("select_routine_execution_route", autonomous)
+        self.assertNotIn("check_capability_and_permission_necessity", autonomous)
 
-        do_not_burden = self.authority["consultation_contract"]["do_not_burden_human_with"]
-        self.assertIn("routine execution-route choice", do_not_burden)
-        self.assertIn("capability and permission preflight when derivable", do_not_burden)
-        self.assertIn("operational permission necessity when derivable", do_not_burden)
+    def test_routine_mechanics_stay_ai_owned_without_convenience_escalation(self):
+        text = self.boundary.lower()
+        self.assertIn("ai carries those routine mechanics", text)
+        self.assertIn("checks an already adequate capability before stronger escalation", text)
+        self.assertIn("does not escalate for convenience alone", text)
 
-    def test_unavoidable_human_action_is_one_concrete_instruction(self):
-        orchestration = self.authority["consultation_contract"]["operational_orchestration"]
-        action = orchestration["human_action_when_unavoidable"]
-        self.assertEqual(action["maximum_unavoidable_actions"], 1)
-        self.assertEqual(
-            set(action["required_instruction_fields"]),
-            {"what_to_do", "why_needed", "exact_option", "what_not_to_decide"},
-        )
+    def test_technical_necessity_does_not_grant_material_authorization(self):
+        text = self.boundary.lower()
+        self.assertIn("technical necessity does not itself authorize", text)
+        self.assertIn("security- or privacy-sensitive permission", text)
+        self.assertIn("accept material risk", text)
+        self.assertIn("consequential external effects", text)
+        self.assertIn("project, semantic, acceptance or priority authority", text)
 
-    def test_core_orchestration_semantics_are_product_neutral(self):
-        orchestration = self.authority["consultation_contract"]["operational_orchestration"]
-        encoded = json.dumps(orchestration, ensure_ascii=False).lower()
+    def test_human_burden_is_smallest_action_set_not_numeric_cap(self):
+        encoded = json.dumps(self.authority, ensure_ascii=False)
+        text = self.boundary.lower()
+        self.assertNotIn("maximum_unavoidable_actions", encoded)
+        self.assertIn("smallest unavoidable human action set", text)
+        self.assertIn("prefer one bundled instruction when sufficient", text)
+        for field in ("what_to_do", "why_needed", "exact_option", "what_not_to_decide"):
+            self.assertIn(field, self.boundary)
+
+    def test_core_authority_is_product_neutral(self):
+        encoded = json.dumps(self.authority, ensure_ascii=False).lower()
         for product_specific in (
             "normal-chat-first",
             "work-or-codex",
@@ -40,7 +53,12 @@ class OwnerBurdenAuthorityTests(unittest.TestCase):
             "browser",
         ):
             self.assertNotIn(product_specific, encoded)
-        self.assertIn("product_neutrality", orchestration)
+
+    def test_review_required_eval_cases_are_present(self):
+        by_id = {case["id"]: case for case in self.cases}
+        required = {f"WA-EVAL-{number:03d}" for number in range(31, 37)}
+        self.assertTrue(required.issubset(by_id))
+        self.assertTrue(all(by_id[cid]["family"] == "FF-EXECUTION-PROGRESS" for cid in required))
 
     def test_correction_cursor_activates_only_issue_80_without_merge_authority(self):
         self.assertEqual(self.state["planning_source"], "github:esany/Wissensarbeit#7")
