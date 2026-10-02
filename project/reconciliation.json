@@ -2,11 +2,11 @@
   "schema_version": "1.1",
   "change_id": "planning-integrity-thin-correction-activation-2026-10-02",
   "materiality": "material",
-  "summary": "Persist the Human-selected Planning-Integrity Thin Correction as the only active bounded Work Package, bind it to Planning Owner #7 through a small versioned planning projection, and preserve fresh derivation after closure.",
+  "summary": "Synchronize the existing execution cursor with the Human-selected Planning-Integrity Thin Correction as the only active bounded Work Package, keep #7 as the sole planning source, reject the redundant Planning Baseline representation per independent review, and preserve fresh derivation after closure.",
   "source_refs": [
     "github:esany/Wissensarbeit#73",
     "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
-    "project/WA-PLANNING-BASELINE-2026-10-02-01.json",
+    "https://github.com/esany/Wissensarbeit/pull/74#issuecomment-5954570717",
     "project/GOVERNING_OBJECTIVE.md",
     "github:esany/Wissensarbeit#72"
   ],
@@ -14,39 +14,38 @@
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "The correction changes planning projection and active-work selection only; no Requirement semantics are changed."
+      "rationale": "The correction synchronizes existing planning/execution state only; no Requirement semantics are changed."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#72"],
-      "rationale": "#73 is the single Human-selected bounded Work Package. #7 remains Planning Owner. PR #72 remains recovery/candidate evidence and does not become current-state authority."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#72", "github:esany/Wissensarbeit#74"],
+      "rationale": "#73 is the single Human-selected bounded Work Package. #7 remains Planning Owner. PR #72 remains recovery/candidate evidence. The independent review on PR #74 rejected the extra Planning Baseline representation and retained the cursor-only correction."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "Continuity, drift, authority, accretion and false-assurance risks remain applicable. The bounded projection is deliberately rejected if it becomes a second mutable planning clock or speculative roadmap."
+      "rationale": "Continuity, drift, authority, accretion and false-assurance risks remain applicable. Removing the manually authored planning projection avoids a second planning clock and keeps one mutable planning owner plus one narrow execution cursor."
     },
     "decisions_concepts": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#73", "project/WA-PLANNING-BASELINE-2026-10-02-01.json"],
-      "rationale": "Human priority authority selected Planning-Integrity Thin Correction first. The technical representation remains deliberately thin: a versioned selection projection bound to existing #7 and the execution cursor, not a new Planning Owner, registry, planner or roadmap."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
+      "rationale": "Human priority authority selected Planning-Integrity Thin Correction first. Independent review falsified the need for a separate planning projection. The accepted candidate design therefore compiles that Human decision directly into the existing execution cursor without introducing a new planning representation."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE is regenerated only to bind its reconciliation provenance to this material activation; planning truth remains in the Planning Owner, versioned projection and execution cursor."
+      "rationale": "CURRENT_STATE remains a derived view and is refreshed only to bind its reconciliation provenance to this material activation; planning truth remains in #7 and execution admissibility/current focus in the existing cursor."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
-      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "project/WA-PLANNING-BASELINE-2026-10-02-01.json"],
-      "rationale": "The prior not-derived state is resolved by explicit Human priority selection. #73 is now the only active bounded Work Package; implementation is allowed within its reversible bounded scope and merge remains unauthorized.",
+      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73"],
+      "rationale": "The prior not-derived current-work state is resolved by explicit Human priority selection. #73 is the only active bounded Work Package; implementation is allowed within its reversible bounded scope, merge remains unauthorized, and downstream follow-up remains unselected.",
       "cursor_binding": {
         "planning_owner": "github:esany/Wissensarbeit#7",
-        "planning_baseline": "project/WA-PLANNING-BASELINE-2026-10-02-01.json",
         "focus": "github:esany/Wissensarbeit#73",
         "current_step": "planning-integrity-thin-correction",
         "next": "none",
-        "follow_up_status": "active",
+        "follow_up_status": "not-derived",
         "implementation_allowed": true,
         "merge_allowed": false
       }
