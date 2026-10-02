@@ -1,7 +1,6 @@
 {
   "focus": "github:esany/Wissensarbeit#73",
   "planning_source": "github:esany/Wissensarbeit#7",
-  "planning_baseline": "project/WA-PLANNING-BASELINE-2026-10-02-01.json",
   "current_step": {
     "id": "planning-integrity-thin-correction",
     "next": []
@@ -47,8 +46,8 @@
     "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767"
   },
   "follow_up": {
-    "status": "active",
-    "candidate": "github:esany/Wissensarbeit#73",
-    "rule": "Only the Human-selected Planning-Integrity Thin Correction is active. No other candidate or downstream priority is implied. After closure, derive the next candidate freshly from the Planning Owner, Governing Objective and current repository evidence."
+    "status": "not-derived",
+    "candidate": null,
+    "rule": "The Human-selected Planning-Integrity Thin Correction is the current focus. No downstream candidate is selected. After #73 closure, derive the next candidate freshly from the Planning Owner, Governing Objective and current repository evidence; material priority remains a Human Owner boundary."
   }
 }
