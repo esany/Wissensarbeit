@@ -24,8 +24,8 @@ data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
 - Current change: `owner-burden-execution-routing-thin-correction-2026-10-02`
-- Systemically integrated: `false`
-- Unresolved reconciliation blockers: 1
+- Systemically integrated: `true`
+- Unresolved reconciliation blockers: 0
 
 ## Canonical sources
 - `project/requirements.json`
