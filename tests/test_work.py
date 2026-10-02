@@ -77,16 +77,16 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_activates_only_planning_integrity_work_package(self):
+    def test_execution_state_records_planning_integrity_promotion_closure_without_downstream_authority(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["planning_source"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#73")
+        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
         self.assertNotIn("planning_baseline", state)
-        self.assertEqual(state["current_step"]["id"], "planning-integrity-thin-correction")
+        self.assertEqual(state["current_step"]["id"], "planning-integrity-thin-correction-promotion")
         self.assertEqual(state["current_step"]["next"], [])
-        self.assertTrue(state["implementation_allowed"])
-        self.assertIn("implement", state["allowed_actions"])
+        self.assertFalse(state["implementation_allowed"])
+        self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
         self.assertEqual(state["follow_up"]["status"], "not-derived")
         self.assertIsNone(state["follow_up"]["candidate"])
@@ -94,7 +94,12 @@ class OperationalCoreTests(unittest.TestCase):
             state["completion_evidence"]["WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02"],
             "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
         )
-        self.assertEqual(work.execution_preflight("implement"), [])
+        self.assertEqual(
+            state["completion_evidence"]["WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01"],
+            "https://github.com/esany/Wissensarbeit/commit/1de4e1bd208cf3a2efb5d55486b93f4301c66924",
+        )
+        self.assertEqual(work.execution_preflight("inspect"), [])
+        self.assertTrue(work.execution_preflight("implement"))
         self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
