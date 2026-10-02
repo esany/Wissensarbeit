@@ -77,26 +77,29 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_records_p2_promotion_closure_without_downstream_authority(self):
+    def test_execution_state_activates_only_planning_integrity_work_package(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
-        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-result-promotion-decision")
+        self.assertEqual(state["planning_source"], "github:esany/Wissensarbeit#7")
+        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#73")
+        self.assertEqual(state["planning_baseline"], "project/WA-PLANNING-BASELINE-2026-10-02-01.json")
+        self.assertEqual(state["current_step"]["id"], "planning-integrity-thin-correction")
         self.assertEqual(state["current_step"]["next"], [])
-        self.assertFalse(state["implementation_allowed"])
-        self.assertNotIn("implement", state["allowed_actions"])
+        self.assertTrue(state["implementation_allowed"])
+        self.assertIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        self.assertEqual(state["follow_up"]["status"], "not-derived")
-        self.assertIsNone(state["follow_up"]["candidate"])
+        self.assertEqual(state["follow_up"]["status"], "active")
+        self.assertEqual(state["follow_up"]["candidate"], "github:esany/Wissensarbeit#73")
         self.assertEqual(
-            state["completion_evidence"]["p2-context-fidelity-result-promotion-decision"],
-            "https://github.com/esany/Wissensarbeit/pull/70",
+            state["completion_evidence"]["WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02"],
+            "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
         )
-        self.assertEqual(
-            state["completion_evidence"]["WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01"],
-            "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3",
-        )
-        self.assertTrue(work.execution_preflight("implement"))
+        baseline = work.load(ROOT / state["planning_baseline"])
+        self.assertEqual(baseline["planning_owner"], state["planning_source"])
+        self.assertEqual(baseline["selection"]["work_ref"], state["focus"])
+        self.assertEqual(baseline["scope_boundary"]["only_activated_work"], state["focus"])
+        self.assertIn("unselected", baseline["scope_boundary"]["all_other_open_issues_and_prs"])
+        self.assertEqual(work.execution_preflight("implement"), [])
         self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
