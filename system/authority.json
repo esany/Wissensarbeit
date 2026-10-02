@@ -32,5 +32,38 @@
       "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","material-state candidate persistence and continuity-boundary checks","routine impact discovery and unchanged reconciliation dispositions","ordinary reversible implementation details","necessary operational maintenance"
     ],
     "explanation_required": ["what changes","why it is needed","relevant alternatives","material consequences","reversibility","what decision is actually requested"]
+  },
+  "execution_routing": {
+    "principle": "The AI determines the smallest adequate execution route from the task, available capabilities and authority before asking the Owner to act. Route and permission mechanics are not Owner decisions.",
+    "route_selection": [
+      {
+        "when": "read-only GitHub or repository work is fully supported by an available connector or existing repository tools",
+        "route": "normal-chat-first",
+        "owner_routing_decision": false
+      },
+      {
+        "when": "local repository mutation, branch/commit work or deterministic checks are required",
+        "route": "work-or-codex",
+        "owner_routing_decision": false
+      },
+      {
+        "when": "the preferred route lacks a required capability",
+        "route": "check-existing-alternatives-then-minimal-escalation",
+        "owner_routing_decision": false
+      }
+    ],
+    "capability_admission": {
+      "before_route": ["requested_actions", "required_capabilities", "available_capabilities", "missing_capabilities"],
+      "escalation_rule": "Do not escalate to a stronger environment, connector or app permission for convenience; escalate only when the concrete required action is otherwise unavailable."
+    },
+    "permission_policy": {
+      "browser_or_chrome": "Do not request local browser access for GitHub or repository work when an adequate GitHub connector or repository tool is available.",
+      "unexpected_prompt": "The AI must tell the Owner exactly whether to allow or deny the prompt, name the concrete action requiring it, and state what remains impossible if denied."
+    },
+    "owner_action_contract": {
+      "maximum_unavoidable_actions": 1,
+      "required_instruction_fields": ["what_to_do", "why_needed", "exact_option", "what_not_to_decide"],
+      "route_or_permission_questions_are_ai_owned": true
+    }
   }
 }

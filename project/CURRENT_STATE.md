@@ -23,7 +23,7 @@ domain, project, research, data, software, intelligence, operations, interfaces
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
-- Current change: `p2/context-fidelity-promotion-closure-2026-10-02`
+- Current change: `execution-routing-owner-burden-correction-2026-10-02`
 - Systemically integrated: `true`
 - Unresolved reconciliation blockers: 0
 

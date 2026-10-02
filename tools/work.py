@@ -162,6 +162,56 @@ def validate_decision_brief_contract(brief: dict, authority: dict, building_bloc
     return errors
 
 
+def validate_execution_routing_contract(authority: dict) -> list[str]:
+    """Validate the AI-owned route/capability/permission boundary."""
+    errors: list[str] = []
+    routing = authority.get("execution_routing")
+    if not isinstance(routing, dict):
+        return ["authority contract is missing execution routing"]
+
+    if not routing.get("principle"):
+        errors.append("execution routing principle is missing")
+
+    routes = routing.get("route_selection")
+    if not isinstance(routes, list) or len(routes) < 3:
+        errors.append("execution routing must define adequate, mutation and missing-capability routes")
+    else:
+        route_names = {item.get("route") for item in routes if isinstance(item, dict)}
+        required_routes = {
+            "normal-chat-first",
+            "work-or-codex",
+            "check-existing-alternatives-then-minimal-escalation",
+        }
+        missing_routes = required_routes - route_names
+        if missing_routes:
+            errors.append(f"execution routing is missing routes: {sorted(missing_routes)}")
+        if any(item.get("owner_routing_decision") is not False for item in routes if isinstance(item, dict)):
+            errors.append("execution route selection must remain AI-owned")
+
+    admission = routing.get("capability_admission", {})
+    if set(admission.get("before_route", [])) != {
+        "requested_actions", "required_capabilities", "available_capabilities", "missing_capabilities"
+    }:
+        errors.append("capability admission must record requested, required, available and missing capabilities")
+    if not admission.get("escalation_rule"):
+        errors.append("capability admission must forbid convenience escalation")
+
+    permissions = routing.get("permission_policy", {})
+    if not permissions.get("browser_or_chrome") or not permissions.get("unexpected_prompt"):
+        errors.append("permission policy must cover browser necessity and unexpected prompts")
+
+    owner_action = routing.get("owner_action_contract", {})
+    if owner_action.get("maximum_unavoidable_actions") != 1:
+        errors.append("owner action contract must cap unavoidable actions at one")
+    if set(owner_action.get("required_instruction_fields", [])) != {
+        "what_to_do", "why_needed", "exact_option", "what_not_to_decide"
+    }:
+        errors.append("owner action contract must specify complete concrete instructions")
+    if owner_action.get("route_or_permission_questions_are_ai_owned") is not True:
+        errors.append("route and permission questions must remain AI-owned")
+    return errors
+
+
 def validate_foundation_harvest(harvest: dict, requirements: list[dict]) -> list[str]:
     errors: list[str] = []
     expected_chat_id = "6a97167d-70fc-83eb-8b97-3ae4f5d7f0cf"
@@ -390,6 +440,7 @@ def validate() -> list[str]:
     errors.extend(validate_foundation_harvest(foundation_harvest, reqs))
     errors.extend(validate_p1_harvest(p1_harvest))
     errors.extend(validate_decision_brief_contract(decision_brief, authority, building_blocks))
+    errors.extend(validate_execution_routing_contract(authority))
     errors.extend(validate_reconciliation_contract(reconciliation, reconciliation_packet, authority, building_blocks))
     if EXECUTION_STATE.exists():
         errors.extend(execution_errors(load(EXECUTION_STATE)))

@@ -1,47 +1,49 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/context-fidelity-promotion-closure-2026-10-02",
+  "change_id": "execution-routing-owner-burden-correction-2026-10-02",
   "materiality": "material",
-  "summary": "Reconcile the Human-authorized merge of PR #70, record the canonical P2 Context-Fidelity promotion, close the obsolete promotion blocker, and leave downstream priority unselected.",
+  "summary": "Persist the Owner-primary execution-routing usability finding, refine the existing Authority contract with AI-owned route/capability/permission preflight, and add bounded regressions without changing priority, execution authority or PR #74.",
   "source_refs": [
-    "github:esany/Wissensarbeit#70",
-    "esany/Wissensarbeit@9bc27131c74896c319712897526d5190d95f085b",
-    "esany/Wissensarbeit@b6b284e22fbee80ff9f10121f23de1bc6b638cd3",
-    "github:esany/Wissensarbeit/actions/runs/36969681090",
-    "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
-    "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
-    "github:esany/Wissensarbeit#39"
+    "project/audits/WA-AUDIT-2026-10-02-EXECUTION-ROUTING-OWNER-BURDEN.md",
+    "system/authority.json",
+    "tools/work.py",
+    "tests/evals/failure_corpus.json",
+    "tests/fixtures/eval_cases.json",
+    "github:esany/Wissensarbeit#28",
+    "github:esany/Wissensarbeit#73",
+    "github:esany/Wissensarbeit#74",
+    "esany/Wissensarbeit@0853a30e32bdf078e75d5f69414097b68cc1a59a"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "The authorized promotion adopts the already admitted and independently confirmed P2 slice; it changes no Requirement semantics."
+      "rationale": "The correction refines execution routing and permission handling only; no Requirement semantics change."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#70", "github:esany/Wissensarbeit#39", "P2-CONTEXT-FIDELITY-SLICE"],
-      "rationale": "PR #70 is now merged and canonical. PR #39 is superseded as the historical source candidate and must not be merged separately. Retained real-use qualification questions remain open."
+      "objects": ["github:esany/Wissensarbeit#28", "FF-EXECUTION-PROGRESS", "WA-AUDIT-2026-10-02-EXECUTION-ROUTING-OWNER-BURDEN", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
+      "rationale": "The Owner-primary routing failure is persisted as evidence under the existing FF-EXECUTION-PROGRESS family. Issue #28 remains the existing execution-guard owner; #73/#74 remain the bounded planning-integrity context and frozen review candidate."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "Existing continuity, drift, authority and false-assurance risks remain applicable. The merge is exact-head bound and reversible; no new risk family is introduced."
+      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-007", "R-008", "R-009", "R-010"],
+      "rationale": "Existing owner-burden, execution-progress, authority and technical-blind-spot risks cover the finding. No new risk family is introduced."
     },
     "decisions_concepts": {
       "disposition": "refined",
-      "objects": ["P2-CONTEXT-FIDELITY-SLICE", "github:esany/Wissensarbeit#70", "esany/Wissensarbeit@b6b284e22fbee80ff9f10121f23de1bc6b638cd3"],
-      "rationale": "The Human Owner explicitly authorized canonical promotion of exact PR #70 head 9bc27131c74896c319712897526d5190d95f085b. This is merge authority for the bounded slice only and does not constitute broad Result Acceptance, real-use proof, downstream admission or priority change."
+      "objects": ["system/authority.json", "tools/work.py", "tests/fixtures/eval_cases.json", "tests/evals/failure_corpus.json"],
+      "rationale": "The existing Authority and execution-guard owners are refined with explicit AI-owned route/capability/permission semantics and A–E regression cases. This creates no new planner, registry, priority or promotion authority."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE is regenerated to bind the derived view to the post-merge promotion-closure reconciliation."
+      "rationale": "CURRENT_STATE is regenerated to bind the derived view to this bounded correction; it does not become a second planning or execution owner."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
       "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7"],
-      "rationale": "The prior Human merge-decision blocker is satisfied by the authorized and completed merge of PR #70. P2 promotion is complete, implementation authority remains closed, and no deterministic downstream action is selected.",
+      "rationale": "The correction changes no execution cursor, active priority or PR #74 head. The existing P2 promotion closure remains the current cursor state and no downstream action is selected.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
         "current_step": "p2-context-fidelity-result-promotion-decision",
@@ -55,7 +57,7 @@
     "active_work": {
       "disposition": "refined",
       "objects": ["P2-CONTEXT-FIDELITY-SLICE", "github:esany/Wissensarbeit#7"],
-      "rationale": "The P2 Context-Fidelity slice is canonically promoted and has no active implementation step. The next candidate must be freshly derived from current repository evidence; no QP-1ff/P3/P4/P5 or real-use programme is activated by this closure."
+      "rationale": "The P2 Context-Fidelity slice remains canonically promoted with no active implementation step. This routing correction does not activate #73/#74, any other candidate or a downstream priority; future work remains freshly derived from current repository evidence."
     }
   },
   "unresolved": [],

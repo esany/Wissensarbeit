@@ -174,6 +174,27 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertIn("accept_material_requirement_change", human)
         self.assertTrue(authority["consultation_contract"]["explanation_required"])
 
+    def test_execution_routing_keeps_environment_and_permission_choices_with_ai(self):
+        authority = work.load(work.AUTHORITY)
+        routing = authority["execution_routing"]
+        routes = {item["route"]: item for item in routing["route_selection"]}
+        self.assertFalse(routes["normal-chat-first"]["owner_routing_decision"])
+        self.assertFalse(routes["work-or-codex"]["owner_routing_decision"])
+        self.assertFalse(routes["check-existing-alternatives-then-minimal-escalation"]["owner_routing_decision"])
+        self.assertIn("available_capabilities", routing["capability_admission"]["before_route"])
+        self.assertIn("Do not request local browser access", routing["permission_policy"]["browser_or_chrome"])
+        self.assertEqual(routing["owner_action_contract"]["maximum_unavoidable_actions"], 1)
+        self.assertTrue(routing["owner_action_contract"]["route_or_permission_questions_are_ai_owned"])
+        self.assertEqual(work.validate_execution_routing_contract(authority), [])
+
+    def test_execution_routing_contract_fails_closed_when_owner_is_made_router(self):
+        authority = copy.deepcopy(work.load(work.AUTHORITY))
+        authority["execution_routing"]["route_selection"][0]["owner_routing_decision"] = True
+        authority["execution_routing"]["owner_action_contract"]["route_or_permission_questions_are_ai_owned"] = False
+        errors = work.validate_execution_routing_contract(authority)
+        self.assertTrue(any("AI-owned" in error for error in errors))
+        self.assertTrue(any("route and permission questions" in error for error in errors))
+
     def test_cli_validate(self):
         proc = subprocess.run([sys.executable, str(ROOT / "tools" / "work.py"), "validate"], capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
