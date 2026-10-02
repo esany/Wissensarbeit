@@ -32,7 +32,7 @@
     "decisions_concepts": {
       "disposition": "refined",
       "objects": ["system/authority.json", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#80"],
-      "rationale": "Candidate Authority clarification makes routine route choice, capability/permission preflight and permission necessity AI-owned where derivable, and requires one concrete instruction when Human action is unavoidable. It deliberately does not encode product/vendor route names, create a scheduler/orchestrator, or transfer #48/#55 method ownership into Authority. This branch is a review candidate, not promoted canonical meaning."
+      "rationale": "Candidate Authority clarification makes routine route choice, capability/permission preflight and permission necessity AI-owned where derivable, and requires one concrete instruction when Human action is unavoidable. It deliberately does not encode product/vendor route names, create a scheduler/orchestrator, or transfer #48/#55 method ownership into Authority. This branch is internally reconciled as a review candidate; systemic reconciliation does not grant promotion or merge authority."
     },
     "derived_views": {
       "disposition": "refined",
@@ -59,12 +59,6 @@
       "rationale": "#80 is the only newly active Work Package. The stale historical branch and adjacent open candidates remain evidence/unselected unless separately authorized."
     }
   },
-  "unresolved": [
-    {
-      "id": "OWNER-BURDEN-AUTHORITY-MINIMALITY-REVIEW",
-      "status": "needs-decision",
-      "reason": "Fresh independent semantic review must determine whether the Authority clarification is necessary/minimal or whether existing Authority plus adjacent candidate semantics already suffice without canonical change."
-    }
-  ],
-  "systemically_integrated": false
+  "unresolved": [],
+  "systemically_integrated": true
 }
