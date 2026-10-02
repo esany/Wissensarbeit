@@ -77,41 +77,25 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_records_integration_closure_without_granting_authority(self):
+    def test_execution_state_records_p2_promotion_closure_without_downstream_authority(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-current-main-integration-assurance")
+        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-result-promotion-decision")
+        self.assertEqual(state["current_step"]["next"], [])
         self.assertFalse(state["implementation_allowed"])
         self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        ready = [item for item in state["current_step"]["next"] if item.get("status") == "ready"]
-        self.assertEqual(ready, [])
-
-        review = state["current_step"]["next"][0]
-        self.assertEqual(review["id"], "p2-context-fidelity-result-promotion-decision")
-        self.assertEqual(review["status"], "blocked")
-        self.assertEqual(review["blocked_by"], "separate Human Owner result-promotion/merge decision after final result-state assurance")
+        self.assertEqual(state["follow_up"]["status"], "not-derived")
+        self.assertIsNone(state["follow_up"]["candidate"])
         self.assertEqual(
-            review["review_target"],
-            "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+            state["completion_evidence"]["p2-context-fidelity-result-promotion-decision"],
+            "https://github.com/esany/Wissensarbeit/pull/70",
         )
         self.assertEqual(
-            review["review_evidence"],
-            "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+            state["completion_evidence"]["WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01"],
+            "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3",
         )
-        self.assertTrue((ROOT / review["review_evidence"]).exists())
-        self.assertEqual(
-            review["authority_boundary"],
-            "formal integration assurance != Result Acceptance or merge authority",
-        )
-
-        self.assertEqual(state["completion_evidence"]["p2-context-fidelity-current-main-integration-assurance"], "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md")
-        self.assertEqual(review["integrated_head"], "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7")
-
-        evidence = "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md"
-        self.assertEqual(state["completion_evidence"]["p2-context-fidelity-correction"], evidence)
-        self.assertTrue((ROOT / evidence).exists())
         self.assertTrue(work.execution_preflight("implement"))
         self.assertTrue(work.execution_preflight("merge"))
 
