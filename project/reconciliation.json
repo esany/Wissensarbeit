@@ -1,12 +1,16 @@
 {
   "schema_version": "1.1",
-  "change_id": "track-b-handoff-discrimination-activation-2026-10-02",
+  "change_id": "track-b-handoff-discrimination-closure-2026-10-02",
   "materiality": "material",
-  "summary": "Reconcile the Human Owner selection `Track B zuerst`, activate bounded Work Package #76 under Planning Owner #7, and preserve all downstream semantic/architecture/promotion questions as unresolved until the discrimination work supplies evidence.",
+  "summary": "Reconcile completion of bounded Track-B Work Package #76 after fresh independent review of PR #78, preserve the review verdict as evidence, close the active cursor, and leave downstream priority unselected.",
   "source_refs": [
     "github:esany/Wissensarbeit#76",
-    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
+    "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646",
+    "https://github.com/esany/Wissensarbeit/pull/78#issuecomment-5959121092",
+    "github:esany/Wissensarbeit#78",
     "github:esany/Wissensarbeit#64",
+    "https://github.com/esany/Wissensarbeit/issues/52#issuecomment-5959753460",
+    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
     "project/GOVERNING_OBJECTIVE.md",
     "system/authority.json"
   ],
@@ -14,35 +18,35 @@
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "Selecting Track B authorizes bounded investigation/discrimination work only; it does not change any Requirement semantics."
+      "rationale": "Track B completed as bounded discrimination/review evidence. No Requirement semantics are promoted or changed."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#64"],
-      "rationale": "#76 is the current Human-selected bounded Work Package. #64 remains historical candidate evidence/gate design and is not elevated to current authority or accepted finding."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#52", "github:esany/Wissensarbeit#64", "github:esany/Wissensarbeit#78"],
+      "rationale": "Fresh independent review on exact PR #78 head returned EXISTING MECHANISMS SUFFICIENT for the frozen Track-B A-D boundary cases and falsified the writer claim that extra contract sharpening is necessary. PR #64 and PR #78 are closed unmerged as historical evidence; #52 receives additive evidence without rewriting historical candidate semantics."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-006", "R-007", "R-008", "R-009", "R-010"],
-      "rationale": "Continuity, systemic drift, authority, solutionism, false assurance, execution progress and technical-blind-spot risks remain relevant. The bounded discrimination design is specifically constrained against architecture/pipeline/ontology creep and unsupported capability claims."
+      "rationale": "Continuity, drift, authority, solutionism, false-assurance, duplication/maintenance and technical-blind-spot risks remain applicable. The review specifically avoids creating a second semantic owner or bridge where current owners suffice."
     },
     "decisions_concepts": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#64", "github:esany/Wissensarbeit#52", "github:esany/Wissensarbeit#53", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#48"],
-      "rationale": "The only material decision introduced here is priority: Track B first. No verdict is accepted on whether existing mechanisms suffice, need contract sharpening/composition, or a distinct interface capability exists. Adjacent candidate owners remain candidates/evidence, not promoted implementations."
+      "objects": ["github:esany/Wissensarbeit#52", "github:esany/Wissensarbeit#53", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#78"],
+      "rationale": "Current bounded evidence supports no distinct Wirknetz-to-Skill Bridge and does not establish mandatory new Capability-Request or Result-Envelope contract fields. Existing BB-CONTEXT, BB-COMPETENCE, Authority method-fit, applicable bounded method-Skill contracts/outputs, BB-INTEGRATE/Reconciliation and BB-ASSURE are sufficient for the investigated semantic boundary when correctly applied. This is evidence disposition, not runtime proof, Generic-Fit acceptance, Requirement promotion or implementation authority."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE is refreshed only for reconciliation provenance; it remains a derived view and not a parallel planning source."
+      "rationale": "CURRENT_STATE is refreshed only to bind reconciliation provenance to the Track-B closure; it remains derived and is not a parallel semantic/planning source."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
       "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76"],
-      "rationale": "Human priority selection activates #76 as current focus under #7. Analysis/research/evidence work is permitted; runtime implementation and merge remain unauthorized. Downstream follow-up remains unselected.",
+      "rationale": "Bounded Track-B work is complete. Focus returns to Planning Owner #7, implementation remains disallowed, no deterministic next action exists, and the possible later B0-vs-B1 falsification is not activated by this closure.",
       "cursor_binding": {
         "planning_owner": "github:esany/Wissensarbeit#7",
-        "focus": "github:esany/Wissensarbeit#76",
+        "focus": "github:esany/Wissensarbeit#7",
         "current_step": "track-b-wirknetz-skill-handoff-discrimination",
         "next": "none",
         "follow_up_status": "not-derived",
@@ -53,7 +57,7 @@
     "active_work": {
       "disposition": "refined",
       "objects": ["github:esany/Wissensarbeit#76"],
-      "rationale": "#76 is the only newly active bounded Work Package. PR #64 and other open Issues/PRs remain evidence or candidates unless separately selected/authorized."
+      "rationale": "#76 is complete as bounded analysis/review work and is no longer active. No other Issue/PR, including a possible #52 B0-vs-B1 Contract/Eval gate, is activated by this closure."
     }
   },
   "unresolved": [],

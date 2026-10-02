@@ -77,20 +77,16 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_activates_only_track_b_discrimination_without_runtime_authority(self):
+    def test_execution_state_closes_track_b_discrimination_without_downstream_authority(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["planning_source"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#76")
+        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
         self.assertNotIn("planning_baseline", state)
         self.assertEqual(state["current_step"]["id"], "track-b-wirknetz-skill-handoff-discrimination")
         self.assertEqual(state["current_step"]["next"], [])
         self.assertFalse(state["implementation_allowed"])
-        self.assertIn("inspect", state["allowed_actions"])
-        self.assertIn("research", state["allowed_actions"])
-        self.assertIn("analyze", state["allowed_actions"])
-        self.assertIn("persist evidence", state["allowed_actions"])
-        self.assertIn("run_checks", state["allowed_actions"])
+        self.assertEqual(state["allowed_actions"], ["inspect", "persist evidence", "complete"])
         self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
         self.assertEqual(state["follow_up"]["status"], "not-derived")
@@ -99,10 +95,18 @@ class OperationalCoreTests(unittest.TestCase):
             state["completion_evidence"]["WA-TRACK-B-PRIORITY-2026-10-02"],
             "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
         )
+        self.assertEqual(
+            state["completion_evidence"]["WA-TRACK-B-DISCRIMINATION-2026-10-02"],
+            "https://github.com/esany/Wissensarbeit/pull/78#issuecomment-5959121092",
+        )
+        self.assertEqual(
+            state["completion_evidence"]["track-b-wirknetz-skill-handoff-discrimination"],
+            "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646",
+        )
         self.assertEqual(work.execution_preflight("inspect"), [])
-        self.assertEqual(work.execution_preflight("research"), [])
-        self.assertEqual(work.execution_preflight("analyze"), [])
-        self.assertEqual(work.execution_preflight("run_checks"), [])
+        self.assertTrue(work.execution_preflight("research"))
+        self.assertTrue(work.execution_preflight("analyze"))
+        self.assertTrue(work.execution_preflight("run_checks"))
         self.assertTrue(work.execution_preflight("implement"))
         self.assertTrue(work.execution_preflight("merge"))
 

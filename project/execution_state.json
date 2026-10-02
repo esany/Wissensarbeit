@@ -1,5 +1,5 @@
 {
-  "focus": "github:esany/Wissensarbeit#76",
+  "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
     "id": "track-b-wirknetz-skill-handoff-discrimination",
@@ -19,9 +19,10 @@
     {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"},
     {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"},
     {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"},
-    {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"}
+    {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"},
+    {"id": "WA-TRACK-B-DISCRIMINATION-2026-10-02", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "research", "analyze", "persist evidence", "run_checks", "complete"],
+  "allowed_actions": ["inspect", "persist evidence", "complete"],
   "implementation_allowed": false,
   "route": "github-repository",
   "completion_evidence": {
@@ -48,11 +49,13 @@
     "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
     "planning-integrity-thin-correction-promotion": "https://github.com/esany/Wissensarbeit/pull/74",
     "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/1de4e1bd208cf3a2efb5d55486b93f4301c66924",
-    "WA-TRACK-B-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189"
+    "WA-TRACK-B-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
+    "WA-TRACK-B-DISCRIMINATION-2026-10-02": "https://github.com/esany/Wissensarbeit/pull/78#issuecomment-5959121092",
+    "track-b-wirknetz-skill-handoff-discrimination": "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646"
   },
   "follow_up": {
     "status": "not-derived",
     "candidate": null,
-    "rule": "Track B handoff discrimination is the current Human-selected work in #76. This field remains reserved for downstream work after the current focus; no successor is selected. Completion of #76 must trigger fresh derivation from Planning Owner #7, the Governing Objective and then-current repository evidence."
+    "rule": "Track B handoff discrimination is complete as bounded evidence. Fresh independent review on PR #78 returned EXISTING MECHANISMS SUFFICIENT for the frozen A-D boundary cases and did not authorize runtime or downstream work. The possible later B0-vs-B1 falsification is not activated by this closure. Derive any next candidate freshly from Planning Owner #7, the Governing Objective and then-current repository evidence; material priority remains a Human Owner boundary."
   }
 }
