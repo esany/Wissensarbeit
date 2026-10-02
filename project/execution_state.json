@@ -1,8 +1,8 @@
 {
-  "focus": "github:esany/Wissensarbeit#7",
+  "focus": "github:esany/Wissensarbeit#76",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "planning-integrity-thin-correction-promotion",
+    "id": "track-b-wirknetz-skill-handoff-discrimination",
     "next": []
   },
   "dependencies": [
@@ -18,11 +18,12 @@
     {"id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01", "status": "resolved"},
     {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"},
     {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"},
-    {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"}
+    {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"},
+    {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "persist evidence", "complete"],
+  "allowed_actions": ["inspect", "research", "analyze", "persist evidence", "run_checks", "complete"],
   "implementation_allowed": false,
-  "route": "local-repository",
+  "route": "github-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
     "WA-RESTART-2026-09-11-02": "https://github.com/esany/Wissensarbeit/issues/11#issuecomment-5632821967",
@@ -46,11 +47,12 @@
     "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3",
     "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
     "planning-integrity-thin-correction-promotion": "https://github.com/esany/Wissensarbeit/pull/74",
-    "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/1de4e1bd208cf3a2efb5d55486b93f4301c66924"
+    "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/1de4e1bd208cf3a2efb5d55486b93f4301c66924",
+    "WA-TRACK-B-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189"
   },
   "follow_up": {
     "status": "not-derived",
     "candidate": null,
-    "rule": "Planning-Integrity Thin Correction is canonically promoted via PR #74 merge commit 1de4e1bd208cf3a2efb5d55486b93f4301c66924. No downstream work, activation of other open Issues/PRs, or new priority is implied. Derive the next candidate freshly from Planning Owner #7, the Governing Objective and current repository evidence; material priority choice remains a Human Owner boundary."
+    "rule": "Track B handoff discrimination is the current Human-selected work in #76. This field remains reserved for downstream work after the current focus; no successor is selected. Completion of #76 must trigger fresh derivation from Planning Owner #7, the Governing Objective and then-current repository evidence."
   }
 }
