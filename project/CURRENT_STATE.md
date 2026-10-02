@@ -23,9 +23,9 @@ domain, project, research, data, software, intelligence, operations, interfaces
 data, backend, ml_data_science, ai_llm, infrastructure_devops, security_privacy
 
 ## Reconciliation
-- Current change: `track-b-handoff-discrimination-closure-2026-10-02`
-- Systemically integrated: `true`
-- Unresolved reconciliation blockers: 0
+- Current change: `owner-burden-execution-routing-thin-correction-2026-10-02`
+- Systemically integrated: `false`
+- Unresolved reconciliation blockers: 1
 
 ## Canonical sources
 - `project/requirements.json`
