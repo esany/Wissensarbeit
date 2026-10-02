@@ -62,7 +62,7 @@ Freshly resolved for this run:
 | Inbound / outbound / multi-Skill / NOW-DONE case families | **RETAIN** | They remain the material discriminators under current owners. |
 | Anti-Bridge anchoring protections | **RETAIN** | Consistent with GO invariant 6, compose-before-create and #54 evidence. |
 | `COMPOSITION / CONTRACT GAP — NO DISTINCT NEW CAPABILITY SUPPORTED` as a current conclusion | **REFINE / DO NOT INHERIT** | It preceded the discrimination and is only a historical hypothesis/finding. |
-| Claim that existing mechanisms are proven sufficient | **REJECT** | #64 itself rejected this stronger claim; current evidence still lacks runtime proof. |
+| Claim that existing mechanisms are proven sufficient | **REJECT AS HISTORICAL PROOF CLAIM** | #64 itself rejected this stronger claim; current evidence still lacks runtime proof. This does not preclude an independent reviewer from finding B0 semantically sufficient at the present contract-design level. |
 | Old `main@9b16601c...` / P2 execution baseline | **STALE** | Current main and active work changed materially. |
 | #54 as evidence against standalone capability | **RETAIN WITH BOUNDARY** | It is relevant negative evidence about duplicate ownership, not universal anti-Bridge proof. |
 | `Skill Result != Information Space` topology | **KEEP OPEN** | Track-A correction already found the first relation overstrong; only result/runtime success != Human understanding/judgement/acceptance is strongly preserved. |
@@ -147,6 +147,10 @@ Failure signal: the system must collapse these states to operate or invent a new
 | **B outbound** | **PARTIAL/PASS depending on Skill output.** Reconciliation and Assurance can prevent false authority/acceptance, but if a bounded result does not state affected semantic obligation(s), Integration may need to infer/reconstruct them. | **PASS at contract-design level.** Result Envelope can add/clarify affected semantic claim/relation refs, explicit unchanged/open obligations and validation/authority non-effects while preserving current result/provenance/uncertainty fields. | **PASS conceptually.** Existing Reconciliation remains whole-system impact owner; #53 semantics help only where Human meaning itself is at issue. | T adds no distinct stable method once the result carries enough attribution for existing Integration. |
 | **C multi-Skill** | **PASS with adequate individual provenance.** Canonical reconciliation already permits conflict/unchanged/refined/stale etc. and must not manufacture consistency or authority. Weak envelopes can still create attribution burden. | **PASS.** Skill identity/revision + evidence/provenance + uncertainty + contradictions + affected obligations give Reconciliation sufficient inputs. | **PASS.** Temporary composition and existing judgement owners can preserve independent results without a central orchestrator. | No evidence that a Bridge improves on explicit envelopes + reconciliation; T increases second-owner/orchestrator risk. |
 | **D NOW/DONE** | **PASS.** #54 C1 already showed existing Reconciliation/Assurance can keep formal PASS distinct from qualitative acceptance/programme completion. BB-ASSURE and Authority preserve verification vs Human acceptance. | **PASS / explanatory sharpening only.** An explicit completion/non-effect statement in the Result Envelope can reduce ambiguity but does not add a new closure mechanism. | **PASS.** #53 typed gaps may sharpen diagnosis, but are not required to preserve the core distinction. | T is unsupported; adding a controller/checker would duplicate existing assurance/authority distinctions without a demonstrated independent failure surface. |
+
+### Mandatory counterhypothesis check for independent review
+
+The matrix above is a writer result, not a constraint on the reviewer. The reviewer must explicitly test whether **B0 was underrated**: BB-CONTEXT, BB-COMPETENCE, the method-Skill contract/output, existing Authority and Reconciliation may already preserve all action-relevant semantics without any new #52 contract sharpening. If so, the correct review outcome is `EXISTING MECHANISMS SUFFICIENT`, even though it contradicts the writer's preferred class.
 
 ## 7. Cross-case failure-surface analysis
 
@@ -264,13 +268,16 @@ If independent review finds a material flaw in this discrimination, retain #64 a
 Before any semantic promotion:
 
 1. fresh independent review of this exact evidence revision against current `main` and #76;
-2. reviewer must try to produce at least one counterexample where B1/B2 are applied correctly and action-relevant meaning still fails specifically at the Wirknetz↔Skill boundary;
+2. reviewer must explicitly test **both** counterdirections against the writer result:
+   - whether B0 already suffices without contract sharpening;
+   - whether a correctly applied B1/B2 still leaves a stable boundary-specific failure;
 3. reviewer must check that the proposed B1 sharpening does not duplicate #55 Task Compilation, #53 Semantic Fidelity or canonical Reconciliation;
 4. reviewer must check that Case D is not merely re-labelling existing Assurance;
 5. reviewer must keep `Skill Result ↔ Information Space` open.
 
 Allowed review outcomes:
 
+- `EXISTING MECHANISMS SUFFICIENT`
 - `CONFIRM — EXISTING MECHANISMS SUFFICIENT WITH CONTRACT SHARPENING`
 - `NEEDS BOUNDED CORRECTION`
 - `DISTINCT INTERFACE FAILURE SURFACE SUPPORTED`
