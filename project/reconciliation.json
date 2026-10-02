@@ -2,10 +2,11 @@
   "schema_version": "1.1",
   "change_id": "owner-burden-execution-routing-thin-correction-2026-10-02",
   "materiality": "material",
-  "summary": "Activate Human-selected Work Package #80 and reconcile the smallest product-neutral candidate correction for routine execution-route, capability and permission mechanics without implementing or promoting adjacent Skill candidates.",
+  "summary": "Activate Human-selected Work Package #80 and reconcile the independently reviewed, product-neutral responsibility-boundary correction for routine execution-route, capability and technical-permission mechanics without implementing or promoting adjacent Skill candidates.",
   "source_refs": [
     "github:esany/Wissensarbeit#80",
     "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881",
+    "https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5961073344",
     "github:esany/Wissensarbeit#48",
     "github:esany/Wissensarbeit#55",
     "github:esany/Wissensarbeit#5",
@@ -21,23 +22,23 @@
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5"],
-      "rationale": "The real Owner-burden failure is activated as #80. The stale historical branch is evidence only. #48 remains the candidate owner of quality/capability/scarcity routing, #55 remains the candidate owner of task/instruction compilation, and #5 remains the continuity owner; none is promoted or implemented by this correction."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#81"],
+      "rationale": "Fresh independent review of PR #81 returned ACCEPT WITH BOUNDED CORRECTION. It confirmed a responsibility under-specification while rejecting the first writer shape as non-minimal. #48 remains the candidate owner of quality/capability/scarcity routing, #55 remains task/instruction compilation, and #5 remains continuity; none is promoted or implemented by this correction."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": ["R-004", "R-006", "R-007", "R-008", "R-010"],
-      "rationale": "Authority laundering, solutionism, process bloat, false assurance and execution/progress burden remain the relevant risks. Product-specific route tables would increase rather than reduce these risks."
+      "rationale": "Authority laundering, solutionism, process bloat, false assurance and execution/progress burden remain relevant. The corrected shape also explicitly prevents technical permission necessity from laundering security/privacy/material-risk or consequential-action authorization."
     },
     "decisions_concepts": {
       "disposition": "refined",
-      "objects": ["system/authority.json", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#80"],
-      "rationale": "Candidate Authority clarification makes routine route choice, capability/permission preflight and permission necessity AI-owned where derivable, and requires one concrete instruction when Human action is unavoidable. It deliberately does not encode product/vendor route names, create a scheduler/orchestrator, or transfer #48/#55 method ownership into Authority. This branch is internally reconciled as a review candidate; systemic reconciliation does not grant promotion or merge authority."
+      "objects": ["system/authority.json", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#81"],
+      "rationale": "After independent review, Authority is reduced to one product-neutral operational responsibility boundary: AI carries derivable routine route/capability/technical-permission mechanics, checks adequate capability before stronger escalation, does not escalate for convenience, does not treat technical necessity as security/privacy/material-risk/consequential authorization, preserves project/semantic/acceptance/priority authority, and exposes only the smallest unavoidable Human action set. No routing mini-contract, numeric one-action invariant, product route table, scheduler/orchestrator or #48/#55 method implementation is created."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE is refreshed only to bind the candidate reconciliation provenance; it remains derived and is not a parallel planning or semantic source."
+      "rationale": "CURRENT_STATE remains a derived provenance view of this candidate reconciliation and is not a parallel planning or semantic source."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -56,7 +57,7 @@
     "active_work": {
       "disposition": "refined",
       "objects": ["github:esany/Wissensarbeit#80"],
-      "rationale": "#80 is the only newly active Work Package. The stale historical branch and adjacent open candidates remain evidence/unselected unless separately authorized."
+      "rationale": "#80 remains the only active Work Package. The historical branch and adjacent open candidates remain evidence/unselected unless separately authorized. The corrected PR head still requires fresh assurance and independent re-review before any promotion decision."
     }
   },
   "unresolved": [],
