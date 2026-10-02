@@ -1,8 +1,9 @@
 {
-  "focus": "github:esany/Wissensarbeit#7",
+  "focus": "github:esany/Wissensarbeit#73",
   "planning_source": "github:esany/Wissensarbeit#7",
+  "planning_baseline": "project/WA-PLANNING-BASELINE-2026-10-02-01.json",
   "current_step": {
-    "id": "p2-context-fidelity-result-promotion-decision",
+    "id": "planning-integrity-thin-correction",
     "next": []
   },
   "dependencies": [
@@ -16,10 +17,11 @@
     {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02", "status": "resolved"},
     {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01", "status": "resolved"},
     {"id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01", "status": "resolved"},
-    {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"}
+    {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"},
+    {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "persist evidence", "complete"],
-  "implementation_allowed": false,
+  "allowed_actions": ["inspect", "design", "implement", "run_checks", "persist evidence", "complete"],
+  "implementation_allowed": true,
   "route": "local-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -41,11 +43,12 @@
     "chat-continuity-recovery": "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md",
     "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
     "p2-context-fidelity-result-promotion-decision": "https://github.com/esany/Wissensarbeit/pull/70",
-    "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3"
+    "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3",
+    "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767"
   },
   "follow_up": {
-    "status": "not-derived",
-    "candidate": null,
-    "rule": "P2 Context Fidelity is canonically promoted via PR #70 merge commit b6b284e22fbee80ff9f10121f23de1bc6b638cd3. No downstream work, broad Result Acceptance, real-use qualification, QP-1ff/P3/P4/P5 activation or new priority is implied. Derive the next candidate freshly from the current planning source and repository evidence; material priority choice remains a Human Owner boundary."
+    "status": "active",
+    "candidate": "github:esany/Wissensarbeit#73",
+    "rule": "Only the Human-selected Planning-Integrity Thin Correction is active. No other candidate or downstream priority is implied. After closure, derive the next candidate freshly from the Planning Owner, Governing Objective and current repository evidence."
   }
 }
