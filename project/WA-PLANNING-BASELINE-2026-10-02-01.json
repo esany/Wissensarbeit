@@ -1,0 +1,28 @@
+{
+  "schema_version": "0.1",
+  "baseline_id": "WA-PLANNING-BASELINE-2026-10-02-01",
+  "status": "bounded-current-planning-projection",
+  "target_ref": "project/GOVERNING_OBJECTIVE.md",
+  "planning_owner": "github:esany/Wissensarbeit#7",
+  "selection": {
+    "status": "active",
+    "work_ref": "github:esany/Wissensarbeit#73",
+    "authority_ref": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
+    "reason": "Human Owner selected Planning-Integrity Thin Correction first after fresh repository/GitHub reconstruction."
+  },
+  "scope_boundary": {
+    "only_activated_work": "github:esany/Wissensarbeit#73",
+    "all_other_open_issues_and_prs": "unselected unless separately activated by material authority",
+    "post_closure": "derive the next candidate freshly against the Governing Objective, Planning Owner and current repository evidence"
+  },
+  "non_authority": [
+    "This snapshot is not a second Planning Owner or mutable roadmap.",
+    "Issue or PR existence does not imply priority.",
+    "This snapshot does not create implementation, merge, Requirement, Building-Block, architecture or acceptance authority beyond the bounded #73 selection.",
+    "Closure of #73 does not imply a downstream priority."
+  ],
+  "falsification": {
+    "kill_if": "existing Planning Owner #7 plus project/execution_state.json can satisfy the #73 restart/selection acceptance criteria without this projection",
+    "reject_if": "the projection behaves like a second mutable planning clock, registry, planner or speculative roadmap"
+  }
+}
