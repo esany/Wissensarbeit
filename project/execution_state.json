@@ -2,76 +2,23 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-context-fidelity-current-main-integration-assurance",
-    "next": [
-      {
-        "id": "p2-context-fidelity-result-promotion-decision",
-        "status": "blocked",
-        "depends_on": [
-          "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
-          "separate-human-result-promotion-decision"
-        ],
-        "scope": "P2-CONTEXT-FIDELITY-SLICE",
-        "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
-        "integration_evidence": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
-        "implementation_pr": "github:esany/Wissensarbeit#39",
-        "integration_pr": "github:esany/Wissensarbeit#70",
-        "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
-        "integrated_head": "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7",
-        "authority_ref": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5945932418",
-        "authority_boundary": "formal integration assurance != Result Acceptance or merge authority",
-        "blocked_by": "separate Human Owner result-promotion/merge decision after final result-state assurance",
-        "rule": "Bounded current-main integration is complete as a candidate. Implementation authority is closed; no further implementation, merge or Result Acceptance is authorized. Final result-state assurance must pass before presenting the separate Human decision. Retained real-use dimensions remain unproven; QP-1ff/P3/P4/P5 remain unauthorized."
-      }
-    ]
+    "id": "p2-context-fidelity-result-promotion-decision",
+    "next": []
   },
   "dependencies": [
-    {
-      "id": "WA-HARVEST-P1-001",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-RESTART-2026-09-11-02",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-BASELINE-RECON-2026-09-17-01",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
-      "status": "resolved"
-    },
-    {
-      "id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
-      "status": "resolved"
-    }
+    {"id": "WA-HARVEST-P1-001", "status": "resolved"},
+    {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"},
+    {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"},
+    {"id": "WA-P2-BASELINE-RECON-2026-09-17-01", "status": "resolved"},
+    {"id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01", "status": "resolved"},
+    {"id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01", "status": "resolved"},
+    {"id": "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01", "status": "resolved"},
+    {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02", "status": "resolved"},
+    {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01", "status": "resolved"},
+    {"id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01", "status": "resolved"},
+    {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"}
   ],
-  "allowed_actions": [
-    "inspect",
-    "persist evidence",
-    "complete"
-  ],
+  "allowed_actions": ["inspect", "persist evidence", "complete"],
   "implementation_allowed": false,
   "route": "local-repository",
   "completion_evidence": {
@@ -92,25 +39,13 @@
     "p2-context-fidelity-current-main-integration-assurance": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
     "p2-context-fidelity-correction": "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md",
     "chat-continuity-recovery": "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md",
-    "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md"
+    "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
+    "p2-context-fidelity-result-promotion-decision": "https://github.com/esany/Wissensarbeit/pull/70",
+    "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3"
   },
   "follow_up": {
-    "status": "blocked",
-    "depends_on": [
-      "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
-      "separate-human-result-promotion-decision"
-    ],
-    "scope": "P2-CONTEXT-FIDELITY-SLICE",
-    "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
-    "integration_evidence": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
-    "implementation_pr": "github:esany/Wissensarbeit#39",
-    "integration_pr": "github:esany/Wissensarbeit#70",
-    "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
-    "integrated_head": "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7",
-    "authority_ref": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5945932418",
-    "authority_boundary": "formal integration assurance != Result Acceptance or merge authority",
-    "blocked_by": "separate Human Owner result-promotion/merge decision after final result-state assurance",
-    "rule": "Bounded current-main integration is complete as a candidate. Implementation authority is closed; no further implementation, merge or Result Acceptance is authorized. Final result-state assurance must pass before presenting the separate Human decision. Retained real-use dimensions remain unproven; QP-1ff/P3/P4/P5 remain unauthorized.",
-    "candidate": "p2-context-fidelity-result-promotion-decision"
+    "status": "not-derived",
+    "candidate": null,
+    "rule": "P2 Context Fidelity is canonically promoted via PR #70 merge commit b6b284e22fbee80ff9f10121f23de1bc6b638cd3. No downstream work, broad Result Acceptance, real-use qualification, QP-1ff/P3/P4/P5 activation or new priority is implied. Derive the next candidate freshly from the current planning source and repository evidence; material priority choice remains a Human Owner boundary."
   }
 }
