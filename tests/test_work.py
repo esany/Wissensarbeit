@@ -82,23 +82,18 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["planning_source"], "github:esany/Wissensarbeit#7")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#73")
-        self.assertEqual(state["planning_baseline"], "project/WA-PLANNING-BASELINE-2026-10-02-01.json")
+        self.assertNotIn("planning_baseline", state)
         self.assertEqual(state["current_step"]["id"], "planning-integrity-thin-correction")
         self.assertEqual(state["current_step"]["next"], [])
         self.assertTrue(state["implementation_allowed"])
         self.assertIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        self.assertEqual(state["follow_up"]["status"], "active")
-        self.assertEqual(state["follow_up"]["candidate"], "github:esany/Wissensarbeit#73")
+        self.assertEqual(state["follow_up"]["status"], "not-derived")
+        self.assertIsNone(state["follow_up"]["candidate"])
         self.assertEqual(
             state["completion_evidence"]["WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02"],
             "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
         )
-        baseline = work.load(ROOT / state["planning_baseline"])
-        self.assertEqual(baseline["planning_owner"], state["planning_source"])
-        self.assertEqual(baseline["selection"]["work_ref"], state["focus"])
-        self.assertEqual(baseline["scope_boundary"]["only_activated_work"], state["focus"])
-        self.assertIn("unselected", baseline["scope_boundary"]["all_other_open_issues_and_prs"])
         self.assertEqual(work.execution_preflight("implement"), [])
         self.assertTrue(work.execution_preflight("merge"))
 
