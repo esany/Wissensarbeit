@@ -60,7 +60,11 @@
     }
   },
   "unresolved": [
-    "Fresh independent semantic review must determine whether the Authority clarification is necessary/minimal or whether existing Authority plus adjacent candidate semantics already suffice without canonical change."
+    {
+      "id": "OWNER-BURDEN-AUTHORITY-MINIMALITY-REVIEW",
+      "status": "needs-decision",
+      "reason": "Fresh independent semantic review must determine whether the Authority clarification is necessary/minimal or whether existing Authority plus adjacent candidate semantics already suffice without canonical change."
+    }
   ],
   "systemically_integrated": false
 }
