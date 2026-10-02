@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
-  "change_id": "p2/context-fidelity-rereview-confirm-recovery-2026-10-02",
+  "change_id": "p2/context-fidelity-current-main-integration-authority-closure-2026-10-02",
   "materiality": "material",
-  "summary": "Repair the stale P2 execution/reconciliation cursor after the independently persisted CONFIRM re-review, preserve its no-acceptance/no-merge boundary, and bind the supported current-main integration assurance gate without granting implementation authority.",
+  "summary": "Persist the bounded current-main integration candidate and exact formal assurance evidence, reconcile current execution state, close implementation authority, and expose only the separate Human result-promotion decision after final result-state assurance.",
   "source_refs": [
     "github:esany/Wissensarbeit#39",
     "github:esany/Wissensarbeit#68",
@@ -11,24 +11,29 @@
     "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
     "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
     "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md",
-    "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md"
+    "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md",
+    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5945932418",
+    "github:esany/Wissensarbeit#70",
+    "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7",
+    "github:esany/Wissensarbeit/actions/runs/36967845333",
+    "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
-      "objects": ["project/requirements.json"],
-      "rationale": "Fresh read confirms that the independent CONFIRM and the state repair change no Requirement semantics."
+      "objects": [
+        "project/requirements.json"
+      ],
+      "rationale": "Current-main integration preserves the confirmed admitted P2 semantics and all newer canonical Requirement semantics."
     },
     "issues_findings": {
       "disposition": "refined",
       "objects": [
         "github:esany/Wissensarbeit#39",
-        "github:esany/Wissensarbeit#68",
-        "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
-        "stale-review-pending-cursor",
-        "chat-continuity-recovery"
+        "github:esany/Wissensarbeit#70",
+        "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01"
       ],
-      "rationale": "The independent qualitative result review is now durable CONFIRM evidence. The prior pending-review state is stale; PR #39 remains an unmerged candidate and the retained real-use dimensions remain open."
+      "rationale": "Current-main integration hygiene and implementation-head formal assurance are complete; both PRs remain unmerged candidates. Real-use qualification questions remain open."
     },
     "risks": {
       "disposition": "confirmed",
@@ -42,23 +47,25 @@
         "R-008",
         "R-009"
       ],
-      "rationale": "Existing continuity, systemic-drift, authority, false-assurance, accretion and self-reinforcing-error risks cover the factual repair. No new risk family or state owner is required."
+      "rationale": "Existing continuity, drift, authority and false-assurance risks remain applicable. Exact source/base/head/CI bindings and implementation authority closure are persisted; no new risk family."
     },
     "decisions_concepts": {
       "disposition": "confirmed",
       "objects": [
         "P2-CONTEXT-FIDELITY-SLICE",
         "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
-        "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01"
+        "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
+        "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5945932418",
+        "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01"
       ],
-      "rationale": "The existing P2 semantics and admission remain unchanged. CONFIRM is retained as review evidence only; no new Admission, implementation step, architecture, classifier or owner is created."
+      "rationale": "The separately persisted Human authority permits only bounded integration, assurance, evidence persistence and authority closure. It is exhausted by this candidate; CONFIRM and CI remain distinct from Result Acceptance and merge authority."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": [
         "project/CURRENT_STATE.md"
       ],
-      "rationale": "The derived view is regenerated through the existing derive/freshness contract and binds to this recovery reconciliation; no derived-state contract expansion is introduced."
+      "rationale": "Regenerate CURRENT_STATE through the existing derive/freshness mechanism for this integration closure packet."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
@@ -66,28 +73,25 @@
         "project/execution_state.json",
         "github:esany/Wissensarbeit#7"
       ],
-      "rationale": "The independent qualitative re-review is complete and formally persisted as CONFIRM. No implementation or merge action is ready; current-main integration plus full assurance is the supported technical gate, blocked until separate implementation authority is persisted.",
+      "rationale": "Replace the stale absent-integration-authority blocker with completed bounded integration evidence. No implementation action is ready. Separate Human result-promotion/merge decision follows final result-state assurance; this candidate grants no acceptance or merge authority.",
       "cursor_binding": {
         "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "p2-context-fidelity-result-review",
+        "current_step": "p2-context-fidelity-current-main-integration-assurance",
         "next": "none",
         "next_status": "blocked",
-        "blocked_by": "no separate current-main integration authority is persisted",
-        "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+        "blocked_by": "separate Human Owner result-promotion/merge decision after final result-state assurance",
         "implementation_allowed": false,
-        "supported_next_gate": "p2-context-fidelity-current-main-integration-assurance",
-        "supported_next_gate_status": "blocked"
+        "integrated_head": "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7"
       }
     },
     "active_work": {
       "disposition": "refined",
       "objects": [
-        "p2-context-fidelity-current-main-integration-assurance",
-        "github:esany/Wissensarbeit#39",
-        "github:esany/Wissensarbeit#68",
-        "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
+        "github:esany/Wissensarbeit#70",
+        "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
+        "p2-context-fidelity-result-promotion-decision"
       ],
-      "rationale": "The qualitative re-review is complete and confirms the corrected candidate, but PR #39 remains open/unmerged. The only supported continuation is bounded current-main integration plus full assurance, blocked until separate implementation authority is persisted."
+      "rationale": "The integration package is complete as a candidate and implementation authority is closed. Final result-state assurance is the remaining technical check before the Human decision; neither broader programme completion nor real-use qualification is implied."
     }
   },
   "unresolved": [],

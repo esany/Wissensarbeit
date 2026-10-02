@@ -2,29 +2,26 @@
   "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "p2-context-fidelity-result-review",
+    "id": "p2-context-fidelity-current-main-integration-assurance",
     "next": [
       {
-        "id": "p2-context-fidelity-current-main-integration-assurance",
+        "id": "p2-context-fidelity-result-promotion-decision",
         "status": "blocked",
         "depends_on": [
-          "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
-          "separate-current-main-integration-authority"
+          "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
+          "separate-human-result-promotion-decision"
         ],
         "scope": "P2-CONTEXT-FIDELITY-SLICE",
         "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+        "integration_evidence": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
         "implementation_pr": "github:esany/Wissensarbeit#39",
+        "integration_pr": "github:esany/Wissensarbeit#70",
         "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
-        "supported_next_gate": [
-          "integrate the confirmed PR #39 candidate with current main",
-          "run full formal assurance against the integrated candidate",
-          "persist the exact integrated head and assurance result",
-          "close implementation authority again"
-        ],
-        "authority_boundary": "supported next gate != currently authorized implementation",
-        "blocked_by": "no separate current-main integration authority is persisted",
-        "rule": "The independent qualitative CONFIRM is complete evidence, not Result Acceptance or merge authority. Current-main integration and full assurance are the only supported technical continuation; implementation_allowed remains false until a separate authority exists. QP-1ff, PR #39 merge, result acceptance and P3/P4/P5 remain unauthorized.",
-        "correction_head": "8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
+        "integrated_head": "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7",
+        "authority_ref": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5945932418",
+        "authority_boundary": "formal integration assurance != Result Acceptance or merge authority",
+        "blocked_by": "separate Human Owner result-promotion/merge decision after final result-state assurance",
+        "rule": "Bounded current-main integration is complete as a candidate. Implementation authority is closed; no further implementation, merge or Result Acceptance is authorized. Final result-state assurance must pass before presenting the separate Human decision. Retained real-use dimensions remain unproven; QP-1ff/P3/P4/P5 remain unauthorized."
       }
     ]
   },
@@ -64,6 +61,10 @@
     {
       "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
       "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
+      "status": "resolved"
     }
   ],
   "allowed_actions": [
@@ -86,27 +87,30 @@
     "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
     "p2-context-fidelity-implementation": "project/WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01-EVIDENCE.md",
     "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
-    "p2-context-fidelity-result-review": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
+    "p2-context-fidelity-result-review": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
     "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
-    "p2-context-fidelity-current-main-integration-assurance": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+    "p2-context-fidelity-current-main-integration-assurance": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
     "p2-context-fidelity-correction": "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md",
-    "chat-continuity-recovery": "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md"
+    "chat-continuity-recovery": "project/audits/WA-AUDIT-2026-10-02-CHAT-CONTINUITY-RECOVERY-DELTA.md",
+    "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md"
   },
   "follow_up": {
-    "candidate": "p2-context-fidelity-current-main-integration-assurance",
     "status": "blocked",
-    "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
-    "implementation_pr": "github:esany/Wissensarbeit#39",
-    "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
-    "supported_next_gate": [
-      "current-main integration",
-      "full formal assurance",
-      "persist exact integrated head and assurance result",
-      "close implementation authority again"
+    "depends_on": [
+      "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
+      "separate-human-result-promotion-decision"
     ],
-    "blocked_after_confirm_until": "separate current-main integration authority and bounded assurance",
-    "authority_boundary": "supported next gate != currently authorized implementation",
-    "rule": "The independent CONFIRM completes the qualitative review gate but grants no merge, Result Acceptance or implementation authority. The only supported continuation is bounded current-main integration plus full assurance after separate authority.",
-    "correction_head": "8f21f4c5de54a5ee659c87d0e15a4de299a0eac5"
+    "scope": "P2-CONTEXT-FIDELITY-SLICE",
+    "review_evidence": "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+    "integration_evidence": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
+    "implementation_pr": "github:esany/Wissensarbeit#39",
+    "integration_pr": "github:esany/Wissensarbeit#70",
+    "review_target": "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
+    "integrated_head": "esany/Wissensarbeit@eb88f9b2fd05a1737ac9c3406e1c930b147c08e7",
+    "authority_ref": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5945932418",
+    "authority_boundary": "formal integration assurance != Result Acceptance or merge authority",
+    "blocked_by": "separate Human Owner result-promotion/merge decision after final result-state assurance",
+    "rule": "Bounded current-main integration is complete as a candidate. Implementation authority is closed; no further implementation, merge or Result Acceptance is authorized. Final result-state assurance must pass before presenting the separate Human decision. Retained real-use dimensions remain unproven; QP-1ff/P3/P4/P5 remain unauthorized.",
+    "candidate": "p2-context-fidelity-result-promotion-decision"
   }
 }
