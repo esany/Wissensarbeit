@@ -1,59 +1,61 @@
 {
   "schema_version": "1.1",
-  "change_id": "planning-integrity-thin-correction-activation-2026-10-02",
+  "change_id": "planning-integrity-thin-correction-promotion-closure-2026-10-02",
   "materiality": "material",
-  "summary": "Synchronize the existing execution cursor with the Human-selected Planning-Integrity Thin Correction as the only active bounded Work Package, keep #7 as the sole planning source, reject the redundant Planning Baseline representation per independent review, and preserve fresh derivation after closure.",
+  "summary": "Reconcile the Human-authorized merge of PR #74, record the canonical Planning-Integrity Thin Correction promotion, close bounded implementation authority for #73, and leave downstream priority unselected.",
   "source_refs": [
+    "github:esany/Wissensarbeit#74",
+    "esany/Wissensarbeit@1de4e1bd208cf3a2efb5d55486b93f4301c66924",
+    "github:esany/Wissensarbeit/actions/runs/37025583258",
+    "https://github.com/esany/Wissensarbeit/pull/74#issuecomment-5954570717",
     "github:esany/Wissensarbeit#73",
     "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
-    "https://github.com/esany/Wissensarbeit/pull/74#issuecomment-5954570717",
-    "project/GOVERNING_OBJECTIVE.md",
-    "github:esany/Wissensarbeit#72"
+    "project/GOVERNING_OBJECTIVE.md"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "The correction synchronizes existing planning/execution state only; no Requirement semantics are changed."
+      "rationale": "The promotion closes the already-reviewed bounded planning-integrity correction; no Requirement semantics are changed."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#72", "github:esany/Wissensarbeit#74"],
-      "rationale": "#73 is the single Human-selected bounded Work Package. #7 remains Planning Owner. PR #72 remains recovery/candidate evidence. The independent review on PR #74 rejected the extra Planning Baseline representation and retained the cursor-only correction."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
+      "rationale": "#73 is completed by the Human-authorized merge of corrected PR #74. #7 remains the Planning Owner. The independent review's rejection of the extra Planning Baseline remains the accepted disposition."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-007", "R-008", "R-009"],
-      "rationale": "Continuity, drift, authority, accretion and false-assurance risks remain applicable. Removing the manually authored planning projection avoids a second planning clock and keeps one mutable planning owner plus one narrow execution cursor."
+      "rationale": "Continuity, drift, authority, accretion and false-assurance risks remain applicable. Canonical promotion preserves the cursor-only design and introduces no second planning clock."
     },
     "decisions_concepts": {
       "disposition": "refined",
       "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
-      "rationale": "Human priority authority selected Planning-Integrity Thin Correction first. Independent review falsified the need for a separate planning projection. The accepted candidate design therefore compiles that Human decision directly into the existing execution cursor without introducing a new planning representation."
+      "rationale": "The Human Owner explicitly authorized merge of PR #74 after the snapshot hypothesis had been falsified and removed. Canonical planning integrity therefore remains Planning Owner #7 plus the narrow execution cursor, with no additional planning representation."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE remains a derived view and is refreshed only to bind its reconciliation provenance to this material activation; planning truth remains in #7 and execution admissibility/current focus in the existing cursor."
+      "rationale": "CURRENT_STATE is regenerated only to bind its reconciliation provenance to the post-merge closure; it does not become a parallel planning surface."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
-      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73"],
-      "rationale": "The prior not-derived current-work state is resolved by explicit Human priority selection. #73 is the only active bounded Work Package; implementation is allowed within its reversible bounded scope, merge remains unauthorized, and downstream follow-up remains unselected.",
+      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#73", "github:esany/Wissensarbeit#74"],
+      "rationale": "PR #74 promotion is complete. The bounded #73 implementation authority is closed, focus returns to Planning Owner #7, no deterministic next action exists, and downstream follow-up remains unselected.",
       "cursor_binding": {
         "planning_owner": "github:esany/Wissensarbeit#7",
-        "focus": "github:esany/Wissensarbeit#73",
-        "current_step": "planning-integrity-thin-correction",
+        "focus": "github:esany/Wissensarbeit#7",
+        "current_step": "planning-integrity-thin-correction-promotion",
         "next": "none",
         "follow_up_status": "not-derived",
-        "implementation_allowed": true,
+        "implementation_allowed": false,
         "merge_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
       "objects": ["github:esany/Wissensarbeit#73"],
-      "rationale": "Exactly one bounded Work Package is active. All other open Issues/PRs remain unselected unless separately activated by material authority. Closure of #73 requires fresh derivation and does not imply a downstream priority."
+      "rationale": "#73 is completed by canonical promotion of PR #74 and is no longer active implementation work. No other open Issue/PR is activated by this closure; the next candidate requires fresh derivation and material Human priority authority."
     }
   },
   "unresolved": [],
