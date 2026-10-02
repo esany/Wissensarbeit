@@ -1,8 +1,8 @@
 {
-  "focus": "github:esany/Wissensarbeit#73",
+  "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "planning-integrity-thin-correction",
+    "id": "planning-integrity-thin-correction-promotion",
     "next": []
   },
   "dependencies": [
@@ -17,10 +17,11 @@
     {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01", "status": "resolved"},
     {"id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01", "status": "resolved"},
     {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"},
-    {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"}
+    {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"},
+    {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "design", "implement", "run_checks", "persist evidence", "complete"],
-  "implementation_allowed": true,
+  "allowed_actions": ["inspect", "persist evidence", "complete"],
+  "implementation_allowed": false,
   "route": "local-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -43,11 +44,13 @@
     "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01": "project/WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01-EVIDENCE.md",
     "p2-context-fidelity-result-promotion-decision": "https://github.com/esany/Wissensarbeit/pull/70",
     "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/b6b284e22fbee80ff9f10121f23de1bc6b638cd3",
-    "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767"
+    "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5953726767",
+    "planning-integrity-thin-correction-promotion": "https://github.com/esany/Wissensarbeit/pull/74",
+    "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/1de4e1bd208cf3a2efb5d55486b93f4301c66924"
   },
   "follow_up": {
     "status": "not-derived",
     "candidate": null,
-    "rule": "The Human-selected Planning-Integrity Thin Correction is the current focus. No downstream candidate is selected. After #73 closure, derive the next candidate freshly from the Planning Owner, Governing Objective and current repository evidence; material priority remains a Human Owner boundary."
+    "rule": "Planning-Integrity Thin Correction is canonically promoted via PR #74 merge commit 1de4e1bd208cf3a2efb5d55486b93f4301c66924. No downstream work, activation of other open Issues/PRs, or new priority is implied. Derive the next candidate freshly from Planning Owner #7, the Governing Objective and current repository evidence; material priority choice remains a Human Owner boundary."
   }
 }
