@@ -33,7 +33,7 @@ class OperationalCoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
             path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-            errors = work.execution_complete("p2-context-fidelity-implementation", "missing-proof.md", path)
+            errors = work.execution_complete("p2-context-fidelity-result-review", "missing-proof.md", path)
             self.assertTrue(any("evidence" in error for error in errors))
 
     def test_untracked_evidence_fails(self):
@@ -43,7 +43,7 @@ class OperationalCoreTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as td:
                 path = Path(td) / "state.json"
                 path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-                errors = work.execution_complete("p2-context-fidelity-implementation", "project/.untracked-evidence-test", path)
+                errors = work.execution_complete("p2-context-fidelity-result-review", "project/.untracked-evidence-test", path)
             self.assertTrue(any("Git-persisted" in error for error in errors))
         finally:
             evidence.unlink(missing_ok=True)
@@ -52,7 +52,7 @@ class OperationalCoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "state.json"
             path.write_text(json.dumps(work.load(work.EXECUTION_STATE)), encoding="utf-8")
-            self.assertEqual(work.execution_complete("p2-context-fidelity-implementation", "README.md", path), [])
+            self.assertEqual(work.execution_complete("p2-context-fidelity-result-review", "README.md", path), [])
 
     def test_execution_guard_is_fail_closed_for_missing_source(self):
         with tempfile.TemporaryDirectory() as td:
@@ -77,11 +77,11 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertTrue(ok)
         self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_closes_existing_admitted_step_after_correction(self):
+    def test_execution_state_records_confirm_without_granting_authority(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-implementation")
+        self.assertEqual(state["current_step"]["id"], "p2-context-fidelity-result-review")
         self.assertFalse(state["implementation_allowed"])
         self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
@@ -89,22 +89,21 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertEqual(ready, [])
 
         review = state["current_step"]["next"][0]
-        self.assertEqual(review["id"], "p2-context-fidelity-result-review")
+        self.assertEqual(review["id"], "p2-context-fidelity-current-main-integration-assurance")
         self.assertEqual(review["status"], "blocked")
-        self.assertEqual(review["continuation"], "completed-correction")
-        self.assertEqual(review["blocked_by"], "fresh-independent-qualitative-result-rereview")
+        self.assertEqual(review["blocked_by"], "no separate current-main integration authority is persisted")
         self.assertEqual(
             review["review_target"],
             "esany/Wissensarbeit@8f21f4c5de54a5ee659c87d0e15a4de299a0eac5",
         )
         self.assertEqual(
-            review["admission_ref"],
-            "project/WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01.md",
-        )
-        self.assertEqual(review["admission_id"], "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01")
-        self.assertEqual(
             review["review_evidence"],
-            "project/WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02.md",
+            "project/WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01.md",
+        )
+        self.assertTrue((ROOT / review["review_evidence"]).exists())
+        self.assertEqual(
+            review["authority_boundary"],
+            "supported next gate != currently authorized implementation",
         )
 
         evidence = "project/WA-P2-CONTEXT-FIDELITY-CORRECTION-2026-09-20-01-EVIDENCE.md"
