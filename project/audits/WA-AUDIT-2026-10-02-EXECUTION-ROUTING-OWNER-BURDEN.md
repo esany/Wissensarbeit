@@ -19,8 +19,9 @@ connector, browser access or promotion decision.
 - Planning Owner: `github:esany/Wissensarbeit#7`.
 - Active bounded Work Package: `github:esany/Wissensarbeit#73`, selected by the
   Human Owner and persisted in `#7#issuecomment-5953726767`.
-- PR #74 remains an independent-review candidate at exact head
-  `7b98fa63cde2a7620ad5fe1777f11c6aa41450fa`; its head is not changed here.
+- PR #74 remains an independent-review candidate at the latest inspected exact
+  head `25c81532734a899f97f9236f7feea10fcdfe8c80`; its head is not changed
+  here. Earlier review notes refer to the superseded `7b98fa6` head.
 - Current GitHub `main` at inspection: `0853a30e32bdf078e75d5f69414097b68cc1a59a`.
 - Issue #28 already contains a bounded execution-guard concept and a
   connector-first routing regression, but neither the Authority contract nor
