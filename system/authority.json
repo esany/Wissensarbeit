@@ -7,7 +7,7 @@
   ],
   "authorities": {
     "ai_autonomous_operational":[
-      "inspect","research","classify","structure","maintain_routine_metadata","run_checks","derive_views","refresh_context","open_or_update_work_items_when_material","detect_and_externalize_material_state_candidates","check_continuity_boundary_for_unpersisted_material_state","discover_reconciliation_impact_candidates","reconcile_non_material_or_routine_state","implement_reversible","fix_formal_failures","maintain_required_project_operations","select_routine_execution_route","check_capability_and_permission_necessity"
+      "inspect","research","classify","structure","maintain_routine_metadata","run_checks","derive_views","refresh_context","open_or_update_work_items_when_material","detect_and_externalize_material_state_candidates","check_continuity_boundary_for_unpersisted_material_state","discover_reconciliation_impact_candidates","reconcile_non_material_or_routine_state","implement_reversible","fix_formal_failures","maintain_required_project_operations"
     ],
     "ai_may_propose_and_explain":[
       "reframe_problem","change_requirement","change_domain_semantics","select_material_architecture","change_priority","introduce_new_persistent_store","introduce_new_service_or_dependency","change_quality_target"
@@ -29,23 +29,9 @@
       "domain meaning or owner value cannot be established deterministically"
     ],
     "do_not_burden_human_with":[
-      "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","material-state candidate persistence and continuity-boundary checks","routine impact discovery and unchanged reconciliation dispositions","ordinary reversible implementation details","necessary operational maintenance","routine execution-route choice","capability and permission preflight when derivable","operational permission necessity when derivable"
+      "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","material-state candidate persistence and continuity-boundary checks","routine impact discovery and unchanged reconciliation dispositions","ordinary reversible implementation details","necessary operational maintenance"
     ],
-    "operational_orchestration": {
-      "principle": "The AI owns routine execution-route choice, capability admission and permission-necessity judgement when these are derivable from the task, current state and available capabilities. An environment or tool boundary does not by itself turn those mechanics into a Human decision.",
-      "rules": [
-        "determine the smallest adequate execution route from required actions and available capabilities before asking the Human to act",
-        "check existing adequate capabilities before escalating to a stronger or more privileged route",
-        "request an operational permission only when it is necessary for a concrete required action that cannot be completed through an already adequate available capability",
-        "do not escalate for convenience alone",
-        "preserve project, semantic, acceptance and priority authority independently of execution route"
-      ],
-      "human_action_when_unavoidable": {
-        "maximum_unavoidable_actions": 1,
-        "required_instruction_fields": ["what_to_do","why_needed","exact_option","what_not_to_decide"]
-      },
-      "product_neutrality": "Core Authority semantics describe capabilities, necessity and Human burden rather than product, vendor, model, application or interface route names. Concrete environments and permission prompts belong to bounded evidence and evaluation cases."
-    },
+    "operational_responsibility_boundary": "When execution-route choice, available-capability inspection, least-privilege technical preflight or technical permission necessity are derivable from the task, current state and available capabilities, the AI carries those routine mechanics, checks an already adequate capability before stronger escalation, and does not escalate for convenience alone. Technical necessity does not itself authorize security- or privacy-sensitive permission, accept material risk, decide consequential external effects, or transfer project, semantic, acceptance or priority authority. If Human or specialist action remains unavoidable, expose only the smallest unavoidable Human action set; prefer one bundled instruction when sufficient, and for each action state what_to_do, why_needed, exact_option and what_not_to_decide.",
     "explanation_required": ["what changes","why it is needed","relevant alternatives","material consequences","reversibility","what decision is actually requested"]
   }
 }
