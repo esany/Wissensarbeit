@@ -31,6 +31,7 @@
     "do_not_burden_human_with":[
       "routine repository hygiene","status synchronization","context compilation","repetitive validation","derived documentation updates","material-state candidate persistence and continuity-boundary checks","routine impact discovery and unchanged reconciliation dispositions","ordinary reversible implementation details","necessary operational maintenance"
     ],
+    "operational_responsibility_boundary": "When execution-route choice, available-capability inspection, least-privilege technical preflight or technical permission necessity are derivable from the task, current state and available capabilities, the AI carries those routine mechanics, checks an already adequate capability before stronger escalation, and does not escalate for convenience alone. Technical necessity does not itself authorize security- or privacy-sensitive permission, accept material risk, decide consequential external effects, or transfer project, semantic, acceptance or priority authority. If Human or specialist action remains unavoidable, expose only the smallest unavoidable Human action set; prefer one bundled instruction when sufficient, and for each action state what_to_do, why_needed, exact_option and what_not_to_decide.",
     "explanation_required": ["what changes","why it is needed","relevant alternatives","material consequences","reversibility","what decision is actually requested"]
   }
 }

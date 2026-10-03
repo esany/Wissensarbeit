@@ -1,8 +1,8 @@
 {
-  "focus": "github:esany/Wissensarbeit#7",
+  "focus": "github:esany/Wissensarbeit#80",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "track-b-wirknetz-skill-handoff-discrimination",
+    "id": "owner-burden-execution-routing-thin-correction",
     "next": []
   },
   "dependencies": [
@@ -20,10 +20,11 @@
     {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"},
     {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"},
     {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"},
-    {"id": "WA-TRACK-B-DISCRIMINATION-2026-10-02", "status": "resolved"}
+    {"id": "WA-TRACK-B-DISCRIMINATION-2026-10-02", "status": "resolved"},
+    {"id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "persist evidence", "complete"],
-  "implementation_allowed": false,
+  "allowed_actions": ["inspect", "design", "implement", "run_checks", "persist evidence", "complete"],
+  "implementation_allowed": true,
   "route": "github-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -51,11 +52,12 @@
     "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01": "https://github.com/esany/Wissensarbeit/commit/1de4e1bd208cf3a2efb5d55486b93f4301c66924",
     "WA-TRACK-B-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
     "WA-TRACK-B-DISCRIMINATION-2026-10-02": "https://github.com/esany/Wissensarbeit/pull/78#issuecomment-5959121092",
-    "track-b-wirknetz-skill-handoff-discrimination": "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646"
+    "track-b-wirknetz-skill-handoff-discrimination": "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646",
+    "WA-OWNER-BURDEN-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881"
   },
   "follow_up": {
-    "status": "not-derived",
-    "candidate": null,
-    "rule": "Track B handoff discrimination is complete as bounded evidence. Fresh independent review on PR #78 returned EXISTING MECHANISMS SUFFICIENT for the frozen A-D boundary cases and did not authorize runtime or downstream work. The possible later B0-vs-B1 falsification is not activated by this closure. Derive any next candidate freshly from Planning Owner #7, the Governing Objective and then-current repository evidence; material priority remains a Human Owner boundary."
+    "status": "active",
+    "candidate": "github:esany/Wissensarbeit#80",
+    "rule": "Only #80 is active. Human selected the Owner-Burden correction as the current material priority but did not pre-accept any technical representation or Authority promotion. Work remains bounded to falsifying the stale branch, implementing the smallest product-neutral correction candidate, tests/evidence and independent semantic review. Merge/promotion and any downstream priority remain separately gated."
   }
 }

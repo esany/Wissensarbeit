@@ -1,63 +1,63 @@
 {
   "schema_version": "1.1",
-  "change_id": "track-b-handoff-discrimination-closure-2026-10-02",
+  "change_id": "owner-burden-execution-routing-thin-correction-2026-10-02",
   "materiality": "material",
-  "summary": "Reconcile completion of bounded Track-B Work Package #76 after fresh independent review of PR #78, preserve the review verdict as evidence, close the active cursor, and leave downstream priority unselected.",
+  "summary": "Activate Human-selected Work Package #80 and reconcile the independently reviewed, product-neutral responsibility-boundary correction for routine execution-route, capability and technical-permission mechanics without implementing or promoting adjacent Skill candidates.",
   "source_refs": [
-    "github:esany/Wissensarbeit#76",
-    "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646",
-    "https://github.com/esany/Wissensarbeit/pull/78#issuecomment-5959121092",
-    "github:esany/Wissensarbeit#78",
-    "github:esany/Wissensarbeit#64",
-    "https://github.com/esany/Wissensarbeit/issues/52#issuecomment-5959753460",
-    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
+    "github:esany/Wissensarbeit#80",
+    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881",
+    "https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5961073344",
+    "github:esany/Wissensarbeit#48",
+    "github:esany/Wissensarbeit#55",
+    "github:esany/Wissensarbeit#5",
     "project/GOVERNING_OBJECTIVE.md",
-    "system/authority.json"
+    "system/authority.json",
+    "branch:fix/execution-routing-owner-burden-2026-10-02"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "Track B completed as bounded discrimination/review evidence. No Requirement semantics are promoted or changed."
+      "rationale": "The correction clarifies operational responsibility inside the existing Authority boundary. No Requirement semantics are added or changed."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#52", "github:esany/Wissensarbeit#64", "github:esany/Wissensarbeit#78"],
-      "rationale": "Fresh independent review on exact PR #78 head returned EXISTING MECHANISMS SUFFICIENT for the frozen Track-B A-D boundary cases and falsified the writer claim that extra contract sharpening is necessary. PR #64 and PR #78 are closed unmerged as historical evidence; #52 receives additive evidence without rewriting historical candidate semantics."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#81"],
+      "rationale": "Fresh independent review of PR #81 returned ACCEPT WITH BOUNDED CORRECTION. It confirmed a responsibility under-specification while rejecting the first writer shape as non-minimal. #48 remains the candidate owner of quality/capability/scarcity routing, #55 remains task/instruction compilation, and #5 remains continuity; none is promoted or implemented by this correction."
     },
     "risks": {
       "disposition": "confirmed",
-      "objects": ["R-001", "R-002", "R-003", "R-004", "R-005", "R-006", "R-007", "R-008", "R-009", "R-010"],
-      "rationale": "Continuity, drift, authority, solutionism, false-assurance, duplication/maintenance and technical-blind-spot risks remain applicable. The review specifically avoids creating a second semantic owner or bridge where current owners suffice."
+      "objects": ["R-004", "R-006", "R-007", "R-008", "R-010"],
+      "rationale": "Authority laundering, solutionism, process bloat, false assurance and execution/progress burden remain relevant. The corrected shape also explicitly prevents technical permission necessity from laundering security/privacy/material-risk or consequential-action authorization."
     },
     "decisions_concepts": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#52", "github:esany/Wissensarbeit#53", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#76", "github:esany/Wissensarbeit#78"],
-      "rationale": "Current bounded evidence supports no distinct Wirknetz-to-Skill Bridge and does not establish mandatory new Capability-Request or Result-Envelope contract fields. Existing BB-CONTEXT, BB-COMPETENCE, Authority method-fit, applicable bounded method-Skill contracts/outputs, BB-INTEGRATE/Reconciliation and BB-ASSURE are sufficient for the investigated semantic boundary when correctly applied. This is evidence disposition, not runtime proof, Generic-Fit acceptance, Requirement promotion or implementation authority."
+      "objects": ["system/authority.json", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#81"],
+      "rationale": "After independent review, Authority is reduced to one product-neutral operational responsibility boundary: AI carries derivable routine route/capability/technical-permission mechanics, checks adequate capability before stronger escalation, does not escalate for convenience, does not treat technical necessity as security/privacy/material-risk/consequential authorization, preserves project/semantic/acceptance/priority authority, and exposes only the smallest unavoidable Human action set. No routing mini-contract, numeric one-action invariant, product route table, scheduler/orchestrator or #48/#55 method implementation is created."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE is refreshed only to bind reconciliation provenance to the Track-B closure; it remains derived and is not a parallel semantic/planning source."
+      "rationale": "CURRENT_STATE remains a derived provenance view of this candidate reconciliation and is not a parallel planning or semantic source."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
-      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#76"],
-      "rationale": "Bounded Track-B work is complete. Focus returns to Planning Owner #7, implementation remains disallowed, no deterministic next action exists, and the possible later B0-vs-B1 falsification is not activated by this closure.",
+      "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80"],
+      "rationale": "The Human selected #80 as current priority. Candidate work permits reversible design/implementation/checks/evidence work, but merge/promotion is not an allowed action and no successor is selected.",
       "cursor_binding": {
         "planning_owner": "github:esany/Wissensarbeit#7",
-        "focus": "github:esany/Wissensarbeit#7",
-        "current_step": "track-b-wirknetz-skill-handoff-discrimination",
+        "focus": "github:esany/Wissensarbeit#80",
+        "current_step": "owner-burden-execution-routing-thin-correction",
         "next": "none",
-        "follow_up_status": "not-derived",
-        "implementation_allowed": false,
+        "follow_up_status": "active",
+        "implementation_allowed": true,
         "merge_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#76"],
-      "rationale": "#76 is complete as bounded analysis/review work and is no longer active. No other Issue/PR, including a possible #52 B0-vs-B1 Contract/Eval gate, is activated by this closure."
+      "objects": ["github:esany/Wissensarbeit#80"],
+      "rationale": "#80 remains the only active Work Package. The historical branch and adjacent open candidates remain evidence/unselected unless separately authorized. The corrected PR head still requires fresh assurance and independent re-review before any promotion decision."
     }
   },
   "unresolved": [],
