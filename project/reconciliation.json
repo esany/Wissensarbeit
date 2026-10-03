@@ -1,63 +1,65 @@
 {
   "schema_version": "1.1",
-  "change_id": "owner-burden-execution-routing-thin-correction-2026-10-02",
+  "change_id": "owner-burden-execution-routing-thin-correction-closure-2026-10-03",
   "materiality": "material",
-  "summary": "Activate Human-selected Work Package #80 and reconcile the independently reviewed, product-neutral responsibility-boundary correction for routine execution-route, capability and technical-permission mechanics without implementing or promoting adjacent Skill candidates.",
+  "summary": "Reconcile Human-authorized promotion and merge of PR #81, close bounded Work Package #80, return focus to Planning Owner #7, and leave downstream priority unselected.",
   "source_refs": [
     "github:esany/Wissensarbeit#80",
+    "github:esany/Wissensarbeit#81",
     "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881",
-    "https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5961073344",
+    "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968468936",
+    "https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5966924408",
+    "https://github.com/esany/Wissensarbeit/commit/9fa285de4fb81fe7e7949cc7325581c974a7b43d",
     "github:esany/Wissensarbeit#48",
     "github:esany/Wissensarbeit#55",
     "github:esany/Wissensarbeit#5",
     "project/GOVERNING_OBJECTIVE.md",
-    "system/authority.json",
-    "branch:fix/execution-routing-owner-burden-2026-10-02"
+    "system/authority.json"
   ],
   "surfaces": {
     "requirements": {
       "disposition": "unchanged",
       "objects": ["project/requirements.json"],
-      "rationale": "The correction clarifies operational responsibility inside the existing Authority boundary. No Requirement semantics are added or changed."
+      "rationale": "The promoted correction clarifies responsibility within existing Authority and does not add or change Requirement semantics."
     },
     "issues_findings": {
       "disposition": "refined",
-      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#81"],
-      "rationale": "Fresh independent review of PR #81 returned ACCEPT WITH BOUNDED CORRECTION. It confirmed a responsibility under-specification while rejecting the first writer shape as non-minimal. #48 remains the candidate owner of quality/capability/scarcity routing, #55 remains task/instruction compilation, and #5 remains continuity; none is promoted or implemented by this correction."
+      "objects": ["github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#81", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5"],
+      "rationale": "PR #81 passed iterative independent review, final independent confirmation on exact head 1e965d664f0a745c64c783c233ede462806d0e89 returned CONFIRM F1 CORRECTION and READY FOR HUMAN PROMOTION DECISION, and the Human Owner explicitly authorized promotion and merge. #48, #55 and #5 remain distinct and unpromoted."
     },
     "risks": {
       "disposition": "confirmed",
       "objects": ["R-004", "R-006", "R-007", "R-008", "R-010"],
-      "rationale": "Authority laundering, solutionism, process bloat, false assurance and execution/progress burden remain relevant. The corrected shape also explicitly prevents technical permission necessity from laundering security/privacy/material-risk or consequential-action authorization."
+      "rationale": "Authority laundering, solutionism, process bloat, false assurance and execution/progress burden remain applicable. The promoted boundary reduces routine owner burden while preserving Human/specialist authorization for security/privacy, material risk and consequential decisions."
     },
     "decisions_concepts": {
       "disposition": "refined",
       "objects": ["system/authority.json", "github:esany/Wissensarbeit#48", "github:esany/Wissensarbeit#55", "github:esany/Wissensarbeit#5", "github:esany/Wissensarbeit#80", "github:esany/Wissensarbeit#81"],
-      "rationale": "After independent review, Authority is reduced to one product-neutral operational responsibility boundary: AI carries derivable routine route/capability/technical-permission mechanics, checks adequate capability before stronger escalation, does not escalate for convenience, does not treat technical necessity as security/privacy/material-risk/consequential authorization, preserves project/semantic/acceptance/priority authority, and exposes only the smallest unavoidable Human action set. No routing mini-contract, numeric one-action invariant, product route table, scheduler/orchestrator or #48/#55 method implementation is created."
+      "rationale": "Canonical Authority now contains the reviewed product-neutral operational responsibility boundary promoted by PR #81: derivable routine route/capability/technical-preflight mechanics are AI-owned, adequate capability is checked before stronger escalation, convenience alone is not escalation, technical necessity does not authorize security/privacy-sensitive permission or material/consequential decisions, material project authority is preserved, and only the smallest unavoidable Human action set is exposed. This does not create a routing engine, scheduler, planner, registry, workflow engine or implement #48/#55."
     },
     "derived_views": {
       "disposition": "refined",
       "objects": ["project/CURRENT_STATE.md"],
-      "rationale": "CURRENT_STATE remains a derived provenance view of this candidate reconciliation and is not a parallel planning or semantic source."
+      "rationale": "CURRENT_STATE is refreshed only to bind the derived view to the post-promotion closure reconciliation; it remains non-canonical."
     },
     "planning_execution_cursor": {
       "disposition": "refined",
       "objects": ["project/execution_state.json", "github:esany/Wissensarbeit#7", "github:esany/Wissensarbeit#80"],
-      "rationale": "The Human selected #80 as current priority. Candidate work permits reversible design/implementation/checks/evidence work, but merge/promotion is not an allowed action and no successor is selected.",
+      "rationale": "The Human-authorized promotion is complete. Focus returns to Planning Owner #7, implementation is disabled, no deterministic next action exists, and no successor is selected.",
       "cursor_binding": {
         "planning_owner": "github:esany/Wissensarbeit#7",
-        "focus": "github:esany/Wissensarbeit#80",
+        "focus": "github:esany/Wissensarbeit#7",
         "current_step": "owner-burden-execution-routing-thin-correction",
         "next": "none",
-        "follow_up_status": "active",
-        "implementation_allowed": true,
+        "follow_up_status": "not-derived",
+        "implementation_allowed": false,
         "merge_allowed": false
       }
     },
     "active_work": {
       "disposition": "refined",
       "objects": ["github:esany/Wissensarbeit#80"],
-      "rationale": "#80 remains the only active Work Package. The historical branch and adjacent open candidates remain evidence/unselected unless separately authorized. The corrected PR head still requires fresh assurance and independent re-review before any promotion decision."
+      "rationale": "#80 is complete after final independent confirmation, explicit Human promotion decision and merge of PR #81. No adjacent Issue/PR or downstream candidate is activated by this closure."
     }
   },
   "unresolved": [],
