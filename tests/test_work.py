@@ -72,40 +72,44 @@ class OperationalCoreTests(unittest.TestCase):
             path.write_text(json.dumps(state), encoding="utf-8")
             self.assertTrue(work.execution_preflight("implement", path))
 
-    def test_execution_next_has_no_ready_implementation_after_correction(self):
+    def test_execution_next_points_to_t5_click_raw_first_run(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "no deterministic next action")
+        self.assertEqual(next_step, "t5-click-raw-first-run")
 
-    def test_execution_state_closes_owner_burden_work_without_selecting_successor(self):
+    def test_execution_state_activates_only_t5_case_c_without_implementation_authority(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["planning_source"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#7")
+        self.assertEqual(state["focus"], "github:esany/Wissensarbeit#46")
         self.assertNotIn("planning_baseline", state)
-        self.assertEqual(state["current_step"]["id"], "owner-burden-execution-routing-thin-correction")
-        self.assertEqual(state["current_step"]["next"], [])
+        self.assertEqual(state["current_step"]["id"], "t5-case-c-trial")
+        self.assertEqual(len(state["current_step"]["next"]), 1)
+        self.assertEqual(state["current_step"]["next"][0]["id"], "t5-click-raw-first-run")
+        self.assertEqual(state["current_step"]["next"][0]["status"], "ready")
         self.assertFalse(state["implementation_allowed"])
         self.assertIn("inspect", state["allowed_actions"])
+        self.assertIn("research", state["allowed_actions"])
+        self.assertIn("analyze", state["allowed_actions"])
         self.assertIn("persist evidence", state["allowed_actions"])
+        self.assertIn("complete", state["allowed_actions"])
         self.assertNotIn("design", state["allowed_actions"])
         self.assertNotIn("implement", state["allowed_actions"])
-        self.assertNotIn("run_checks", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        self.assertEqual(state["follow_up"]["status"], "not-derived")
-        self.assertIsNone(state["follow_up"]["candidate"])
+        self.assertEqual(state["follow_up"]["status"], "active")
+        self.assertEqual(state["follow_up"]["candidate"], "github:esany/Wissensarbeit#46")
         self.assertEqual(
-            state["completion_evidence"]["WA-OWNER-BURDEN-PRIORITY-2026-10-02"],
-            "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881",
+            state["completion_evidence"]["WA-T5-CASE-C-PRIORITY-2026-10-03"],
+            "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968645891",
         )
         self.assertEqual(
-            state["completion_evidence"]["WA-OWNER-BURDEN-PROMOTION-2026-10-03"],
-            "https://github.com/esany/Wissensarbeit/commit/9fa285de4fb81fe7e7949cc7325581c974a7b43d",
+            state["completion_evidence"]["WA-T5-CLICK-SELECTION-2026-10-03"],
+            "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5968667313",
         )
         self.assertEqual(work.execution_preflight("inspect"), [])
-        self.assertTrue(work.execution_preflight("design"))
+        self.assertEqual(work.execution_preflight("research"), [])
+        self.assertEqual(work.execution_preflight("analyze"), [])
         self.assertTrue(work.execution_preflight("implement"))
-        self.assertTrue(work.execution_preflight("run_checks"))
         self.assertTrue(work.execution_preflight("merge"))
 
     def test_repository_contract_validates(self):
