@@ -225,21 +225,25 @@ class OwnerBurdenAuthorityTests(unittest.TestCase):
 
         self.assertEqual(declared, produced_by_negative_probes)
 
-    def test_correction_cursor_activates_only_issue_80_without_merge_authority(self):
+    def test_correction_closure_returns_to_planning_owner_without_successor(self):
         self.assertEqual(self.state["planning_source"], "github:esany/Wissensarbeit#7")
-        self.assertEqual(self.state["focus"], "github:esany/Wissensarbeit#80")
+        self.assertEqual(self.state["focus"], "github:esany/Wissensarbeit#7")
         self.assertEqual(
             self.state["current_step"]["id"],
             "owner-burden-execution-routing-thin-correction",
         )
-        self.assertTrue(self.state["implementation_allowed"])
-        self.assertIn("implement", self.state["allowed_actions"])
+        self.assertFalse(self.state["implementation_allowed"])
+        self.assertNotIn("implement", self.state["allowed_actions"])
         self.assertNotIn("merge", self.state["allowed_actions"])
-        self.assertEqual(self.state["follow_up"]["status"], "active")
-        self.assertEqual(self.state["follow_up"]["candidate"], "github:esany/Wissensarbeit#80")
+        self.assertEqual(self.state["follow_up"]["status"], "not-derived")
+        self.assertIsNone(self.state["follow_up"]["candidate"])
         self.assertEqual(
             self.state["completion_evidence"]["WA-OWNER-BURDEN-PRIORITY-2026-10-02"],
             "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881",
+        )
+        self.assertEqual(
+            self.state["completion_evidence"]["WA-OWNER-BURDEN-PROMOTION-2026-10-03"],
+            "https://github.com/esany/Wissensarbeit/commit/9fa285de4fb81fe7e7949cc7325581c974a7b43d",
         )
 
 

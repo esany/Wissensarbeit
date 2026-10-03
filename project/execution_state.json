@@ -1,5 +1,5 @@
 {
-  "focus": "github:esany/Wissensarbeit#80",
+  "focus": "github:esany/Wissensarbeit#7",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
     "id": "owner-burden-execution-routing-thin-correction",
@@ -21,10 +21,11 @@
     {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"},
     {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"},
     {"id": "WA-TRACK-B-DISCRIMINATION-2026-10-02", "status": "resolved"},
-    {"id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02", "status": "resolved"}
+    {"id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02", "status": "resolved"},
+    {"id": "WA-OWNER-BURDEN-PROMOTION-2026-10-03", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "design", "implement", "run_checks", "persist evidence", "complete"],
-  "implementation_allowed": true,
+  "allowed_actions": ["inspect", "persist evidence", "complete"],
+  "implementation_allowed": false,
   "route": "github-repository",
   "completion_evidence": {
     "WA-HARVEST-P1-001": "project/WA-HARVEST-P1-001-EVIDENCE.md",
@@ -53,11 +54,15 @@
     "WA-TRACK-B-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5957985189",
     "WA-TRACK-B-DISCRIMINATION-2026-10-02": "https://github.com/esany/Wissensarbeit/pull/78#issuecomment-5959121092",
     "track-b-wirknetz-skill-handoff-discrimination": "https://github.com/esany/Wissensarbeit/issues/76#issuecomment-5959749646",
-    "WA-OWNER-BURDEN-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881"
+    "WA-OWNER-BURDEN-PRIORITY-2026-10-02": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5959986881",
+    "owner-burden-final-independent-confirmation": "https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5966924408",
+    "owner-burden-human-promotion-decision": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968468936",
+    "WA-OWNER-BURDEN-PROMOTION-2026-10-03": "https://github.com/esany/Wissensarbeit/commit/9fa285de4fb81fe7e7949cc7325581c974a7b43d",
+    "owner-burden-execution-routing-thin-correction": "https://github.com/esany/Wissensarbeit/pull/81"
   },
   "follow_up": {
-    "status": "active",
-    "candidate": "github:esany/Wissensarbeit#80",
-    "rule": "Only #80 is active. Human selected the Owner-Burden correction as the current material priority but did not pre-accept any technical representation or Authority promotion. Work remains bounded to falsifying the stale branch, implementing the smallest product-neutral correction candidate, tests/evidence and independent semantic review. Merge/promotion and any downstream priority remain separately gated."
+    "status": "not-derived",
+    "candidate": null,
+    "rule": "Owner-Burden Work Package #80 is complete after final independent confirmation, explicit Human promotion decision and merge of PR #81. No #48/#55/#5 promotion, runtime routing system or downstream priority follows from this closure. Derive any next material candidate freshly from Planning Owner #7, the Governing Objective and then-current repository evidence; material priority remains a Human Owner boundary."
   }
 }
