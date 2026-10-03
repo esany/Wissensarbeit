@@ -1,9 +1,15 @@
 {
-  "focus": "github:esany/Wissensarbeit#7",
+  "focus": "github:esany/Wissensarbeit#46",
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
-    "id": "owner-burden-execution-routing-thin-correction",
-    "next": []
+    "id": "t5-case-c-trial",
+    "next": [
+      {
+        "id": "t5-click-raw-first-run",
+        "status": "ready",
+        "depends_on": []
+      }
+    ]
   },
   "dependencies": [
     {"id": "WA-HARVEST-P1-001", "status": "resolved"},
@@ -22,9 +28,11 @@
     {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"},
     {"id": "WA-TRACK-B-DISCRIMINATION-2026-10-02", "status": "resolved"},
     {"id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02", "status": "resolved"},
-    {"id": "WA-OWNER-BURDEN-PROMOTION-2026-10-03", "status": "resolved"}
+    {"id": "WA-OWNER-BURDEN-PROMOTION-2026-10-03", "status": "resolved"},
+    {"id": "WA-T5-CASE-C-PRIORITY-2026-10-03", "status": "resolved"},
+    {"id": "WA-T5-CLICK-SELECTION-2026-10-03", "status": "resolved"}
   ],
-  "allowed_actions": ["inspect", "persist evidence", "complete"],
+  "allowed_actions": ["inspect", "research", "analyze", "persist evidence", "complete"],
   "implementation_allowed": false,
   "route": "github-repository",
   "completion_evidence": {
@@ -58,11 +66,13 @@
     "owner-burden-final-independent-confirmation": "https://github.com/esany/Wissensarbeit/pull/81#issuecomment-5966924408",
     "owner-burden-human-promotion-decision": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968468936",
     "WA-OWNER-BURDEN-PROMOTION-2026-10-03": "https://github.com/esany/Wissensarbeit/commit/9fa285de4fb81fe7e7949cc7325581c974a7b43d",
-    "owner-burden-execution-routing-thin-correction": "https://github.com/esany/Wissensarbeit/pull/81"
+    "owner-burden-execution-routing-thin-correction": "https://github.com/esany/Wissensarbeit/pull/81",
+    "WA-T5-CASE-C-PRIORITY-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968645891",
+    "WA-T5-CLICK-SELECTION-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5968667313"
   },
   "follow_up": {
-    "status": "not-derived",
-    "candidate": null,
-    "rule": "Owner-Burden Work Package #80 is complete after final independent confirmation, explicit Human promotion decision and merge of PR #81. No #48/#55/#5 promotion, runtime routing system or downstream priority follows from this closure. Derive any next material candidate freshly from Planning Owner #7, the Governing Objective and then-current repository evidence; material priority remains a Human Owner boundary."
+    "status": "active",
+    "candidate": "github:esany/Wissensarbeit#46",
+    "rule": "T5 Case C is selected and frozen as T5-CLICK-20261003 against pallets/click@06b2a678741131fd577ce170e23e5ca0aeba0309 under frozen Skill head f3726c962807b311e8a2a7df63f738e11790fbed. The deterministic next action is the immutable raw first run. Do not tune the Skill, infer Generic Fit, merge PR #51 or select T6/Case D before T5 raw evidence and semantic evaluation are durably dispositioned under #46."
   }
 }
