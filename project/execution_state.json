@@ -3,13 +3,7 @@
   "planning_source": "github:esany/Wissensarbeit#7",
   "current_step": {
     "id": "t5-case-c-trial",
-    "next": [
-      {
-        "id": "t5-click-raw-first-run",
-        "status": "ready",
-        "depends_on": []
-      }
-    ]
+    "next": []
   },
   "dependencies": [
     {"id": "WA-HARVEST-P1-001", "status": "resolved"},
@@ -30,7 +24,9 @@
     {"id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02", "status": "resolved"},
     {"id": "WA-OWNER-BURDEN-PROMOTION-2026-10-03", "status": "resolved"},
     {"id": "WA-T5-CASE-C-PRIORITY-2026-10-03", "status": "resolved"},
-    {"id": "WA-T5-CLICK-SELECTION-2026-10-03", "status": "resolved"}
+    {"id": "WA-T5-CLICK-SELECTION-2026-10-03", "status": "resolved"},
+    {"id": "WA-T5-CLICK-RAW-2026-10-03", "status": "resolved"},
+    {"id": "WA-T5-CLICK-SEMANTIC-EVAL-2026-10-03", "status": "resolved"}
   ],
   "allowed_actions": ["inspect", "research", "analyze", "persist evidence", "complete"],
   "implementation_allowed": false,
@@ -68,11 +64,13 @@
     "WA-OWNER-BURDEN-PROMOTION-2026-10-03": "https://github.com/esany/Wissensarbeit/commit/9fa285de4fb81fe7e7949cc7325581c974a7b43d",
     "owner-burden-execution-routing-thin-correction": "https://github.com/esany/Wissensarbeit/pull/81",
     "WA-T5-CASE-C-PRIORITY-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968645891",
-    "WA-T5-CLICK-SELECTION-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5968667313"
+    "WA-T5-CLICK-SELECTION-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5968667313",
+    "WA-T5-CLICK-RAW-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5969842014",
+    "WA-T5-CLICK-SEMANTIC-EVAL-2026-10-03": "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5969905723"
   },
   "follow_up": {
-    "status": "active",
-    "candidate": "github:esany/Wissensarbeit#46",
-    "rule": "T5 Case C is selected and frozen as T5-CLICK-20261003 against pallets/click@06b2a678741131fd577ce170e23e5ca0aeba0309 under frozen Skill head f3726c962807b311e8a2a7df63f738e11790fbed. The deterministic next action is the immutable raw first run. Do not tune the Skill, infer Generic Fit, merge PR #51 or select T6/Case D before T5 raw evidence and semantic evaluation are durably dispositioned under #46."
+    "status": "not-derived",
+    "candidate": null,
+    "rule": "T5-CLICK-20261003 is durably persisted and semantically dispositioned as valid Case-C first-pass evidence. #46 remains the active trial owner, but no T6/Case-D trial is selected or frozen by T5 completion. Fresh Planning Owner / #46 resolution is required before a successor trial is activated. Do not tune the Skill, infer Generic Fit, merge PR #51, or promote framework semantics from T5."
   }
 }

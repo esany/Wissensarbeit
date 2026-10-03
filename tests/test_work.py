@@ -72,21 +72,19 @@ class OperationalCoreTests(unittest.TestCase):
             path.write_text(json.dumps(state), encoding="utf-8")
             self.assertTrue(work.execution_preflight("implement", path))
 
-    def test_execution_next_points_to_t5_click_raw_first_run(self):
+    def test_execution_next_has_no_deterministic_successor_after_t5(self):
         ok, next_step = work.execution_next()
         self.assertTrue(ok)
-        self.assertEqual(next_step, "t5-click-raw-first-run")
+        self.assertEqual(next_step, "no deterministic next action")
 
-    def test_execution_state_activates_only_t5_case_c_without_implementation_authority(self):
+    def test_execution_state_closes_t5_case_c_without_selecting_t6(self):
         state = work.load(work.EXECUTION_STATE)
         self.assertEqual(work.execution_status()["status"], "PASS")
         self.assertEqual(state["planning_source"], "github:esany/Wissensarbeit#7")
         self.assertEqual(state["focus"], "github:esany/Wissensarbeit#46")
         self.assertNotIn("planning_baseline", state)
         self.assertEqual(state["current_step"]["id"], "t5-case-c-trial")
-        self.assertEqual(len(state["current_step"]["next"]), 1)
-        self.assertEqual(state["current_step"]["next"][0]["id"], "t5-click-raw-first-run")
-        self.assertEqual(state["current_step"]["next"][0]["status"], "ready")
+        self.assertEqual(state["current_step"]["next"], [])
         self.assertFalse(state["implementation_allowed"])
         self.assertIn("inspect", state["allowed_actions"])
         self.assertIn("research", state["allowed_actions"])
@@ -96,8 +94,8 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertNotIn("design", state["allowed_actions"])
         self.assertNotIn("implement", state["allowed_actions"])
         self.assertNotIn("merge", state["allowed_actions"])
-        self.assertEqual(state["follow_up"]["status"], "active")
-        self.assertEqual(state["follow_up"]["candidate"], "github:esany/Wissensarbeit#46")
+        self.assertEqual(state["follow_up"]["status"], "not-derived")
+        self.assertIsNone(state["follow_up"]["candidate"])
         self.assertEqual(
             state["completion_evidence"]["WA-T5-CASE-C-PRIORITY-2026-10-03"],
             "https://github.com/esany/Wissensarbeit/issues/7#issuecomment-5968645891",
@@ -105,6 +103,14 @@ class OperationalCoreTests(unittest.TestCase):
         self.assertEqual(
             state["completion_evidence"]["WA-T5-CLICK-SELECTION-2026-10-03"],
             "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5968667313",
+        )
+        self.assertEqual(
+            state["completion_evidence"]["WA-T5-CLICK-RAW-2026-10-03"],
+            "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5969842014",
+        )
+        self.assertEqual(
+            state["completion_evidence"]["WA-T5-CLICK-SEMANTIC-EVAL-2026-10-03"],
+            "https://github.com/esany/Wissensarbeit/issues/46#issuecomment-5969905723",
         )
         self.assertEqual(work.execution_preflight("inspect"), [])
         self.assertEqual(work.execution_preflight("research"), [])
