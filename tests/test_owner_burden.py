@@ -205,6 +205,7 @@ class OwnerBurdenAuthorityTests(unittest.TestCase):
         probes = []
         for case_id, old, new in (
             ("WA-EVAL-031", "checks an already adequate capability before stronger escalation", "may ask the Human to choose an execution route"),
+            ("WA-EVAL-031", "does not escalate for convenience alone", "may escalate for convenience alone"),
             ("WA-EVAL-032", "does not escalate for convenience alone", "may escalate for convenience alone"),
             ("WA-EVAL-033", "Technical necessity does not itself authorize", "Technical necessity itself authorizes"),
             ("WA-EVAL-034", "smallest unavoidable Human action set", "single Human action"),
