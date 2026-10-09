@@ -70,6 +70,16 @@ The bounded mechanism adds scoped admissions to the existing execution cursor wi
 
 The mechanism is implemented by extending the existing decision-brief contract, `tools/work.py`, and the existing test owner. It does not create a second state store or autonomous planner.
 
+## Enforcement status
+
+The scoped check is now connected to the existing `preflight` execution path, not only exposed as a helper:
+
+- scoped preflight requires repository, target type, exact working branch and changed paths;
+- mismatched targets, branches, actions and paths fail closed;
+- the CLI path has both an allowed-case and a blocked-case regression;
+- remote assurance run 299 passed at commit `2dcc664c6529c44e7f5bb9ac3f75875c8c084d08`;
+- this proves the tested execution path only, not enforcement by untested external connectors or scholarly acceptance.
+
 ## Work split
 
 - Wissensarbeit owns the generic scoped-authority contract and preflight semantics.
