@@ -326,6 +326,7 @@ class OperationalCoreTests(unittest.TestCase):
             "implement",
             "esany/Wissensarbeit",
             {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
+            branch="fix/scoped-authority-resolution-2026-10-09",
             changed_paths=["README.md"],
         )
         self.assertTrue(any("changed paths exceed scoped admission" in error for error in errors))
@@ -339,6 +340,7 @@ class OperationalCoreTests(unittest.TestCase):
                 "implement",
                 "esany/paleo-type",
                 {"type": "pull_request", "number": 327},
+                branch="fix/outcome-preserving-spiral-breaker-2026-10-09",
                 changed_paths=["engineering/prompts/CONTRACT.md"],
             ),
             [],
@@ -349,6 +351,7 @@ class OperationalCoreTests(unittest.TestCase):
             "implement",
             "esany/paleo-type",
             {"type": "pull_request", "number": 326},
+            branch="fix/outcome-preserving-spiral-breaker-2026-10-09",
             changed_paths=["engineering/prompts/CONTRACT.md"],
         )
         self.assertTrue(any("exactly one admitted scoped admission" in error for error in errors))
@@ -358,8 +361,33 @@ class OperationalCoreTests(unittest.TestCase):
             "merge",
             "esany/paleo-type",
             {"type": "pull_request", "number": 327},
+            branch="fix/outcome-preserving-spiral-breaker-2026-10-09",
         )
         self.assertTrue(any("merge requires a separate admission" in error for error in errors))
+
+    def test_cli_scoped_preflight_is_the_enforced_execution_path(self):
+        command = [
+            sys.executable,
+            str(ROOT / "tools" / "work.py"),
+            "preflight",
+            "--action", "implement",
+            "--repository", "esany/paleo-type",
+            "--target-type", "pull_request",
+            "--target-number", "327",
+            "--branch", "fix/outcome-preserving-spiral-breaker-2026-10-09",
+            "--changed-path", "engineering/prompts/CONTRACT.md",
+        ]
+        proc = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("PREFLIGHT PASS", proc.stdout)
+
+        blocked = subprocess.run(
+            command[:-1] + ["README.md"],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(blocked.returncode, 1, blocked.stdout + blocked.stderr)
+        self.assertIn("changed paths exceed scoped admission", blocked.stdout)
 
 
 if __name__ == "__main__":
