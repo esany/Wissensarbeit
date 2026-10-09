@@ -136,10 +136,10 @@ def scoped_admission_preflight(action: str, repository: str, target: dict, chang
     if len(candidates) != 1:
         return ["exactly one admitted scoped admission is required for this repository and target"]
     admission = candidates[0]
-    if action not in admission["allowed_actions"]:
-        return [f"action not allowed by scoped admission: {action}"]
     if action == "merge":
         return ["merge requires a separate admission"]
+    if action not in admission["allowed_actions"]:
+        return [f"action not allowed by scoped admission: {action}"]
     if changed_paths:
         outside = sorted(set(changed_paths) - set(admission["allowed_paths"]))
         if outside:
