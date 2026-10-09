@@ -190,7 +190,9 @@
       "admission_evidence": [
         "project/audits/WA-AUDIT-2026-10-09-SCOPED-AUTHORITY-RESOLUTION.md",
         "https://github.com/esany/paleo-type/pull/327",
-        "github:esany/Wissensarbeit#46"
+        "github:esany/Wissensarbeit#46",
+        "https://github.com/esany/Wissensarbeit/pull/88",
+        "https://github.com/esany/Wissensarbeit/actions/runs/37947357003"
       ]
     },
     {
@@ -239,7 +241,8 @@
       "admission_evidence": [
         "https://github.com/esany/paleo-type/pull/327",
         "project/audits/WA-AUDIT-2026-10-09-SCOPED-AUTHORITY-RESOLUTION.md",
-        "engineering/evidence/admissions/implementation-admission-2026-10-09.md"
+        "engineering/evidence/admissions/implementation-admission-2026-10-09.md",
+        "https://github.com/esany/paleo-type/actions/runs/37944784495"
       ]
     }
   ]
