@@ -285,6 +285,7 @@ class OperationalCoreTests(unittest.TestCase):
             "status": "admitted",
             "repository": "esany/Wissensarbeit",
             "target": {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
+            "branch": "fix/scoped-authority-resolution-2026-10-09",
             "base_commit": "b448915cf774c573dbf82cf2e17bcb03c10a9ed8",
             "head_commit_at_admission": "033037d8b1fbedf0db6979ba67e848ddd5e6a8e8",
             "protected_outcome": "resolve the bounded authority problem",
@@ -305,6 +306,7 @@ class OperationalCoreTests(unittest.TestCase):
             "status": "admitted",
             "repository": "esany/Wissensarbeit",
             "target": {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
+            "branch": "fix/scoped-authority-resolution-2026-10-09",
             "base_commit": "b448915cf774c573dbf82cf2e17bcb03c10a9ed8",
             "head_commit_at_admission": "033037d8b1fbedf0db6979ba67e848ddd5e6a8e8",
             "protected_outcome": "resolve the bounded authority problem",
@@ -326,7 +328,7 @@ class OperationalCoreTests(unittest.TestCase):
             {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
             changed_paths=["README.md"],
         )
-        self.assertTrue(any("outside allowed paths" in error for error in errors))
+        self.assertTrue(any("changed paths exceed scoped admission" in error for error in errors))
 
     def test_scoped_admission_allows_exact_target_without_global_enablement(self):
         state = work.load(work.EXECUTION_STATE)
@@ -349,7 +351,7 @@ class OperationalCoreTests(unittest.TestCase):
             {"type": "pull_request", "number": 326},
             changed_paths=["engineering/prompts/CONTRACT.md"],
         )
-        self.assertTrue(any("no matching admitted scoped admission" in error for error in errors))
+        self.assertTrue(any("exactly one admitted scoped admission" in error for error in errors))
 
     def test_scoped_admission_never_authorizes_merge(self):
         errors = work.scoped_admission_preflight(
