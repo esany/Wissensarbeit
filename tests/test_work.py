@@ -279,6 +279,86 @@ class OperationalCoreTests(unittest.TestCase):
         errors = work.validate_decision_brief_contract(broken, authority, blocks)
         self.assertTrue(any("missing required decision fields" in error for error in errors))
 
+    def test_scoped_admission_contract_accepts_bound_scope(self):
+        admission = {
+            "id": "TEST-SCOPE",
+            "status": "admitted",
+            "repository": "esany/Wissensarbeit",
+            "target": {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
+            "base_commit": "b448915cf774c573dbf82cf2e17bcb03c10a9ed8",
+            "head_commit_at_admission": "033037d8b1fbedf0db6979ba67e848ddd5e6a8e8",
+            "protected_outcome": "resolve the bounded authority problem",
+            "owner": "github:esany/Wissensarbeit#7",
+            "decision_owner": "human-owner:Wissensarbeit",
+            "allowed_actions": ["implement", "test", "persist_evidence"],
+            "allowed_paths": ["tools/work.py", "tests/test_work.py"],
+            "definition_of_ready": "scope and evidence are explicit",
+            "definition_of_done": "contract and tests are persisted",
+            "non_goals": ["global enablement"],
+            "admission_evidence": ["https://github.com/esany/Wissensarbeit/issues/7"]
+        }
+        self.assertEqual(work.validate_scoped_admission(admission), [])
+
+    def test_scoped_admission_rejects_merge_and_scope_overflow(self):
+        admission = {
+            "id": "TEST-SCOPE",
+            "status": "admitted",
+            "repository": "esany/Wissensarbeit",
+            "target": {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
+            "base_commit": "b448915cf774c573dbf82cf2e17bcb03c10a9ed8",
+            "head_commit_at_admission": "033037d8b1fbedf0db6979ba67e848ddd5e6a8e8",
+            "protected_outcome": "resolve the bounded authority problem",
+            "owner": "github:esany/Wissensarbeit#7",
+            "decision_owner": "human-owner:Wissensarbeit",
+            "allowed_actions": ["implement", "test", "persist_evidence"],
+            "allowed_paths": ["tools/work.py", "tests/test_work.py"],
+            "definition_of_ready": "scope and evidence are explicit",
+            "definition_of_done": "contract and tests are persisted",
+            "non_goals": ["global enablement"],
+            "admission_evidence": ["https://github.com/esany/Wissensarbeit/issues/7"]
+        }
+        admission["allowed_actions"].append("merge")
+        self.assertTrue(any("merge" in error for error in work.validate_scoped_admission(admission)))
+        admission["allowed_actions"].remove("merge")
+        errors = work.scoped_admission_preflight(
+            "implement",
+            "esany/Wissensarbeit",
+            {"type": "branch", "name": "fix/scoped-authority-resolution-2026-10-09"},
+            changed_paths=["README.md"],
+        )
+        self.assertTrue(any("outside allowed paths" in error for error in errors))
+
+    def test_scoped_admission_allows_exact_target_without_global_enablement(self):
+        state = work.load(work.EXECUTION_STATE)
+        self.assertFalse(state["implementation_allowed"])
+        self.assertTrue(work.execution_preflight("implement"))
+        self.assertEqual(
+            work.scoped_admission_preflight(
+                "implement",
+                "esany/paleo-type",
+                {"type": "pull_request", "number": 327},
+                changed_paths=["engineering/prompts/CONTRACT.md"],
+            ),
+            [],
+        )
+
+    def test_scoped_admission_requires_exact_target(self):
+        errors = work.scoped_admission_preflight(
+            "implement",
+            "esany/paleo-type",
+            {"type": "pull_request", "number": 326},
+            changed_paths=["engineering/prompts/CONTRACT.md"],
+        )
+        self.assertTrue(any("no matching admitted scoped admission" in error for error in errors))
+
+    def test_scoped_admission_never_authorizes_merge(self):
+        errors = work.scoped_admission_preflight(
+            "merge",
+            "esany/paleo-type",
+            {"type": "pull_request", "number": 327},
+        )
+        self.assertTrue(any("merge requires separate admission" in error for error in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
