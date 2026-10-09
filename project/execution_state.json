@@ -6,29 +6,98 @@
     "next": []
   },
   "dependencies": [
-    {"id": "WA-HARVEST-P1-001", "status": "resolved"},
-    {"id": "WA-RESTART-2026-09-11-02", "status": "resolved"},
-    {"id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA", "status": "resolved"},
-    {"id": "WA-P2-BASELINE-RECON-2026-09-17-01", "status": "resolved"},
-    {"id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01", "status": "resolved"},
-    {"id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01", "status": "resolved"},
-    {"id": "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01", "status": "resolved"},
-    {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02", "status": "resolved"},
-    {"id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01", "status": "resolved"},
-    {"id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01", "status": "resolved"},
-    {"id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01", "status": "resolved"},
-    {"id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02", "status": "resolved"},
-    {"id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01", "status": "resolved"},
-    {"id": "WA-TRACK-B-PRIORITY-2026-10-02", "status": "resolved"},
-    {"id": "WA-TRACK-B-DISCRIMINATION-2026-10-02", "status": "resolved"},
-    {"id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02", "status": "resolved"},
-    {"id": "WA-OWNER-BURDEN-PROMOTION-2026-10-03", "status": "resolved"},
-    {"id": "WA-T5-CASE-C-PRIORITY-2026-10-03", "status": "resolved"},
-    {"id": "WA-T5-CLICK-SELECTION-2026-10-03", "status": "resolved"},
-    {"id": "WA-T5-CLICK-RAW-2026-10-03", "status": "resolved"},
-    {"id": "WA-T5-CLICK-SEMANTIC-EVAL-2026-10-03", "status": "resolved"}
+    {
+      "id": "WA-HARVEST-P1-001",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-RESTART-2026-09-11-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-AUDIT-2026-09-17-PALEO-TYPE-DELTA",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-BASELINE-RECON-2026-09-17-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-FIDELITY-MANIFEST-PREFLIGHT-2026-09-19-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-IMPLEMENTATION-ADMISSION-2026-09-20-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-IMPLEMENTATION-2026-09-20-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REVIEW-2026-09-20-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-RESULT-REREVIEW-2026-10-01-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-CURRENT-MAIN-INTEGRATION-2026-10-02-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-P2-CONTEXT-FIDELITY-PROMOTION-2026-10-02-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-PLANNING-INTEGRITY-PRIORITY-2026-10-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-PLANNING-INTEGRITY-PROMOTION-2026-10-02-01",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-TRACK-B-PRIORITY-2026-10-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-TRACK-B-DISCRIMINATION-2026-10-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-OWNER-BURDEN-PRIORITY-2026-10-02",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-OWNER-BURDEN-PROMOTION-2026-10-03",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-T5-CASE-C-PRIORITY-2026-10-03",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-T5-CLICK-SELECTION-2026-10-03",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-T5-CLICK-RAW-2026-10-03",
+      "status": "resolved"
+    },
+    {
+      "id": "WA-T5-CLICK-SEMANTIC-EVAL-2026-10-03",
+      "status": "resolved"
+    }
   ],
-  "allowed_actions": ["inspect", "research", "analyze", "persist evidence", "complete"],
+  "allowed_actions": [
+    "inspect",
+    "research",
+    "analyze",
+    "persist evidence",
+    "complete"
+  ],
   "implementation_allowed": false,
   "route": "github-repository",
   "completion_evidence": {
@@ -72,5 +141,106 @@
     "status": "not-derived",
     "candidate": null,
     "rule": "T5-CLICK-20261003 is durably persisted and semantically dispositioned as valid Case-C first-pass evidence. #46 remains the active trial owner, but no T6/Case-D trial is selected or frozen by T5 completion. Fresh Planning Owner / #46 resolution is required before a successor trial is activated. Do not tune the Skill, infer Generic Fit, merge PR #51, or promote framework semantics from T5."
-  }
+  },
+  "scoped_admissions": [
+    {
+      "id": "WA-SCOPE-WISSENSARBEIT-SCA-20261009",
+      "status": "admitted",
+      "repository": "esany/Wissensarbeit",
+      "target": {
+        "type": "branch",
+        "name": "fix/scoped-authority-resolution-2026-10-09"
+      },
+      "branch": "fix/scoped-authority-resolution-2026-10-09",
+      "base_commit": "b448915cf774c573dbf82cf2e17bcb03c10a9ed8",
+      "head_commit_at_admission": "033037d8b1fbedf0db6979ba67e848ddd5e6a8e8",
+      "protected_outcome": "Resolve scoped authority without widening global implementation authority or transferring avoidable governance work to the Human Owner.",
+      "owner": "github:esany/Wissensarbeit#7",
+      "decision_owner": "human-owner:Wissensarbeit",
+      "allowed_actions": [
+        "implement",
+        "test",
+        "persist_evidence"
+      ],
+      "allowed_paths": [
+        "system/decision_brief.json",
+        "tools/work.py",
+        "tests/test_work.py",
+        "project/execution_state.json",
+        "project/audits/WA-AUDIT-2026-10-09-SCOPED-AUTHORITY-RESOLUTION.md"
+      ],
+      "definition_of_ready": [
+        "fresh governance and owner state read",
+        "global implementation_allowed remains false",
+        "scoped repository/target/action/path boundaries explicit"
+      ],
+      "definition_of_done": [
+        "malformed scoped admissions fail validation",
+        "valid scoped admissions pass exact-target preflight",
+        "scope overflow and merge attempts fail closed",
+        "tests cover the contract and global flag remains unchanged",
+        "fresh context can reconstruct the admission and residual"
+      ],
+      "non_goals": [
+        "global implementation enablement",
+        "planning priority or NEXT ACTION change",
+        "automatic merge or acceptance",
+        "new workflow engine or parallel truth store"
+      ],
+      "admission_evidence": [
+        "project/audits/WA-AUDIT-2026-10-09-SCOPED-AUTHORITY-RESOLUTION.md",
+        "https://github.com/esany/paleo-type/pull/327",
+        "github:esany/Wissensarbeit#46"
+      ]
+    },
+    {
+      "id": "WA-SCOPE-PALEO-PR327-20261009",
+      "status": "admitted",
+      "repository": "esany/paleo-type",
+      "target": {
+        "type": "pull_request",
+        "number": 327
+      },
+      "branch": "fix/outcome-preserving-spiral-breaker-2026-10-09",
+      "base_commit": "a3c865ec60246118206be5dde3aefdbd7f9a77d1",
+      "head_commit_at_admission": "54fc19a2782bb941f511fd02fef2e511130955bd",
+      "protected_outcome": "Prevent local technical progress from replacing the protected Human/research outcome and preserve semantic boundaries, provenance, residuals and return conditions.",
+      "owner": "github:esany/paleo-type#327",
+      "decision_owner": "decision:D-016",
+      "allowed_actions": [
+        "implement",
+        "test",
+        "persist_evidence"
+      ],
+      "allowed_paths": [
+        "engineering/prompts/CONTRACT.md",
+        "tools/prompt.py",
+        "tests/test_prompt.py",
+        "engineering/assurance/fitness.json"
+      ],
+      "definition_of_ready": [
+        "current main and PR head freshly verified",
+        "existing GitHub-first implementation admission read",
+        "no local fallback or global Wissensarbeit flag change"
+      ],
+      "definition_of_done": [
+        "return-gate contract and deterministic checks implemented",
+        "failure-family regressions and positive adequate-minimality tests pass",
+        "remote path/branch/commit verified after every mutation",
+        "technical assurance ceiling and residuals remain explicit"
+      ],
+      "non_goals": [
+        "merge",
+        "Issue closure",
+        "scholarly acceptance",
+        "Project priority or Nr. 632/Wolkenburg semantic changes",
+        "global implementation enablement"
+      ],
+      "admission_evidence": [
+        "https://github.com/esany/paleo-type/pull/327",
+        "project/audits/WA-AUDIT-2026-10-09-SCOPED-AUTHORITY-RESOLUTION.md",
+        "engineering/evidence/admissions/implementation-admission-2026-10-09.md"
+      ]
+    }
+  ]
 }
