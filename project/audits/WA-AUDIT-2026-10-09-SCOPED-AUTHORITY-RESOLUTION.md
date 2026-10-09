@@ -115,9 +115,9 @@ Review basis: fresh GitHub state read on 2026-10-09; repository/branch/PR/CI evi
 - Wissensarbeit scoped branch: `bcef7e2a2b241631d0f2864dc619aa7da806e7f3`
 - Wissensarbeit assurance: [run 301](https://github.com/esany/Wissensarbeit/actions/runs/37947734491), passed
 - paleo-type main: `256f12bc8894df6fefa7bc8e814e10cc755b9cd4`
-- paleo-type PR branch: `cccc082164eb85a51fe30a952bc1f3a8efaa4981`
-- paleo-type branch relation: 9 commits ahead, 1 commit behind current main; merge base `a3c865ec60246118206be5dde3aefdbd7f9a77d1`
-- paleo-type assurance: [run 660](https://github.com/esany/paleo-type/actions/runs/37944784495), passed for the branch head, not for a current-main-integrated head
+- paleo-type PR branch: `a3c538dd063e2cc1d6d9ca991f6bd3fe4c56bb5c`
+- paleo-type branch relation: 10 commits ahead, 0 commits behind current main; merge base `256f12bc8894df6fefa7bc8e814e10cc755b9cd4`
+- paleo-type assurance: [run 663](https://github.com/esany/paleo-type/actions/runs/37951266978), passed on the current-main-integrated head
 
 ### Verdict
 
@@ -126,7 +126,7 @@ Review basis: fresh GitHub state read on 2026-10-09; repository/branch/PR/CI evi
 ### Findings
 
 1. The Wissensarbeit scoped mechanism is contractually and on its tested repository preflight path enforceable. Its global implementation flag remains false.
-2. The paleo-type branch is stale/divergent from current main. Its green CI is insufficient as current-main evidence.
+2. The paleo-type branch has now been synchronized with current main and the full assurance passes on that integrated head.
 3. The canonical D-016 decision remains `PROPOSED / NOT ADMITTED`; no technical branch status may silently replace that decision.
 4. Repository evidence does not prove that external GitHub connector mutations are intercepted by the repository preflight. This remains an explicit enforcement residual.
 5. No fresh-use vertical acceptance evidence yet proves that the complete outcome-preserving return path prevents recurrence across the affected failure families.
@@ -134,8 +134,7 @@ Review basis: fresh GitHub state read on 2026-10-09; repository/branch/PR/CI evi
 
 ### Required return path
 
-- refresh or reconstruct the paleo-type branch against current main without changing the protected scope;
-- rerun the full assurance at the current integrated head;
+- preserve the current-main synchronization and current integrated assurance evidence without changing the protected scope;
 - preserve the D-016 decision boundary and correct any status-laundering wording;
 - execute and persist a fresh-context vertical trial covering owner-relativization, context/content, local-PASS/closure and remote-scope failures;
 - obtain the formal D-016 decision before any `ADMITTED` status;
