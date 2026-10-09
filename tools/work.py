@@ -30,6 +30,13 @@ MATERIAL_STATE = ROOT / "system" / "material_state.json"
 RECONCILIATION = ROOT / "system" / "reconciliation.json"
 RECONCILIATION_PACKET = ROOT / "project" / "reconciliation.json"
 EXECUTION_STATE = ROOT / "project" / "execution_state.json"
+SCOPED_ADMISSION_REQUIRED_FIELDS = {
+    "id", "status", "repository", "target", "branch",
+    "base_commit", "head_commit_at_admission", "protected_outcome",
+    "owner", "decision_owner", "allowed_actions", "allowed_paths",
+    "definition_of_ready", "definition_of_done", "non_goals", "admission_evidence",
+}
+
 
 REQUIRED_FILES = [
     REQ, QUALITY, CRITERIA, VERIFICATION, RISKS, LIFECYCLE, AUTHORITY, COMPETENCE,
@@ -61,8 +68,87 @@ def execution_errors(state: dict) -> list[str]:
         errors.append("allowed_actions must be a list of action names")
     if not isinstance(state.get("completion_evidence"), dict):
         errors.append("completion_evidence must be an object")
+    admissions = state.get("scoped_admissions", [])
+    if not isinstance(admissions, list):
+        errors.append("scoped_admissions must be a list")
+    else:
+        for admission in admissions:
+            errors.extend(validate_scoped_admission(admission))
     return errors
 
+
+def validate_scoped_admission(admission: dict) -> list[str]:
+    errors: list[str] = []
+    missing = sorted(SCOPED_ADMISSION_REQUIRED_FIELDS - set(admission))
+    if missing:
+        return [f"scoped admission missing fields {missing}"]
+    if admission.get("status") not in {"proposed", "admitted", "revoked", "completed"}:
+        errors.append("scoped admission has invalid status")
+    if not isinstance(admission.get("target"), dict):
+        errors.append("scoped admission target must be an object")
+    else:
+        target = admission["target"]
+        if target.get("type") not in {"pull_request", "branch"}:
+            errors.append("scoped admission target type must be pull_request or branch")
+        if target.get("type") == "pull_request" and not isinstance(target.get("number"), int):
+            errors.append("pull_request target requires an integer number")
+        if target.get("type") == "branch" and not target.get("name"):
+            errors.append("branch target requires a name")
+    for field in (
+        "repository", "branch", "base_commit", "head_commit_at_admission",
+        "protected_outcome", "owner", "decision_owner",
+    ):
+        if not isinstance(admission.get(field), str) or not admission[field].strip():
+            errors.append(f"scoped admission {field} must be a non-empty string")
+    for field in (
+        "allowed_actions", "allowed_paths", "definition_of_ready",
+        "definition_of_done", "non_goals", "admission_evidence",
+    ):
+        value = admission.get(field)
+        if (
+            not isinstance(value, list)
+            or not value
+            or not all(isinstance(item, str) and item.strip() for item in value)
+        ):
+            errors.append(f"scoped admission {field} must be a non-empty string list")
+    if "merge" in admission.get("allowed_actions", []):
+        errors.append("merge must remain a separate admission")
+    if "implement" not in admission.get("allowed_actions", []):
+        errors.append("scoped implementation admission must explicitly allow implement")
+    if not re.fullmatch(r"[0-9a-f]{40}", admission.get("base_commit", "")):
+        errors.append("scoped admission base_commit must be a full commit SHA")
+    if not re.fullmatch(r"[0-9a-f]{40}", admission.get("head_commit_at_admission", "")):
+        errors.append("scoped admission head_commit_at_admission must be a full commit SHA")
+    return errors
+
+def scoped_admission_preflight(action: str, repository: str, target: dict, branch: str | None = None, changed_paths: list[str] | None = None, path: Path = EXECUTION_STATE) -> list[str]:
+    result = execution_status(path)
+    if result["status"] != "PASS":
+        return result["errors"]
+    admissions = result["state"].get("scoped_admissions", [])
+    candidates = [
+        admission
+        for admission in admissions
+        if admission.get("status") == "admitted"
+        and admission.get("repository") == repository
+        and admission.get("target") == target
+    ]
+    if len(candidates) != 1:
+        return ["exactly one admitted scoped admission is required for this repository and target"]
+    admission = candidates[0]
+    if not branch:
+        return ["scoped preflight requires the exact working branch"]
+    if admission.get("branch") != branch:
+        return [f"branch is outside scoped admission: {branch}"]
+    if action == "merge":
+        return ["merge requires a separate admission"]
+    if action not in admission["allowed_actions"]:
+        return [f"action not allowed by scoped admission: {action}"]
+    if changed_paths:
+        outside = sorted(set(changed_paths) - set(admission["allowed_paths"]))
+        if outside:
+            return [f"changed paths exceed scoped admission: {outside}"]
+    return []
 
 def execution_status(path: Path = EXECUTION_STATE) -> dict:
     try:
@@ -747,6 +833,12 @@ def main() -> int:
     sub.add_parser("next")
     preflight_parser = sub.add_parser("preflight")
     preflight_parser.add_argument("--action", required=True)
+    preflight_parser.add_argument("--repository")
+    preflight_parser.add_argument("--target-type", choices=("pull_request", "branch"))
+    preflight_parser.add_argument("--target-number", type=int)
+    preflight_parser.add_argument("--target-name")
+    preflight_parser.add_argument("--branch")
+    preflight_parser.add_argument("--changed-path", action="append", default=[])
     complete_parser = sub.add_parser("complete")
     complete_parser.add_argument("step")
     complete_parser.add_argument("--evidence", required=True)
@@ -764,7 +856,36 @@ def main() -> int:
         print(message)
         return 0 if ok and message != "no deterministic next action" else 1
     elif args.command == "preflight":
-        errors = execution_preflight(args.action)
+        scoped_values = (
+            args.repository,
+            args.target_type,
+            args.target_number,
+            args.target_name,
+            args.branch,
+        )
+        scoped_requested = any(value is not None for value in scoped_values) or bool(args.changed_path)
+        if scoped_requested:
+            errors = []
+            if not args.repository or not args.target_type or not args.branch:
+                errors.append("scoped preflight requires repository, target type and exact branch")
+            if args.target_type == "pull_request" and args.target_number is None:
+                errors.append("pull_request scoped preflight requires --target-number")
+            if args.target_type == "branch" and not args.target_name:
+                errors.append("branch scoped preflight requires --target-name")
+            if args.target_type == "pull_request":
+                target = {"type": "pull_request", "number": args.target_number}
+            else:
+                target = {"type": "branch", "name": args.target_name}
+            if not errors:
+                errors = scoped_admission_preflight(
+                    args.action,
+                    args.repository,
+                    target,
+                    branch=args.branch,
+                    changed_paths=args.changed_path,
+                )
+        else:
+            errors = execution_preflight(args.action)
         if errors:
             print("PREFLIGHT FAIL")
             print("\n".join(f"- {error}" for error in errors))

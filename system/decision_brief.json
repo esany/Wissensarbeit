@@ -42,5 +42,34 @@
       "ci_status",
       "canonical_effect"
     ]
+  },
+  "scoped_admission_extension": {
+    "required_fields": [
+      "id",
+      "status",
+      "repository",
+      "target",
+      "branch",
+      "base_commit",
+      "head_commit_at_admission",
+      "protected_outcome",
+      "owner",
+      "decision_owner",
+      "allowed_actions",
+      "allowed_paths",
+      "definition_of_ready",
+      "definition_of_done",
+      "non_goals",
+      "admission_evidence"
+    ],
+    "rules": {
+      "global_implementation_flag_must_not_be_overridden": true,
+      "admission_is_repository_and_target_bound": true,
+      "allowed_actions_must_be_explicit": true,
+      "merge_requires_separate_admission": true,
+      "scope_overflow_fails_closed": true,
+      "admission_does_not_establish_acceptance": true
+    },
+    "assurance_boundary": "A scoped admission authorizes only the listed repository/target/actions and does not prove implementation, scholarly truth, Human acceptance or whole-system closure."
   }
 }
