@@ -293,8 +293,8 @@ class OperationalCoreTests(unittest.TestCase):
             "decision_owner": "human-owner:Wissensarbeit",
             "allowed_actions": ["implement", "test", "persist_evidence"],
             "allowed_paths": ["tools/work.py", "tests/test_work.py"],
-            "definition_of_ready": "scope and evidence are explicit",
-            "definition_of_done": "contract and tests are persisted",
+            "definition_of_ready": ["scope and evidence are explicit"],
+            "definition_of_done": ["contract and tests are persisted"],
             "non_goals": ["global enablement"],
             "admission_evidence": ["https://github.com/esany/Wissensarbeit/issues/7"]
         }
@@ -359,7 +359,7 @@ class OperationalCoreTests(unittest.TestCase):
             "esany/paleo-type",
             {"type": "pull_request", "number": 327},
         )
-        self.assertTrue(any("merge requires separate admission" in error for error in errors))
+        self.assertTrue(any("merge requires a separate admission" in error for error in errors))
 
 
 if __name__ == "__main__":
