@@ -112,8 +112,8 @@ Review basis: fresh GitHub state read on 2026-10-09; repository/branch/PR/CI evi
 ### Evidence cursor
 
 - Wissensarbeit main: `b448915cf774c573dbf82cf2e17bcb03c10a9ed8`
-- Wissensarbeit scoped branch: `bcef7e2a2b241631d0f2864dc619aa7da806e7f3`
-- Wissensarbeit assurance: [run 301](https://github.com/esany/Wissensarbeit/actions/runs/37947734491), passed
+- Wissensarbeit scoped branch at review cursor: `ecb1541e4d47a2cc87c35e682a9127aa2af66fa6`
+- Wissensarbeit assurance: [run 306](https://github.com/esany/Wissensarbeit/actions/runs/40487069736), passed
 - paleo-type main: `256f12bc8894df6fefa7bc8e814e10cc755b9cd4`
 - paleo-type PR branch: `ebd3f100c9fb1d74e07a44d8e7da7af663518f43`
 - paleo-type branch relation: current PR head is based on current main `256f12bc8894df6fefa7bc8e814e10cc755b9cd4`
