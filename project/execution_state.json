@@ -204,8 +204,8 @@
         "number": 327
       },
       "branch": "fix/outcome-preserving-spiral-breaker-2026-10-09",
-      "base_commit": "a3c865ec60246118206be5dde3aefdbd7f9a77d1",
-      "head_commit_at_admission": "54fc19a2782bb941f511fd02fef2e511130955bd",
+      "base_commit": "256f12bc8894df6fefa7bc8e814e10cc755b9cd4",
+      "head_commit_at_admission": "ebd3f100c9fb1d74e07a44d8e7da7af663518f43",
       "protected_outcome": "Prevent local technical progress from replacing the protected Human/research outcome and preserve semantic boundaries, provenance, residuals and return conditions.",
       "owner": "github:esany/paleo-type#327",
       "decision_owner": "decision:D-016",
@@ -244,7 +244,10 @@
         "engineering/evidence/admissions/implementation-admission-2026-10-09.md",
         "https://github.com/esany/paleo-type/actions/runs/37944784495",
         "https://github.com/esany/paleo-type/commit/a3c538dd063e2cc1d6d9ca991f6bd3fe4c56bb5c",
-        "https://github.com/esany/paleo-type/actions/runs/37951266978"
+        "https://github.com/esany/paleo-type/actions/runs/37951266978",
+        "engineering/evidence/decisions/outcome-preserving-return-gate-d016-decision-brief-2026-10-09.md",
+        "engineering/evidence/audits/outcome-preserving-spiral-audit-2026-10-09.md",
+        "https://github.com/esany/paleo-type/actions/runs/40486959904"
       ]
     }
   ]
